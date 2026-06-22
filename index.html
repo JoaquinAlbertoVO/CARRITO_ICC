@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="cart-container">
+        <div class="cart-header">
+            <h2>Tu Carrito de Compras</h2>
+        </div>
+
+        <div class="cart-items">
+            <div class="cart-item">
+                <div class="item-info">
+                    <strong>Camiseta de Algodón</strong>
+                    <span>Cantidad: 2</span>
+                </div>
+                <div class="item-price">
+                    S/ 100.00
+                </div>
+            </div>
+            <div class="cart-item">
+                <div class="item-info">
+                    <strong>Taza Personalizada</strong>
+                    <span>Cantidad: 1</span>
+                </div>
+                <div class="item-price">
+                    S/ 50.00
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-total">
+            <strong>Total a Pagar: <span id="monto_total">S/ 150.00</span></strong>
+        </div>
+
+        <button id="btn_pagar" class="btn-culqi">Confirmar compra</button>
+    </div>
+
+    <!-- Modal de Métodos de Pago -->
+    <div id="payment_modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal" id="close_modal">&times;</span>
+
+            <!-- Paso 1: Selección de Método -->
+            <div id="step_1">
+                <h3>Selecciona tu método de pago</h3>
+                <div class="payment-options">
+                    <div class="payment-card" id="pay_yape">
+                        <div class="payment-icon">📱</div>
+                        <span>Yape</span>
+                    </div>
+                    <div class="payment-card" id="pay_plin">
+                        <div class="payment-icon">📱</div>
+                        <span>Plin</span>
+                    </div>
+                    <div class="payment-card" id="pay_tarjeta">
+                        <div class="payment-icon">💳</div>
+                        <span>Tarjeta</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 2: Detalles de Pago Manual (Yape/Plin) -->
+            <div id="step_2" style="display: none;">
+                <h3 id="manual_payment_title">Pago con Yape</h3>
+                <div class="manual-payment-info">
+                    <img id="manual_payment_qr" src="" alt="QR de Pago" class="qr-image">
+                    <div class="details">
+                        <p><strong>Titular:</strong> <span id="manual_name">Tu Nombre Apellido</span></p>
+                        <p><strong>Celular:</strong> <span id="manual_phone">999 999 999</span></p>
+                        <p><strong>Monto:</strong> S/ 150.00</p>
+                    </div>
+                </div>
+                <div class="voucher-section">
+                    <label for="voucher_upload">Adjunta tu ticket/voucher de pago:</label>
+                    <input type="file" id="voucher_upload" accept="image/*,application/pdf" class="file-input">
+                </div>
+                <button id="btn_confirm_manual" class="btn-culqi" style="margin-top: 15px;">Confirmar y enviar
+                    comprobante</button>
+                <button id="btn_back_methods" class="btn-secondary">Volver atrás</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://checkout.culqi.com/js/v4"></script>
+
+    <script>
+        // 2. Configura tu llave pública (la sacas de tu panel de Culqi)
+        Culqi.publicKey = 'TU_LLAVE_PUBLICA_AQUI';
+
+        // 3. Configuración del modal de pago
+        Culqi.settings({
+            title: 'Mi Tienda Virtual',
+            currency: 'PEN',  // Moneda: Soles Peruanos
+            amount: 15000     // IMPORTANTE: Monto en céntimos (S/ 150.00 = 15000)
+        });
+
+        // 4. Capturamos el botón y elementos del modal
+        const btnPagar = document.getElementById('btn_pagar');
+        const paymentModal = document.getElementById('payment_modal');
+        const closeModal = document.getElementById('close_modal');
+
+        const step1 = document.getElementById('step_1');
+        const step2 = document.getElementById('step_2');
+
+        const payYape = document.getElementById('pay_yape');
+        const payPlin = document.getElementById('pay_plin');
+        const payTarjeta = document.getElementById('pay_tarjeta');
+
+        const manualTitle = document.getElementById('manual_payment_title');
+        const manualQR = document.getElementById('manual_payment_qr');
+        const btnBack = document.getElementById('btn_back_methods');
+        const btnConfirmManual = document.getElementById('btn_confirm_manual');
+        const voucherUpload = document.getElementById('voucher_upload');
+
+        // Datos para Yape y Plin (AQUÍ REEMPLAZAS TUS DATOS REALES)
+        const paymentData = {
+            yape: {
+                title: 'Pago con Yape',
+                qrUrl: 'https://via.placeholder.com/200x200/7400b8/ffffff?text=QR+Yape', // Cambiar por ruta de tu QR
+                color: '#7400b8'
+            },
+            plin: {
+                title: 'Pago con Plin',
+                qrUrl: 'https://via.placeholder.com/200x200/00c8b0/ffffff?text=QR+Plin', // Cambiar por ruta de tu QR
+                color: '#00c8b0'
+            }
+        };
+
+        btnPagar.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Reseteamos el modal a la vista principal
+            step1.style.display = 'block';
+            step2.style.display = 'none';
+            paymentModal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', function () {
+            paymentModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function (e) {
+            if (e.target === paymentModal) {
+                paymentModal.style.display = 'none';
+            }
+        });
+
+        // Eventos para cada método de pago
+        payTarjeta.addEventListener('click', function () {
+            paymentModal.style.display = 'none';
+            // Abre el formulario de Culqi para tarjeta
+            Culqi.open();
+        });
+
+        function showManualPayment(method) {
+            step1.style.display = 'none';
+            step2.style.display = 'block';
+
+            manualTitle.textContent = paymentData[method].title;
+            manualTitle.style.color = paymentData[method].color;
+            manualQR.src = paymentData[method].qrUrl;
+            manualQR.style.borderColor = paymentData[method].color;
+            voucherUpload.value = ''; // Limpiar input por si acaso
+        }
+
+        payYape.addEventListener('click', () => showManualPayment('yape'));
+        payPlin.addEventListener('click', () => showManualPayment('plin'));
+
+        btnBack.addEventListener('click', function () {
+            step2.style.display = 'none';
+            step1.style.display = 'block';
+        });
+
+        btnConfirmManual.addEventListener('click', function () {
+            if (voucherUpload.files.length === 0) {
+                alert('Por favor, adjunta tu ticket o voucher de pago para continuar.');
+                return;
+            }
+            // Aquí enviarías el voucher por fetch/ajax hacia tu servidor o WhatsApp
+            alert('¡Comprobante enviado exitosamente! Validaremos tu pago en breve.');
+            paymentModal.style.display = 'none';
+        });
+
+        // 5. Esta función global es llamada por Culqi cuando el cliente termina de pagar
+        function culqi() {
+            if (Culqi.token) {
+                // ¡Éxito! Culqi validó la tarjeta y te devolvió un Token seguro.
+                const token = Culqi.token.id;
+                console.log("Se ha creado el Token: ", token);
+
+                // AQUÍ ES DONDE ENTRA TU PHP:
+                // Debes enviar este 'token' por AJAX/Fetch hacia tu backend (ej. procesar_pago.php)
+                // para que tu servidor confirme el cobro final.
+
+            } else {
+                // Hubo un problema (ej. tarjeta sin fondos, usuario cerró la ventana)
+                console.log(Culqi.error);
+                alert(Culqi.error.user_message);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -226,6 +226,14 @@ include 'index/header.php';
 
 
 
+
+<?php
+$api_url = "http://localhost:3000/api/courses";
+$api_response = @file_get_contents($api_url);
+$all_courses = $api_response ? json_decode($api_response, true) : [];
+$ingenieria_courses = array_slice($all_courses, 0, 4);
+$derecho_courses = array_slice($all_courses, 4, 4);
+?>
         <!--Courses One Start INGENIERIA-->
         <section class="courses-one">
             <div class="container">
@@ -234,114 +242,33 @@ include 'index/header.php';
                     <h2 style="font-family: League Spartan;" class="">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
                 </div>
                 <div class="row">
-                    <!--Start Single Courses One-->
+                    <?php foreach($ingenieria_courses as $course): ?>
                     <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                         <div class="tarjeta-dark">
                             <div class="tarjeta-dark-img">
-                                <img src="assets/images/resources/programacio_plc.jpg" alt="Programación básica de PLC" />
+                                <img src="<?= $course['image'] ?>" alt="<?= $course['title'] ?>" />
                             </div>
                             <div class="tarjeta-dark-content">
                                 <span class="etiqueta-verde">CURSO</span>
                                 <h4 class="tarjeta-dark-title">
-                                    <a href="detalle_plc.php">Programación básica de PLC</a>
+                                    <a href="<?= $course['link'] ?>"><?= $course['title'] ?></a>
                                 </h4>
                                 <div class="tarjeta-dark-meta">
                                     <div class="meta-item">
                                         <i class="far fa-calendar-alt"></i> PROX.
                                     </div>
                                     <div class="meta-item">
-                                        <i class="far fa-money-bill-alt"></i> S/ 120.00
+                                        <i class="far fa-money-bill-alt"></i> <?= $course['price'] ?>
                                     </div>
                                     <div class="meta-item">
-                                        <i class="fas fa-graduation-cap"></i> 40 hrs
+                                        <i class="fas fa-graduation-cap"></i> <?= $course['hours'] ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--End Single Courses One-->
-
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="tarjeta-dark">
-                            <div class="tarjeta-dark-img">
-                                <img src="assets/images/resources/puesta_tierra.jpg" alt="Sistema puesta a tierra" />
-                            </div>
-                            <div class="tarjeta-dark-content">
-                                <span class="etiqueta-verde">CURSO</span>
-                                <h4 class="tarjeta-dark-title">
-                                    <a href="detalle_puesta_tierra.php">Sistema puesta a tierra</a>
-                                </h4>
-                                <div class="tarjeta-dark-meta">
-                                    <div class="meta-item">
-                                        <i class="far fa-calendar-alt"></i> PROX.
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="far fa-money-bill-alt"></i> S/ 99.90
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-graduation-cap"></i> 120 hrs
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="tarjeta-dark">
-                            <div class="tarjeta-dark-img">
-                                <img src="assets/images/resources/banco_condensadores.jpg" alt="Banco de condensadores" />
-                            </div>
-                            <div class="tarjeta-dark-content">
-                                <span class="etiqueta-verde">CURSO</span>
-                                <h4 class="tarjeta-dark-title">
-                                    <a href="detalle_banco_condensadores.php">Banco de condensadores</a>
-                                </h4>
-                                <div class="tarjeta-dark-meta">
-                                    <div class="meta-item">
-                                        <i class="far fa-calendar-alt"></i> PROX.
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="far fa-money-bill-alt"></i> S/ 99.90
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-graduation-cap"></i> 120 hrs
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="tarjeta-dark">
-                            <div class="tarjeta-dark-img">
-                                <img src="assets/images/resources/analisis_facturacion.jpg" alt="Análisis de facturas y E.T.E" />
-                            </div>
-                            <div class="tarjeta-dark-content">
-                                <span class="etiqueta-verde">CURSO</span>
-                                <h4 class="tarjeta-dark-title">
-                                    <a href="detalle_analisis_facturacion.php">Análisis de facturas y E.T.E</a>
-                                </h4>
-                                <div class="tarjeta-dark-meta">
-                                    <div class="meta-item">
-                                        <i class="far fa-calendar-alt"></i> PROX.
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="far fa-money-bill-alt"></i> S/ 99.90
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-graduation-cap"></i> 120 hrs
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-                </div>
+                    <?php endforeach; ?>
+</div>
             </div>
         </section>
         <!--Courses One End INGENIERIA-->
@@ -354,114 +281,33 @@ include 'index/header.php';
                     <h2 style="font-family: League Spartan;" class="">CURSOS ESPECIALIZADOS EN DERECHO Y GESTIÓN PÚBLICA</h2>
                 </div>
                 <div class="row">
-                    <!--Start Single Courses One-->
+                    <?php foreach($derecho_courses as $course): ?>
                     <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                         <div class="tarjeta-dark">
                             <div class="tarjeta-dark-img">
-                                <img src="assets/images/resources/ligacion_oral.jpg" alt="Litigación oraI en el nuevo código procesal penal" />
+                                <img src="<?= $course['image'] ?>" alt="<?= $course['title'] ?>" />
                             </div>
                             <div class="tarjeta-dark-content">
                                 <span class="etiqueta-verde">CURSO</span>
                                 <h4 class="tarjeta-dark-title">
-                                    <a href="derecho_litigacion_oral.php">Litigación oraI en el nuevo código procesal penal</a>
+                                    <a href="<?= $course['link'] ?>"><?= $course['title'] ?></a>
                                 </h4>
                                 <div class="tarjeta-dark-meta">
                                     <div class="meta-item">
                                         <i class="far fa-calendar-alt"></i> PROX.
                                     </div>
                                     <div class="meta-item">
-                                        <i class="far fa-money-bill-alt"></i> S/ 99.90
+                                        <i class="far fa-money-bill-alt"></i> <?= $course['price'] ?>
                                     </div>
                                     <div class="meta-item">
-                                        <i class="fas fa-graduation-cap"></i> 120 hrs
+                                        <i class="fas fa-graduation-cap"></i> <?= $course['hours'] ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--End Single Courses One-->
-
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="tarjeta-dark">
-                            <div class="tarjeta-dark-img">
-                                <img src="assets/images/resources/codigo_procesal.jpg" alt="Especialización nuevo código procesal penal" />
-                            </div>
-                            <div class="tarjeta-dark-content">
-                                <span class="etiqueta-verde">CURSO</span>
-                                <h4 class="tarjeta-dark-title">
-                                    <a href="derecho_especializacion_codigo_penal.php">Especialización nuevo código procesal penal</a>
-                                </h4>
-                                <div class="tarjeta-dark-meta">
-                                    <div class="meta-item">
-                                        <i class="far fa-calendar-alt"></i> PROX.
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="far fa-money-bill-alt"></i> S/ 99.90
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-graduation-cap"></i> 120 hrs
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="tarjeta-dark">
-                            <div class="tarjeta-dark-img">
-                                <img src="assets/images/resources/contrataciones_estado.jpg" alt="Modificaciones al reglamento de la ley de contrataciones E." />
-                            </div>
-                            <div class="tarjeta-dark-content">
-                                <span class="etiqueta-verde">CURSO</span>
-                                <h4 class="tarjeta-dark-title">
-                                    <a href="derecho_modificacion_reglamento.php">Modificaciones al reglamento de la ley de contrataciones E.</a>
-                                </h4>
-                                <div class="tarjeta-dark-meta">
-                                    <div class="meta-item">
-                                        <i class="far fa-calendar-alt"></i> PROX.
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="far fa-money-bill-alt"></i> S/ 99.90
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-graduation-cap"></i> 120 hrs
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="tarjeta-dark">
-                            <div class="tarjeta-dark-img">
-                                <img src="assets/images/resources/corte_suprema.jpg" alt="Seminario de proceso de desalojo en la corte suprema" />
-                            </div>
-                            <div class="tarjeta-dark-content">
-                                <span class="etiqueta-verde">CURSO</span>
-                                <h4 class="tarjeta-dark-title">
-                                    <a href="derecho_proceso_desalojo.php">Seminario de proceso de desalojo en la corte suprema</a>
-                                </h4>
-                                <div class="tarjeta-dark-meta">
-                                    <div class="meta-item">
-                                        <i class="far fa-calendar-alt"></i> PROX.
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="far fa-money-bill-alt"></i> S/ 99.90
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-graduation-cap"></i> 120 hrs
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-                </div>
+                    <?php endforeach; ?>
+</div>
             </div>
         </section>
         <!--Courses One End DERECHO Y GESTION-->

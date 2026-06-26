@@ -166,7 +166,7 @@
     <div class="tiktok-modal-content">
         <span class="tiktok-modal-close" id="btn-close-tiktok">&times;</span>
         <h3 class="tiktok-modal-title">INGRESAR CUPON</h3>
-        <input type="text" id="tiktok-coupon-input" class="tiktok-modal-input" placeholder="Escribe tu cÃ³digo aquÃ­">
+        <input type="text" id="tiktok-coupon-input" class="tiktok-modal-input" placeholder="Escribe tu codigo aqui­">
         <button id="btn-submit-tiktok" class="tiktok-modal-submit">ENVIAR</button>
     </div>
 </div>
@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="tiktok-modal-content">
         <span class="tiktok-modal-close" id="btn-close-tiktok">&times;</span>
         <h3 class="tiktok-modal-title">INGRESAR CUPON</h3>
-        <input type="text" id="tiktok-coupon-input" class="tiktok-modal-input" placeholder="Escribe tu cÃ³digo aquÃ­">
+        <input type="text" id="tiktok-coupon-input" class="tiktok-modal-input" placeholder="Escribe tu codigo aqui­">
         <button id="btn-submit-tiktok" class="tiktok-modal-submit">ENVIAR</button>
     </div>
 </div>

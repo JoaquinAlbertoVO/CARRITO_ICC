@@ -1,12 +1,12 @@
-﻿        <header class="main-header main-header--one  clearfix">
+<header class="main-header main-header--one  clearfix">
             <div class="main-header--one__top clearfix">
                 <div class="container">
                     <div class="main-header--one__top-inner clearfix">
                         <div class="main-header--one__top-left">
                             <div class="main-header--one__top-logo" style="display: flex; align-items: center; gap: 20px;">
-                                <a href="./"><img width="190" src="assets/images/resources/icc-logo1.png" alt="" /></a>
-                                <button id="btn-tiktok-promo" class="tiktok-btn">TIKTOK</button>
-                            </div>
+        <a href="./"><img width="190" src="assets/images/resources/icc-logo1.png" alt="" /></a>
+        <button id="btn-tiktok-promo" class="tiktok-btn">TIKTOK</button>
+    </div>
                         </div>
 
                         <div class="main-header--one__top-right clearfix">
@@ -71,34 +71,34 @@
                                         </li>
                                         <li><a href="nosotros.php">Nosotros</a></li>
                                         <li class="dropdown">
-                                            <a href="#">IngenierÃ­a ElÃ©ctrica</a>
+                                            <a href="#">Ingeniería Eléctrica</a>
                                             <ul style="background-color: #1C1E27;">
                                                 <li class="dropdown">
                                                     <a href="curso_ingenieria.php"><img width="150" src="assets/images/resources/icc-logo-electrica.png" alt=""/></a>
                                                     <ul>
-                                                        <li><a href="detalle_analisis_facturacion.php">AnÃ¡lisis de facturas y EvaluaciÃ³n de Tarifas E.</a></li>
+                                                        <li><a href="detalle_analisis_facturacion.php">Análisis de facturas y Evaluación de Tarifas E.</a></li>
                                                         <li><a href="detalle_banco_condensadores.php">Banco de Condensadores</a></li>
-                                                        <li><a href="detalle_electricidad_basica.php">Electricidad BÃ¡sica</a></li>
-                                                        <li><a href="detalle_gestion_seguridad.php">GestiÃ³n y Seguridad en el Trabajo Ley NÂº29783</a></li>
-                                                        <li><a href="detalle_motores_electricos.php">Motores ElÃ©ctricos</a></li>
-                                                        <li><a href="detalle_plc.php">ProgramaciÃ³n BÃ¡sica de PLC</a></li>
+                                                        <li><a href="detalle_electricidad_basica.php">Electricidad Básica</a></li>
+                                                        <li><a href="detalle_gestion_seguridad.php">Gestión y Seguridad en el Trabajo Ley Nº29783</a></li>
+                                                        <li><a href="detalle_motores_electricos.php">Motores Eléctricos</a></li>
+                                                        <li><a href="detalle_plc.php">Programación Básica de PLC</a></li>
                                                         <li><a href="detalle_puesta_tierra.php">Sistema Puesta a Tierra</a></li>
-                                                        <li><a href="detalle_regulacion_mercado.php">RegulaciÃ³n del Mercado de EnergÃ­a</a></li>
-                                                        <li><a href="detalle_configuracion_redes.php">ConfiguraciÃ³n e InstalaciÃ³n de Analizadores de redes</a></li>
+                                                        <li><a href="detalle_regulacion_mercado.php">Regulación del Mercado de Energía</a></li>
+                                                        <li><a href="detalle_configuracion_redes.php">Configuración e Instalación de Analizadores de redes</a></li>
                                                     </ul>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="dropdown">
-                                            <a href="#">Derecho y GestiÃ³n PÃºblica</a>
+                                            <a href="#">Derecho y Gestión Pública</a>
                                             <ul style="background-color: #1C1E27;">
                                                 <li class="dropdown">
                                                     <a href="curso_derecho.php"><img width="150" src="assets/images/resources/icc-logo-derecho.png" alt=""/></a>
                                                     <ul>
                                                         <li><a href="derecho_proceso_desalojo.php">Proceso de Desalojo en la Corte Suprema</a></li>
                                                         <li><a href="derecho_modificacion_reglamento.php">Modificaciones al Reglamento con el Estado</a></li>
-                                                        <li><a href="derecho_especializacion_codigo_penal.php">EspecializaciÃ³n Nuevo CÃ³digo Penal</a></li>
-                                                        <li><a href="derecho_litigacion_oral.php">LitigaciÃ³n Oral en el nuevo CÃ³digo Procesal Penal</a></li>
+                                                        <li><a href="derecho_especializacion_codigo_penal.php">Especialización Nuevo Código Penal</a></li>
+                                                        <li><a href="derecho_litigacion_oral.php">Litigación Oral en el nuevo Código Procesal Penal</a></li>
                                                         <li><a href="derecho_penal.php">Derecho Penal</a></li>
                                                         <li><a href="derecho_ambiental.php">Derecho Ambiental</a></li>
                                                         <li><a href="derecho_obra_impuesto.php">Obra por Impuesto</a></li>
@@ -120,7 +120,7 @@
                                                 <li><a href="news-details.html">News Details</a></li>
                                             </ul>
                                         </li>-->
-                                        <li><a href="contacto.php">ContÃ¡ctanos</a></li>
+                                        <li><a href="contacto.php">Contáctanos</a></li>
                                     </ul>
                                 </div>
 
@@ -137,7 +137,7 @@
                                                 <a href="#"><span class="icon-shopping-cart"></span></a>
                                             </div>-->
                                             <div class="main-menu__right-search-box">
-                                                <a href="Aula/" target="_black" class="thm-btn comment-form__btn">Aula Virtual</a>
+                                                <a href="https://icc.com.pe/Aula/" target="_black" class="thm-btn comment-form__btn">Aula Virtual</a>
                                             </div>
                                         </div>
                                     </div>
@@ -157,12 +157,13 @@
 
             </div><!-- /.sticky-header__content -->
         </div><!-- /.stricky-header -->
-<!-- Modal CupÃ³n TikTok -->
+
+<!-- Modal Cupón TikTok -->
 <div id="tiktok-modal" class="tiktok-modal" style="display: none;">
     <div class="tiktok-modal-content">
         <span class="tiktok-modal-close" id="btn-close-tiktok">&times;</span>
-        <h3 class="tiktok-modal-title">INGRESAR CUPON</h3>
-        <input type="text" id="tiktok-coupon-input" class="tiktok-modal-input" placeholder="Escribe tu codigo aqui­">
+        <h3 class="tiktok-modal-title">INGRESAR CUPÓN</h3>
+        <input type="text" id="tiktok-coupon-input" class="tiktok-modal-input" placeholder="Escribe tu código aquí">
         <button id="btn-submit-tiktok" class="tiktok-modal-submit">ENVIAR</button>
     </div>
 </div>
@@ -196,9 +197,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     var cuponesValidos = {
-        'TIKTOK50': { curso: 'Ingenieria Electrica', precio: 50, moneda: 'PEN' },
-        'TIKTOKDERECHO': { curso: 'Derecho y Gestion Publica', precio: 50, moneda: 'PEN' },
-        'TIKTOKOFERTA': { curso: 'Analisis de Facturas', precio: 30, moneda: 'PEN' }
+        'TIKTOK50': { curso: 'Ingeniería Eléctrica', precio: 50, moneda: 'PEN' },
+        'TIKTOKDERECHO': { curso: 'Derecho y Gestión Pública', precio: 50, moneda: 'PEN' },
+        'TIKTOKOFERTA': { curso: 'Análisis de Facturas', precio: 30, moneda: 'PEN' }
     };
 
     if(btnSubmit) {
@@ -211,10 +212,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 var urlDestino = "CARRITO_PRE/index.html?curso=" + encodeURIComponent(datos.curso) + "&precio=" + datos.precio + "&moneda=" + datos.moneda;
                 window.location.href = urlDestino;
             } else {
-                alert("CupÃ³n no vÃ¡lido o expirado.");
+                alert("Cupón no válido o expirado.");
             }
         }
     }
 });
 </script>
-

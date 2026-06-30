@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,13 +15,13 @@
     <meta name="viewport" content="Habilidades" />
     <meta name="viewport" content="Talento" />
     <meta name="viewport" content="Desarrollar" />
-    <title>Nosotros - ICC Insituto de Capacitación Continua.</title>
+    <title>Nosotros - ICC Insituto de CapacitaciÃ³n Continua.</title>
     <!-- favicons Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicons/favicon-icc.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicons/favicon-icc.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicons/favicon-icc.png" />
     <link rel="manifest" href="assets/images/favicons/site.webmanifest" />
-    <meta name="description" content="ICC - Instituto de Capacitación Continua" />
+    <meta name="description" content="ICC - Instituto de CapacitaciÃ³n Continua" />
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -58,7 +58,7 @@
       gtag('config', 'G-88Z8HWMT5C');
     </script>
     <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"7f4d2702c36e51657ae7d91f2c71cf01"})});</script>
-<link rel="stylesheet" href="assets/css/modern_override.css?v=2" /></head>
+<link rel="stylesheet" href="assets/css/modern_override.css?v=<?php echo filemtime(__DIR__ . '/../assets/css/modern_override.css'); ?>" /></head>
 
 <body>
 

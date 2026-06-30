@@ -171,7 +171,7 @@ include 'index/header.php';
                                 <span class="section-title__tagline" style="font-family: League Spartan;">Presentaciones de la empresa</span>
                                 <h2 style="font-family: League Spartan;" class="">APRENDE AHORA <br>CON ICC</h2>
                             </div>
-                            <p class="welcome-one__left-text" style="font-family: 'Reem Kufi Fun';">Actualiza tus conocimientos y capacítate con nosotros.<br>Te damos lo mejor en Ingeniería Eléctrica y Derecho y Gestión Pública.</p>
+                            <p class="welcome-one__left-text" style="font-family: 'Reem Kufi Fun';">Actualiza tus conocimientos y capacítate con nosotros.<br>Te damos lo mejor en Ingeniería Eléctrica.</p>
                             <ul class="welcome-one__left-features-box list-unstyled">
                                 <!--Start Welcome One Left Features Box Single-->
                                 <li class="welcome-one__left-features-box-single">
@@ -274,45 +274,6 @@ $derecho_courses = array_slice($all_courses, 4, 4);
             </div>
         </section>
         <!--Courses One End INGENIERIA-->
-
-        <!--Courses One Start DERECHO Y GESTION-->
-        <section class="courses-one">
-            <div class="container">
-                <div class="section-title text-center">
-                    <span class="section-title__tagline">Todos los meses encontrarás nuevo contenido en la plataforma</span>
-                    <h2 style="font-family: League Spartan;" class="">CURSOS ESPECIALIZADOS EN DERECHO Y GESTIÓN PÚBLICA</h2>
-                </div>
-                <div class="row">
-                    <?php foreach($derecho_courses as $course): ?>
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="tarjeta-dark">
-                            <div class="tarjeta-dark-img">
-                                <img src="<?= $course['image'] ?>" alt="<?= $course['title'] ?>" />
-                            </div>
-                            <div class="tarjeta-dark-content">
-                                <span class="etiqueta-verde">CURSO</span>
-                                <h4 class="tarjeta-dark-title">
-                                    <a href="<?= $course['link'] ?>"><?= $course['title'] ?></a>
-                                </h4>
-                                <div class="tarjeta-dark-meta">
-                                    <div class="meta-item">
-                                        <i class="far fa-calendar-alt"></i> PROX.
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="far fa-money-bill-alt"></i> <?= $course['price'] ?>
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-graduation-cap"></i> <?= $course['hours'] ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-</div>
-            </div>
-        </section>
-        <!--Courses One End DERECHO Y GESTION-->
 
         <!--Video One Start-->
         <section class="">

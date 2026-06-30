@@ -71,41 +71,27 @@
                                         </li>
                                         <li><a href="nosotros.php">Nosotros</a></li>
                                         <li class="dropdown">
-                                            <a href="#">Ingeniería Eléctrica</a>
-                                            <ul style="background-color: #1C1E27;">
-                                                <li class="dropdown">
-                                                    <a href="curso_ingenieria.php"><img width="150" src="assets/images/resources/icc-logo-electrica.png" alt=""/></a>
-                                                    <ul>
-                                                        <li><a href="detalle_analisis_facturacion.php">Análisis de facturas y Evaluación de Tarifas E.</a></li>
-                                                        <li><a href="detalle_banco_condensadores.php">Banco de Condensadores</a></li>
-                                                        <li><a href="detalle_electricidad_basica.php">Electricidad Básica</a></li>
-                                                        <li><a href="detalle_gestion_seguridad.php">Gestión y Seguridad en el Trabajo Ley Nº29783</a></li>
-                                                        <li><a href="detalle_motores_electricos.php">Motores Eléctricos</a></li>
-                                                        <li><a href="detalle_plc.php">Programación Básica de PLC</a></li>
-                                                        <li><a href="detalle_puesta_tierra.php">Sistema Puesta a Tierra</a></li>
-                                                        <li><a href="detalle_regulacion_mercado.php">Regulación del Mercado de Energía</a></li>
-                                                        <li><a href="detalle_configuracion_redes.php">Configuración e Instalación de Analizadores de redes</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#">Derecho y Gestión Pública</a>
-                                            <ul style="background-color: #1C1E27;">
-                                                <li class="dropdown">
-                                                    <a href="curso_derecho.php"><img width="150" src="assets/images/resources/icc-logo-derecho.png" alt=""/></a>
-                                                    <ul>
-                                                        <li><a href="derecho_proceso_desalojo.php">Proceso de Desalojo en la Corte Suprema</a></li>
-                                                        <li><a href="derecho_modificacion_reglamento.php">Modificaciones al Reglamento con el Estado</a></li>
-                                                        <li><a href="derecho_especializacion_codigo_penal.php">Especialización Nuevo Código Penal</a></li>
-                                                        <li><a href="derecho_litigacion_oral.php">Litigación Oral en el nuevo Código Procesal Penal</a></li>
-                                                        <li><a href="derecho_penal.php">Derecho Penal</a></li>
-                                                        <li><a href="derecho_ambiental.php">Derecho Ambiental</a></li>
-                                                        <li><a href="derecho_obra_impuesto.php">Obra por Impuesto</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>   
+    <a href="#">Ingeniería Eléctrica</a>
+    <ul class="mo-mega-menu">
+        <li class="mo-mega-menu-left">
+            <img src="assets/images/resources/icc-logo-electrica.png" alt="Ingeniería Eléctrica"/>
+            <a href="curso_ingenieria.php" class="ver-especialidades">Ver Especialidades ▾</a>
+        </li>
+        <li class="mo-mega-menu-right">
+            <ul>
+                <li><a href="detalle_analisis_facturacion.php">Análisis de facturas y Evaluación de Tarifas E.</a></li>
+                <li><a href="detalle_banco_condensadores.php">Banco de Condensadores</a></li>
+                <li><a href="detalle_electricidad_basica.php">Electricidad Básica</a></li>
+                <li><a href="detalle_gestion_seguridad.php">Gestión y Seguridad en el Trabajo Ley Nº29783</a></li>
+                <li><a href="detalle_motores_electricos.php">Motores Eléctricos</a></li>
+                <li><a href="detalle_plc.php">Programación Básica de PLC</a></li>
+                <li><a href="detalle_puesta_tierra.php">Sistema Puesta a Tierra</a></li>
+                <li><a href="detalle_regulacion_mercado.php">Regulación del Mercado de Energía</a></li>
+                <li><a href="detalle_configuracion_redes.php">Configuración e Instalación de Analizadores de redes</a></li>
+            </ul>
+        </li>
+    </ul>
+</li>
                                         <!--<li class="dropdown">
                                             <a href="#"> Teachers</a>
                                             <ul>
@@ -207,15 +193,6 @@ document.addEventListener("DOMContentLoaded", function() {
         'TIKTOK-TIERRA': { curso: 'Sistema Puesta a Tierra', precio: 50, moneda: 'PEN' },
         'TIKTOK-REGULACION': { curso: 'Regulación del Mercado de Energía', precio: 50, moneda: 'PEN' },
         'TIKTOK-REDES': { curso: 'Configuración e Instalación de Analizadores de redes', precio: 50, moneda: 'PEN' },
-
-        // DERECHO Y GESTIÓN PÚBLICA
-        'TIKTOK-DESALOJO': { curso: 'Proceso de Desalojo en la Corte Suprema', precio: 50, moneda: 'PEN' },
-        'TIKTOK-REGLAMENTO': { curso: 'Modificaciones al Reglamento con el Estado', precio: 50, moneda: 'PEN' },
-        'TIKTOK-CODIGO': { curso: 'Especialización Nuevo Código Penal', precio: 50, moneda: 'PEN' },
-        'TIKTOK-LITIGACION': { curso: 'Litigación Oral en el nuevo Código Procesal Penal', precio: 50, moneda: 'PEN' },
-        'TIKTOK-PENAL': { curso: 'Derecho Penal', precio: 50, moneda: 'PEN' },
-        'TIKTOK-AMBIENTAL': { curso: 'Derecho Ambiental', precio: 50, moneda: 'PEN' },
-        'TIKTOK-OBRA': { curso: 'Obra por Impuesto', precio: 50, moneda: 'PEN' }
     };
 
     if(btnSubmit) {

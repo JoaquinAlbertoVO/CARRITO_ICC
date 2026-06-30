@@ -80,15 +80,7 @@ body {
   font-weight: 500;
   text-align: center; /* Center the image and text */
 }
-/* Agregar texto indicativo debajo de la imagen del dropdown */
-.main-menu__list > li > ul > li.dropdown > a::after {
-  content: "Ver Especialidades ▾";
-  display: block;
-  margin-top: 10px;
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--mo-primary);
-}
+
 .main-menu__list > li > ul > li > a:hover {
   background-color: var(--mo-secondary) !important;
   color: var(--mo-primary) !important;
@@ -316,4 +308,101 @@ body {
 }
 .tiktok-modal-submit:active {
     transform: scale(0.98);
+}
+
+
+/* --- MEGA MENU --- */
+.main-menu__list > li > ul.mo-mega-menu {
+  width: 750px;
+  display: flex !important;
+  flex-direction: row;
+  background-color: #ffffff !important;
+  border: 1px solid var(--mo-border);
+  border-radius: var(--mo-radius);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  top: 100% !important;
+}
+
+.mo-mega-menu .mo-mega-menu-left {
+  width: 220px;
+  border-right: 1px solid var(--mo-border);
+  padding-right: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mo-mega-menu .mo-mega-menu-left img {
+  max-width: 150px;
+  margin-bottom: 20px;
+}
+
+.mo-mega-menu .mo-mega-menu-left a.ver-especialidades {
+  background-color: var(--mo-primary);
+  color: #ffffff !important;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+  transition: all 0.3s;
+}
+
+.mo-mega-menu .mo-mega-menu-left a.ver-especialidades:hover {
+  background-color: #333333;
+  color: #ffffff !important;
+}
+
+.mo-mega-menu .mo-mega-menu-right {
+  flex: 1;
+  padding-left: 25px;
+}
+
+.mo-mega-menu .mo-mega-menu-right ul {
+  position: static !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  opacity: 1 !important;
+  visibility: visible !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.mo-mega-menu .mo-mega-menu-right ul li {
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  float: none !important;
+  width: 100% !important;
+}
+
+.mo-mega-menu .mo-mega-menu-right ul li a {
+  color: var(--mo-text-dark) !important;
+  padding: 10px 15px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-align: left !important;
+  border: 1px solid transparent !important;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: all 0.2s;
+  line-height: 1.4 !important;
+  display: block;
+}
+
+.mo-mega-menu .mo-mega-menu-right ul li a:hover {
+  color: var(--mo-primary) !important;
+  background-color: #ffffff !important;
+  border-color: var(--mo-primary) !important;
+  transform: translateX(3px);
 }

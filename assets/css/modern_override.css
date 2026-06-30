@@ -15,7 +15,16 @@
 }
 
 /* --- TIPOGRAFÃA Y CUERPO --- */
-body, h1, h2, h3, h4, h5, h6, p, a, span {
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span {
   font-family: var(--mo-font-sans) !important;
 }
 
@@ -30,23 +39,28 @@ body {
   border-bottom: none;
   padding: 5px 0;
 }
+
 .main-header--one__top-social-link li a {
   color: #fff;
   opacity: 0.8;
 }
+
 .main-header--one__top-social-link li a:hover {
   opacity: 1;
 }
+
 .main-header--one__top-contact-info-list-item h6 {
   color: #aaa;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 10px;
 }
+
 .main-header--one__top-contact-info-list-item p a {
   color: #fff;
   font-weight: 600;
 }
+
 .main-header-one__bottom {
   background-color: #ffffff;
   border-bottom: 1px solid var(--mo-border);
@@ -54,34 +68,38 @@ body {
   position: relative;
   z-index: 99999;
 }
-.main-menu__list > li > a {
+
+.main-menu__list>li>a {
   color: var(--mo-text-dark) !important;
   font-weight: 600 !important;
   text-transform: none !important;
   font-size: 15px !important;
 }
-.main-menu__list > li > a:hover,
-.main-menu__list > li.current > a {
+
+.main-menu__list>li>a:hover,
+.main-menu__list>li.current>a {
   color: var(--mo-primary) !important;
   opacity: 0.7;
 }
 
 /* Dropdown moderno */
-.main-menu__list > li > ul {
+.main-menu__list>li>ul {
   background-color: #ffffff !important;
   border: 1px solid var(--mo-border);
   border-radius: var(--mo-radius);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   z-index: 99999 !important;
 }
-.main-menu__list > li > ul > li > a {
+
+.main-menu__list>li>ul>li>a {
   color: var(--mo-text-dark) !important;
   border-bottom: 1px solid var(--mo-border);
   font-weight: 500;
-  text-align: center; /* Center the image and text */
+  text-align: center;
+  /* Center the image and text */
 }
 
-.main-menu__list > li > ul > li > a:hover {
+.main-menu__list>li>ul>li>a:hover {
   background-color: var(--mo-secondary) !important;
   color: var(--mo-primary) !important;
 }
@@ -97,6 +115,7 @@ body {
   padding: 12px 30px !important;
   transition: all 0.3s ease !important;
 }
+
 .thm-btn:hover {
   background-color: #333333 !important;
   transform: translateY(-2px);
@@ -108,6 +127,7 @@ body {
   font-weight: 800 !important;
   letter-spacing: -1px;
 }
+
 .main-slider-two__tagline {
   background-color: var(--mo-primary);
   color: #fff;
@@ -117,15 +137,22 @@ body {
   text-transform: uppercase;
   letter-spacing: 2px;
 }
+
 .image-layer-overlay {
-  background-color: rgba(0, 0, 0, 0.6) !important; /* MÃ¡s oscuro para contraste */
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  /* MÃ¡s oscuro para contraste */
 }
 
 /* --- SECCIONES (BACKGROUNDS Y ESPACIADOS) --- */
-.features-one, .welcome-one, .courses-one, .counter-one, .testimonials-two {
+.features-one,
+.welcome-one,
+.courses-one,
+.counter-one,
+.testimonials-two {
   background-color: #ffffff !important;
   border-bottom: 1px solid var(--mo-border);
 }
+
 .welcome-one__left-text {
   color: var(--mo-text-light) !important;
   font-size: 18px !important;
@@ -141,23 +168,28 @@ body {
   transition: all 0.3s ease !important;
   overflow: hidden;
 }
+
 .tarjeta-dark:hover {
   transform: translateY(-5px) !important;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
 }
+
 .tarjeta-dark-content {
   background-color: #ffffff !important;
   padding: 20px !important;
 }
+
 .tarjeta-dark-title a {
   color: var(--mo-text-dark) !important;
   font-weight: 700 !important;
   font-size: 18px !important;
 }
+
 .tarjeta-dark-meta {
   border-top: 1px solid var(--mo-border) !important;
   color: var(--mo-text-light) !important;
 }
+
 .meta-item i {
   color: var(--mo-primary) !important;
 }
@@ -166,21 +198,27 @@ body {
 .footer-one {
   background-color: #050505 !important;
 }
+
 .footer-one__bg {
-  display: none !important; /* Quitar patrones viejos */
+  display: none !important;
+  /* Quitar patrones viejos */
 }
+
 .footer-widget__title {
   color: #ffffff !important;
   font-weight: 700 !important;
 }
+
 .footer-widget__links-list li a,
 .footer-widget__courses-list li a {
   color: #aaaaaa !important;
 }
+
 .footer-widget__links-list li a:hover,
 .footer-widget__courses-list li a:hover {
   color: #ffffff !important;
 }
+
 .footer-one__bottom {
   background-color: #000000 !important;
   border-top: 1px solid #222 !important;
@@ -201,118 +239,137 @@ body {
 
 /* --- TIKTOK BUTTON & MODAL --- */
 .tiktok-btn {
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: 800;
-    font-size: 16px;
-    letter-spacing: 1px;
-    padding: 10px 25px;
-    border: 2px solid #000000;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 2px 2px 0px #000000;
-    transition: all 0.2s;
-    font-family: 'Kumbh Sans', sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 1px;
+  padding: 10px 25px;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px #000000;
+  transition: all 0.2s;
+  font-family: 'Kumbh Sans', sans-serif;
 }
+
 .tiktok-btn:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 0px 0px 0px #000000;
-    background-color: #f8f8f8;
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px #000000;
+  background-color: #f8f8f8;
 }
 
 .tiktok-modal {
-    position: fixed;
-    z-index: 999999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
-    display: none; /* Flex via JS */
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(4px);
+  position: fixed;
+  z-index: 999999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: none;
+  /* Flex via JS */
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
 }
+
 .tiktok-modal-content {
-    background-color: #ffffff;
-    padding: 35px 30px;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-    animation: tiktokModalIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid #eaeaea;
+  background-color: #ffffff;
+  padding: 35px 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  animation: tiktokModalIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid #eaeaea;
 }
+
 @keyframes tiktokModalIn {
-    from { transform: translateY(-30px) scale(0.95); opacity: 0; }
-    to { transform: translateY(0) scale(1); opacity: 1; }
+  from {
+    transform: translateY(-30px) scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
+
 .tiktok-modal-close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #999;
-    cursor: pointer;
-    transition: color 0.2s;
-    line-height: 1;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
 }
+
 .tiktok-modal-close:hover {
-    color: #000;
+  color: #000;
 }
+
 .tiktok-modal-title {
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 25px;
-    color: #000;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    font-family: 'Kumbh Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 25px;
+  color: #000;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-family: 'Kumbh Sans', sans-serif;
 }
+
 .tiktok-modal-input {
-    width: 100%;
-    padding: 15px;
-    font-size: 18px;
-    font-weight: 600;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    text-align: center;
-    text-transform: uppercase;
-    transition: all 0.2s;
-    color: #333;
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  color: #333;
 }
+
 .tiktok-modal-input:focus {
-    outline: none;
-    border-color: #000;
-    box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+  outline: none;
+  border-color: #000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
+
 .tiktok-modal-submit {
-    background-color: #000000;
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 16px;
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.2s, transform 0.1s;
-    letter-spacing: 1px;
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s, transform 0.1s;
+  letter-spacing: 1px;
 }
+
 .tiktok-modal-submit:hover {
-    background-color: #333333;
+  background-color: #333333;
 }
+
 .tiktok-modal-submit:active {
-    transform: scale(0.98);
+  transform: scale(0.98);
 }
 
 
 /* --- MEGA MENU --- */
-.main-menu__list > li > ul.mo-mega-menu {
+.main-menu__list>li>ul.mo-mega-menu {
   width: 750px;
   display: flex;
   flex-direction: row;
@@ -408,7 +465,7 @@ body {
 }
 
 /* --- MOBILE RESPONSIVE MEGA MENU --- */
-.mobile-nav__container .main-menu__list > li > ul.mo-mega-menu {
+.mobile-nav__container .main-menu__list>li>ul.mo-mega-menu {
   width: 100% !important;
   background-color: transparent !important;
   border: none !important;
@@ -420,42 +477,50 @@ body {
   top: auto !important;
   flex-direction: column;
 }
+
 .mobile-nav__container .mo-mega-menu .mo-mega-menu-left {
-  display: none !important; /* Ocultamos la imagen y botón en celular para ahorrar espacio */
+  display: none !important;
+  /* Ocultamos la imagen y botón en celular para ahorrar espacio */
 }
+
 .mobile-nav__container .mo-mega-menu .mo-mega-menu-right {
   padding-left: 0 !important;
   width: 100% !important;
 }
+
 .mobile-nav__container .mo-mega-menu .mo-mega-menu-right ul {
   display: block !important;
   grid-template-columns: 1fr !important;
   padding-left: 20px !important;
 }
+
 .mobile-nav__container .mo-mega-menu .mo-mega-menu-right ul li a {
   background-color: transparent !important;
   padding: 8px 0 !important;
-  font-size: 15px !important;
+  font-size: 5px !important;
   color: rgba(255, 255, 255, 0.7) !important;
 }
+
 .mobile-nav__container .mo-mega-menu .mo-mega-menu-right ul li a:hover {
   color: #ffffff !important;
   transform: translateX(5px);
 }
 
 /* --- GLOBAL MOBILE HEADER FIXES --- */
-@media (max-width: 1199px) {
+@media (max-width: 991px) {
+
   /* Fix Top Black Bar */
   .main-header--one__top {
     padding: 10px 0 !important;
   }
+
   .main-header--one__top-inner {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
   }
-  
+
   /* Left side: Logo + Tiktok */
   .main-header--one__top-left {
     float: none !important;
@@ -463,7 +528,7 @@ body {
     display: flex !important;
     justify-content: center !important;
   }
-  
+
   .main-header--one__top-logo {
     display: flex !important;
     flex-direction: row !important;
@@ -473,12 +538,12 @@ body {
     padding-top: 0 !important;
     flex-wrap: wrap !important;
   }
-  
+
   .main-header--one__top-logo img {
     max-width: 160px !important;
     height: auto !important;
   }
-  
+
   /* Right side: Hide socials and contact info on mobile because they overflow and are in the hamburger menu anyway */
   .main-header--one__top-right {
     display: none !important;
@@ -488,7 +553,7 @@ body {
   .main-header-one__bottom {
     padding: 10px 0 !important;
   }
-  
+
   .main-menu__inner {
     display: flex !important;
     flex-direction: row !important;
@@ -497,7 +562,7 @@ body {
     width: 100% !important;
     padding: 0 15px !important;
   }
-  
+
   .mobile-nav__toggler {
     position: static !important;
     display: block !important;
@@ -506,26 +571,26 @@ body {
     margin: 0 !important;
     padding: 5px !important;
   }
-  
+
   .main-menu .left {
     width: auto !important;
     display: block !important;
   }
-  
+
   .main-menu .right {
     display: block !important;
     float: none !important;
   }
-  
+
   .main-menu__right {
     display: block !important;
   }
-  
+
   .main-menu__right-search-box .thm-btn {
     padding: 10px 20px !important;
     font-size: 15px !important;
   }
-  
+
   /* Hide the actual desktop menu ul */
   .main-menu__inner .left .main-menu__list {
     display: none !important;

@@ -389,7 +389,7 @@ body {
 .mo-mega-menu .mo-mega-menu-right ul li a {
   color: var(--mo-text-dark) !important;
   padding: 10px 15px !important;
-  font-size: 14px !important;
+  font-size: 15px !important;
   font-weight: 500 !important;
   text-align: left !important;
   border: 1px solid transparent !important;
@@ -435,7 +435,7 @@ body {
 .mobile-nav__container .mo-mega-menu .mo-mega-menu-right ul li a {
   background-color: transparent !important;
   padding: 8px 0 !important;
-  font-size: 13px !important;
+  font-size: 15px !important;
   color: rgba(255, 255, 255, 0.7) !important;
 }
 .mobile-nav__container .mo-mega-menu .mo-mega-menu-right ul li a:hover {
@@ -523,7 +523,7 @@ body {
   
   .main-menu__right-search-box .thm-btn {
     padding: 10px 20px !important;
-    font-size: 14px !important;
+    font-size: 15px !important;
   }
   
   /* Hide the actual desktop menu ul */

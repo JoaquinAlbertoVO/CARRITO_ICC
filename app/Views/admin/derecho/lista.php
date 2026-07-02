@@ -1,7 +1,7 @@
 <div class="container-fluid page__heading-container">
     <div class="page__heading d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
         <h1 class="m-lg-0"><?= $titulo ?> - Estudiantes</h1>
-        <a href="<?= BASE_URL . $ruta_editar ?>" class="btn btn-success ml-lg-3">Nuevo Estudiante <i class="material-icons">add</i></a>
+        <a href="<?= BASE_URL . $ruta_registro ?>" class="btn btn-success ml-lg-3">Nuevo Estudiante <i class="material-icons">add</i></a>
     </div>
 </div>
 

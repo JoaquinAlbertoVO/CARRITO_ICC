@@ -72,7 +72,7 @@
                     <div class="main-header--one__top-inner clearfix">
                         <div class="main-header--one__top-left">
                             <div class="main-header--one__top-logo" style="display: flex; align-items: center; gap: 20px;">
-        <a href="./"><img width="190" src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/icc-logo1.png" alt="" /></a>
+        <a href="./"><img width="190" src="<?= BASE_URL ?>assets/images/resources/icc-logo1.png" alt="" /></a>
         <button id="btn-tiktok-promo" class="tiktok-btn">TIKTOK</button>
     </div>
                         </div>
@@ -144,7 +144,7 @@
     <a href="#">Ingeniería Eléctrica</a>
     <ul class="mo-mega-menu">
         <li class="mo-mega-menu-left">
-            <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/icc-logo-electrica.png" alt="Ingeniería Eléctrica"/>
+            <img src="<?= BASE_URL ?>assets/images/resources/icc-logo-electrica.png" alt="Ingeniería Eléctrica"/>
             <a href="curso_ingenieria.php" class="ver-especialidades">Ver Especialidades ▾</a>
         </li>
         <li class="mo-mega-menu-right">
@@ -461,7 +461,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <script src="http://maps.google.com/maps/api/js?key=AIzaSyATY4Rxc8jNvDpsK8ZetC7JyN4PFVYGCGM"></script>
 
     <!-- template js -->
-    <script src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/js/zilom.js"></script>
+    <script src="<?= BASE_URL ?>assets/js/zilom.js"></script>
 </body>
 
 </html>

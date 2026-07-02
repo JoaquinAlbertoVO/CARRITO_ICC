@@ -11,12 +11,31 @@ class Router {
 
         // Controlador por defecto o de la URL
         if (isset($url[0]) && $url[0] != '') {
-            $controllerName = ucfirst($url[0]) . 'Controller';
-            if (file_exists('app/Controllers/' . $controllerName . '.php')) {
-                $this->controller = $controllerName;
+            if ($url[0] === 'admin') {
+                if (isset($url[1]) && $url[1] === 'login') {
+                    $controllerName = 'AdminAuthController';
+                    $this->method = 'login';
+                    unset($url[1]);
+                } elseif (isset($url[1]) && $url[1] === 'logout') {
+                    $controllerName = 'AdminAuthController';
+                    $this->method = 'logout';
+                    unset($url[1]);
+                } else {
+                    $controllerName = 'AdminCursosController'; // Por defecto dashboard
+                    if (isset($url[1])) {
+                        $this->method = $url[1];
+                        unset($url[1]);
+                    }
+                }
                 unset($url[0]);
             } else {
-                // TODO: 404
+                $controllerName = ucfirst($url[0]) . 'Controller';
+                unset($url[0]);
+            }
+
+            if (file_exists('app/Controllers/' . $controllerName . '.php')) {
+                $this->controller = $controllerName;
+            } else {
                 die("Error 404: Controlador no encontrado");
             }
         }

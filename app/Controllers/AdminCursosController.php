@@ -46,7 +46,7 @@ class AdminCursosController extends Controller {
             'pagina' => $pagina,
             'total_paginas' => $total_paginas,
             'busqueda' => $busqueda,
-            'titulo' => 'IngenierÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a ElÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©ctrica',
+            'titulo' => 'IngenierÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a ElÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©ctrica',
             'ruta_lista' => 'admin/ingenieria',
             'ruta_registro' => 'admin/ingenieria_registro',
             'ruta_editar' => 'admin/ingenieria_editar',
@@ -75,7 +75,7 @@ class AdminCursosController extends Controller {
             'pagina' => $pagina,
             'total_paginas' => $total_paginas,
             'busqueda' => $busqueda,
-            'titulo' => 'Derecho y GestiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblica',
+            'titulo' => 'Derecho y GestiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n PÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºblica',
             'ruta_lista' => 'admin/derecho',
             'ruta_registro' => 'admin/derecho_registro',
             'ruta_editar' => 'admin/derecho_editar',
@@ -295,5 +295,22 @@ class AdminCursosController extends Controller {
             'alert' => $alert
         ];
         $this->view('admin/derecho/registro', $data, 'admin/layouts/main');
+    }
+    public function ingenieria_delete() {
+        if (isset($_GET['id'])) {
+            $estudianteModel = new \App\Models\Estudiante();
+            $estudianteModel->eliminarEstudianteIngenieria($_GET['id']);
+        }
+        header("Location: " . BASE_URL . "admin/ingenieria");
+        exit();
+    }
+
+    public function derecho_delete() {
+        if (isset($_GET['id'])) {
+            $estudianteModel = new \App\Models\Estudiante();
+            $estudianteModel->eliminarEstudianteDerecho($_GET['id']);
+        }
+        header("Location: " . BASE_URL . "admin/derecho");
+        exit();
     }
 }

@@ -14,7 +14,7 @@ class Estudiante {
 
     /**
      * Obtiene la lista de estudiantes para una especialidad
-     * $tabla: 'usuario' para IngenierÃƒÆ’Ã‚Â­a, 'usuario_d' para Derecho
+     * $tabla: 'usuario' para IngenierÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a, 'usuario_d' para Derecho
      */
     public function getEstudiantes($tabla, $desde, $por_pagina, $busqueda = '') {
         $where = "estatus = 1";
@@ -39,7 +39,7 @@ class Estudiante {
     }
 
     /**
-     * Obtiene el total de registros para paginaciÃƒÆ’Ã‚Â³n
+     * Obtiene el total de registros para paginaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n
      */
     public function getTotalEstudiantes($tabla, $busqueda = '') {
         $where = "estatus = 1";
@@ -245,6 +245,27 @@ class Estudiante {
         } catch (\PDOException $e) {
             $this->db->rollBack();
             error_log("Error registrando estudiante de derecho: " . $e->getMessage());
+            return false;
+        }
+    }
+    public function eliminarEstudianteIngenieria($id) {
+        try {
+            $sql = "DELETE FROM usuario WHERE iduser = ?";
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute([$id]);
+        } catch (\PDOException $e) {
+            error_log("Error eliminando estudiante de ingenieria: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function eliminarEstudianteDerecho($id) {
+        try {
+            $sql = "DELETE FROM usuario_d WHERE iduser_d = ?";
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute([$id]);
+        } catch (\PDOException $e) {
+            error_log("Error eliminando estudiante de derecho: " . $e->getMessage());
             return false;
         }
     }

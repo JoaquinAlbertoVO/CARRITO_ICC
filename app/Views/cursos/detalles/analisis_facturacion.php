@@ -41,7 +41,7 @@
                                     <img src="<?= BASE_URL ?>assets/images/resources/course-details-overlay-img.png" alt=""/>
                                 </div>
                                 <h6 class="courses-one__single-content-name">Ricardo Cardenas <span>Actualizado recientemente 20 junio, 2021</span></h6>
-                                <h4 class="courses-one__single-content-title">AnÃ¡lisis de facturas y EvaluaciÃ³n de Tarifas ElÃ©ctricas</h4>
+                                <h4 class="courses-one__single-content-title">Análisis de facturas y Evaluación de Tarifas Eléctricas</h4>
                                 <div class="courses-one__single-content-review-box">
                                     <ul class="list-unstyled">
                                         <li><i class="fa fa-star"></i></li>
@@ -70,14 +70,14 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Una laptop o cualquier dispositivo con conexiÃ³n a internet.</p>
+                                                <p>Una laptop o cualquier dispositivo con conexión a internet.</p>
                                             </div>
                                         </li>
                                     </ul>
                                 </div><br>
                                 <div class="course-details__content-list">
-                                    <h3 class="course-details__curriculum-single-title">InversiÃ³n</h3>
-                                    <h5 class="" style="color: #4D5FE3;">âž¥ 90 Soles Ã³ 23 dÃ³lares</h5><br>
+                                    <h3 class="course-details__curriculum-single-title">Inversión</h3>
+                                    <h5 class="" style="color: #4D5FE3;">âž¥ 90 Soles ó 23 dólares</h5><br>
                                     <span style="color: black;">Incluye:</span>
                                     <ul class="list-unstyled">
                                         <li>
@@ -101,7 +101,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Certificado virtual y fÃ­sico a nombre de ICC con duraciÃ³n de 120 horas.</p>
+                                                <p>Certificado virtual y físico a nombre de ICC con duración de 120 horas.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -109,7 +109,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>AsesorÃ­a virtual en caso de cualquier duda del curso.</p>
+                                                <p>Asesoría virtual en caso de cualquier duda del curso.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -141,7 +141,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Sector elÃ©ctrico.</p>
+                                                            <p>Sector eléctrico.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -155,7 +155,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">MÃ³dulo II: TARIFAS ELÃ‰CTRICAS â€“ MT</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo II: TARIFAS ELÃ‰CTRICAS - MT</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -172,7 +172,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Condiciones generales de aplicaciÃ³n.</p>
+                                                            <p>Condiciones generales de aplicación.</p>
                                                         </div>
                                                     </li>
                                                 </ul><br>
@@ -187,7 +187,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>ParÃ¡metros de facturaciÃ³n.</p>
+                                                            <p>Parámetros de facturación.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -195,13 +195,13 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Estructura del recibo de energÃ­a.</p>
+                                                            <p>Estructura del recibo de energía.</p>
                                                         </div>
                                                     </li>
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">MÃ³dulo IV: CONDICIÃ“N ESPECÃFICA DE APLICACIÃ“N DE CADA OPCIÃ“N TARIFARIA</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo IV: CONDICIÃ“N ESPECÍFICA DE APLICACIÃ“N DE CADA OPCIÃ“N TARIFARIA</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -210,7 +210,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>OpciÃ³n tarifaria MT2.</p>
+                                                            <p>Opción tarifaria MT2.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -218,7 +218,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>OpciÃ³n tarifaria MT3.</p>
+                                                            <p>Opción tarifaria MT3.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -226,13 +226,13 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>OpciÃ³n tarifaria MT4.</p>
+                                                            <p>Opción tarifaria MT4.</p>
                                                         </div>
                                                     </li>
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">MÃ³dulo V: CÃLCULO DE FACTURACIÃ“N</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo V: CÁLCULO DE FACTURACIÃ“N</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -241,7 +241,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Caso: OpciÃ³n tarifaria MT2.</p>
+                                                            <p>Caso: Opción tarifaria MT2.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -249,7 +249,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Caso: OpciÃ³n tarifaria MT3.</p>
+                                                            <p>Caso: Opción tarifaria MT3.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -257,13 +257,13 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Caso: OpciÃ³n tarifaria MT4.</p>
+                                                            <p>Caso: Opción tarifaria MT4.</p>
                                                         </div>
                                                     </li>
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo VI: OPORTUNIDADES AHORRO â€“ EVALUACIÃ“N DE TARIFARIA</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo VI: OPORTUNIDADES AHORRO - EVALUACIÃ“N DE TARIFARIA</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -272,7 +272,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>ParÃ¡metros de facturaciÃ³n.</p>
+                                                            <p>Parámetros de facturación.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -280,7 +280,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>AdministraciÃ³n de la demanda.</p>
+                                                            <p>Administración de la demanda.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -288,7 +288,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>OtimizaciÃ³n de la calificaciÃ³n tarifaria.</p>
+                                                            <p>Otimización de la calificación tarifaria.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -313,15 +313,15 @@
                             <h2 class="course-details__curriculum-title">Inicio</h2>
                             <!--Start Single Course Details Curriculum-->
                             <div class="course-details__curriculum-single">
-                                <p class="course-details__curriculum-single-text">Ingreso al aula virtual 24/7 avance de acuerdo su ritmo, inician en el momento que se efectÃºe la compra de este. Clases asincrÃ³nicas no tiene un horario fijo, podrÃ¡s verlo a tu propio ritmo y podrÃ¡s repetir las clases cuantas veces quieras ya que tienes acceso ilimitado.</p><br>
-                                <h3 class="course-details__curriculum-single-title">Pasos para realizar inscripciÃ³n:</h3>
+                                <p class="course-details__curriculum-single-text">Ingreso al aula virtual 24/7 avance de acuerdo su ritmo, inician en el momento que se efectúe la compra de este. Clases asincrónicas no tiene un horario fijo, podrás verlo a tu propio ritmo y podrás repetir las clases cuantas veces quieras ya que tienes acceso ilimitado.</p><br>
+                                <h3 class="course-details__curriculum-single-title">Pasos para realizar inscripción:</h3>
                                 <ol class="">
                                     <li>
                                         <div class="icon">
                                             <span class=""></span>
                                         </div>
                                         <div class="text">
-                                            <p>Realizar el depÃ³sito en cualquiera de nuestras cuentas.</p>
+                                            <p>Realizar el depósito en cualquiera de nuestras cuentas.</p>
                                         </div>
                                     </li>
                                     <li>
@@ -329,11 +329,11 @@
                                             <span class=""></span>
                                         </div>
                                         <div class="text">
-                                            <p>Luego enviar la foto del voucher por este medio, en conjunto con su NÂ° de DNI, correo electrÃ³nico y los cursos a elegir.</p>
+                                            <p>Luego enviar la foto del voucher por este medio, en conjunto con su NÂ° de DNI, correo electrónico y los cursos a elegir.</p>
                                         </div>
                                     </li>
                                 </ol>
-                                <span>âš ï¸ NOTA IMPORTANTE Si desea Boleta o Factura, solicitarlo por este medio y abonar Ãºnicamente a la Cuenta Corriente, caso contrario solo abonar a las cuentas.</span>
+                                <span>âš ï¸ NOTA IMPORTANTE Si desea Boleta o Factura, solicitarlo por este medio y abonar únicamente a la Cuenta Corriente, caso contrario solo abonar a las cuentas.</span>
                             </div>
                             <!--End Single Course Details Curriculum-->
 
@@ -342,7 +342,7 @@
 
                         <!--Start Course Details Reviews-->
                         <div class="course-details__reviews">
-                            <h3 class="course-details__reviews-title">ReseÃ±as</h3>
+                            <h3 class="course-details__reviews-title">Reseñas</h3>
                             <div class="course-details__progress-review">
                                 <div class="row">
                                     <div class="col-xl-7 col-lg-7 col-md-7">
@@ -409,7 +409,7 @@
                                     <form action="assets/inc/sendemail.php" class="comment-one__form contact-form-validated" novalidate="novalidate">
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-12">
-                                                <a href="https://wa.link/cn465e" target="_black" class="thm-btn comment-form__btn">InscrÃ­bete AquÃ­</a>
+                                                <a href="https://wa.link/cn465e" target="_black" class="thm-btn comment-form__btn">Inscríbete Aquí</a>
                                             </div>
                                         </div>
                                     </form>
@@ -438,7 +438,7 @@
                                         <a href=""><i class="far fa-clock"></i></a>
                                     </div>
                                     <div class="text">
-                                        <p><a href="#">DuraciÃ³n:<span> 10 horas</span></a></p>
+                                        <p><a href="#">Duración:<span> 10 horas</span></a></p>
                                     </div>
                                 </li>
 
@@ -456,7 +456,7 @@
                                         <a href=""><i class="far fa-user-circle"></i></a>
                                     </div>
                                     <div class="text">
-                                        <p><a href="#">Estudiantes:<span> MÃ¡ximo 6</span></a></p>
+                                        <p><a href="#">Estudiantes:<span> Máximo 6</span></a></p>
                                     </div>
                                 </li>
 
@@ -488,7 +488,7 @@
                                         <img src="<?= BASE_URL ?>assets/images/resources/programacion_plc.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
-                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_plc">ProgramaciÃ³n bÃ¡sica de PLC</a></h4>
+                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_plc">Programación básica de PLC</a></h4>
                                         <div class="course-details__new-courses-rateing-box">
                                             <ul class="list-unstyled">
                                                 <li><i class="fas fa-star"></i></li>

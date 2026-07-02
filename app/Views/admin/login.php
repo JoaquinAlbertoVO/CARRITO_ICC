@@ -79,9 +79,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="text-label" for="password_2">ContraseÃ±a:</label>
+                    <label class="text-label" for="password_2">Contraseña:</label>
                     <div class="input-group input-group-merge">
-                        <input id="password_2" type="password" name="clave" required="" class="form-control form-control-prepended" placeholder="Ingresa tu contraseÃ±a">
+                        <input id="password_2" type="password" name="clave" required="" class="form-control form-control-prepended" placeholder="Ingresa tu contraseña">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
                                 <span class="fa fa-key"></span>

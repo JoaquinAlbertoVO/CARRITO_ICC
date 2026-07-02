@@ -35,7 +35,7 @@
                                     <img src="<?= BASE_URL ?>assets/images/resources/course-details-overlay-img.png" alt=""/>
                                 </div>
                                 <h6 class="courses-one__single-content-name">Actualizado recientemente 04 marzo, 2023<span></span></h6>
-                                <h4 class="courses-one__single-content-title">Curso de CompensaciÃ³n de energÃ­a reactiva</h4>
+                                <h4 class="courses-one__single-content-title">Curso de Compensación de energía reactiva</h4>
                                 <div class="video">
                                     <video src="video/prueba.mp4" id="myPlayerID" data-video-id="5045678907001" data-account="1752604059001" data-player="ByZN9ymFZ" data-embed="default" data-application-id controls width="640px" height="360px"></video>
                                 </div>
@@ -62,7 +62,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Brindar conocimientos y habilidades indispensables para el anÃ¡lisis de compensaciÃ³n reactiva en un sistema industrial.</p>
+                                                <p>Brindar conocimientos y habilidades indispensables para el análisis de compensación reactiva en un sistema industrial.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -78,7 +78,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Analizar el efecto de los armÃ³nicos y las soluciones avanzadas para la compensaciÃ³n de energÃ­a reactiva.</p>
+                                                <p>Analizar el efecto de los armónicos y las soluciones avanzadas para la compensación de energía reactiva.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -86,21 +86,21 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Manejo de herramientas de software especializado de compensaciÃ³n reactiva.</p>
+                                                <p>Manejo de herramientas de software especializado de compensación reactiva.</p>
                                             </div>
                                         </li>
                                         <br>
                                     </ul>
                                 </div>
                                 <div class="course-details__content-list">
-                                    <h3 class="course-details__curriculum-single-title">MÃ³dulo I: Generalidades</h3>
+                                    <h3 class="course-details__curriculum-single-title">Módulo I: Generalidades</h3>
                                     <ul class="list-unstyled">
                                         <li>
                                             <div class="icon">
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>DefiniciÃ³n.</p>
+                                                <p>Definición.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -108,7 +108,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Naturaleza de la energÃ­a reactiva.</p>
+                                                <p>Naturaleza de la energía reactiva.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -116,7 +116,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Factor de potencia de los receptores mÃ¡s usuales.</p>
+                                                <p>Factor de potencia de los receptores más usuales.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -124,7 +124,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Ventajas de la compensaciÃ³n de la energÃ­a reactiva.</p>
+                                                <p>Ventajas de la compensación de la energía reactiva.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -132,7 +132,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>ComparaciÃ³n instalaciÃ³n compensada/sin compensar.</p>
+                                                <p>Comparación instalación compensada/sin compensar.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -140,7 +140,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>CÃ¡lculo de la potencia a compensar en una instalaciÃ³n en proyecto.</p>
+                                                <p>Cálculo de la potencia a compensar en una instalación en proyecto.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -148,7 +148,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Tabla de elecciÃ³n.</p>
+                                                <p>Tabla de elección.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -164,7 +164,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>DÃ³nde compensar.</p>
+                                                <p>Dónde compensar.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -172,7 +172,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>CuÃ¡ndo realizar una compensaciÃ³n fija.</p>
+                                                <p>Cuándo realizar una compensación fija.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -180,7 +180,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>CompensaciÃ³n fija de transformadores.</p>
+                                                <p>Compensación fija de transformadores.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -188,7 +188,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>CompensaciÃ³n fija de motores asÃ­ncronos.</p>
+                                                <p>Compensación fija de motores asíncronos.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -196,7 +196,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>CuÃ¡ndo realizar una compensaciÃ³n automÃ¡tica.</p>
+                                                <p>Cuándo realizar una compensación automática.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -204,7 +204,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>El concepto de la regulaciÃ³n.</p>
+                                                <p>El concepto de la regulación.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -212,7 +212,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>CompensaciÃ³n automÃ¡tica: consejos de instalaciÃ³n.</p>
+                                                <p>Compensación automática: consejos de instalación.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -220,13 +220,13 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Aparamenta de protecciÃ³n y maniobra BT.</p>
+                                                <p>Aparamenta de protección y maniobra BT.</p>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="course-details__content-list">
-                                    <h3 class="course-details__curriculum-single-title " style="margin: 20px 0 0 0;">MÃ³dulo II: ArmÃ³nicos</h3>
+                                    <h3 class="course-details__curriculum-single-title " style="margin: 20px 0 0 0;">Módulo II: Armónicos</h3>
                                     <ul class="list-unstyled">
                                         <li>
                                             <div class="icon">
@@ -241,7 +241,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Generalidades sobre los armÃ³nicos.</p>
+                                                <p>Generalidades sobre los armónicos.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -249,7 +249,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Efectos de los armÃ³nicos sobre las cargas.</p>
+                                                <p>Efectos de los armónicos sobre las cargas.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -257,7 +257,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Ventajas de la reducciÃ³n de los armÃ³nicos.</p>
+                                                <p>Ventajas de la reducción de los armónicos.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -281,7 +281,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Soluciones para una nueva instalaciÃ³n.</p>
+                                                <p>Soluciones para una nueva instalación.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -289,7 +289,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>para una nueva instalaciÃ³n Normativa.</p>
+                                                <p>para una nueva instalación Normativa.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -297,20 +297,20 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>InformaciÃ³n adicional.</p>
+                                                <p>Información adicional.</p>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="course-details__content-list">
-                                    <h3 class="course-details__curriculum-single-title" style="margin: 20px 0 0 0;">MÃ³dulo III: Fichas de aplicaciÃ³n/ejemplos</h3>
+                                    <h3 class="course-details__curriculum-single-title" style="margin: 20px 0 0 0;">Módulo III: Fichas de aplicación/ejemplos</h3>
                                     <ul class="list-unstyled">
                                         <li>
                                             <div class="icon">
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Fichas de aplicaciÃ³n.</p>
+                                                <p>Fichas de aplicación.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -324,14 +324,14 @@
                                     </ul>
                                 </div>
                                 <div class="course-details__content-list">
-                                    <h3 class="course-details__curriculum-single-title" style="margin: 20px 0 0 0;">MÃ³dulo IV: Calidad de energÃ­a</h3>
+                                    <h3 class="course-details__curriculum-single-title" style="margin: 20px 0 0 0;">Módulo IV: Calidad de energía</h3>
                                     <ul class="list-unstyled">
                                         <li>
                                             <div class="icon">
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>IntroducciÃ³n.</p>
+                                                <p>Introducción.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -339,7 +339,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Tablas guÃ­as de procesos y fenÃ³menos de la no calidad.</p>
+                                                <p>Tablas guías de procesos y fenómenos de la no calidad.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -347,7 +347,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Ficha para la realizaciÃ³n de un pre-estudio armÃ³nico.</p>
+                                                <p>Ficha para la realización de un pre-estudio armónico.</p>
                                             </div>
                                         </li>
                                     </ul>
@@ -358,7 +358,7 @@
 
                         <!--Start Course Details Reviews-->
                         <div class="course-details__reviews">
-                            <h3 class="course-details__reviews-title">ReseÃ±as</h3>
+                            <h3 class="course-details__reviews-title">Reseñas</h3>
                             <div class="course-details__progress-review">
                                 <div class="row">
                                     <div class="col-xl-7 col-lg-7 col-md-7">
@@ -380,7 +380,7 @@
                                             </div>
 
                                             <div class="course-details__progress-item">
-                                                <p class="course-details__progress-text">BÃ¡sico</p>
+                                                <p class="course-details__progress-text">Básico</p>
                                                 <div class="course-details__progress-bar">
                                                     <span style="width: 70%;"></span>
                                                 </div>
@@ -437,7 +437,7 @@
                                         <a href=""><i class="far fa-clock"></i></a>
                                     </div>
                                     <div class="text">
-                                        <p><a href="#">DuraciÃ³n:<span> 10 horas</span></a></p>
+                                        <p><a href="#">Duración:<span> 10 horas</span></a></p>
                                     </div>
                                 </li>
 
@@ -455,7 +455,7 @@
                                         <a href=""><i class="far fa-user-circle"></i></a>
                                     </div>
                                     <div class="text">
-                                        <p><a href="#">Estudiantes:<span> MÃ¡ximo 6</span></a></p>
+                                        <p><a href="#">Estudiantes:<span> Máximo 6</span></a></p>
                                     </div>
                                 </li>
 
@@ -487,7 +487,7 @@
                                         <img src="<?= BASE_URL ?>assets/images/resources/programacion_plc.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
-                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_plc">ProgramaciÃ³n bÃ¡sica de PLC</a></h4>
+                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_plc">Programación básica de PLC</a></h4>
                                         <div class="course-details__new-courses-rateing-box">
                                             <ul class="list-unstyled">
                                                 <li><i class="fas fa-star"></i></li>

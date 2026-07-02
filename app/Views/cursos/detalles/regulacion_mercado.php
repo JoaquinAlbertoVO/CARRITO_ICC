@@ -41,7 +41,7 @@
                                     <img src="<?= BASE_URL ?>assets/images/resources/course-details-overlay-img.png" alt=""/>
                                 </div>
                                 <h6 class="courses-one__single-content-name">Francisco Torres Madrid <span>Actualizado recientemente 20 junio, 2021</span></h6>
-                                <h4 class="courses-one__single-content-title">RegulaciÃ³n del Mercado de EnergÃ­a</h4>
+                                <h4 class="courses-one__single-content-title">Regulación del Mercado de Energía</h4>
                                 <div class="courses-one__single-content-review-box">
                                     <ul class="list-unstyled">
                                         <li><i class="fa fa-star"></i></li>
@@ -70,14 +70,14 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Una laptop o cualquier dispositivo con conexiÃ³n a internet.</p>
+                                                <p>Una laptop o cualquier dispositivo con conexión a internet.</p>
                                             </div>
                                         </li>
                                     </ul>
                                 </div><br>
                                 <div class="course-details__content-list">
-                                    <h3 class="course-details__curriculum-single-title">InversiÃ³n</h3>
-                                    <h5 class="" style="color: #4D5FE3;">âž¥ 90 Soles Ã³ 23 dÃ³lares</h5><br>
+                                    <h3 class="course-details__curriculum-single-title">Inversión</h3>
+                                    <h5 class="" style="color: #4D5FE3;">âž¥ 90 Soles ó 23 dólares</h5><br>
                                     <span style="color: black;">Incluye:</span>
                                     <ul class="list-unstyled">
                                         <li>
@@ -101,7 +101,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Certificado virtual y fÃ­sico a nombre de ICC con duraciÃ³n de 120 horas.</p>
+                                                <p>Certificado virtual y físico a nombre de ICC con duración de 120 horas.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -109,7 +109,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>AsesorÃ­a virtual en caso de cualquier duda del curso.</p>
+                                                <p>Asesoría virtual en caso de cualquier duda del curso.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -131,15 +131,15 @@
                             <h2 class="course-details__curriculum-title">Inicio</h2>
                             <!--Start Single Course Details Curriculum-->
                             <div class="course-details__curriculum-single">
-                                <p class="course-details__curriculum-single-text">Ingreso al aula virtual 24/7 avance de acuerdo su ritmo, inician en el momento que se efectÃºe la compra de este. Clases asincrÃ³nicas no tiene un horario fijo, podrÃ¡s verlo a tu propio ritmo y podrÃ¡s repetir las clases cuantas veces quieras ya que tienes acceso ilimitado.</p><br>
-                                <h3 class="course-details__curriculum-single-title">Pasos para realizar inscripciÃ³n:</h3>
+                                <p class="course-details__curriculum-single-text">Ingreso al aula virtual 24/7 avance de acuerdo su ritmo, inician en el momento que se efectúe la compra de este. Clases asincrónicas no tiene un horario fijo, podrás verlo a tu propio ritmo y podrás repetir las clases cuantas veces quieras ya que tienes acceso ilimitado.</p><br>
+                                <h3 class="course-details__curriculum-single-title">Pasos para realizar inscripción:</h3>
                                 <ol class="">
                                     <li>
                                         <div class="icon">
                                             <span class=""></span>
                                         </div>
                                         <div class="text">
-                                            <p>Realizar el depÃ³sito en cualquiera de nuestras cuentas.</p>
+                                            <p>Realizar el depósito en cualquiera de nuestras cuentas.</p>
                                         </div>
                                     </li>
                                     <li>
@@ -147,11 +147,11 @@
                                             <span class=""></span>
                                         </div>
                                         <div class="text">
-                                            <p>Luego enviar la foto del voucher por este medio, en conjunto con su NÂ° de DNI, correo electrÃ³nico y los cursos a elegir.</p>
+                                            <p>Luego enviar la foto del voucher por este medio, en conjunto con su NÂ° de DNI, correo electrónico y los cursos a elegir.</p>
                                         </div>
                                     </li>
                                 </ol>
-                                <span>âš ï¸ NOTA IMPORTANTE Si desea Boleta o Factura, solicitarlo por este medio y abonar Ãºnicamente a la Cuenta Corriente, caso contrario solo abonar a las cuentas.</span>
+                                <span>âš ï¸ NOTA IMPORTANTE Si desea Boleta o Factura, solicitarlo por este medio y abonar únicamente a la Cuenta Corriente, caso contrario solo abonar a las cuentas.</span>
                             </div>
                             <!--End Single Course Details Curriculum-->
 
@@ -160,7 +160,7 @@
 
                         <!--Start Course Details Reviews-->
                         <div class="course-details__reviews">
-                            <h3 class="course-details__reviews-title">ReseÃ±as</h3>
+                            <h3 class="course-details__reviews-title">Reseñas</h3>
                             <div class="course-details__progress-review">
                                 <div class="row">
                                     <div class="col-xl-7 col-lg-7 col-md-7">
@@ -227,7 +227,7 @@
                                     <form action="assets/inc/sendemail.php" class="comment-one__form contact-form-validated" novalidate="novalidate">
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-12">
-                                                <a href="https://wa.link/sesvz5" target="_black" class="thm-btn comment-form__btn">InscrÃ­bete AquÃ­</a>
+                                                <a href="https://wa.link/sesvz5" target="_black" class="thm-btn comment-form__btn">Inscríbete Aquí</a>
                                             </div>
                                         </div>
                                     </form>
@@ -256,7 +256,7 @@
                                         <a href=""><i class="far fa-clock"></i></a>
                                     </div>
                                     <div class="text">
-                                        <p><a href="#">DuraciÃ³n:<span> 10 horas</span></a></p>
+                                        <p><a href="#">Duración:<span> 10 horas</span></a></p>
                                     </div>
                                 </li>
 
@@ -274,7 +274,7 @@
                                         <a href=""><i class="far fa-user-circle"></i></a>
                                     </div>
                                     <div class="text">
-                                        <p><a href="#">Estudiantes:<span> MÃ¡ximo 6</span></a></p>
+                                        <p><a href="#">Estudiantes:<span> Máximo 6</span></a></p>
                                     </div>
                                 </li>
 
@@ -306,7 +306,7 @@
                                         <img src="<?= BASE_URL ?>assets/images/resources/analisis_facturacion.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
-                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="<?= BASE_URL ?>cursos/detalle/analisis-facturacion">AnÃ¡lisis de facturaciÃ³n y tarifas elÃ©ctricas</a></h4>
+                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="<?= BASE_URL ?>cursos/detalle/analisis-facturacion">Análisis de facturación y tarifas eléctricas</a></h4>
                                         <div class="course-details__new-courses-rateing-box">
                                             <ul class="list-unstyled">
                                                 <li><i class="fas fa-star"></i></li>

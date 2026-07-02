@@ -16,13 +16,13 @@
     <meta name="viewport" content="Habilidades" />
     <meta name="viewport" content="Talento" />
     <meta name="viewport" content="Desarrollar" />
-    <title><?= $title ?? 'ICC PerÃº - Instituto de CapacitaciÃ³n Continua' ?></title>
+    <title><?= $title ?? 'ICC Perú - Instituto de Capacitación Continua' ?></title>
     <!-- favicons Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>assets/images/favicons/Favicon_Icc.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="<?= BASE_URL ?>assets/images/favicons/Favicon_Icc.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="<?= BASE_URL ?>assets/images/favicons/Favicon_Icc.png" />
     <link rel="manifest" href="<?= BASE_URL ?>assets/images/favicons/site.webmanifest" />
-    <meta name="description" content="<?= $meta_description ?? 'ICC - Instituto de CapacitaciÃ³n Continua' ?>" />
+    <meta name="description" content="<?= $meta_description ?? 'ICC - Instituto de Capacitación Continua' ?>" />
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -83,7 +83,7 @@
                                 <li><a href="https://www.facebook.com/icc.com.pe/" target="_black"><i class="fab fa-facebook"></i></a></li>
                                 <li><a href="https://www.instagram.com/icc.capacitaciones/" target="_black"><i class="fab fa-instagram"></i></a></li>
                                 <li><a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_black"><i class="fab fa-linkedin"></i></a></li>
-                                <!-- ImplementaciÃ³n de TikTok-->
+                                <!-- Implementación de TikTok-->
                                 <li><a href="https://www.tiktok.com/@institutoicc" target="_black"><i class="fab fa-tiktok"></i></a></li>
                             </ul>
 
@@ -141,20 +141,20 @@
                                         </li>
                                         <li><a href="<?= BASE_URL ?>nosotros">Nosotros</a></li>
                                         <li class="dropdown">
-    <a href="#">IngenierÃ­a ElÃ©ctrica</a>
+    <a href="#">Ingeniería Eléctrica</a>
     <ul>
         <li class="dropdown">
             <a href="<?= BASE_URL ?>cursos/ingenieria" class="ver-especialidades">Ver Especialidades</a>
             <ul>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/analisis-facturacion">AnÃ¡lisis de facturas y EvaluaciÃ³n de Tarifas E.</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/analisis-facturacion">Análisis de facturas y Evaluación de Tarifas E.</a></li>
                 <li><a href="<?= BASE_URL ?>cursos/detalle/banco-condensadores">Banco de Condensadores</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/electricidad-basica">Electricidad BÃ¡sica</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/gestion-seguridad">GestiÃ³n y Seguridad en el Trabajo Ley NÂº29783</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/motores-electricos">Motores ElÃ©ctricos</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/plc">ProgramaciÃ³n BÃ¡sica de PLC</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/electricidad-basica">Electricidad Básica</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/gestion-seguridad">Gestión y Seguridad en el Trabajo Ley NÂº29783</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/motores-electricos">Motores Eléctricos</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/plc">Programación Básica de PLC</a></li>
                 <li><a href="<?= BASE_URL ?>cursos/detalle/puesta-tierra">Sistema Puesta a Tierra</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/regulacion-mercado">RegulaciÃ³n del Mercado de EnergÃ­a</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/configuracion-redes">ConfiguraciÃ³n e InstalaciÃ³n de Analizadores de redes</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/regulacion-mercado">Regulación del Mercado de Energía</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/configuracion-redes">Configuración e Instalación de Analizadores de redes</a></li>
             </ul>
         </li>
     </ul>
@@ -173,7 +173,7 @@
                                                 <li><a href="news-details.html">News Details</a></li>
                                             </ul>
                                         </li>-->
-                                        <li><a href="<?= BASE_URL ?>contacto">ContÃ¡ctanos</a></li>
+                                        <li><a href="<?= BASE_URL ?>contacto">Contáctanos</a></li>
                                     </ul>
                                 </div>
 
@@ -211,12 +211,76 @@
             </div><!-- /.sticky-header__content -->
         </div><!-- /.stricky-header -->
 
-<!-- Modal CupÃ³n TikTok -->
+<!-- Modal Cupón TikTok -->
+<style>
+.tiktok-modal {
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tiktok-modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.tiktok-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+.tiktok-modal-title {
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+.tiktok-modal-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    font-size: 16px;
+}
+.tiktok-modal-input:focus {
+    border-color: #ff3b30;
+}
+.tiktok-modal-submit {
+    background-color: #ff3b30;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    width: 100%;
+    transition: background 0.3s;
+}
+.tiktok-modal-submit:hover {
+    background-color: #e62e24;
+}
+</style>
 <div id="tiktok-modal" class="tiktok-modal" style="display: none;">
     <div class="tiktok-modal-content">
         <span class="tiktok-modal-close" id="btn-close-tiktok">&times;</span>
-        <h3 class="tiktok-modal-title">INGRESAR CUPÃ“N</h3>
-        <input type="text" id="tiktok-coupon-input" class="tiktok-modal-input" placeholder="Escribe tu cÃ³digo aquÃ­">
+        <h3 class="tiktok-modal-title">INGRESAR CUPÓN</h3>
+        <input type="text" id="tiktok-coupon-input" class="tiktok-modal-input" placeholder="Escribe tu código aquí">
         <button id="btn-submit-tiktok" class="tiktok-modal-submit">ENVIAR</button>
     </div>
 </div>
@@ -250,16 +314,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
         var cuponesValidos = {
-        // INGENIERÃA ELÃ‰CTRICA
-        'TIKTOK-FACTURAS': { curso: 'AnÃ¡lisis de facturas y EvaluaciÃ³n de Tarifas E.', precio: 50, moneda: 'PEN' },
+        // INGENIERÍA ELÉCTRICA
+        'TIKTOK-FACTURAS': { curso: 'Análisis de facturas y Evaluación de Tarifas E.', precio: 50, moneda: 'PEN' },
         'TIKTOK-BANCO': { curso: 'Banco de Condensadores', precio: 50, moneda: 'PEN' },
-        'TIKTOK-ELECTRICIDAD': { curso: 'Electricidad BÃ¡sica', precio: 50, moneda: 'PEN' },
-        'TIKTOK-GESTION': { curso: 'GestiÃ³n y Seguridad en el Trabajo Ley NÂº29783', precio: 50, moneda: 'PEN' },
-        'TIKTOK-MOTORES': { curso: 'Motores ElÃ©ctricos', precio: 50, moneda: 'PEN' },
-        'TIKTOK-PLC': { curso: 'ProgramaciÃ³n BÃ¡sica de PLC', precio: 50, moneda: 'PEN' },
+        'TIKTOK-ELECTRICIDAD': { curso: 'Electricidad Básica', precio: 50, moneda: 'PEN' },
+        'TIKTOK-GESTION': { curso: 'Gestión y Seguridad en el Trabajo Ley NÂº29783', precio: 50, moneda: 'PEN' },
+        'TIKTOK-MOTORES': { curso: 'Motores Eléctricos', precio: 50, moneda: 'PEN' },
+        'TIKTOK-PLC': { curso: 'Programación Básica de PLC', precio: 50, moneda: 'PEN' },
         'TIKTOK-TIERRA': { curso: 'Sistema Puesta a Tierra', precio: 50, moneda: 'PEN' },
-        'TIKTOK-REGULACION': { curso: 'RegulaciÃ³n del Mercado de EnergÃ­a', precio: 50, moneda: 'PEN' },
-        'TIKTOK-REDES': { curso: 'ConfiguraciÃ³n e InstalaciÃ³n de Analizadores de redes', precio: 50, moneda: 'PEN' },
+        'TIKTOK-REGULACION': { curso: 'Regulación del Mercado de Energía', precio: 50, moneda: 'PEN' },
+        'TIKTOK-REDES': { curso: 'Configuración e Instalación de Analizadores de redes', precio: 50, moneda: 'PEN' },
     };
 
     if(btnSubmit) {
@@ -272,7 +336,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 var urlDestino = "CARRITO_PRE/index.html?curso=" + encodeURIComponent(datos.curso) + "&precio=" + datos.precio + "&moneda=" + datos.moneda;
                 window.location.href = urlDestino;
             } else {
-                alert("CupÃ³n no vÃ¡lido o expirado.");
+                alert("Cupón no válido o expirado.");
             }
         }
     }
@@ -306,7 +370,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <div class="footer-widget__column footer-widget__courses">
                                 <h3 class="footer-widget__title">Cursos</h3>
                                 <ul class="footer-widget__courses-list list-unstyled">
-                                    <li><a href="<?= BASE_URL ?>cursos/ingenieria">IngenierÃ­a ElÃ©ctrica</a></li>
+                                    <li><a href="<?= BASE_URL ?>cursos/ingenieria">Ingeniería Eléctrica</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -319,8 +383,8 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <ul class="footer-widget__links-list list-unstyled">
                                     <li><a href="./">Inicio</a></li>
                                     <li><a href="<?= BASE_URL ?>nosotros">Nosotros</a></li>
-                                    <li><a href="<?= BASE_URL ?>cursos/ingenieria">IngenierÃ­a</a></li>
-                                    <li><a href="<?= BASE_URL ?>contacto">ContÃ¡ctanos</a></li>
+                                    <li><a href="<?= BASE_URL ?>cursos/ingenieria">Ingeniería</a></li>
+                                    <li><a href="<?= BASE_URL ?>contacto">Contáctanos</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -329,8 +393,8 @@ document.addEventListener("DOMContentLoaded", function() {
                         <!--Start Footer Widget Column-->
                         <div class="col-xl-3 col-lg-6 col-md-6 wow animated fadeInUp" data-wow-delay="0.7s">
                             <div class="footer-widget__column footer-widget__contact">
-                                <h3 class="footer-widget__title">ContÃ¡ctanos</h3>
-                                <!--<p class="text">Av. RepÃºblica de Polonia Mz. A1 Lt.17 -S.J.L - Lima</p>-->
+                                <h3 class="footer-widget__title">Contáctanos</h3>
+                                <!--<p class="text">Av. República de Polonia Mz. A1 Lt.17 -S.J.L - Lima</p>-->
                                 <p><a href="mailto:informes@icc.com.pe" target="_black">informes@icc.com.pe</a></p>
                                 <p class="phone"><a href="tel:+51986884219" target="_black">+51 986 884 219</a></p>
                             </div>
@@ -345,7 +409,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <!--<li><a href="https://wa.link/myq5iv" target="_black"><i class="fab fa-whatsapp"></i></a></li>-->
                                     <li><a href="https://www.instagram.com/icc.capacitaciones/" target="_black"><i class="fab fa-instagram"></i></a></li>
                                     <li><a href="https://www.linkedin.com/in/empresa-icc-313316253//" target="_black"><i class="fab fa-linkedin"></i></a></li>
-                                    <!--ImplementaciÃ³n de TikTok-->
+                                    <!--Implementación de TikTok-->
                                     <li><a href="https://www.tiktok.com/@institutoicc" target="_black"><i class="fab fa-tiktok"></i></a></li>
                                 </ul>
                             </div>
@@ -403,7 +467,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <a href="https://www.facebook.com/icc.com.pe/" target="_black" class="fab fa-facebook-square"></a>
                         <a href="https://www.instagram.com/icc.capacitaciones/" target="_black" class="fab fa-instagram"></a>
                         <a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_black" class="fab fa-linkedin"></a>
-                        <!--ImplementaciÃ³n de TikTok -->
+                        <!--Implementación de TikTok -->
                         <a href="https://www.tiktok.com/@institutoicc" target="_black"><i class="fab fa-tiktok"></i></a>
                     </div><!-- /.mobile-nav__social -->
                 </div><!-- /.mobile-nav__top -->

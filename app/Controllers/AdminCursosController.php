@@ -25,4 +25,14 @@ class AdminCursosController extends Controller {
         // Llama a la vista del dashboard principal usando el layout de admin
         $this->view('admin/dashboard/index', $data, 'admin/layouts/main');
     }
+
+    public function ingenieria() {
+        $data = [];
+        $this->view('admin/ingenieria/lista', $data, 'admin/layouts/main');
+    }
+
+    public function derecho() {
+        $data = [];
+        $this->view('admin/derecho/lista', $data, 'admin/layouts/main');
+    }
 }

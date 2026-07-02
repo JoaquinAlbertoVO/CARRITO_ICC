@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
@@ -230,7 +230,7 @@ if (empty($_SESSION['active'])) {
 
                                 <ul class="sidebar-menu mt-0">
                                     <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button" href="ingenieria_lista.php">
+                                        <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/ingenieria">
                                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -254,7 +254,7 @@ if (empty($_SESSION['active'])) {
                             <div class="sidebar-block p-0">
                                 <ul class="sidebar-menu" id="components_menu">
                                     <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button" href="derecho_lista.php">
+                                        <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/derecho">
                                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">

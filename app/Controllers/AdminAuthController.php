@@ -49,8 +49,8 @@ class AdminAuthController extends Controller {
             }
         }
 
-        // Cargar la vista de login (pasando la variable alert)
-        $this->view('admin/login', ['alert' => $alert]);
+        // Cargar la vista de login (pasando la variable alert y sin usar layout)
+        $this->view('admin/login', ['alert' => $alert], false);
     }
 
     public function logout() {

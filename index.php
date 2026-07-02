@@ -171,7 +171,7 @@ include 'index/header.php';
                                 <span class="section-title__tagline" style="font-family: League Spartan;">Presentaciones de la empresa</span>
                                 <h2 style="font-family: League Spartan;" class="">APRENDE AHORA <br>CON ICC</h2>
                             </div>
-                            <p class="welcome-one__left-text" style="font-family: 'Reem Kufi Fun';">Actualiza tus conocimientos y capacítate con nosotros.<br>Te damos lo mejor en Ingeniería Eléctrica y Derecho y Gestión Pública.</p>
+                            <p class="welcome-one__left-text" style="font-family: 'Reem Kufi Fun';">Actualiza tus conocimientos y capacítate con nosotros.<br>Te damos lo mejor en Ingeniería Eléctrica.</p>
                             <ul class="welcome-one__left-features-box list-unstyled">
                                 <!--Start Welcome One Left Features Box Single-->
                                 <li class="welcome-one__left-features-box-single">
@@ -226,6 +226,16 @@ include 'index/header.php';
 
 
 
+
+<?php
+$api_url = "https://carrito-backend-ronl.onrender.com/api/courses";
+
+// Obtener datos del API
+$api_response = @file_get_contents($api_url);
+$all_courses = $api_response ? json_decode($api_response, true) : [];
+$ingenieria_courses = array_slice($all_courses, 0, 4);
+$derecho_courses = array_slice($all_courses, 4, 4);
+?>
         <!--Courses One Start INGENIERIA-->
         <section class="courses-one">
             <div class="container">
@@ -234,334 +244,36 @@ include 'index/header.php';
                     <h2 style="font-family: League Spartan;" class="">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
                 </div>
                 <div class="row">
-                    <!--Start Single Courses One-->
+                    <?php foreach($ingenieria_courses as $course): ?>
                     <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-    <div class="tarjeta-dark">
-        
-        <div class="tarjeta-dark-img">
-            <img src="assets/images/resources/programacio_plc.jpg" alt="Programación básica de PLC" />
-        </div>
-        
-        <div class="tarjeta-dark-content">
-            
-            <span class="etiqueta-verde">CURSO</span>
-            
-            <h4 class="tarjeta-dark-title">
-                <a href="detalle_plc.php">Programación básica de PLC</a>
-            </h4>
-            
-            <div class="tarjeta-dark-meta">
-                <div class="meta-item">
-                    <i class="far fa-calendar-alt"></i> FEB-07
-                </div>
-                <div class="meta-item">
-                    <i class="far fa-money-bill-alt"></i> S/ 120
-                </div>
-                <div class="meta-item">
-                    <i class="fas fa-graduation-cap"></i> 40 hrs
-                </div>
-            </div>
-
-            <form action="CARRITO_PRE/index.html" method="GET" style="margin-top: 15px;">
-                <input type="hidden" name="curso" value="Programación básica de PLC">
-                <input type="hidden" name="precio" value="120.00">
-                <input type="hidden" name="moneda" value="PEN">
-                <button type="submit" class="btn-comprar-dark">Comprar ahora 💳</button>
-            </form>
-
-        </div>
-    </div>
+                        <div class="tarjeta-dark">
+                            <div class="tarjeta-dark-img">
+                                <img src="<?= $course['image'] ?>" alt="<?= $course['title'] ?>" />
+                            </div>
+                            <div class="tarjeta-dark-content">
+                                <span class="etiqueta-verde">CURSO</span>
+                                <h4 class="tarjeta-dark-title">
+                                    <a href="<?= $course['link'] ?>"><?= $course['title'] ?></a>
+                                </h4>
+                                <div class="tarjeta-dark-meta">
+                                    <div class="meta-item">
+                                        <i class="far fa-calendar-alt"></i> PROX.
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="far fa-money-bill-alt"></i> <?= $course['price'] ?>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fas fa-graduation-cap"></i> <?= $course['hours'] ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
 </div>
-                    <!--End Single Courses One-->
-
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="100ms"
-                        data-wow-duration="1000ms">
-                        <div class="courses-one__single">
-                            <div class="courses-one__single-img">
-                                <img src="assets/images/resources/puesta_tierra.jpg" alt="" />
-                                <div class="overlay-text">
-                                    <p style="font-family: 'Reem Kufi Fun';">S/99.90</p>
-                                </div>
-                            </div>
-                            <div class="courses-one__single-content">
-                                <div class="courses-one__single-content-overlay-img">
-                                    <img src="assets/images/resources/courses-v1-overlay-img2.png" alt="" />
-                                </div>
-                                <h6 class="courses-one__single-content-name">Hipolito Coaguila Berrios</h6>
-                                <h4 class="courses-one__single-content-title"><a href="detalle_puesta_tierra.php">Sistema puesta a tierra</a></h4>
-                                <div class="courses-one__single-content-review-box">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <div class="rateing-box">
-                                        <span>(5)</span>
-                                    </div>
-                                </div>
-                                <h2 class="course-details__price-amount" style="font-size: 15px;">S/99.90<span><del>S/109.90</del></span></h2>
-                                <ul class="courses-one__single-content-courses-info list-unstyled">
-                                    <li>4 Lecciones</li>
-                                    <li>120 Horas</li>
-                                    <li>Experto</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInRight" data-wow-delay="0ms"
-                        data-wow-duration="1000ms">
-                        <div class="courses-one__single">
-                            <div class="courses-one__single-img">
-                                <img src="assets/images/resources/banco_condensadores.jpg" alt="" />
-                                <div class="overlay-text">
-                                    <p style="font-family: 'Reem Kufi Fun';">S/99.90</p>
-                                </div>
-                            </div>
-                            <div class="courses-one__single-content">
-                                <div class="courses-one__single-content-overlay-img">
-                                    <img src="assets/images/resources/courses-v1-overlay-img3.png" alt="" />
-                                </div>
-                                <h6 class="courses-one__single-content-name">Johan Paredes</h6>
-                                <h4 class="courses-one__single-content-title"><a href="detalle_banco_condensadores.php">Banco de condensadores</a></h4>
-                                <div class="courses-one__single-content-review-box">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <div class="rateing-box">
-                                        <span>(5)</span>
-                                    </div>
-                                </div>
-                                <h2 class="course-details__price-amount" style="font-size: 15px;">S/99.90<span><del>S/109.90</del></span></h2>
-                                <ul class="courses-one__single-content-courses-info list-unstyled">
-                                    <li>1 Lessons</li>
-                                    <li>120 Horas</li>
-                                    <li>Experto</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInRight" data-wow-delay="0ms"
-                        data-wow-duration="1000ms">
-                        <div class="courses-one__single">
-                            <div class="courses-one__single-img">
-                                <img src="assets/images/resources/analisis_facturacion.jpg" alt="" />
-                                <div class="overlay-text">
-                                    <p style="font-family: 'Reem Kufi Fun';">S/99.90</p>
-                                </div>
-                            </div>
-                            <div class="courses-one__single-content">
-                                <div class="courses-one__single-content-overlay-img">
-                                    <img src="assets/images/resources/courses-v1-overlay-img4.png" alt="" />
-                                </div>
-                                <h6 class="courses-one__single-content-name">Ricardo Cardenas</h6>
-                                <h4 class="courses-one__single-content-title"><a href="detalle_analisis_facturacion.php">Análisis de facturas y E.T.E</a></h4>
-                                <div class="courses-one__single-content-review-box">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <div class="rateing-box">
-                                        <span>(5)</span>
-                                    </div>
-                                </div>
-                                <h2 class="course-details__price-amount" style="font-size: 15px;">S/99.90<span><del>S/109.90</del></span></h2>
-                                <ul class="courses-one__single-content-courses-info list-unstyled">
-                                    <li>2 Lessons</li>
-                                    <li>120 Horas</li>
-                                    <li>Experto</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-                </div>
             </div>
         </section>
         <!--Courses One End INGENIERIA-->
-
-        <!--Courses One Start DERECHO Y GESTION-->
-        <section class="courses-one">
-            <div class="container">
-                <div class="section-title text-center">
-                    <span class="section-title__tagline">Todos los meses encontrarás nuevo contenido en la plataforma</span>
-                    <h2 style="font-family: League Spartan;" class="">CURSOS ESPECIALIZADOS EN DERECHO Y GESTIÓN PÚBLICA</h2>
-                </div>
-                <div class="row">
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0ms"
-                        data-wow-duration="1000ms">
-                        <div class="courses-one__single">
-                            <div class="courses-one__single-img">
-                                <img src="assets/images/resources/ligacion_oral.jpg" alt="" />
-                                <div class="overlay-text">
-                                    <p style="font-family: 'Reem Kufi Fun';">S/99.90</p>
-                                </div>
-                            </div>
-                            <div class="courses-one__single-content">
-                                <div class="courses-one__single-content-overlay-img">
-                                    <img src="assets/images/resources/courses-v1-overlay-img1.png" alt="" />
-                                </div>
-                                <h6 class="courses-one__single-content-name">Victor Cubas Villanueva</h6>
-                                <h4 class="courses-one__single-content-title"><a href="derecho_litigacion_oral.php">Litigación oraI en el nuevo código procesal penal</a></h4>
-                                <div class="courses-one__single-content-review-box">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <div class="rateing-box">
-                                        <span>(5)</span>
-                                    </div>
-                                </div>
-                                <p class="courses-one__single-content-price" style="font-family: 'Reem Kufi Fun';">S/99.90</p>
-                                <ul class="courses-one__single-content-courses-info list-unstyled">
-                                    <li>10 Lecciones</li>
-                                    <li>120 Horas</li>
-                                    <li>Experto</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="100ms"
-                        data-wow-duration="1000ms">
-                        <div class="courses-one__single">
-                            <div class="courses-one__single-img">
-                                <img src="assets/images/resources/codigo_procesal.jpg" alt="" />
-                                <div class="overlay-text">
-                                    <p style="font-family: 'Reem Kufi Fun';">S/99.90</p>
-                                </div>
-                            </div>
-                            <div class="courses-one__single-content">
-                                <div class="courses-one__single-content-overlay-img">
-                                    <img src="assets/images/resources/courses-v1-overlay-img2.png" alt="" />
-                                </div>
-                                <h6 class="courses-one__single-content-name">Hamilton Montoro</h6>
-                                <h4 class="courses-one__single-content-title"><a href="derecho_especializacion_codigo_penal.php">Especialización nuevo código procesal penal</a></h4>
-                                <div class="courses-one__single-content-review-box">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <div class="rateing-box">
-                                        <span>(5)</span>
-                                    </div>
-                                </div>
-                                <p class="courses-one__single-content-price" style="font-family: 'Reem Kufi Fun';">S/99.90</p>
-                                <ul class="courses-one__single-content-courses-info list-unstyled">
-                                    <li>10 Lecciones</li>
-                                    <li>120 Horas</li>
-                                    <li>Experto</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInRight" data-wow-delay="0ms"
-                        data-wow-duration="1000ms">
-                        <div class="courses-one__single">
-                            <div class="courses-one__single-img">
-                                <img src="assets/images/resources/contrataciones_estado.jpg" alt="" />
-                                <div class="overlay-text">
-                                    <p style="font-family: 'Reem Kufi Fun';">S/99.90</p>
-                                </div>
-                            </div>
-                            <div class="courses-one__single-content">
-                                <div class="courses-one__single-content-overlay-img">
-                                    <img src="assets/images/resources/courses-v1-overlay-img3.png" alt="" />
-                                </div>
-                                <h6 class="courses-one__single-content-name">Victor Villanueva</h6>
-                                <h4 class="courses-one__single-content-title"><a href="derecho_modificacion_reglamento.php">Modificaciones al reglamento de la ley de contrataciones E.</a></h4>
-                                <div class="courses-one__single-content-review-box">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <div class="rateing-box">
-                                        <span>(5)</span>
-                                    </div>
-                                </div>
-                                <p class="courses-one__single-content-price" style="font-family: 'Reem Kufi Fun';">S/99.90</p>
-                                <ul class="courses-one__single-content-courses-info list-unstyled">
-                                    <li>3 Lessons</li>
-                                    <li>120 Horas</li>
-                                    <li>Experto</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-
-                    <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInRight" data-wow-delay="0ms"
-                        data-wow-duration="1000ms">
-                        <div class="courses-one__single">
-                            <div class="courses-one__single-img">
-                                <img src="assets/images/resources/corte_suprema.jpg" alt="" />
-                                <div class="overlay-text">
-                                    <p style="font-family: 'Reem Kufi Fun';">S/99.90</p>
-                                </div>
-                            </div>
-                            <div class="courses-one__single-content">
-                                <div class="courses-one__single-content-overlay-img">
-                                    <img src="assets/images/resources/courses-v1-overlay-img4.png" alt="" />
-                                </div>
-                                <h6 class="courses-one__single-content-name">Fort Ninamancco Córdova</h6>
-                                <h4 class="courses-one__single-content-title"><a href="derecho_proceso_desalojo.php">Seminario de proceso de desalojo en la corte suprema</a></h4>
-                                <div class="courses-one__single-content-review-box">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <div class="rateing-box">
-                                        <span>(5)</span>
-                                    </div>
-                                </div>
-                                <p class="courses-one__single-content-price" style="font-family: 'Reem Kufi Fun';">S/99.90</p>
-                                <ul class="courses-one__single-content-courses-info list-unstyled">
-                                    <li>2 Lessons</li>
-                                    <li>120 Horas</li>
-                                    <li>Experto</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Courses One-->
-                </div>
-            </div>
-        </section>
-        <!--Courses One End DERECHO Y GESTION-->
 
         <!--Video One Start-->
         <section class="">

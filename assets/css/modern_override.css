@@ -1,0 +1,408 @@
+/* MODERN OVERRIDE CSS 
+   Se aplica sobre zilom.css para modernizar el UI sin tocar el HTML base 
+*/
+
+/* --- VARIABLES --- */
+:root {
+  --mo-primary: #000000;
+  --mo-secondary: #f9f9f9;
+  --mo-accent: #25d366;
+  --mo-text-dark: #111111;
+  --mo-text-light: #555555;
+  --mo-border: #e2e8f0;
+  --mo-radius: 8px;
+  --mo-font-sans: 'Inter', 'Kumbh Sans', sans-serif;
+}
+
+/* --- TIPOGRAFÍA Y CUERPO --- */
+body, h1, h2, h3, h4, h5, h6, p, a, span {
+  font-family: var(--mo-font-sans) !important;
+}
+
+body {
+  color: var(--mo-text-dark);
+  background-color: #ffffff;
+}
+
+/* --- NAVBAR (HEADER) --- */
+.main-header--one__top {
+  background-color: #111;
+  border-bottom: none;
+  padding: 5px 0;
+}
+.main-header--one__top-social-link li a {
+  color: #fff;
+  opacity: 0.8;
+}
+.main-header--one__top-social-link li a:hover {
+  opacity: 1;
+}
+.main-header--one__top-contact-info-list-item h6 {
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 10px;
+}
+.main-header--one__top-contact-info-list-item p a {
+  color: #fff;
+  font-weight: 600;
+}
+.main-header-one__bottom {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--mo-border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 99999;
+}
+.main-menu__list > li > a {
+  color: var(--mo-text-dark) !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  font-size: 15px !important;
+}
+.main-menu__list > li > a:hover,
+.main-menu__list > li.current > a {
+  color: var(--mo-primary) !important;
+  opacity: 0.7;
+}
+
+/* Dropdown moderno */
+.main-menu__list > li > ul {
+  background-color: #ffffff !important;
+  border: 1px solid var(--mo-border);
+  border-radius: var(--mo-radius);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 99999 !important;
+}
+.main-menu__list > li > ul > li > a {
+  color: var(--mo-text-dark) !important;
+  border-bottom: 1px solid var(--mo-border);
+  font-weight: 500;
+  text-align: center; /* Center the image and text */
+}
+
+.main-menu__list > li > ul > li > a:hover {
+  background-color: var(--mo-secondary) !important;
+  color: var(--mo-primary) !important;
+}
+
+/* --- BOTONES --- */
+.thm-btn {
+  background-color: var(--mo-primary) !important;
+  color: #ffffff !important;
+  border-radius: var(--mo-radius) !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  padding: 12px 30px !important;
+  transition: all 0.3s ease !important;
+}
+.thm-btn:hover {
+  background-color: #333333 !important;
+  transform: translateY(-2px);
+}
+
+/* --- HERO SLIDER --- */
+.main-slider__title {
+  font-family: var(--mo-font-sans) !important;
+  font-weight: 800 !important;
+  letter-spacing: -1px;
+}
+.main-slider-two__tagline {
+  background-color: var(--mo-primary);
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.image-layer-overlay {
+  background-color: rgba(0, 0, 0, 0.6) !important; /* Más oscuro para contraste */
+}
+
+/* --- SECCIONES (BACKGROUNDS Y ESPACIADOS) --- */
+.features-one, .welcome-one, .courses-one, .counter-one, .testimonials-two {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid var(--mo-border);
+}
+.welcome-one__left-text {
+  color: var(--mo-text-light) !important;
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+}
+
+/* --- TARJETAS DE CURSO (.tarjeta-dark) --- */
+.tarjeta-dark {
+  background-color: #ffffff !important;
+  border: 1px solid var(--mo-border) !important;
+  border-radius: var(--mo-radius) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.3s ease !important;
+  overflow: hidden;
+}
+.tarjeta-dark:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+}
+.tarjeta-dark-content {
+  background-color: #ffffff !important;
+  padding: 20px !important;
+}
+.tarjeta-dark-title a {
+  color: var(--mo-text-dark) !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+}
+.tarjeta-dark-meta {
+  border-top: 1px solid var(--mo-border) !important;
+  color: var(--mo-text-light) !important;
+}
+.meta-item i {
+  color: var(--mo-primary) !important;
+}
+
+/* --- FOOTER --- */
+.footer-one {
+  background-color: #050505 !important;
+}
+.footer-one__bg {
+  display: none !important; /* Quitar patrones viejos */
+}
+.footer-widget__title {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+.footer-widget__links-list li a,
+.footer-widget__courses-list li a {
+  color: #aaaaaa !important;
+}
+.footer-widget__links-list li a:hover,
+.footer-widget__courses-list li a:hover {
+  color: #ffffff !important;
+}
+.footer-one__bottom {
+  background-color: #000000 !important;
+  border-top: 1px solid #222 !important;
+}
+
+/* --- WHATSAPP FLOTANTE --- */
+.btn-whatsapp-pulse {
+  background-color: var(--mo-accent) !important;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4) !important;
+}
+
+.btn-whatsapp.thm-btn:hover {
+  background-color: var(--mo-secondary);
+  color: var(--mo-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- TIKTOK BUTTON & MODAL --- */
+.tiktok-btn {
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 1px;
+    padding: 10px 25px;
+    border: 2px solid #000000;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px #000000;
+    transition: all 0.2s;
+    font-family: 'Kumbh Sans', sans-serif;
+}
+.tiktok-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px #000000;
+    background-color: #f8f8f8;
+}
+
+.tiktok-modal {
+    position: fixed;
+    z-index: 999999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: none; /* Flex via JS */
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+.tiktok-modal-content {
+    background-color: #ffffff;
+    padding: 35px 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    animation: tiktokModalIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid #eaeaea;
+}
+@keyframes tiktokModalIn {
+    from { transform: translateY(-30px) scale(0.95); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+}
+.tiktok-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+.tiktok-modal-close:hover {
+    color: #000;
+}
+.tiktok-modal-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 25px;
+    color: #000;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-family: 'Kumbh Sans', sans-serif;
+}
+.tiktok-modal-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    color: #333;
+}
+.tiktok-modal-input:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+}
+.tiktok-modal-submit {
+    background-color: #000000;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s, transform 0.1s;
+    letter-spacing: 1px;
+}
+.tiktok-modal-submit:hover {
+    background-color: #333333;
+}
+.tiktok-modal-submit:active {
+    transform: scale(0.98);
+}
+
+
+/* --- MEGA MENU --- */
+.main-menu__list > li > ul.mo-mega-menu {
+  width: 750px;
+  display: flex !important;
+  flex-direction: row;
+  background-color: #ffffff !important;
+  border: 1px solid var(--mo-border);
+  border-radius: var(--mo-radius);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  top: 100% !important;
+}
+
+.mo-mega-menu .mo-mega-menu-left {
+  width: 220px;
+  border-right: 1px solid var(--mo-border);
+  padding-right: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mo-mega-menu .mo-mega-menu-left img {
+  max-width: 150px;
+  margin-bottom: 20px;
+}
+
+.mo-mega-menu .mo-mega-menu-left a.ver-especialidades {
+  background-color: var(--mo-primary);
+  color: #ffffff !important;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+  transition: all 0.3s;
+}
+
+.mo-mega-menu .mo-mega-menu-left a.ver-especialidades:hover {
+  background-color: #333333;
+  color: #ffffff !important;
+}
+
+.mo-mega-menu .mo-mega-menu-right {
+  flex: 1;
+  padding-left: 25px;
+}
+
+.mo-mega-menu .mo-mega-menu-right ul {
+  position: static !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  opacity: 1 !important;
+  visibility: visible !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.mo-mega-menu .mo-mega-menu-right ul li {
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  float: none !important;
+  width: 100% !important;
+}
+
+.mo-mega-menu .mo-mega-menu-right ul li a {
+  color: var(--mo-text-dark) !important;
+  padding: 10px 15px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-align: left !important;
+  border: 1px solid transparent !important;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: all 0.2s;
+  line-height: 1.4 !important;
+  display: block;
+}
+
+.mo-mega-menu .mo-mega-menu-right ul li a:hover {
+  color: var(--mo-primary) !important;
+  background-color: #ffffff !important;
+  border-color: var(--mo-primary) !important;
+  transform: translateX(3px);
+}

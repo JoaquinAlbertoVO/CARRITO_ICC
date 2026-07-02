@@ -21,7 +21,6 @@
                             <h3 class="footer-widget__title">Cursos</h3>
                             <ul class="footer-widget__courses-list list-unstyled">
                                 <li><a href="curso_ingenieria.php">Ingeniería Eléctrica</a></li>
-                                <li><a href="curso_derecho.php">Derecho y Gestión Pública</a></li>
                             </ul>
                         </div>
                     </div>
@@ -35,7 +34,6 @@
                                 <li><a href="./">Inicio</a></li>
                                 <li><a href="nosotros.php">Nosotros</a></li>
                                 <li><a href="curso_ingenieria.php">Ingeniería</a></li>
-                                <li><a href="curso_derecho">Derecho y Gestió pública</a></li>
                                 <li><a href="contacto.php">Contáctanos</a></li>
                             </ul>
                         </div>

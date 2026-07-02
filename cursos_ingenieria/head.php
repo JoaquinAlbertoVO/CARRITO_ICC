@@ -59,7 +59,7 @@
       gtag('config', 'G-88Z8HWMT5C');
     </script>
     <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"7f4d2702c36e51657ae7d91f2c71cf01"})});</script>
-</head>
+<link rel="stylesheet" href="assets/css/modern_override.css" /></head>
 <body>
 
     <div class="preloader">

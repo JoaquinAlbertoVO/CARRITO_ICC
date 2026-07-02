@@ -44,7 +44,6 @@ include 'cursos/header.php';
                             <ul class="project-filter clearfix post-filter has-dynamic-filters-counter list-unstyled">
                                 <li data-filter=".filter-item" class="active"><span class="filter-text">Todos</span></li>
                                 <li data-filter=".featured"><span class="filter-text">Ingeniería Eléctrica</span></li>
-                                <li data-filter=".business"><span class="filter-text">Derecho y Gestión Pública</span></li>
                             </ul>
                         </div>
                     </div>
@@ -131,41 +130,7 @@ include 'cursos/header.php';
                 <!--End Single Courses One-->
 
                 <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item business">
-                    <div class="courses-one__single wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <img src="assets/images/resources/obra_impuesto.png" alt=""/>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img3.png" alt=""/>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Ricardo Cardenas</h6>
-                            <h4 class="courses-one__single-content-title"><a href="detalle_obra_impuesto.php">Obra por Impuesto</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <!--<li>1 Lecciones</li>-->
-                                <!--<li>20 Horas</li>-->
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                
                 <!--End Single Courses One-->
 
                 <!--Start Single Courses One-->
@@ -245,79 +210,11 @@ include 'cursos/header.php';
                 <!--End Single Courses One-->
 
                 <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item business">
-                    <div class="courses-one__single wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <img src="assets/images/resources/derecho_penal.png" alt=""/>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img5.png" alt=""/>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Sergio Emerson Chavez Panduro</h6>
-                            <h4 class="courses-one__single-content-title"><a href="course-details.html">Derecho Penal</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>03 Sesiones</li>
-                                <li>04 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                
                 <!--End Single Courses One-->
 
                 <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item business">
-                    <div class="courses-one__single wow fadeInLeft" data-wow-delay="100ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <img src="assets/images/resources/derecho_ambiental.png" alt=""/>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img6.png" alt=""/>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Zarela Reyes Cubas</h6>
-                            <h4 class="courses-one__single-content-title"><a href="course-details.html">Derecho Ambiental</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>02 Sesiones</li>
-                                <li>02 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                
                 <!--End Single Courses One-->
 
                 <!--Start Single Courses One-->
@@ -473,155 +370,19 @@ include 'cursos/header.php';
                 <!--End Single Courses One-->
 
                 <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item business">
-                    <div class="courses-one__single wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <img src="assets/images/resources/corte_suprema.jpg" alt=""/>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img1.png" alt=""/>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Dr. Julio Pozo Sánchez</h6>
-                            <h4 class="courses-one__single-content-title"><a href="course-details.html">Proceso de Desalojo en la Corte Suprema</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>01 Sesiones</li>
-                                <li>01 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                
                 <!--End Single Courses One-->
 
                 <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item business">
-                    <div class="courses-one__single wow fadeInLeft" data-wow-delay="100ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <img src="assets/images/resources/contrataciones_estado.jpg" alt=""/>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img2.png" alt=""/>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Mg. Víctor Villanueva</h6>
-                            <h4 class="courses-one__single-content-title"><a href="course-details.html">Modificaciones al Reglamento con el Estado</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>03 Sesiones</li>
-                                <li>07 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                
                 <!--End Single Courses One-->
 
                 <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item business">
-                    <div class="courses-one__single wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <img src="assets/images/resources/codigo_procesal.jpg" alt=""/>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img3.png" alt=""/>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Hamilton Montoro</h6>
-                            <h4 class="courses-one__single-content-title"><a href="course-details.html">Especialización Nuevo Código Penal</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>08 Sesiones</li>
-                                <li>14 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                
                 <!--End Single Courses One-->
 
                 <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item business">
-                    <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <img src="assets/images/resources/litigacion_oral.png" alt=""/>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img4.png" alt=""/>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Victor Cubas Villanueva</h6>
-                            <h4 class="courses-one__single-content-title"><a href="course-details.html">Litigación Oral en el nuevo Código Procesal Penal</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>02 Sesiones</li>
-                                <li>06 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                
                 <!--End Single Courses One-->
 
                 <!--Start Single Courses One-->

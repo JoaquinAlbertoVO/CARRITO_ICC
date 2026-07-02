@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 namespace App\Controllers;
 
 use App\Core\Controller;
@@ -28,7 +28,7 @@ class AdminCursosController extends Controller {
         ];
 
         // Llama a la vista del dashboard principal usando el layout de admin
-        $this->view('admin/dashboard/index', $data, 'admin/layouts/main');
+        $this->view('admin/dashboard', $data, 'admin/layouts/main');
     }
 
     public function ingenieria() {
@@ -51,7 +51,7 @@ class AdminCursosController extends Controller {
             'pagina' => $pagina,
             'total_paginas' => $total_paginas,
             'busqueda' => $busqueda,
-            'titulo' => 'IngenierÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a ElÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©ctrica',
+            'titulo' => 'Ingeniería Eléctrica',
             'ruta_lista' => 'admin/ingenieria',
             'ruta_registro' => 'admin/ingenieria_registro',
             'ruta_editar' => 'admin/ingenieria_editar',
@@ -80,7 +80,7 @@ class AdminCursosController extends Controller {
             'pagina' => $pagina,
             'total_paginas' => $total_paginas,
             'busqueda' => $busqueda,
-            'titulo' => 'Derecho y GestiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n PÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºblica',
+            'titulo' => 'Derecho y Gestión Pública',
             'ruta_lista' => 'admin/derecho',
             'ruta_registro' => 'admin/derecho_registro',
             'ruta_editar' => 'admin/derecho_editar',

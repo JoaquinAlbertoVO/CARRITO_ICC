@@ -32,7 +32,7 @@
                         <div class="courses-one__single style2 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                             <div class="courses-one__single-content">
                                 <div class="courses-one__single-content-overlay-img">
-                                    <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?><?= BASE_URL ?>assets/images/resources/course-details-overlay-img.png" alt=""/>
+                                    <img src="<?= BASE_URL ?>assets/images/resources/course-details-overlay-img.png" alt=""/>
                                 </div>
                                 <h6 class="courses-one__single-content-name">Actualizado recientemente 04 marzo, 2023<span></span></h6>
                                 <h4 class="courses-one__single-content-title">Curso de Compensación de energía reactiva</h4>
@@ -484,7 +484,7 @@
                             <ul class="course-details__new-courses-list list-unstyled">
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?><?= BASE_URL ?>assets/images/resources/programacion_plc.png" alt=""/>
+                                        <img src="<?= BASE_URL ?>assets/images/resources/programacion_plc.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_plc">Programación básica de PLC</a></h4>
@@ -506,7 +506,7 @@
 
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?><?= BASE_URL ?>assets/images/resources/puesta_tierra.png" alt=""/>
+                                        <img src="<?= BASE_URL ?>assets/images/resources/puesta_tierra.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_puesta_tierra.php">Sistema puesta a tierra</a></h4>
@@ -528,7 +528,7 @@
 
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?><?= BASE_URL ?>assets/images/resources/banco_condensadores.png" alt=""/>
+                                        <img src="<?= BASE_URL ?>assets/images/resources/banco_condensadores.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_banco_condensadores.php">Banco de condensadores</a></h4>
@@ -556,4 +556,5 @@
         </div>
     </section>
     <!--End Course Details-->
+
 

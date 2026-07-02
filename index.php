@@ -7,7 +7,7 @@ include 'index/header.php';
     <div id="promo-popup" class="popup">
         <div class="popup-content">
             <span class="close" id="close-popup">&times;</span>
-            <img src="assets/images/promociones/Capacitacion_Manteniemiento_de_Subestacion_Electrica.jpeg" alt="curso de Mantenimiento de SubestaciÃ³n ElÃ©ctrica Presencial" class="promo-image">
+            <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/promociones/Capacitacion_Manteniemiento_de_Subestacion_Electrica.jpeg" alt="curso de Mantenimiento de SubestaciÃ³n ElÃ©ctrica Presencial" class="promo-image">
             <!--<h2>Â¡Oferta Especial!</h2>
             <p>ObtÃ©n un <strong>20% de descuento</strong> en tu primera compra. Usa el cÃ³digo <strong>BIENVENIDO20</strong> al pagar.</p>-->
             <button onclick="window.location.href='https://wa.link/u045or'">Â¡LO QUIERO!</button>
@@ -253,16 +253,16 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                     <!--Start Welcome One Right-->
                     <div class="col-xl-6">
                         <div class="welcome-one__right clearfix">
-                            <div class="shape1 rotate-me"><img src="assets/images/shapes/thm-shape1.png" alt="" /></div>
+                            <div class="shape1 rotate-me"><img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/shapes/thm-shape1.png" alt="" /></div>
                             <div class="welcome-one__right-img1 wow slideInRight" data-wow-delay="100ms"
                                 data-wow-duration="2500ms">
                                 <div class="welcome-one__right-img1-inner">
-                                    <img src="assets/images/resources/bienvenida.png" alt="" />
+                                    <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/bienvenida.png" alt="" />
                                 </div>
                             </div>
                             <div class="welcome-one__right-img2 wow zoomIn" data-wow-delay="100ms"
                                 data-wow-duration="3500ms">
-                                <img src="assets/images/resources/bienvenido.png" alt="" />
+                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/bienvenido.png" alt="" />
                             </div>
                         </div>
                     </div>
@@ -337,7 +337,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
 
         <!--Start Testimonials Two-->
         <section class="testimonials-two">
-            <div class="testimonials-two__pattern"><img src="assets/images/pattern/testimonials-two-left-pattern.png"
+            <div class="testimonials-two__pattern"><img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/pattern/testimonials-two-left-pattern.png"
                     alt="" /></div>
             <div class="container">
                 <div class="row">
@@ -365,7 +365,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                                         <p class="testimonials-one__single-text">Un curso muy recomendado, ayuda ampliar los conocimientos acerca del Sector EnergÃ­a. AdemÃ¡s de conocer el Marco Interinstitucional del Subsector ElÃ©ctrico de una forma muy didÃ¡ctica.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
-                                                <!--<img src="assets/images/testimonial/testimonio1.png"
+                                                <!--<img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/testimonial/testimonio1.png"
                                                     alt="" />-->
                                             </div>
                                             <div class="testimonials-one__single-client-info-text">
@@ -387,7 +387,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                                         <p class="testimonials-one__single-text">Este curso fue Ãºtil para abarcarme en la especializaciÃ³n de Redes. Los Ponentes son muy concisos y se observa su profesionalismo.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
-                                                <!--<img src="assets/images/testimonial/testimonio2.png"
+                                                <!--<img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/testimonial/testimonio2.png"
                                                     alt="" />-->
                                             </div>
                                             <div class="testimonials-one__single-client-info-text">
@@ -409,7 +409,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                                         <p class="testimonials-one__single-text">Los materiales educativos son muy buenos y completos, del mismo modo que resulta muy fÃ¡cil de abordar sin tener conocimientos previos.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
-                                                <!--<img src="assets/images/testimonial/testimonio3.png"
+                                                <!--<img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/testimonial/testimonio3.png"
                                                     alt="" />-->
                                             </div>
                                             <div class="testimonials-one__single-client-info-text">
@@ -431,7 +431,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                                         <p class="testimonials-one__single-text">Fue todo un placer realizar este curso. Puesto que el enfoque del ponente fue impecable. Me gustarÃ­a realizar otro curso que amplie mis conocimientos relacionado a este campo.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
-                                                <!--<img src="assets/images/testimonial/testimonio5.png"
+                                                <!--<img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/testimonial/testimonio5.png"
                                                     alt="" />-->
                                             </div>
                                             <div class="testimonials-one__single-client-info-text">
@@ -452,7 +452,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                                         <p class="testimonials-one__single-text">El curso dictado fue muy interesante. La estructura y la calidad de los contenidos han sido de lo mejor para el aprendizaje. Me han permitido descubrir acerca de este tema que tardarÃ­a en descubrir por mÃ­ mismo</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
-                                                <!--<img src="assets/images/testimonial/testimonio4.png"
+                                                <!--<img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/testimonial/testimonio4.png"
                                                     alt="" />-->
                                             </div>
                                             <div class="testimonials-one__single-client-info-text">
@@ -479,9 +479,9 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="registration-two__wrapper">
-                            <div class="shape1 zoom-fade"><img src="assets/images/shapes/thm-shape2.png" alt="" /></div>
+                            <div class="shape1 zoom-fade"><img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/shapes/thm-shape2.png" alt="" /></div>
                             <div class="shape2 wow slideInRight" data-wow-delay="100ms" data-wow-duration="2500ms"><img
-                                    src="assets/images/shapes/thm-shape3.png" alt="" /></div>
+                                    src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/shapes/thm-shape3.png" alt="" /></div>
                             <div class="registration-two__left">
                                 <h2 class="" style="font-size: 50px; color: #FFF;">Comience su carrera educativa <br>con ICC</h2>
                             </div>

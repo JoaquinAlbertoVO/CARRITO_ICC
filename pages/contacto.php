@@ -1,6 +1,6 @@
-<?php 
-include 'contacto/head.php'; 
-include 'contacto/header.php';
+<?php $base_path = "../";  
+include '../contacto/head.php'; 
+include '../contacto/header.php';
 ?>
     <!--Page Header Start-->
     <section class="page-header clearfix" style="background-image: url(assets/images/backgrounds/page-header-bg.jpg);">
@@ -140,7 +140,7 @@ include 'contacto/header.php';
     </section>-->
     <!--Contact Page Google Map End-->
 <?php  
-include 'nosotros/footer.php';
-include 'nosotros/mobile.php';
-include 'contacto/script.php';
+include '../nosotros/footer.php';
+include '../nosotros/mobile.php';
+include '../contacto/script.php';
 ?>

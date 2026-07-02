@@ -1,7 +1,8 @@
-<?php  
-include 'cursos_ingenieria/head.php';
-include 'cursos_ingenieria/header.php';
+<?php $base_path = "../../";   
+include '../../cursos_ingenieria/head.php';
+include '../../cursos_ingenieria/header.php';
 ?>
+
     <!--Page Header Start-->
     <!--<section class="page-header clearfix" style="background-image: url(assets/images/backgrounds/page-header-bg.jpg);">
         <div class="container">
@@ -35,17 +36,17 @@ include 'cursos_ingenieria/header.php';
                         <!--Start Single Courses One-->
                         <div class="courses-one__single style2 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                             <div class="courses-one__single-img">
-                                <img src="assets/images/resources/puesta_tierra1.png" alt=""/>
+                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/analizador_redes1.png" alt=""/>
                                 <div class="overlay-text">
                                     <p>libre</p>
                                 </div>
                             </div>
                             <div class="courses-one__single-content">
                                 <div class="courses-one__single-content-overlay-img">
-                                    <img src="assets/images/resources/course-details-overlay-img.png" alt=""/>
+                                    <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/course-details-overlay-img.png" alt=""/>
                                 </div>
-                                <h6 class="courses-one__single-content-name">Hipolito Coaguila Berrios <span>Actualizado recientemente 20 junio, 2021</span></h6>
-                                <h4 class="courses-one__single-content-title">Sistema Puesta a Tierra</h4>
+                                <h6 class="courses-one__single-content-name">Ricardo Cardenas <span>Actualizado recientemente 20 junio, 2021</span></h6>
+                                <h4 class="courses-one__single-content-title">Configuración e Instalación de Analizadores de redes</h4>
                                 <div class="courses-one__single-content-review-box">
                                     <ul class="list-unstyled">
                                         <li><i class="fa fa-star"></i></li>
@@ -129,6 +130,205 @@ include 'cursos_ingenieria/header.php';
                             </div>
                         </div>
                         <!--End Single Courses One-->
+
+                        <!--Start Course TEMARIO-->
+                        <div class="">
+                            <div class="">
+                                <div class="accordion">
+                                    <h1 style="background-color: #F1F2F6; border-radius: 8px; font-family: League Spartan;">Temario</h1>
+                                    <dl>
+                                        <dt><a class="accordionTitle courses-one__single-content" href="#" style="font-family: League Spartan;">MÓDULO I: GENERALIDADES</a></dt>
+                                        <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
+                                            <div class="course-details__content-list"><br>
+                                                <ul class="list-unstyled" style="padding-left: 35px;">
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Tipos de analizadores.</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Homologación - INACAL.</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Normativa Vigente.</p>
+                                                        </div>
+                                                    </li>
+                                                </ul><br>
+                                            </div>
+                                        </dd>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo II: MEDICIONES Y PERTURBACIONES</a></dt>
+                                        <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
+                                            <div class="course-details__content-list"><br>
+                                                <ul class="list-unstyled" style="padding-left: 35px;">
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Parámetros eléctricos.</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Perturbaciones eléctricas.</p>
+                                                        </div>
+                                                    </li>
+                                                </ul><br>
+                                            </div>
+                                        </dd>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo III: SELECCIÓN</a></dt>
+                                        <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
+                                            <div class="course-details__content-list"><br>
+                                                <ul class="list-unstyled" style="padding-left: 35px;">
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Por el Rango de medición.</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Por los componentes.</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Por disposición de uso.</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Por su nivel de precisión.</p>
+                                                        </div>
+                                                    </li>
+                                                </ul><br>
+                                            </div>
+                                        </dd>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo IV: INSTALACIÓN</a></dt>
+                                        <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
+                                            <div class="course-details__content-list"><br>
+                                                <ul class="list-unstyled" style="padding-left: 35px;">
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Consideraciones de instalación.</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Consideraciones de instalación.</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Instalación en Puerta de panel.</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Instalación en campo.</p>
+                                                        </div>
+                                                    </li>
+                                                </ul><br>
+                                            </div>
+                                        </dd>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo V: CONFIGURACIÓN</a></dt>
+                                        <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
+                                            <div class="course-details__content-list"><br>
+                                                <ul class="list-unstyled" style="padding-left: 35px;">
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Configuración eventos y parámetros eléctricos.</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Selección del tipo de conexión.</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Programación de intervalos de medición.</p>
+                                                        </div>
+                                                    </li>
+                                                </ul><br>
+                                            </div>
+                                        </dd>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo VI: REGISTRO DE INFORMACIÓN</a></dt>
+                                        <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
+                                            <div class="course-details__content-list"><br>
+                                                <ul class="list-unstyled" style="padding-left: 35px;">
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Extracción de información del equipo.</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon">
+                                                            <span class="icon-confirmation"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>Modelación de datos.</p>
+                                                        </div>
+                                                    </li>
+                                                </ul><br>
+                                            </div>
+                                        </dd>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo VII: EVALUACIÓN</a></dt>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Course TEMARIO--><br>
 
                         <!--Start Course Details Curriculum-->
                         <div class="course-details__curriculum">
@@ -231,7 +431,7 @@ include 'cursos_ingenieria/header.php';
                                     <form action="assets/inc/sendemail.php" class="comment-one__form contact-form-validated" novalidate="novalidate">
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-12">
-                                                <a href="https://wa.link/ppn9gx" target="_black" class="thm-btn comment-form__btn">Inscríbete Aquí</a>
+                                                <a href="https://wa.link/72kz26" target="_black" class="thm-btn comment-form__btn">Inscríbete Aquí</a>
                                             </div>
                                         </div>
                                     </form>
@@ -249,7 +449,7 @@ include 'cursos_ingenieria/header.php';
                         <div class="course-details__price wow fadeInUp animated" data-wow-delay="0.1s">
                             <h2 class="course-details__price-amount">S/89.90<span><del>S/99.90</del></span></h2>
                             <div class="course-details__price-btn">
-                                <a href="https://wa.link/ppn9gx" target="_black" class="thm-btn">compra este curso</a>
+                                <a href="https://wa.link/72kz26" target="_black" class="thm-btn">compra este curso</a>
                             </div>
                         </div>
 
@@ -307,7 +507,7 @@ include 'cursos_ingenieria/header.php';
                             <ul class="course-details__new-courses-list list-unstyled">
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="assets/images/resources/analisis_facturacion.png" alt=""/>
+                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/analisis_facturacion.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_analisis_facturacion.php">Análisis de facturación y tarifas eléctricas</a></h4>
@@ -329,10 +529,10 @@ include 'cursos_ingenieria/header.php';
 
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="assets/images/resources/programacion_plc.png" alt=""/>
+                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/puesta_tierra.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
-                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_plc">Programación básica de PLC</a></h4>
+                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_puesta_tierra.php">Sistema puesta a tierra</a></h4>
                                         <div class="course-details__new-courses-rateing-box">
                                             <ul class="list-unstyled">
                                                 <li><i class="fas fa-star"></i></li>
@@ -351,10 +551,10 @@ include 'cursos_ingenieria/header.php';
 
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="assets/images/resources/banco_condensadores.png" alt=""/>
+                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/banco_condensadores.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
-                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_banco_condensadores">Banco de condensadores</a></h4>
+                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_banco_condensadores.php">Banco de condensadores</a></h4>
                                         <div class="course-details__new-courses-rateing-box">
                                             <ul class="list-unstyled">
                                                 <li><i class="fas fa-star"></i></li>
@@ -380,7 +580,7 @@ include 'cursos_ingenieria/header.php';
     </section>
     <!--End Course Details-->
 <?php 
-include 'cursos_ingenieria/footer.php';
-include 'cursos_ingenieria/mobile.php';
-include 'cursos_ingenieria/script.php'; 
+include '../../cursos_ingenieria/footer.php';
+include '../../cursos_ingenieria/mobile.php';
+include '../../cursos_ingenieria/script.php'; 
 ?>

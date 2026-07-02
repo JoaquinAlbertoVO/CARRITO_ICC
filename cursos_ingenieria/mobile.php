@@ -7,7 +7,7 @@
                 <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
 
                 <div class="logo-box">
-                    <a href="index.html" aria-label="logo image"><img src="assets/images/resources/icc-logo-electrica.png"
+                    <a href="index.html" aria-label="logo image"><img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/icc-logo-electrica.png"
                             width="200" alt="" /></a>
                 </div>
                 <!-- /.logo-box -->

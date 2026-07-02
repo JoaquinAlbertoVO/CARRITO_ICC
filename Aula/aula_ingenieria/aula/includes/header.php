@@ -18,7 +18,7 @@ if (empty($_SESSION['active'])) {
                                     <!-- LOGO -->
                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="30" height="30">
                                         <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
-                                            <img width="170" src="assets/images/favicons/icc-logo1.png" alt="ICC">
+                                            <img width="170" src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/favicons/icc-logo1.png" alt="ICC">
                                         </g>
                                     </svg>
                                 </span>
@@ -34,7 +34,7 @@ if (empty($_SESSION['active'])) {
                                     <span class=" nav-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="25" height="25">
                                             <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
-                                                <img width="150" src="assets/images/favicons/icc-logo-electrica.png" alt="ICC-electrica">
+                                                <img width="150" src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/favicons/icc-logo-electrica.png" alt="ICC-electrica">
                                             </g>
                                         </svg>
                                     </span>

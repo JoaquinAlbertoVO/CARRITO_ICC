@@ -2,7 +2,7 @@
  
  
 .fondo-portada{
-    background-image: url(../imagenes/ICC_instituto_de_capacitacion_continua_cursos_de_ingenieria.jpg);
+    background-image: url(../assets/images/ICC_instituto_de_capacitacion_continua_cursos_de_ingenieria.jpg);
     background-size: cover;
     height: 50vmax;
     
@@ -38,7 +38,7 @@
     flex-direction: row;
     flex-wrap: nowrap ;
     justify-content: center;
-     background-image: url(../imagenes/portadavirtual.png);
+     background-image: url(../assets/images/portadavirtual.png);
     background-size: cover;
     
  
@@ -70,7 +70,7 @@ box-shadow: 8px 7px 22px 3px rgba(33,47,66,0.79);
     width: 400px !important;
 }
 .portada_nosotros{
-background-image: url(../imagenes/nosotros.jpg);
+background-image: url(../assets/images/nosotros.jpg);
     background-size: cover;
     height: 50vmax;
     
@@ -78,20 +78,20 @@ background-image: url(../imagenes/nosotros.jpg);
 
 
 .fondo-ingenieria{
-background-image: url(../imagenes/ingenieria.png);
+background-image: url(../assets/images/ingenieria.png);
     background-size: cover;
     
     
 }
 
 .fondo-derecho{
-background-image: url(../imagenes/derecho.jpg);
+background-image: url(../assets/images/derecho.jpg);
     background-size: cover;
 
 }
 
 .fondo-contactanos{
-background-image: url(../imagenes/fondo.png);
+background-image: url(../assets/images/fondo.png);
     background-size: cover;
     
 }

@@ -1,7 +1,8 @@
-<?php  
-include 'cursos_ingenieria/head.php';
-include 'cursos_ingenieria/header.php';
+<?php $base_path = "../../";   
+include '../../cursos_ingenieria/head.php';
+include '../../cursos_ingenieria/header.php';
 ?>
+
 
     <!--Page Header Start-->
     <!--<section class="page-header clearfix" style="background-image: url(assets/images/backgrounds/page-header-bg.jpg);">
@@ -36,17 +37,17 @@ include 'cursos_ingenieria/header.php';
                         <!--Start Single Courses One-->
                         <div class="courses-one__single style2 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                             <div class="courses-one__single-img">
-                                <img src="assets/images/resources/motores_electricos1.png" alt=""/>
+                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/gestionyseguridad.png" alt=""/>
                                 <div class="overlay-text">
                                     <p>libre</p>
                                 </div>
                             </div>
                             <div class="courses-one__single-content">
                                 <div class="courses-one__single-content-overlay-img">
-                                    <img src="assets/images/resources/course-details-overlay-img.png" alt=""/>
+                                    <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/course-details-overlay-img.png" alt=""/>
                                 </div>
-                                <h6 class="courses-one__single-content-name">Hipólito Coaguila Berrios <span>Actualizado recientemente 20 junio, 2021</span></h6>
-                                <h4 class="courses-one__single-content-title">Motores Eléctricos</h4>
+                                <h6 class="courses-one__single-content-name">Melissa Jiménez Ll. <span>Actualizado recientemente 20 junio, 2021</span></h6>
+                                <h4 class="courses-one__single-content-title">Gestión y Seguridad en el Trabajo Ley Nº29783</h4>
                                 <div class="courses-one__single-content-review-box">
                                     <ul class="list-unstyled">
                                         <li><i class="fa fa-star"></i></li>
@@ -232,7 +233,7 @@ include 'cursos_ingenieria/header.php';
                                     <form action="assets/inc/sendemail.php" class="comment-one__form contact-form-validated" novalidate="novalidate">
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-12">
-                                                <a href="https://wa.link/yc8gx4" target="_black" class="thm-btn comment-form__btn">Inscríbete Aquí</a>
+                                                <a href="https://wa.link/zw6o1w" target="_black" class="thm-btn comment-form__btn">Inscríbete Aquí</a>
                                             </div>
                                         </div>
                                     </form>
@@ -250,7 +251,7 @@ include 'cursos_ingenieria/header.php';
                         <div class="course-details__price wow fadeInUp animated" data-wow-delay="0.1s">
                             <h2 class="course-details__price-amount">S/89.90<span><del>S/99.90</del></span></h2>
                             <div class="course-details__price-btn">
-                                <a href="https://wa.link/yc8gx4" target="_black" class="thm-btn">compra este curso</a>
+                                <a href="https://wa.link/zw6o1w" target="_black" class="thm-btn">compra este curso</a>
                             </div>
                         </div>
 
@@ -308,7 +309,7 @@ include 'cursos_ingenieria/header.php';
                             <ul class="course-details__new-courses-list list-unstyled">
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="assets/images/resources/analisis_facturacion.png" alt=""/>
+                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/analisis_facturacion.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_analisis_facturacion.php">Análisis de facturación y tarifas eléctricas</a></h4>
@@ -330,7 +331,7 @@ include 'cursos_ingenieria/header.php';
 
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="assets/images/resources/puesta_tierra.png" alt=""/>
+                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/puesta_tierra.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_puesta_tierra.php">Sistema puesta a tierra</a></h4>
@@ -352,7 +353,7 @@ include 'cursos_ingenieria/header.php';
 
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="assets/images/resources/banco_condensadores.png" alt=""/>
+                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/banco_condensadores.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_banco_condensadores.php">Banco de condensadores</a></h4>
@@ -381,7 +382,7 @@ include 'cursos_ingenieria/header.php';
     </section>
     <!--End Course Details-->
 <?php 
-include 'cursos_ingenieria/footer.php';
-include 'cursos_ingenieria/mobile.php';
-include 'cursos_ingenieria/script.php'; 
+include '../../cursos_ingenieria/footer.php';
+include '../../cursos_ingenieria/mobile.php';
+include '../../cursos_ingenieria/script.php'; 
 ?>

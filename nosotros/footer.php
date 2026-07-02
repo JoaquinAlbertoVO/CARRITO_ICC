@@ -9,7 +9,7 @@
                         <div class="col-xl-2 col-lg-4 col-md-4 wow animated fadeInUp" data-wow-delay="0.1s">
                             <div class="footer-widget__column footer-widget__about">
                                 <div class="footer-widget__about-logo">
-                                    <a href="./"><img width="160" height="60" src="assets/images/resources/icc-logo1.png" alt=""></a>
+                                    <a href="./"><img width="160" height="60" src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/icc-logo1.png" alt=""></a>
                                 </div>
                             </div>
                         </div>

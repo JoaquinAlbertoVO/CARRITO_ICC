@@ -25,7 +25,7 @@ if (empty($_SESSION['active'])) {
                                     <!-- LOGO -->
                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="30" height="30">
                                         <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
-                                            <img width="170" src="assets/images/favicons/icc-logo1.png" alt="ICC">
+                                            <img width="170" src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/favicons/icc-logo1.png" alt="ICC">
                                         </g>
                                     </svg>
                                 </span>
@@ -43,14 +43,14 @@ if (empty($_SESSION['active'])) {
                                                 <?php  
                                                 if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                                                     ?>
-                                                    <img width="150" src="assets/images/favicons/icc-logo-electrica.png" alt="ICC-electrica">
+                                                    <img width="150" src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/favicons/icc-logo-electrica.png" alt="ICC-electrica">
                                                     <?php 
                                                 }
                                                 ?>
                                                 <?php  
                                                 if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                                                     ?>
-                                                    <img width="150" src="assets/images/favicons/icc-logo-derecho.png" alt="ICC-electrica">
+                                                    <img width="150" src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/favicons/icc-logo-derecho.png" alt="ICC-electrica">
                                                     <?php 
                                                 }
                                                 ?>
@@ -75,7 +75,7 @@ if (empty($_SESSION['active'])) {
                                 <!--<div class="dropdown-item d-flex align-items-center py-2 navbar-company-info py-3">
 
                                     <span class="mr-3">
-                                        <img src="assets/images/frontted-logo-blue.svg" width="43" height="43" alt="avatar">
+                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/frontted-logo-blue.svg" width="43" height="43" alt="avatar">
                                     </span>
                                     <span class="flex d-flex flex-column">
                                         <strong class="h5 m-0">Adrian D.</strong>

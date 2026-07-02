@@ -14,14 +14,12 @@ jobs:
       - name: 📥 Obtener el código
         uses: actions/checkout@v4
 
-      - name: 🚀 Subir a cPanel por FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: 🚀 Subir a cPanel por SFTP
+        uses: wangyucode/sftp-upload-action@v3
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          host: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_KEY }}
-          server-dir: public_html/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/.github/**
+          localDir: '.'
+          remoteDir: 'public_html'
+          exclude: '.git/**,.github/**'

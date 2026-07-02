@@ -14,12 +14,17 @@ class AdminCursosController extends Controller {
     }
 
     public function dashboard() {
-        // Datos para el dashboard (simulados temporalmente)
+        $estudianteModel = new \App\Models\Estudiante();
+        $statsIngenieria = $estudianteModel->getDashboardStatsIngenieria();
+        $statsDerecho = $estudianteModel->getDashboardStatsDerecho();
+        
         $data = [
-            'total_mes_ingenieria' => 0,
-            'total_general_ingenieria' => 0,
-            'total_mes_derecho' => 0,
-            'total_general_derecho' => 0,
+            'total_mes_ingenieria' => $statsIngenieria['total_mes'],
+            'total_general_ingenieria' => $statsIngenieria['total_general'],
+            'estudiantes_ingenieria' => $statsIngenieria['estudiantes'],
+            'total_mes_derecho' => $statsDerecho['total_mes'],
+            'total_general_derecho' => $statsDerecho['total_general'],
+            'estudiantes_derecho' => $statsDerecho['estudiantes'],
         ];
 
         // Llama a la vista del dashboard principal usando el layout de admin

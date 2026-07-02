@@ -14,7 +14,7 @@ class Estudiante {
 
     /**
      * Obtiene la lista de estudiantes para una especialidad
-     * $tabla: 'usuario' para IngenierÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a, 'usuario_d' para Derecho
+     * $tabla: 'usuario' para IngenierÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a, 'usuario_d' para Derecho
      */
     public function getEstudiantes($tabla, $desde, $por_pagina, $busqueda = '') {
         $where = "estatus = 1";
@@ -39,7 +39,7 @@ class Estudiante {
     }
 
     /**
-     * Obtiene el total de registros para paginaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n
+     * Obtiene el total de registros para paginaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n
      */
     public function getTotalEstudiantes($tabla, $busqueda = '') {
         $where = "estatus = 1";
@@ -267,6 +267,51 @@ class Estudiante {
         } catch (\PDOException $e) {
             error_log("Error eliminando estudiante de derecho: " . $e->getMessage());
             return false;
+        }
+    }
+    public function getDashboardStatsIngenieria() {
+        $mes_actual = date('n'); // Mes actual sin ceros a la izquierda, ej: 10
+        try {
+            $sql = "SELECT COUNT(*) as estudiantes, SUM(m_pagado) as total_general FROM usuario";
+            $stmt = $this->db->query($sql);
+            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            $sql_mes = "SELECT SUM(m_pagado) as total_mes FROM usuario WHERE MONTH(fecha_deposito) = ?";
+            $stmt_mes = $this->db->prepare($sql_mes);
+            $stmt_mes->execute([$mes_actual]);
+            $row_mes = $stmt_mes->fetch(\PDO::FETCH_ASSOC);
+
+            return [
+                'estudiantes' => $row['estudiantes'] ?? 0,
+                'total_general' => $row['total_general'] ?? 0,
+                'total_mes' => $row_mes['total_mes'] ?? 0
+            ];
+        } catch (\PDOException $e) {
+            error_log("Error obteniendo stats de ingenieria: " . $e->getMessage());
+            return ['estudiantes' => 0, 'total_general' => 0, 'total_mes' => 0];
+        }
+    }
+
+    public function getDashboardStatsDerecho() {
+        $mes_actual = date('n');
+        try {
+            $sql = "SELECT COUNT(*) as estudiantes, SUM(m_pagado) as total_general FROM usuario_d";
+            $stmt = $this->db->query($sql);
+            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            $sql_mes = "SELECT SUM(m_pagado) as total_mes FROM usuario_d WHERE MONTH(fecha_deposito) = ?";
+            $stmt_mes = $this->db->prepare($sql_mes);
+            $stmt_mes->execute([$mes_actual]);
+            $row_mes = $stmt_mes->fetch(\PDO::FETCH_ASSOC);
+
+            return [
+                'estudiantes' => $row['estudiantes'] ?? 0,
+                'total_general' => $row['total_general'] ?? 0,
+                'total_mes' => $row_mes['total_mes'] ?? 0
+            ];
+        } catch (\PDOException $e) {
+            error_log("Error obteniendo stats de derecho: " . $e->getMessage());
+            return ['estudiantes' => 0, 'total_general' => 0, 'total_mes' => 0];
         }
     }
 }

@@ -22,7 +22,7 @@
                             <tr>
                                 <th>Nombres Completos</th>
                                 <th style="width: 37px;">Usuario</th>
-                                <th style="width: 120px;">Contraseña</th>
+                                <th style="width: 120px;">ContraseÃ±a</th>
                                 <th style="width: 120px;">Monto Pagado</th>
                                 <th style="width: 24px;"></th>
                             </tr>
@@ -44,7 +44,7 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a class="dropdown-item" href="<?= BASE_URL . $ruta_editar ?>?id=<?= $data["iduser"] ?>">Editar</a>
-                                                    <?php if ((\['rol'] ?? 1) == 1): ?>
+                                                    <?php if (($_SESSION['rol'] ?? 1) == 1): ?>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-item text-danger lista__delete" href="<?= BASE_URL . $ruta_eliminar ?>?id=<?= $data["iduser"] ?>">Eliminar</a>
                                                     <?php endif; ?>

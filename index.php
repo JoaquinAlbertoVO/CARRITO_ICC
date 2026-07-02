@@ -1,6 +1,7 @@
 <?php
 // Iniciar la sesión global para la aplicación
 session_start();
+header('Content-Type: text/html; charset=utf-8');
 
 // Habilitar errores para depuración (remover en producción)
 ini_set('display_errors', 1);

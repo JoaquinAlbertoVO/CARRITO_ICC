@@ -46,8 +46,9 @@ class AdminCursosController extends Controller {
             'pagina' => $pagina,
             'total_paginas' => $total_paginas,
             'busqueda' => $busqueda,
-            'titulo' => 'IngenierÃƒÂ­a ElÃƒÂ©ctrica',
+            'titulo' => 'IngenierÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a ElÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©ctrica',
             'ruta_lista' => 'admin/ingenieria',
+            'ruta_registro' => 'admin/ingenieria_registro',
             'ruta_editar' => 'admin/ingenieria_editar',
             'ruta_eliminar' => 'admin/ingenieria_delete'
         ];
@@ -74,8 +75,9 @@ class AdminCursosController extends Controller {
             'pagina' => $pagina,
             'total_paginas' => $total_paginas,
             'busqueda' => $busqueda,
-            'titulo' => 'Derecho y GestiÃƒÂ³n PÃƒÂºblica',
+            'titulo' => 'Derecho y GestiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblica',
             'ruta_lista' => 'admin/derecho',
+            'ruta_registro' => 'admin/derecho_registro',
             'ruta_editar' => 'admin/derecho_editar',
             'ruta_eliminar' => 'admin/derecho_delete'
         ];
@@ -247,5 +249,51 @@ class AdminCursosController extends Controller {
             'data' => $estudiante
         ];
         $this->view('admin/derecho/editar', $data, 'admin/layouts/main');
+    }
+    public function derecho_registro() {
+        $alert = '';
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (empty($_POST['nombre']) || empty($_POST['usuario']) || empty($_POST['pass'])) {
+                $alert = '
+                    <div class="alert alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Aviso - </strong> Todos los campos son obligatorios
+                    </div>
+                ';
+            } else {
+                $data = $_POST;
+                $foto = $_FILES['foto'] ?? null;
+                
+                $estudianteModel = new \App\Models\Estudiante();
+                $resultado = $estudianteModel->registrarEstudianteDerecho($_SESSION['idUser'] ?? 1, $data, $foto);
+
+                if ($resultado) {
+                    $alert = '
+                        <div class="alert alert-dismissible bg-success text-white border-0 fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Exitoso - </strong> Registro guardado satisfactoriamente
+                        </div>
+                    ';
+                } else {
+                    $alert = '
+                        <div class="alert alert-dismissible bg-warning border-0 fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Advertencia - </strong> Error al guardar el registro
+                        </div>
+                    ';
+                }
+            }
+        }
+
+        $data = [
+            'alert' => $alert
+        ];
+        $this->view('admin/derecho/registro', $data, 'admin/layouts/main');
     }
 }

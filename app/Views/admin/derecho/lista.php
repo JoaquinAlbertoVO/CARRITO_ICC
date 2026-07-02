@@ -22,7 +22,7 @@
                             <tr>
                                 <th>Nombres Completos</th>
                                 <th style="width: 37px;">Usuario</th>
-                                <th style="width: 120px;">Contraseña</th>
+                                <th style="width: 120px;">ContraseÃ±a</th>
                                 <th style="width: 120px;">Monto Pagado</th>
                                 <th style="width: 24px;"></th>
                             </tr>

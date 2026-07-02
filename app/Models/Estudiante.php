@@ -14,7 +14,7 @@ class Estudiante {
 
     /**
      * Obtiene la lista de estudiantes para una especialidad
-     * $tabla: 'usuario' para IngenierÃƒÂ­a, 'usuario_d' para Derecho
+     * $tabla: 'usuario' para IngenierÃƒÆ’Ã‚Â­a, 'usuario_d' para Derecho
      */
     public function getEstudiantes($tabla, $desde, $por_pagina, $busqueda = '') {
         $where = "estatus = 1";
@@ -39,7 +39,7 @@ class Estudiante {
     }
 
     /**
-     * Obtiene el total de registros para paginaciÃƒÂ³n
+     * Obtiene el total de registros para paginaciÃƒÆ’Ã‚Â³n
      */
     public function getTotalEstudiantes($tabla, $busqueda = '') {
         $where = "estatus = 1";
@@ -193,6 +193,58 @@ class Estudiante {
             return true;
         } catch (\PDOException $e) {
             error_log("Error actualizando estudiante derecho: " . $e->getMessage());
+            return false;
+        }
+    }
+    public function registrarEstudianteDerecho($id_pla, $data, $foto) {
+        $nombre = $data['nombre'];
+        $correo = $data['correo'] ?? '';
+        $telefono = $data['telefono'] ?? '';
+        $dni = $data['dni'] ?? '';
+        $nopera = $data['nopera'] ?? '';
+        $mpagado = $data['mpagado'] ?? '';
+        $encargado = $data['encargado'] ?? '';
+        $banco = $data['banco'] ?? '';
+        $fecha = $data['fecha'] ?? '';
+        $usuario = $data['usuario'];
+        $pass = $data['pass'];
+        
+        $imgboucher = 'ejemplo.png';
+
+        if ($foto && $foto['name'] != '') {
+            $destino = 'public/assets/img/uploads/';
+            if (!is_dir($destino)) {
+                mkdir($destino, 0777, true);
+            }
+            $img_nombre = 'img_' . md5(date('d-m-Y H:i:s'));
+            $imgboucher = $img_nombre . '.jpg';
+            $src = $destino . $imgboucher;
+            move_uploaded_file($foto['tmp_name'], $src);
+        }
+
+        try {
+            $this->db->beginTransaction();
+
+            $sql = "INSERT INTO usuario_d(id_pla, nombre, correo, telefono, dni, n_operacion, m_pagado, encargado, banco, fecha_deposito, usuario, password, boucher) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                $id_pla, $nombre, $correo, $telefono, $dni, $nopera, $mpagado, $encargado, $banco, $fecha, $usuario, $pass, $imgboucher
+            ]);
+
+            $iduser = $this->db->lastInsertId();
+
+            $sqlInscrito = "INSERT INTO inscrito_d(id_user, adm_pub, g_p_d_admin, proc_admin, pot_san, c_a_p_r_f) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmtInscrito = $this->db->prepare($sqlInscrito);
+            $stmtInscrito->execute([
+                $iduser, 
+                $data['2'] ?? 1, $data['3'] ?? 1, $data['4'] ?? 1, $data['5'] ?? 1, $data['6'] ?? 1
+            ]);
+
+            $this->db->commit();
+            return true;
+        } catch (\PDOException $e) {
+            $this->db->rollBack();
+            error_log("Error registrando estudiante de derecho: " . $e->getMessage());
             return false;
         }
     }

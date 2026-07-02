@@ -6,7 +6,7 @@ class Database {
     // Valores por defecto (credenciales de PRODUCCIÓN en cPanel)
     private $host = 'localhost';
     private $user = 'icccom_icc';
-    private $password = 'bpFsCGU@d0sx@zO';
+    private $password = 'pWhOD~@e{DZ5ie%x';
     private $db = 'icccom_icc';
     private $pdo;
 

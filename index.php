@@ -1,4 +1,7 @@
 <?php
+// Iniciar la sesión global para la aplicación
+session_start();
+
 // Habilitar errores para depuración (remover en producción)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);

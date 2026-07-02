@@ -53,22 +53,7 @@
                                 <div class="form-row">
                                     <div class="col-12 col-md-4 mb-3">
                                         <label for="fname">Encargado de Registro</label>
-                                        <?php  
-                                        $rolindex = $_SESSION['rol'];
-                                        $query_encargado = mysqli_query($conection,"SELECT * FROM plataforma WHERE estatus = 1 AND rol = $rolindex ");
-                                        mysqli_close($conection);
-                                        $result_encargado = mysqli_num_rows($query_encargado);
-                                        ?>
-                                        <?php  
-                                        if ($result_encargado > 0) {
-                                            while ($encargado = mysqli_fetch_array($query_encargado)) {
-                                                ?>
-                                                <input id="fname" type="text" name="encargado" class="form-control" readonly value="<?php echo $encargado["name"]; ?>">
-                                                <?php 
-                                            }
-                                        }
-                                        ?>
-                                        
+                                        <input id="fname" type="text" name="encargado" class="form-control" readonly value="<?= $_SESSION['nombre'] ?? 'Admin' ?>">
                                     </div>
                                     <div class="col-12 col-md-4 mb-3">
                                         <label for="fname">Banco registrado</label><br>

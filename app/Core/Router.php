@@ -25,6 +25,8 @@ class Router {
                     if (isset($url[1])) {
                         $this->method = $url[1];
                         unset($url[1]);
+                    } else {
+                        $this->method = 'dashboard';
                     }
                 }
                 unset($url[0]);

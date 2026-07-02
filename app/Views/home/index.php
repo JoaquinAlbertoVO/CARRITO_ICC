@@ -110,8 +110,13 @@
 <?php
 $api_url = "https://carrito-backend-ronl.onrender.com/api/courses";
 
-// Obtener datos del API
-$api_response = @file_get_contents($api_url);
+// Obtener datos del API con timeout de 3 segundos para evitar colgar la web
+$ctx = stream_context_create(array('http'=>
+    array(
+        'timeout' => 3, 
+    )
+));
+$api_response = @file_get_contents($api_url, false, $ctx);
 $all_courses = $api_response ? json_decode($api_response, true) : [];
 $ingenieria_courses = array_slice($all_courses, 0, 4);
 $derecho_courses = array_slice($all_courses, 4, 4);

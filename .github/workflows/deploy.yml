@@ -19,7 +19,7 @@ jobs:
         with:
           host: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_KEY }}
+          privateKey: ${{ secrets.FTP_KEY }}
           localDir: '.'
           remoteDir: 'public_html'
           exclude: '.git/**,.github/**'

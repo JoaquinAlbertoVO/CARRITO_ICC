@@ -1,22 +1,22 @@
 
 <!--Iniciar popup-->
-<!-- Pop-up de promociÃ³n--> 
+<!-- Pop-up de promoción--> 
     <div id="promo-popup" class="popup">
         <div class="popup-content">
             <span class="close" id="close-popup">&times;</span>
-            <img src="<?= BASE_URL ?>assets/images/promociones/Capacitacion_Manteniemiento_de_Subestacion_Electrica.jpeg" alt="curso de Mantenimiento de SubestaciÃ³n ElÃ©ctrica Presencial" class="promo-image">
-            <!--<h2>Â¡Oferta Especial!</h2>
-            <p>ObtÃ©n un <strong>20% de descuento</strong> en tu primera compra. Usa el cÃ³digo <strong>BIENVENIDO20</strong> al pagar.</p>-->
-            <button onclick="window.location.href='https://wa.link/u045or'">Â¡LO QUIERO!</button>
+            <img src="<?= BASE_URL ?>assets/images/promociones/Capacitacion_Manteniemiento_de_Subestacion_Electrica.jpeg" alt="curso de Mantenimiento de Subestación Eléctrica Presencial" class="promo-image">
+            <!--<h2>¡Oferta Especial!</h2>
+            <p>Obtén un <strong>20% de descuento</strong> en tu primera compra. Usa el código <strong>BIENVENIDO20</strong> al pagar.</p>-->
+            <button onclick="window.location.href='https://wa.link/u045or'">¡LO QUIERO!</button>
         </div>
     </div>
     <script>
-        // Mostrar el pop-up al cargar la pÃ¡gina
+        // Mostrar el pop-up al cargar la página
         window.onload = function() {
             document.getElementById('promo-popup').style.display = 'block';
         };
 
-        // Cerrar el pop-up al hacer clic en el botÃ³n de cerrar
+        // Cerrar el pop-up al hacer clic en el botón de cerrar
         document.getElementById('close-popup').onclick = function() {
             document.getElementById('promo-popup').style.display = 'none';
         };
@@ -47,10 +47,10 @@
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
                                         <h2 class="main-slider-two__tagline">Cursos online</h2><br>
-                                        <h2 class="main-slider__title">CapacÃ­tate y certificate<br> con nosotros</h2><br><br><br><br>
+                                        <h2 class="main-slider__title">Capacítate y certificate<br> con nosotros</h2><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
-                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
+                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
                                     </div>
                                 </div>
                             </div>
@@ -67,12 +67,12 @@
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-left">
                                         <h2 class="main-slider-two__tagline">Cursos online</h2><br>
-                                        <h2 class="main-slider__title" style="font-size: 40px;">AnÃ¡lisis de facturas y EvaluaciÃ³n de Tarifas ElÃ©ctricas</h2><br>
+                                        <h2 class="main-slider__title" style="font-size: 40px;">Análisis de facturas y Evaluación de Tarifas Eléctricas</h2><br>
                                         <h2 class="main-slider__title" style="font-size: 40px;">Costos y Presupuestos (Proyectos - Servicios de Electricidad)</h2><br>
-                                        <h2 class="main-slider__title" style="font-size: 40px;">ConfiguraciÃ³n e InstalaciÃ³n de Analizadores de redes</h2><br><br>
+                                        <h2 class="main-slider__title" style="font-size: 40px;">Configuración e Instalación de Analizadores de redes</h2><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-left">
-                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
+                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
                                     </div>
                                 </div>
                             </div>
@@ -89,10 +89,10 @@
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
                                         <h2 class="main-slider-two__tagline">Cursos online</h2><br>
-                                        <h2 class="main-slider__title">CapacÃ­tate y certificate<br> con nosotros</h2><br><br><br><br>
+                                        <h2 class="main-slider__title">Capacítate y certificate<br> con nosotros</h2><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
-                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
+                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
                                     </div>
                                 </div>
                             </div>
@@ -125,8 +125,8 @@ $derecho_courses = array_slice($all_courses, 4, 4);
         <section class="courses-one">
             <div class="container">
                 <div class="section-title text-center">
-                    <span class="section-title__tagline">Todos los meses encontrarÃ¡s nuevo contenido en la plataforma</span>
-                    <h2 style="font-family: League Spartan;" class="">CURSOS ESPECIALIZADOS EN INGENIERÃA</h2>
+                    <span class="section-title__tagline">Todos los meses encontrarás nuevo contenido en la plataforma</span>
+                    <h2 style="font-family: League Spartan;" class="">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
                 </div>
                 <div class="row">
                     <?php foreach($ingenieria_courses as $course): ?>
@@ -186,7 +186,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                             </div>
                             <div class="features-one__single-text">
                                 <h4 style="font-family: League Spartan;"><a href="#">Profesores Expertos</a></h4>
-                                <p>Te acompaÃ±arÃ¡n docentes con amplia experiencia.</p>
+                                <p>Te acompañarán docentes con amplia experiencia.</p>
                             </div>
                         </div>
                     </div>
@@ -200,7 +200,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                             </div>
                             <div class="features-one__single-text">
                                 <h4 style="font-family: League Spartan;"><a href="#">Cursos Certificados</a></h4>
-                                <p>Al culminar las horas lectivas recibirÃ¡n un certificado otorgado por ICC.</p>
+                                <p>Al culminar las horas lectivas recibirán un certificado otorgado por ICC.</p>
                             </div>
                         </div>
                     </div>
@@ -221,7 +221,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                                 <span class="section-title__tagline" style="font-family: League Spartan;">Presentaciones de la empresa</span>
                                 <h2 style="font-family: League Spartan;" class="">APRENDE AHORA <br>CON ICC</h2>
                             </div>
-                            <p class="welcome-one__left-text" style="font-family: 'Reem Kufi Fun';">Actualiza tus conocimientos y capacÃ­tate con nosotros.<br>Te damos lo mejor en IngenierÃ­a ElÃ©ctrica.</p>
+                            <p class="welcome-one__left-text" style="font-family: 'Reem Kufi Fun';">Actualiza tus conocimientos y capacítate con nosotros.<br>Te damos lo mejor en Ingeniería Eléctrica.</p>
                             <ul class="welcome-one__left-features-box list-unstyled">
                                 <!--Start Welcome One Left Features Box Single-->
                                 <li class="welcome-one__left-features-box-single">
@@ -281,7 +281,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                         <div class="counter-one__left">
                             <div class="section-title">
                                 <span class="section-title__tagline">Hechos grandiosos</span>
-                                <h2 class="" style="font-size: 50px; color: #FFF; font-family: League Spartan;">La misiÃ³n de ICC <br>es pulir tu habilidad</h2>
+                                <h2 class="" style="font-size: 50px; color: #FFF; font-family: League Spartan;">La misión de ICC <br>es pulir tu habilidad</h2>
                             </div>
                             <!--<p class="counter-one__left-text">There are many variations of passages of lore ipsum
                                 available but the majority have suffered.</p>-->
@@ -344,10 +344,10 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                     <div class="col-xl-4">
                         <div class="testimonials-two__left">
                             <div class="section-title">
-                                <span class="section-title__tagline">QuÃ© opinan nuestros Usuarios</span>
-                                <h2 class="" style="font-size: 50px; font-family: League Spartan;">Â¿QuÃ© estÃ¡n <br>diciendo?</h2>
+                                <span class="section-title__tagline">Qué opinan nuestros Usuarios</span>
+                                <h2 class="" style="font-size: 50px; font-family: League Spartan;">¿Qué están <br>diciendo?</h2>
                             </div>
-                            <p class="testimonials-two__left-text" style="font-family: 'Reem Kufi Fun';">Tenemos una calificaciÃ³n promedio de 4.7 de 5 estrellas.</p>
+                            <p class="testimonials-two__left-text" style="font-family: 'Reem Kufi Fun';">Tenemos una calificación promedio de 4.7 de 5 estrellas.</p>
                         </div>
                     </div>
                     <!--End Testimonials Two Left-->
@@ -360,8 +360,8 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                                 <!--Start Single Testimonials One -->
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
-                                        <h4 class="testimonials-one__single-title" style="font-family: 'League Spartan';">RegulaciÃ³n del Mercado ElÃ©ctrico</h4>
-                                        <p class="testimonials-one__single-text">Un curso muy recomendado, ayuda ampliar los conocimientos acerca del Sector EnergÃ­a. AdemÃ¡s de conocer el Marco Interinstitucional del Subsector ElÃ©ctrico de una forma muy didÃ¡ctica.</p>
+                                        <h4 class="testimonials-one__single-title" style="font-family: 'League Spartan';">Regulación del Mercado Eléctrico</h4>
+                                        <p class="testimonials-one__single-text">Un curso muy recomendado, ayuda ampliar los conocimientos acerca del Sector Energía. Además de conocer el Marco Interinstitucional del Subsector Eléctrico de una forma muy didáctica.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio1.png"
@@ -382,8 +382,8 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                                 <!--Start Single Testimonials One -->
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
-                                        <h4 class="testimonials-one__single-title" style="font-family: 'League Spartan';">Curso de EspecializaciÃ³n de Analizador de Redes</h4>
-                                        <p class="testimonials-one__single-text">Este curso fue Ãºtil para abarcarme en la especializaciÃ³n de Redes. Los Ponentes son muy concisos y se observa su profesionalismo.</p>
+                                        <h4 class="testimonials-one__single-title" style="font-family: 'League Spartan';">Curso de Especialización de Analizador de Redes</h4>
+                                        <p class="testimonials-one__single-text">Este curso fue útil para abarcarme en la especialización de Redes. Los Ponentes son muy concisos y se observa su profesionalismo.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio2.png"
@@ -404,8 +404,8 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                                 <!--Start Single Testimonials One -->
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
-                                        <h4 class="testimonials-one__single-title" style="font-family: 'League Spartan';">EspecializaciÃ³n de Motores ElÃ©ctricos</h4>
-                                        <p class="testimonials-one__single-text">Los materiales educativos son muy buenos y completos, del mismo modo que resulta muy fÃ¡cil de abordar sin tener conocimientos previos.</p>
+                                        <h4 class="testimonials-one__single-title" style="font-family: 'League Spartan';">Especialización de Motores Eléctricos</h4>
+                                        <p class="testimonials-one__single-text">Los materiales educativos son muy buenos y completos, del mismo modo que resulta muy fácil de abordar sin tener conocimientos previos.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio3.png"
@@ -427,7 +427,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
                                         <h4 class="testimonials-one__single-title" style="font-family: 'League Spartan';">Banco de Condensadores</h4>
-                                        <p class="testimonials-one__single-text">Fue todo un placer realizar este curso. Puesto que el enfoque del ponente fue impecable. Me gustarÃ­a realizar otro curso que amplie mis conocimientos relacionado a este campo.</p>
+                                        <p class="testimonials-one__single-text">Fue todo un placer realizar este curso. Puesto que el enfoque del ponente fue impecable. Me gustaría realizar otro curso que amplie mis conocimientos relacionado a este campo.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio5.png"
@@ -448,7 +448,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
                                         <h4 class="testimonials-one__single-title" style="font-family: 'League Spartan';">Sistema de Puesta a Tierra</h4>
-                                        <p class="testimonials-one__single-text">El curso dictado fue muy interesante. La estructura y la calidad de los contenidos han sido de lo mejor para el aprendizaje. Me han permitido descubrir acerca de este tema que tardarÃ­a en descubrir por mÃ­ mismo</p>
+                                        <p class="testimonials-one__single-text">El curso dictado fue muy interesante. La estructura y la calidad de los contenidos han sido de lo mejor para el aprendizaje. Me han permitido descubrir acerca de este tema que tardaría en descubrir por mí mismo</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio4.png"
@@ -486,7 +486,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                             </div>
                             <div class="registration-two__right">
                                 <div class="registration-two__right-btn">
-                                    <a href="<?= BASE_URL ?>contacto" class="thm-btn">Descubrir mÃ¡s</a>
+                                    <a href="<?= BASE_URL ?>contacto" class="thm-btn">Descubrir más</a>
                                 </div>
                             </div>
                         </div>

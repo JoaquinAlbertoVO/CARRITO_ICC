@@ -28,14 +28,14 @@
                                 <div class="form-row">
                                     <div class="col-12 col-md-3 mb-3">
                                         <label for="fname">Telefono</label>
-                                        <input id="fname" type="number" name="telefono" class="form-control" placeholder="Ingresar nÃºmero celular">
+                                        <input id="fname" type="number" name="telefono" class="form-control" placeholder="Ingresar número celular">
                                     </div>
                                     <div class="col-12 col-md-3 mb-3">
                                         <label for="fname">DNI</label>
                                         <input id="fname" type="number" name="dni" class="form-control" placeholder="Ingresar DNI">
                                     </div>
                                     <div class="col-12 col-md-3 mb-3">
-                                        <label for="fname">NÃºmero de OperaciÃ³n</label>
+                                        <label for="fname">Número de Operación</label>
                                         <input id="fname" type="number" name="nopera" class="form-control" placeholder="Ingresar N. de operacion">
                                     </div>
                                     <div class="col-12 col-md-3 mb-3">
@@ -65,7 +65,7 @@
                                             <option>BBVA</option>
                                             <option>Interbank</option>
                                             <option>MiBanco</option>
-                                            <option>Scotiabank PerÃº</option>
+                                            <option>Scotiabank Perú</option>
                                         </select>
                                     </div>
                                     <div class="col-12 col-md-4 mb-3">
@@ -79,8 +79,8 @@
                                         <input id="fname" type="text" class="form-control" name="usuario" placeholder="Ingresar usuario">
                                     </div>
                                     <div class="col-12 col-md-6 mb-3">
-                                        <label for="fname">ContraseÃ±a</label>
-                                        <input id="fname" type="text" name="pass" class="form-control" placeholder="Ingresar contraseÃ±a">
+                                        <label for="fname">Contraseña</label>
+                                        <input id="fname" type="text" name="pass" class="form-control" placeholder="Ingresar contraseña">
                                     </div>
                                 </div>
                                 <style type="text/css">
@@ -162,7 +162,7 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="col-12 col-md-6 mb-3">
-                                            <label for="fname">GESTION Y SEGURIDAD EN EL TRABAJO LEY NÂ° 29783</label>
+                                            <label for="fname">GESTION Y SEGURIDAD EN EL TRABAJO LEY N° 29783</label>
                                             <select id="select01" data-toggle="select" name="8" class="form-control">
                                                 <option value="1" selected="">No</option>
                                                 <option value="8">Si</option>

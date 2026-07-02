@@ -9,7 +9,7 @@ class Estudiante {
     private $db;
 
     public function __construct() {
-        $this->db = Database::getInstance()->getConnection();
+        $this->db = (new Database())->connect();
     }
 
     /**

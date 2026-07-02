@@ -41,7 +41,7 @@
                                     <img src="<?= BASE_URL ?>assets/images/resources/course-details-overlay-img.png" alt=""/>
                                 </div>
                                 <h6 class="courses-one__single-content-name">Pedro Pablo Aparicio Arias <span>Actualizado recientemente 20 junio, 2021</span></h6>
-                                <h4 class="courses-one__single-content-title">Electricidad Básica</h4>
+                                <h4 class="courses-one__single-content-title">Electricidad BÃ¡sica</h4>
                                 <div class="courses-one__single-content-review-box">
                                     <ul class="list-unstyled">
                                         <li><i class="fa fa-star"></i></li>
@@ -70,14 +70,14 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Una laptop o cualquier dispositivo con conexión a internet.</p>
+                                                <p>Una laptop o cualquier dispositivo con conexiÃ³n a internet.</p>
                                             </div>
                                         </li>
                                     </ul>
                                 </div><br>
                                 <div class="course-details__content-list">
-                                    <h3 class="course-details__curriculum-single-title">Inversión</h3>
-                                    <h5 class="" style="color: #4D5FE3;">➥ 90 Soles ó 23 dólares</h5><br>
+                                    <h3 class="course-details__curriculum-single-title">InversiÃ³n</h3>
+                                    <h5 class="" style="color: #4D5FE3;">âž¥ 90 Soles Ã³ 23 dÃ³lares</h5><br>
                                     <span style="color: black;">Incluye:</span>
                                     <ul class="list-unstyled">
                                         <li>
@@ -101,7 +101,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Certificado virtual y físico a nombre de ICC con duración de 120 horas.</p>
+                                                <p>Certificado virtual y fÃ­sico a nombre de ICC con duraciÃ³n de 120 horas.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -109,7 +109,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Asesoría virtual en caso de cualquier duda del curso.</p>
+                                                <p>AsesorÃ­a virtual en caso de cualquier duda del curso.</p>
                                             </div>
                                         </li>
                                         <li>
@@ -132,7 +132,7 @@
                                 <div class="accordion">
                                     <h1 style="background-color: #F1F2F6; border-radius: 8px; font-family: League Spartan;">Temario</h1>
                                     <dl>
-                                        <dt><a class="accordionTitle courses-one__single-content" href="#" style="font-family: League Spartan;">MÓDULO I: PRINCIPIOS DE ELECTRICIDAD</a></dt>
+                                        <dt><a class="accordionTitle courses-one__single-content" href="#" style="font-family: League Spartan;">MÃ“DULO I: PRINCIPIOS DE ELECTRICIDAD</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -149,7 +149,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Materia y moléculas.</p>
+                                                            <p>Materia y molÃ©culas.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -157,7 +157,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>La electricidad estática.</p>
+                                                            <p>La electricidad estÃ¡tica.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -173,7 +173,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Tipos de Corriente Eléctrica: Continúa y Alterna.</p>
+                                                            <p>Tipos de Corriente ElÃ©ctrica: ContinÃºa y Alterna.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -181,7 +181,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Resistencia, Tensión y Corriente.</p>
+                                                            <p>Resistencia, TensiÃ³n y Corriente.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -189,7 +189,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Producción de la electricidad.</p>
+                                                            <p>ProducciÃ³n de la electricidad.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -197,7 +197,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Propiedades eléctricas de los materiales.</p>
+                                                            <p>Propiedades elÃ©ctricas de los materiales.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -211,7 +211,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo II: MAGNETISMO</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">MÃ³dulo II: MAGNETISMO</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -228,7 +228,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Instrumentos magnéticos.</p>
+                                                            <p>Instrumentos magnÃ©ticos.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -236,7 +236,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Magnitudes magnéticas.</p>
+                                                            <p>Magnitudes magnÃ©ticas.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -258,7 +258,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo III: SELECCIÓN</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo III: SELECCIÃ“N</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -267,7 +267,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Por el Rango de medición.</p>
+                                                            <p>Por el Rango de mediciÃ³n.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -283,7 +283,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Por disposición de uso.</p>
+                                                            <p>Por disposiciÃ³n de uso.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -291,13 +291,13 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Por su nivel de precisión.</p>
+                                                            <p>Por su nivel de precisiÃ³n.</p>
                                                         </div>
                                                     </li>
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo IV: INSTRUMENTOS DE MEDICIÓN Y HERRAMIENTAS</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">MÃ³dulo IV: INSTRUMENTOS DE MEDICIÃ“N Y HERRAMIENTAS</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -336,7 +336,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo V: CIRCUITOS CON RESISTENCIAS</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">MÃ³dulo V: CIRCUITOS CON RESISTENCIAS</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -345,7 +345,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Circuito eléctrico: Serie.</p>
+                                                            <p>Circuito elÃ©ctrico: Serie.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -353,7 +353,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Circuito eléctrico: Paralelo.</p>
+                                                            <p>Circuito elÃ©ctrico: Paralelo.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -361,7 +361,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Circuito eléctrico: Mixto.</p>
+                                                            <p>Circuito elÃ©ctrico: Mixto.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -383,7 +383,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo VI: ENERGÍA Y POTENCIA</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">MÃ³dulo VI: ENERGÃA Y POTENCIA</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -392,7 +392,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Unidades de medición.</p>
+                                                            <p>Unidades de mediciÃ³n.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -432,7 +432,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Energía.</p>
+                                                            <p>EnergÃ­a.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -440,13 +440,13 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Efecto térmico de la corriente eléctrica (Ley de JOULE).</p>
+                                                            <p>Efecto tÃ©rmico de la corriente elÃ©ctrica (Ley de JOULE).</p>
                                                         </div>
                                                     </li>
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo VII: SIMBOLOGÍA DE LOS CIRCUITOS ELÉCTRICOS</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">MÃ³dulo VII: SIMBOLOGÃA DE LOS CIRCUITOS ELÃ‰CTRICOS</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -455,7 +455,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>El sistema de símbolos.</p>
+                                                            <p>El sistema de sÃ­mbolos.</p>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -463,7 +463,7 @@
                                                             <span class="icon-confirmation"></span>
                                                         </div>
                                                         <div class="text">
-                                                            <p>Componentes eléctricos.</p>
+                                                            <p>Componentes elÃ©ctricos.</p>
                                                         </div>
                                                     </li>
                                                 </ul><br>
@@ -480,15 +480,15 @@
                             <h2 class="course-details__curriculum-title">Inicio</h2>
                             <!--Start Single Course Details Curriculum-->
                             <div class="course-details__curriculum-single">
-                                <p class="course-details__curriculum-single-text">Ingreso al aula virtual 24/7 avance de acuerdo su ritmo, inician en el momento que se efectúe la compra de este. Clases asincrónicas no tiene un horario fijo, podrás verlo a tu propio ritmo y podrás repetir las clases cuantas veces quieras ya que tienes acceso ilimitado.</p><br>
-                                <h3 class="course-details__curriculum-single-title">Pasos para realizar inscripción:</h3>
+                                <p class="course-details__curriculum-single-text">Ingreso al aula virtual 24/7 avance de acuerdo su ritmo, inician en el momento que se efectÃºe la compra de este. Clases asincrÃ³nicas no tiene un horario fijo, podrÃ¡s verlo a tu propio ritmo y podrÃ¡s repetir las clases cuantas veces quieras ya que tienes acceso ilimitado.</p><br>
+                                <h3 class="course-details__curriculum-single-title">Pasos para realizar inscripciÃ³n:</h3>
                                 <ol class="">
                                     <li>
                                         <div class="icon">
                                             <span class=""></span>
                                         </div>
                                         <div class="text">
-                                            <p>Realizar el depósito en cualquiera de nuestras cuentas.</p>
+                                            <p>Realizar el depÃ³sito en cualquiera de nuestras cuentas.</p>
                                         </div>
                                     </li>
                                     <li>
@@ -496,11 +496,11 @@
                                             <span class=""></span>
                                         </div>
                                         <div class="text">
-                                            <p>Luego enviar la foto del voucher por este medio, en conjunto con su N° de DNI, correo electrónico y los cursos a elegir.</p>
+                                            <p>Luego enviar la foto del voucher por este medio, en conjunto con su NÂ° de DNI, correo electrÃ³nico y los cursos a elegir.</p>
                                         </div>
                                     </li>
                                 </ol>
-                                <span>⚠️ NOTA IMPORTANTE Si desea Boleta o Factura, solicitarlo por este medio y abonar únicamente a la Cuenta Corriente, caso contrario solo abonar a las cuentas.</span>
+                                <span>âš ï¸ NOTA IMPORTANTE Si desea Boleta o Factura, solicitarlo por este medio y abonar Ãºnicamente a la Cuenta Corriente, caso contrario solo abonar a las cuentas.</span>
                             </div>
                             <!--End Single Course Details Curriculum-->
 
@@ -509,7 +509,7 @@
 
                         <!--Start Course Details Reviews-->
                         <div class="course-details__reviews">
-                            <h3 class="course-details__reviews-title">Reseñas</h3>
+                            <h3 class="course-details__reviews-title">ReseÃ±as</h3>
                             <div class="course-details__progress-review">
                                 <div class="row">
                                     <div class="col-xl-7 col-lg-7 col-md-7">
@@ -566,7 +566,7 @@
                                                 <i class="fas fa-star"></i><!-- /.fas fa-star -->
                                                 <i class="fas fa-star"></i><!-- /.fas fa-star -->
                                             </div>
-                                            <p class="course-details__review-text">30 RESEÑAS</p>
+                                            <p class="course-details__review-text">30 RESEÃ‘AS</p>
                                         </div>
                                     </div>
                                 </div>
@@ -576,7 +576,7 @@
                                     <form action="assets/inc/sendemail.php" class="comment-one__form contact-form-validated" novalidate="novalidate">
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-12">
-                                                <a href="https://wa.link/zkj9jo" target="_black" class="thm-btn comment-form__btn">Inscríbete Aquí</a>
+                                                <a href="https://wa.link/zkj9jo" target="_black" class="thm-btn comment-form__btn">InscrÃ­bete AquÃ­</a>
                                             </div>
                                         </div>
                                     </form>
@@ -605,7 +605,7 @@
                                         <a href=""><i class="far fa-clock"></i></a>
                                     </div>
                                     <div class="text">
-                                        <p><a href="#">Duración:<span> 10 horas</span></a></p>
+                                        <p><a href="#">DuraciÃ³n:<span> 10 horas</span></a></p>
                                     </div>
                                 </li>
 
@@ -623,7 +623,7 @@
                                         <a href=""><i class="far fa-user-circle"></i></a>
                                     </div>
                                     <div class="text">
-                                        <p><a href="#">Estudiantes:<span> Máximo 6</span></a></p>
+                                        <p><a href="#">Estudiantes:<span> MÃ¡ximo 6</span></a></p>
                                     </div>
                                 </li>
 
@@ -655,7 +655,7 @@
                                         <img src="<?= BASE_URL ?>assets/images/resources/analisis_facturacion.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
-                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_analisis_facturacion.php">Análisis de facturación y tarifas eléctricas</a></h4>
+                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="<?= BASE_URL ?>cursos/detalle/analisis-facturacion">AnÃ¡lisis de facturaciÃ³n y tarifas elÃ©ctricas</a></h4>
                                         <div class="course-details__new-courses-rateing-box">
                                             <ul class="list-unstyled">
                                                 <li><i class="fas fa-star"></i></li>
@@ -677,7 +677,7 @@
                                         <img src="<?= BASE_URL ?>assets/images/resources/puesta_tierra.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
-                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_puesta_tierra.php">Sistema puesta a tierra</a></h4>
+                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="<?= BASE_URL ?>cursos/detalle/puesta-tierra">Sistema puesta a tierra</a></h4>
                                         <div class="course-details__new-courses-rateing-box">
                                             <ul class="list-unstyled">
                                                 <li><i class="fas fa-star"></i></li>
@@ -699,7 +699,7 @@
                                         <img src="<?= BASE_URL ?>assets/images/resources/banco_condensadores.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
-                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_banco_condensadores.php">Banco de condensadores</a></h4>
+                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="<?= BASE_URL ?>cursos/detalle/banco-condensadores">Banco de condensadores</a></h4>
                                         <div class="course-details__new-courses-rateing-box">
                                             <ul class="list-unstyled">
                                                 <li><i class="fas fa-star"></i></li>

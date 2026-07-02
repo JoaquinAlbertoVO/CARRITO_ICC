@@ -152,7 +152,7 @@ if (empty($_SESSION['active'])) {
                                 <a class="dropdown-item d-flex align-items-center py-2" href="#">
                                     <span class="material-icons mr-2">settings</span> Settings
                                 </a>-->
-                                <a class="dropdown-item d-flex align-items-center py-2" href="salir.php">
+                                <a class="dropdown-item d-flex align-items-center py-2" href="<?= BASE_URL ?>admin/logout">
                                     <span class="material-icons mr-2">exit_to_app</span> Cerrar Sesion
                                 </a>
                             </div>
@@ -196,7 +196,7 @@ if (empty($_SESSION['active'])) {
                                             <a class="dropdown-item" href="student-profile.html">My profile</a>
                                             <a class="dropdown-item" href="student-edit-account.html">Edit account</a>
                                             <div class="dropdown-divider"></div>-->
-                                            <a class="dropdown-item" rel="nofollow" data-method="delete" href="salir.php">Cerrar Sesion</a>
+                                            <a class="dropdown-item" rel="nofollow" data-method="delete" href="<?= BASE_URL ?>admin/logout">Cerrar Sesion</a>
                                         </div>
                                     </div>
                                 </div>

@@ -13,7 +13,7 @@ class AdminCursosController extends Controller {
         }
     }
 
-    public function index() {
+    public function dashboard() {
         // Datos para el dashboard (simulados temporalmente)
         $data = [
             'total_mes_ingenieria' => 0,
@@ -22,7 +22,7 @@ class AdminCursosController extends Controller {
             'total_general_derecho' => 0,
         ];
 
-        // Llama a la vista del dashboard principal
-        $this->view('admin/dashboard/index', $data);
+        // Llama a la vista del dashboard principal usando el layout de admin
+        $this->view('admin/dashboard/index', $data, 'admin/layouts/main');
     }
 }

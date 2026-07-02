@@ -142,12 +142,9 @@
                                         <li><a href="<?= BASE_URL ?>nosotros">Nosotros</a></li>
                                         <li class="dropdown">
     <a href="#">Ingeniería Eléctrica</a>
-    <ul class="mo-mega-menu">
-        <li class="mo-mega-menu-left">
-            <img src="<?= BASE_URL ?>assets/images/resources/icc-logo-electrica.png" alt="Ingeniería Eléctrica"/>
-            <a href="curso_ingenieria.php" class="ver-especialidades">Ver Especialidades ▾</a>
-        </li>
-        <li class="mo-mega-menu-right">
+    <ul>
+        <li class="dropdown">
+            <a href="<?= BASE_URL ?>cursos/ingenieria" class="ver-especialidades">Ver Especialidades</a>
             <ul>
                 <li><a href="<?= BASE_URL ?>cursos/detalle/analisis-facturacion">Análisis de facturas y Evaluación de Tarifas E.</a></li>
                 <li><a href="<?= BASE_URL ?>cursos/detalle/banco-condensadores">Banco de Condensadores</a></li>

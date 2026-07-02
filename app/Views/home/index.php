@@ -50,7 +50,7 @@
                                         <h2 class="main-slider__title">CapacÃ­tate y certificate<br> con nosotros</h2><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
-                                        <a href="nosotros.php" class="thm-btn">Descubrir mÃ¡s</a>
+                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                                         <h2 class="main-slider__title" style="font-size: 40px;">ConfiguraciÃ³n e InstalaciÃ³n de Analizadores de redes</h2><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-left">
-                                        <a href="nosotros.php" class="thm-btn">Descubrir mÃ¡s</a>
+                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                                         <h2 class="main-slider__title">CapacÃ­tate y certificate<br> con nosotros</h2><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
-                                        <a href="nosotros.php" class="thm-btn">Descubrir mÃ¡s</a>
+                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                             <div class="tarjeta-dark-content">
                                 <span class="etiqueta-verde">CURSO</span>
                                 <h4 class="tarjeta-dark-title">
-                                    <a href="<?= $course['link'] ?>"><?= $course['title'] ?></a>
+                                    <a href="<?= BASE_URL . 'cursos/detalle/' . str_replace(['detalle_', '.php', '_'], ['', '', '-'], $course['link']) ?>"><?= $course['title'] ?></a>
                                 </h4>
                                 <div class="tarjeta-dark-meta">
                                     <div class="meta-item">
@@ -155,7 +155,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                         </div>
                     </div>
                     <?php endforeach; ?>
-</div>
+</div>`n                <div class="row" style="margin-top: 40px;"><div class="col-12 text-center"><a href="<?= BASE_URL ?>cursos" class="thm-btn">Ver todos los cursos</a></div></div>
             </div>
         </section>
         <!--Courses One End INGENIERIA-->
@@ -245,9 +245,6 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                                 </li>
                                 <!--End Welcome One Left Features Box Single-->
                             </ul>
-                            <div class="welcome-one__left-btn">
-                                <a href="cursos.php" class="thm-btn">ver todos los cursos</a>
-                            </div>
                         </div>
                     </div>
                     <!--End Welcome One Left-->
@@ -489,7 +486,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
                             </div>
                             <div class="registration-two__right">
                                 <div class="registration-two__right-btn">
-                                    <a href="contacto.php" class="thm-btn">Descubrir mÃ¡s</a>
+                                    <a href="<?= BASE_URL ?>contacto" class="thm-btn">Descubrir mÃ¡s</a>
                                 </div>
                             </div>
                         </div>
@@ -500,3 +497,4 @@ $derecho_courses = array_slice($all_courses, 4, 4);
         </section>
         <!--End Registration Two-->
         <!--<a target="blank" href="https://wa.link/zw6o1w" class="btn-whatsapp-pulse"><i class="fab fa-whatsapp"></i></a>-->
+

@@ -54,17 +54,17 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item featured">
                     <div class="courses-one__single wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/electricidad_basica.png" alt=""/>
+                            <img src="assets/images/resources/electricidad_basica.png" alt=""/>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/courses-v1-overlay-img1.png" alt=""/>
+                                <img src="assets/images/resources/courses-v1-overlay-img1.png" alt=""/>
                             </div>
                             <h6 class="courses-one__single-content-name">Pedro Pablo Aparicio Arias</h6>
-                            <h4 class="courses-one__single-content-title"><a href="detalle_electricidad_basica.php">Electricidad Básica</a></h4>
+                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/electricidad_basica">Electricidad Básica</a></h4>
                             <div class="courses-one__single-content-review-box">
                                 <ul class="list-unstyled">
                                     <li><i class="fa fa-star"></i></li>
@@ -92,17 +92,17 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item featured">
                     <div class="courses-one__single wow fadeInLeft" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/motores_electricos.png" alt=""/>
+                            <img src="assets/images/resources/motores_electricos.png" alt=""/>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/courses-v1-overlay-img2.png" alt=""/>
+                                <img src="assets/images/resources/courses-v1-overlay-img2.png" alt=""/>
                             </div>
                             <h6 class="courses-one__single-content-name">Hipólito Coaguila Berrios</h6>
-                            <h4 class="courses-one__single-content-title"><a href="detalle_motores_electricos.php">Motores Eléctricos</a></h4>
+                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/motores_electricos">Motores Eléctricos</a></h4>
                             <div class="courses-one__single-content-review-box">
                                 <ul class="list-unstyled">
                                     <li><i class="fa fa-star"></i></li>
@@ -134,17 +134,17 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item featured">
                     <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/banco_condensadores.jpg" alt=""/>
+                            <img src="assets/images/resources/banco_condensadores.jpg" alt=""/>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/courses-v1-overlay-img4.png" alt=""/>
+                                <img src="assets/images/resources/courses-v1-overlay-img4.png" alt=""/>
                             </div>
                             <h6 class="courses-one__single-content-name">Johan Paredes</h6>
-                            <h4 class="courses-one__single-content-title"><a href="detalle_banco_condensadores.php">Banco de Condensadores</a></h4>
+                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/banco_condensadores">Banco de Condensadores</a></h4>
                             <div class="courses-one__single-content-review-box">
                                 <ul class="list-unstyled">
                                     <li><i class="fa fa-star"></i></li>
@@ -172,17 +172,17 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item featured">
                     <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/puesta_tierra.jpg" alt=""/>
+                            <img src="assets/images/resources/puesta_tierra.jpg" alt=""/>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/courses-v1-overlay-img8.png" alt=""/>
+                                <img src="assets/images/resources/courses-v1-overlay-img8.png" alt=""/>
                             </div>
                             <h6 class="courses-one__single-content-name">Hipolito Coaguila Berrios</h6>
-                            <h4 class="courses-one__single-content-title"><a href="detalle_puesta_tierra.php">Sistema Puesta a Tierra</a></h4>
+                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/puesta_tierra">Sistema Puesta a Tierra</a></h4>
                             <div class="courses-one__single-content-review-box">
                                 <ul class="list-unstyled">
                                     <li><i class="fa fa-star"></i></li>
@@ -218,14 +218,14 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item featured">
                     <div class="courses-one__single wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/programacio_plc.jpg" alt=""/>
+                            <img src="assets/images/resources/programacio_plc.jpg" alt=""/>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/courses-v1-overlay-img5.png" alt=""/>
+                                <img src="assets/images/resources/courses-v1-overlay-img5.png" alt=""/>
                             </div>
                             <h6 class="courses-one__single-content-name">Pedro Aparicio Arias</h6>
                             <h4 class="courses-one__single-content-title"><a href="course-details.html">Programación Básica de PLC</a></h4>
@@ -256,14 +256,14 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item featured">
                     <div class="courses-one__single wow fadeInLeft" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/analisis_facturacion.jpg" alt=""/>
+                            <img src="assets/images/resources/analisis_facturacion.jpg" alt=""/>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/courses-v1-overlay-img6.png" alt=""/>
+                                <img src="assets/images/resources/courses-v1-overlay-img6.png" alt=""/>
                             </div>
                             <h6 class="courses-one__single-content-name">Ricardo Cardenas</h6>
                             <h4 class="courses-one__single-content-title"><a href="course-details.html">Análisis de facturas y Evaluación de Tarifas E.</a></h4>
@@ -294,14 +294,14 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item featured">
                     <div class="courses-one__single wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/sistema_gestion_seguridad.png" alt=""/>
+                            <img src="assets/images/resources/sistema_gestion_seguridad.png" alt=""/>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/courses-v1-overlay-img7.png" alt=""/>
+                                <img src="assets/images/resources/courses-v1-overlay-img7.png" alt=""/>
                             </div>
                             <h6 class="courses-one__single-content-name">Melissa Jiménez Ll.</h6>
                             <h4 class="courses-one__single-content-title"><a href="course-details.html">Gestión y Seguridad en el Trabajo Ley Nº29783</a></h4>
@@ -332,14 +332,14 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item featured">
                     <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/regulacion_mercado.png" alt=""/>
+                            <img src="assets/images/resources/regulacion_mercado.png" alt=""/>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/courses-v1-overlay-img8.png" alt=""/>
+                                <img src="assets/images/resources/courses-v1-overlay-img8.png" alt=""/>
                             </div>
                             <h6 class="courses-one__single-content-name">Francisco Torres Madrid</h6>
                             <h4 class="courses-one__single-content-title"><a href="course-details.html">Regulación del Mercado de Energía</a></h4>
@@ -386,17 +386,17 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item featured">
                     <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/analizador_redes.png" alt=""/>
+                            <img src="assets/images/resources/analizador_redes.png" alt=""/>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/courses-v1-overlay-img8.png" alt=""/>
+                                <img src="assets/images/resources/courses-v1-overlay-img8.png" alt=""/>
                             </div>
                             <h6 class="courses-one__single-content-name">Ricardo Cardenas</h6>
-                            <h4 class="courses-one__single-content-title"><a href="detalle_configuracion_redes.php">Configuración e Instalación de Analizadores de redes</a></h4>
+                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/configuracion_redes">Configuración e Instalación de Analizadores de redes</a></h4>
                             <div class="courses-one__single-content-review-box">
                                 <ul class="list-unstyled">
                                     <li><i class="fa fa-star"></i></li>

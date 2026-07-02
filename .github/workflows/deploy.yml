@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - master  # Se ejecutará cada vez que subas cambios a main o master
+      - master
 
 jobs:
   deploy:
@@ -19,8 +19,7 @@ jobs:
         with:
           host: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
-          privateKey: ${{ secrets.FTP_KEY }}
-          passphrase: ${{ secrets.FTP_KEY_PASSPHRASE }}
+          password: ${{ secrets.FTP_KEY }}
           localDir: '.'
           remoteDir: 'public_html'
           exclude: '.git/**,.github/**'

@@ -8,50 +8,50 @@
     <title>Instructor Dashboard</title>
 
     <!-- favicons Icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>assets/images/favicons/icc_favicon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="<?= BASE_URL ?>assets/images/favicons/icc_favicon.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= BASE_URL ?>assets/images/favicons/icc_favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>administrador/administrador/assets/images/favicons/icc_favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= BASE_URL ?>administrador/administrador/assets/images/favicons/icc_favicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= BASE_URL ?>administrador/administrador/assets/images/favicons/icc_favicon.png" />
 
     <!-- Prevent the demo from appearing in search engines -->
     <meta name="robots" content="noindex">
 
     <!-- Perfect Scrollbar -->
-    <link type="text/css" href="<?= BASE_URL ?>assets/vendor/perfect-scrollbar.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/vendor/perfect-scrollbar.css" rel="stylesheet">
 
     <!-- App CSS -->
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/app.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/app.rtl.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/app.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/app.rtl.css" rel="stylesheet">
 
     <!-- Material Design Icons -->
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-material-icons.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-material-icons.rtl.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-material-icons.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-material-icons.rtl.css" rel="stylesheet">
 
     <!-- Font Awesome FREE Icons -->
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-fontawesome-free.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-fontawesome-free.rtl.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-fontawesome-free.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-fontawesome-free.rtl.css" rel="stylesheet">
 
     <!-- ion Range Slider -->
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-ion-rangeslider.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-ion-rangeslider.rtl.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-ion-rangeslider.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-ion-rangeslider.rtl.css" rel="stylesheet">
 
     <!-- Flatpickr -->
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-flatpickr.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-flatpickr.rtl.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-flatpickr-airbnb.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-flatpickr-airbnb.rtl.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-flatpickr.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-flatpickr.rtl.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-flatpickr-airbnb.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-flatpickr-airbnb.rtl.css" rel="stylesheet">
 
     <!-- Quill Theme -->
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-quill.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-quill.rtl.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-quill.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-quill.rtl.css" rel="stylesheet">
 
     <!-- Dropzone -->
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-dropzone.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-dropzone.rtl.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-dropzone.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-dropzone.rtl.css" rel="stylesheet">
 
     <!-- Select2 -->
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-select2.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/vendor-select2.rtl.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/vendor/select2/select2.min.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-select2.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/css/vendor-select2.rtl.css" rel="stylesheet">
+    <link type="text/css" href="<?= BASE_URL ?>administrador/administrador/assets/vendor/select2/select2.min.css" rel="stylesheet">
 
 </head>
 
@@ -87,7 +87,7 @@ if (empty($_SESSION['active'])) {
                                     <!-- LOGO -->
                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="30" height="30">
                                         <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
-                                            <img width="170" src="<?= BASE_URL ?>assets/images/favicons/icc-logo1.png" alt="ICC">
+                                            <img width="170" src="<?= BASE_URL ?>administrador/administrador/assets/images/favicons/icc-logo1.png" alt="ICC">
                                         </g>
                                     </svg>
                                 </span>
@@ -105,14 +105,14 @@ if (empty($_SESSION['active'])) {
                                                 <?php  
                                                 if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                                                     ?>
-                                                    <img width="150" src="<?= BASE_URL ?>assets/images/favicons/icc-logo-electrica.png" alt="ICC-electrica">
+                                                    <img width="150" src="<?= BASE_URL ?>administrador/administrador/assets/images/favicons/icc-logo-electrica.png" alt="ICC-electrica">
                                                     <?php 
                                                 }
                                                 ?>
                                                 <?php  
                                                 if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                                                     ?>
-                                                    <img width="150" src="<?= BASE_URL ?>assets/images/favicons/icc-logo-derecho.png" alt="ICC-electrica">
+                                                    <img width="150" src="<?= BASE_URL ?>administrador/administrador/assets/images/favicons/icc-logo-derecho.png" alt="ICC-electrica">
                                                     <?php 
                                                 }
                                                 ?>
@@ -137,7 +137,7 @@ if (empty($_SESSION['active'])) {
                                 <!--<div class="dropdown-item d-flex align-items-center py-2 navbar-company-info py-3">
 
                                     <span class="mr-3">
-                                        <img src="<?= BASE_URL ?>assets/images/frontted-logo-blue.svg" width="43" height="43" alt="avatar">
+                                        <img src="<?= BASE_URL ?>administrador/administrador/assets/images/frontted-logo-blue.svg" width="43" height="43" alt="avatar">
                                     </span>
                                     <span class="flex d-flex flex-column">
                                         <strong class="h5 m-0">Adrian D.</strong>
@@ -302,69 +302,69 @@ if (empty($_SESSION['active'])) {
     </div>
 
     <!-- jQuery -->
-    <script src="<?= BASE_URL ?>assets/vendor/jquery.min.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/jquery.min.js"></script>
 
     <!-- Bootstrap -->
-    <script src="<?= BASE_URL ?>assets/vendor/popper.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/vendor/bootstrap.min.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/popper.min.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/bootstrap.min.js"></script>
 
     <!-- Perfect Scrollbar -->
-    <script src="<?= BASE_URL ?>assets/vendor/perfect-scrollbar.min.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/perfect-scrollbar.min.js"></script>
 
     <!-- DOM Factory -->
-    <script src="<?= BASE_URL ?>assets/vendor/dom-factory.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/dom-factory.js"></script>
 
     <!-- MDK -->
-    <script src="<?= BASE_URL ?>assets/vendor/material-design-kit.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/material-design-kit.js"></script>
 
     <!-- Range Slider -->
-    <script src="<?= BASE_URL ?>assets/vendor/ion.rangeSlider.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/ion-rangeslider.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/ion.rangeSlider.min.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/ion-rangeslider.js"></script>
 
     <!-- App -->
-    <script src="<?= BASE_URL ?>assets/js/toggle-check-all.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/check-selected-row.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/dropdown.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/sidebar-mini.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/app.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/toggle-check-all.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/check-selected-row.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/dropdown.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/sidebar-mini.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/app.js"></script>
 
     <!-- App Settings (safe to remove) -->
-    <script src="<?= BASE_URL ?>assets/js/app-settings.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/app-settings.js"></script>
 
 
     <!-- Flatpickr -->
-    <script src="<?= BASE_URL ?>assets/vendor/flatpickr/flatpickr.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/flatpickr.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/flatpickr/flatpickr.min.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/flatpickr.js"></script>
 
     <!-- Global Settings -->
-    <script src="<?= BASE_URL ?>assets/js/settings.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/settings.js"></script>
 
 
     <!-- Chart.js -->
-    <script src="<?= BASE_URL ?>assets/vendor/Chart.min.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/Chart.min.js"></script>
 
     <!-- UI Charts Page JS -->
-    <script src="<?= BASE_URL ?>assets/js/chartjs-rounded-bar.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/charts.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/chartjs-rounded-bar.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/charts.js"></script>
 
     <!-- Chart.js Samples -->
-    <script src="<?= BASE_URL ?>assets/js/page.instructor-dashboard.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/page.instructor-dashboard.js"></script>
 
     <!-- List.js -->
-    <script src="<?= BASE_URL ?>assets/vendor/list.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/list.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/list.min.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/list.js"></script>
 
     <!-- Quill -->
-    <script src="<?= BASE_URL ?>assets/vendor/quill.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/quill.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/quill.min.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/quill.js"></script>
 
     <!-- Dropzone -->
-    <script src="<?= BASE_URL ?>assets/vendor/dropzone.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/dropzone.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/dropzone.min.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/dropzone.js"></script>
 
     <!-- Select2 -->
-    <script src="<?= BASE_URL ?>assets/vendor/select2/select2.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/js/select2.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/vendor/select2/select2.min.js"></script>
+    <script src="<?= BASE_URL ?>administrador/administrador/assets/js/select2.js"></script>
 
 </body>
 

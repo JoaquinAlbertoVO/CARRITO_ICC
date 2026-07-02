@@ -149,15 +149,15 @@
         </li>
         <li class="mo-mega-menu-right">
             <ul>
-                <li><a href="detalle_analisis_facturacion.php">Análisis de facturas y Evaluación de Tarifas E.</a></li>
-                <li><a href="detalle_banco_condensadores.php">Banco de Condensadores</a></li>
-                <li><a href="detalle_electricidad_basica.php">Electricidad Básica</a></li>
-                <li><a href="detalle_gestion_seguridad.php">Gestión y Seguridad en el Trabajo Ley Nº29783</a></li>
-                <li><a href="detalle_motores_electricos.php">Motores Eléctricos</a></li>
-                <li><a href="detalle_plc.php">Programación Básica de PLC</a></li>
-                <li><a href="detalle_puesta_tierra.php">Sistema Puesta a Tierra</a></li>
-                <li><a href="detalle_regulacion_mercado.php">Regulación del Mercado de Energía</a></li>
-                <li><a href="detalle_configuracion_redes.php">Configuración e Instalación de Analizadores de redes</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/analisis-facturacion">Análisis de facturas y Evaluación de Tarifas E.</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/banco-condensadores">Banco de Condensadores</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/electricidad-basica">Electricidad Básica</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/gestion-seguridad">Gestión y Seguridad en el Trabajo Ley Nº29783</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/motores-electricos">Motores Eléctricos</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/plc">Programación Básica de PLC</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/puesta-tierra">Sistema Puesta a Tierra</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/regulacion-mercado">Regulación del Mercado de Energía</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/configuracion-redes">Configuración e Instalación de Analizadores de redes</a></li>
             </ul>
         </li>
     </ul>
@@ -176,7 +176,7 @@
                                                 <li><a href="news-details.html">News Details</a></li>
                                             </ul>
                                         </li>-->
-                                        <li><a href="contacto.php">Contáctanos</a></li>
+                                        <li><a href="<?= BASE_URL ?>contacto">Contáctanos</a></li>
                                     </ul>
                                 </div>
 
@@ -322,8 +322,8 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <ul class="footer-widget__links-list list-unstyled">
                                     <li><a href="./">Inicio</a></li>
                                     <li><a href="<?= BASE_URL ?>nosotros">Nosotros</a></li>
-                                    <li><a href="curso_ingenieria.php">Ingeniería</a></li>
-                                    <li><a href="contacto.php">Contáctanos</a></li>
+                                    <li><a href="<?= BASE_URL ?>cursos/ingenieria">Ingeniería</a></li>
+                                    <li><a href="<?= BASE_URL ?>contacto">Contáctanos</a></li>
                                 </ul>
                             </div>
                         </div>

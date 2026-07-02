@@ -1,10 +1,5 @@
-<?php $base_path = "../../";   
-include '../../cursos_ingenieria/head.php';
-include '../../cursos_ingenieria/header.php';
-?>
-
-    <!--Page Header Start-->
-    <!--<section class="page-header clearfix" style="background-image: url(assets/images/backgrounds/page-header-bg.jpg);">
+<!--Page Header Start-->
+    <!--<section class="page-header clearfix" style="background-image: url(<?= BASE_URL ?>assets/images/backgrounds/page-header-bg.jpg);">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -36,14 +31,14 @@ include '../../cursos_ingenieria/header.php';
                         <!--Start Single Courses One-->
                         <div class="courses-one__single style2 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                             <div class="courses-one__single-img">
-                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/programacio_plc.png" alt=""/>
+                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?><?= BASE_URL ?>assets/images/resources/programacio_plc.png" alt=""/>
                                 <div class="overlay-text">
                                     <p>libre</p>
                                 </div>
                             </div>
                             <div class="courses-one__single-content">
                                 <div class="courses-one__single-content-overlay-img">
-                                    <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/course-details-overlay-img.png" alt=""/>
+                                    <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?><?= BASE_URL ?>assets/images/resources/course-details-overlay-img.png" alt=""/>
                                 </div>
                                 <h6 class="courses-one__single-content-name">Pedro Aparicio Arias <span>Actualizado recientemente 20 junio, 2021</span></h6>
                                 <h4 class="courses-one__single-content-title">Programación básica de PLC</h4>
@@ -308,7 +303,7 @@ include '../../cursos_ingenieria/header.php';
                             <ul class="course-details__new-courses-list list-unstyled">
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/analisis_facturacion.png" alt=""/>
+                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?><?= BASE_URL ?>assets/images/resources/analisis_facturacion.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_analisis_facturacion.php">Análisis de facturación y tarifas eléctricas</a></h4>
@@ -330,7 +325,7 @@ include '../../cursos_ingenieria/header.php';
 
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/puesta_tierra.png" alt=""/>
+                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?><?= BASE_URL ?>assets/images/resources/puesta_tierra.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_puesta_tierra.php">Sistema puesta a tierra</a></h4>
@@ -352,7 +347,7 @@ include '../../cursos_ingenieria/header.php';
 
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/banco_condensadores.png" alt=""/>
+                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?><?= BASE_URL ?>assets/images/resources/banco_condensadores.png" alt=""/>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_banco_condensadores.php">Banco de condensadores</a></h4>
@@ -380,8 +375,4 @@ include '../../cursos_ingenieria/header.php';
         </div>
     </section>
     <!--End Course Details-->
-<?php 
-include '../../cursos_ingenieria/footer.php';
-include '../../cursos_ingenieria/mobile.php';
-include '../../cursos_ingenieria/script.php'; 
-?>
+

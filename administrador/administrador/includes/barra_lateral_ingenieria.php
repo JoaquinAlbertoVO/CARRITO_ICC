@@ -76,6 +76,17 @@
                                             </a>
                                         </li>
                                     </ul>
+                                    <div class="sidebar-heading">Gestión de Cursos y Certificados</div>
+                                    <ul class="sidebar-menu mt-0">
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button" href="cursos_lista.php">
+                                                <span class="sidebar-menu-icon sidebar-menu-icon--left">
+                                                    <i class="material-icons text-muted">school</i>
+                                                </span>
+                                                <span class="sidebar-menu-text">Cursos Dinámicos</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                     <?php
                                 }
                                 ?>

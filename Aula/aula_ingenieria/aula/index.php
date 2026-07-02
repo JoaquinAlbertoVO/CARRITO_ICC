@@ -1507,9 +1507,47 @@ include 'includes/header.php';
 
                         <!-- FIN -->
 
+                        
+                        <!-- NUEVOS CURSOS DINAMICOS Y CERTIFICADOS -->
+                        <div class="col-12 mt-5">
+                            <h3 class="text-white text-center mb-4 border-top pt-4">Tus Certificados y Nuevos Cursos</h3>
+                        </div>
+                        <?php
+                        $iduser = $_SESSION['idUser'];
+                        $query_dinamicos = mysqli_query($conection, "SELECT c.id_curso, c.nombre_curso, c.foto, c.horas_academicas FROM usuario_cursos uc INNER JOIN cursos c ON uc.id_curso = c.id_curso WHERE uc.id_usuario = $iduser AND c.estado = 1");
+                        
+                        if(mysqli_num_rows($query_dinamicos) > 0) {
+                            while($curso_d = mysqli_fetch_array($query_dinamicos)) {
+                                $img_curso = ($curso_d['foto'] == 'default.png') ? 'https://www.file-extension.info/images/resource/formats/img.png' : '../../administrador/administrador/img/cursos/'.$curso_d['foto'];
+                                ?>
+                                <div class='col-md-6 col-lg-4 mb-4'>
+                                    <div class='card card__course'>
+                                        <div class='card-img-top text-center bg-light' style='height:200px; overflow:hidden;'>
+                                            <img src='<?php echo $img_curso; ?>' style='width:100%; object-fit: cover;' alt='Curso'>
+                                        </div>
+                                        <div class='p-3 text-center border-bottom'>
+                                            <div class='bold mb-2'>
+                                                <h5 class='course__title text-primary'><?php echo $curso_d['nombre_curso']; ?></h5>
+                                            </div>
+                                            <div class='mb-2 text-muted'>
+                                                <small><?php echo $curso_d['horas_academicas']; ?> horas lectivas</small>
+                                            </div>
+                                        </div>
+                                        <div class='p-3 text-center'>
+                                            <a target="_blank" href='../../administrador/administrador/generar_certificado.php?id_usuario=<?php echo $iduser; ?>&id_curso=<?php echo $curso_d['id_curso']; ?>' class='btn btn-success btn-block' style='border-radius:20px;'>
+                                                <i class="material-icons mr-1">file_download</i> Descargar Certificado
+                                            </a>
+                                        </div>         
+                                    </div>
+                                </div> 
+                                <?php
+                            }
+                        } else {
+                            echo "<div class='col-12 text-center text-white'><p>No tienes certificados o cursos nuevos asignados aún.</p></div>";
+                        }
+                        ?>
                     </div>
                 </div>
-
             </div>
 
 

@@ -14,7 +14,7 @@ class Estudiante {
 
     /**
      * Obtiene la lista de estudiantes para una especialidad
-     * $tabla: 'usuario' para IngenierÃ­a, 'usuario_d' para Derecho
+     * $tabla: 'usuario' para IngenierÃƒÂ­a, 'usuario_d' para Derecho
      */
     public function getEstudiantes($tabla, $desde, $por_pagina, $busqueda = '') {
         $where = "estatus = 1";
@@ -39,7 +39,7 @@ class Estudiante {
     }
 
     /**
-     * Obtiene el total de registros para paginaciÃ³n
+     * Obtiene el total de registros para paginaciÃƒÂ³n
      */
     public function getTotalEstudiantes($tabla, $busqueda = '') {
         $where = "estatus = 1";
@@ -114,6 +114,85 @@ class Estudiante {
         } catch (\PDOException $e) {
             $this->db->rollBack();
             error_log("Error registrando estudiante de ingenieria: " . $e->getMessage());
+            return false;
+        }
+    }
+    public function getEstudianteIngenieriaById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM usuario WHERE iduser = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function getEstudianteDerechoById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM usuario_d WHERE iduser = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function actualizarEstudianteIngenieria($data, $foto) {
+        $id = $data['id_usuario'];
+        $nombre = $data['nombre'];
+        $correo = $data['correo'] ?? '';
+        $telefono = $data['telefono'] ?? '';
+        $dni = $data['dni'] ?? '';
+        $nopera = $data['nopera'] ?? '';
+        $mpagado = $data['mpagado'] ?? '';
+        $banco = $data['banco'] ?? '';
+        $fecha = $data['fecha'] ?? '';
+        
+        $imgboucher = $data['foto_actual'] ?? 'ejemplo.png';
+        if ($foto && $foto['name'] != '') {
+            $destino = 'public/assets/img/uploads/';
+            if (!is_dir($destino)) {
+                mkdir($destino, 0777, true);
+            }
+            $img_nombre = 'img_' . md5(date('d-m-Y H:i:s'));
+            $imgboucher = $img_nombre . '.jpg';
+            $src = $destino . $imgboucher;
+            move_uploaded_file($foto['tmp_name'], $src);
+        }
+
+        try {
+            $sql = "UPDATE usuario SET nombre = ?, correo = ?, telefono = ?, dni = ?, n_operacion = ?, m_pagado = ?, banco = ?, fecha_deposito = ?, boucher = ? WHERE iduser = ?";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$nombre, $correo, $telefono, $dni, $nopera, $mpagado, $banco, $fecha, $imgboucher, $id]);
+            return true;
+        } catch (\PDOException $e) {
+            error_log("Error actualizando estudiante ingenieria: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function actualizarEstudianteDerecho($data, $foto) {
+        $id = $data['id_usuario'];
+        $nombre = $data['nombre'];
+        $correo = $data['correo'] ?? '';
+        $telefono = $data['telefono'] ?? '';
+        $dni = $data['dni'] ?? '';
+        $nopera = $data['nopera'] ?? '';
+        $mpagado = $data['mpagado'] ?? '';
+        $banco = $data['banco'] ?? '';
+        $fecha = $data['fecha'] ?? '';
+        
+        $imgboucher = $data['foto_actual'] ?? 'ejemplo.png';
+        if ($foto && $foto['name'] != '') {
+            $destino = 'public/assets/img/uploads/';
+            if (!is_dir($destino)) {
+                mkdir($destino, 0777, true);
+            }
+            $img_nombre = 'img_' . md5(date('d-m-Y H:i:s'));
+            $imgboucher = $img_nombre . '.jpg';
+            $src = $destino . $imgboucher;
+            move_uploaded_file($foto['tmp_name'], $src);
+        }
+
+        try {
+            $sql = "UPDATE usuario_d SET nombre = ?, correo = ?, telefono = ?, dni = ?, n_operacion = ?, m_pagado = ?, banco = ?, fecha_deposito = ?, boucher = ? WHERE iduser = ?";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$nombre, $correo, $telefono, $dni, $nopera, $mpagado, $banco, $fecha, $imgboucher, $id]);
+            return true;
+        } catch (\PDOException $e) {
+            error_log("Error actualizando estudiante derecho: " . $e->getMessage());
             return false;
         }
     }

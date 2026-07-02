@@ -46,7 +46,7 @@ class AdminCursosController extends Controller {
             'pagina' => $pagina,
             'total_paginas' => $total_paginas,
             'busqueda' => $busqueda,
-            'titulo' => 'IngenierÃ­a ElÃ©ctrica',
+            'titulo' => 'IngenierÃƒÂ­a ElÃƒÂ©ctrica',
             'ruta_lista' => 'admin/ingenieria',
             'ruta_editar' => 'admin/ingenieria_editar',
             'ruta_eliminar' => 'admin/ingenieria_delete'
@@ -74,7 +74,7 @@ class AdminCursosController extends Controller {
             'pagina' => $pagina,
             'total_paginas' => $total_paginas,
             'busqueda' => $busqueda,
-            'titulo' => 'Derecho y GestiÃ³n PÃºblica',
+            'titulo' => 'Derecho y GestiÃƒÂ³n PÃƒÂºblica',
             'ruta_lista' => 'admin/derecho',
             'ruta_editar' => 'admin/derecho_editar',
             'ruta_eliminar' => 'admin/derecho_delete'
@@ -126,5 +126,126 @@ class AdminCursosController extends Controller {
             'alert' => $alert
         ];
         $this->view('admin/ingenieria/registro', $data, 'admin/layouts/main');
+    }
+    public function ingenieria_editar() {
+        $alert = '';
+        $estudianteModel = new \App\Models\Estudiante();
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (empty($_POST['nombre']) || empty($_POST['usuario']) || empty($_POST['pass'])) {
+                $alert = '
+                    <div class="alert alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Aviso - </strong> Todos los campos son obligatorios
+                    </div>
+                ';
+            } else {
+                $data = $_POST;
+                $foto = $_FILES['foto'] ?? null;
+                
+                $resultado = $estudianteModel->actualizarEstudianteIngenieria($data, $foto);
+
+                if ($resultado) {
+                    $alert = '
+                        <div class="alert alert-dismissible bg-success text-white border-0 fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Exitoso - </strong> Registro actualizado satisfactoriamente
+                        </div>
+                    ';
+                } else {
+                    $alert = '
+                        <div class="alert alert-dismissible bg-warning border-0 fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Advertencia - </strong> Error al actualizar el registro
+                        </div>
+                    ';
+                }
+            }
+        }
+
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            header('Location: ' . BASE_URL . 'admin/ingenieria');
+            exit;
+        }
+
+        $estudiante = $estudianteModel->getEstudianteIngenieriaById($id);
+        if (!$estudiante) {
+            header('Location: ' . BASE_URL . 'admin/ingenieria');
+            exit;
+        }
+
+        $data = [
+            'alert' => $alert,
+            'data' => $estudiante
+        ];
+        $this->view('admin/ingenieria/editar', $data, 'admin/layouts/main');
+    }
+
+    public function derecho_editar() {
+        $alert = '';
+        $estudianteModel = new \App\Models\Estudiante();
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (empty($_POST['nombre']) || empty($_POST['usuario']) || empty($_POST['pass'])) {
+                $alert = '
+                    <div class="alert alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Aviso - </strong> Todos los campos son obligatorios
+                    </div>
+                ';
+            } else {
+                $data = $_POST;
+                $foto = $_FILES['foto'] ?? null;
+                
+                $resultado = $estudianteModel->actualizarEstudianteDerecho($data, $foto);
+
+                if ($resultado) {
+                    $alert = '
+                        <div class="alert alert-dismissible bg-success text-white border-0 fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Exitoso - </strong> Registro actualizado satisfactoriamente
+                        </div>
+                    ';
+                } else {
+                    $alert = '
+                        <div class="alert alert-dismissible bg-warning border-0 fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Advertencia - </strong> Error al actualizar el registro
+                        </div>
+                    ';
+                }
+            }
+        }
+
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            header('Location: ' . BASE_URL . 'admin/derecho');
+            exit;
+        }
+
+        $estudiante = $estudianteModel->getEstudianteDerechoById($id);
+        if (!$estudiante) {
+            header('Location: ' . BASE_URL . 'admin/derecho');
+            exit;
+        }
+
+        $data = [
+            'alert' => $alert,
+            'data' => $estudiante
+        ];
+        $this->view('admin/derecho/editar', $data, 'admin/layouts/main');
     }
 }

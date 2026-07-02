@@ -51,7 +51,7 @@
                 <div class="col-xl-6 col-lg-6">
                     <div class="why-choose-one__right wow slideInRight animated clearfix animated" data-wow-delay="0ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: slideInRight;">
                         <div class="why-choose-one__right-img clearfix">
-                            <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/resources/icc_capacitacion.png" alt="">
+                            <img src="<?= BASE_URL ?>assets/images/resources/icc_capacitacion.png" alt="">
                             <!--<div class="why-choose-one__right-img-overlay">
                                 <p>SOMOS LA MEJOR INSTITUCIÓN</p>
                             </div>-->
@@ -73,7 +73,7 @@
                     <div class="features-two__single">
                         <div class="features-two__single-img">
                             <div class="features-two__single-img-inner">
-                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/feauters/instituto.png" alt="" />
+                                <img src="<?= BASE_URL ?>assets/images/feauters/instituto.png" alt="" />
                             </div>
                             <div class="features-two__single-overlay">
                                 <h3 class="features-two__single-overlay-title"><a href="#">Misión</a>
@@ -90,7 +90,7 @@
                     <div class="features-two__single">
                         <div class="features-two__single-img">
                             <div class="features-two__single-img-inner">
-                                <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/feauters/institucion_icc.png" alt="" />
+                                <img src="<?= BASE_URL ?>assets/images/feauters/institucion_icc.png" alt="" />
                             </div>
                             <div class="features-two__single-overlay">
                                 <h3 class="features-two__single-overlay-title"><a href="#">Visión</a>
@@ -171,8 +171,8 @@
                 <div class="col-xl-12">
                     <div class="testimonials-one__wrapper">
                         <div class="testimonials-one__pattern"><img
-                                src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/pattern/testimonials-one-left-pattern.png" alt="" /></div>
-                        <div class="shape1"><img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/shapes/thm-shape3.png" alt="" /></div>
+                                src="<?= BASE_URL ?>assets/images/pattern/testimonials-one-left-pattern.png" alt="" /></div>
+                        <div class="shape1"><img src="<?= BASE_URL ?>assets/images/shapes/thm-shape3.png" alt="" /></div>
                         <div class="row">
                             <div class="col-xl-12">-->
                                 <!--<div class="testimonials-one__carousel owl-carousel owl-theme owl-dot-type1">-->
@@ -184,7 +184,7 @@
                                             <!--<p class="testimonials-one__single-text">Promovemos de manera continua y sistemática las condiciones necesarias para crear y mejorar los procesos de trabajo en el Centro.</p>-->
                                             <!--<div class="testimonials-one__single-client-info">
                                                 <div class="testimonials-one__single-client-info-img">
-                                                    <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/testimonial/testimonials-v1-client-info-img1.png"
+                                                    <img src="<?= BASE_URL ?>assets/images/testimonial/testimonials-v1-client-info-img1.png"
                                                         alt="" />
                                                 </div>
                                                 <div class="testimonials-one__single-client-info-text">
@@ -204,7 +204,7 @@
                                             <!--<p class="testimonials-one__single-text">Actuamos con iniciativa y responsabilidad en el desarrollo de todas nuestras actividades y en la solución de los problemas.</p>-->
                                             <!--<div class="testimonials-one__single-client-info">
                                                 <div class="testimonials-one__single-client-info-img">
-                                                    <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/testimonial/testimonials-v1-client-info-img2.png"
+                                                    <img src="<?= BASE_URL ?>assets/images/testimonial/testimonials-v1-client-info-img2.png"
                                                         alt="" />
                                                 </div>
                                                 <div class="testimonials-one__single-client-info-text">
@@ -224,7 +224,7 @@
                                             <p class="testimonials-one__single-text">Somos conscientes de la importancia que tiene cumplir con el desarrollo del trabajo dentro del tiempo estipulado para ello, ponemos al máximo nuestras capacidades para sacar adelante la tarea encomendada.</p>-->
                                             <!--<div class="testimonials-one__single-client-info">
                                                 <div class="testimonials-one__single-client-info-img">
-                                                    <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/testimonial/testimonials-v1-client-info-img3.png"
+                                                    <img src="<?= BASE_URL ?>assets/images/testimonial/testimonials-v1-client-info-img3.png"
                                                         alt="" />
                                                 </div>
                                                 <div class="testimonials-one__single-client-info-text">
@@ -243,4 +243,4 @@
             </div>
         </div>
     </section>-->
-    <!--Testimonials One End-->
+    <!--Testimonials One End-->

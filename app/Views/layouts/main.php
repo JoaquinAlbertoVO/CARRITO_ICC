@@ -139,7 +139,7 @@
                                                 </li>
                                             </ul>-->
                                         </li>
-                                        <li><a href="nosotros.php">Nosotros</a></li>
+                                        <li><a href="<?= BASE_URL ?>nosotros">Nosotros</a></li>
                                         <li class="dropdown">
     <a href="#">Ingeniería Eléctrica</a>
     <ul class="mo-mega-menu">
@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <h3 class="footer-widget__title">Enlaces</h3>
                                 <ul class="footer-widget__links-list list-unstyled">
                                     <li><a href="./">Inicio</a></li>
-                                    <li><a href="nosotros.php">Nosotros</a></li>
+                                    <li><a href="<?= BASE_URL ?>nosotros">Nosotros</a></li>
                                     <li><a href="curso_ingenieria.php">Ingeniería</a></li>
                                     <li><a href="contacto.php">Contáctanos</a></li>
                                 </ul>

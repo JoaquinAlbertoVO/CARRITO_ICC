@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 namespace App\Models;
 
 use App\Core\Database;
@@ -14,7 +14,7 @@ class Estudiante {
 
     /**
      * Obtiene la lista de estudiantes para una especialidad
-     * $tabla: 'usuario' para Ingeniería, 'usuario_d' para Derecho
+     * $tabla: 'usuario' para IngenierÃ­a, 'usuario_d' para Derecho
      */
     public function getEstudiantes($tabla, $desde, $por_pagina, $busqueda = '') {
         $where = "estatus = 1";
@@ -39,7 +39,7 @@ class Estudiante {
     }
 
     /**
-     * Obtiene el total de registros para paginación
+     * Obtiene el total de registros para paginaciÃ³n
      */
     public function getTotalEstudiantes($tabla, $busqueda = '') {
         $where = "estatus = 1";
@@ -60,5 +60,61 @@ class Estudiante {
         $result = $stmt->fetch();
         
         return $result['total_registro'];
+    }
+
+    public function registrarEstudianteIngenieria($id_pla, $data, $foto) {
+        $nombre = $data['nombre'];
+        $correo = $data['correo'] ?? '';
+        $telefono = $data['telefono'] ?? '';
+        $dni = $data['dni'] ?? '';
+        $nopera = $data['nopera'] ?? '';
+        $mpagado = $data['mpagado'] ?? '';
+        $encargado = $data['encargado'] ?? '';
+        $banco = $data['banco'] ?? '';
+        $fecha = $data['fecha'] ?? '';
+        $usuario = $data['usuario'];
+        $pass = $data['pass'];
+        
+        $imgboucher = 'ejemplo.png';
+
+        if ($foto && $foto['name'] != '') {
+            $destino = 'public/assets/img/uploads/';
+            if (!is_dir($destino)) {
+                mkdir($destino, 0777, true);
+            }
+            $img_nombre = 'img_' . md5(date('d-m-Y H:i:s'));
+            $imgboucher = $img_nombre . '.jpg';
+            $src = $destino . $imgboucher;
+            move_uploaded_file($foto['tmp_name'], $src);
+        }
+
+        try {
+            $this->db->beginTransaction();
+
+            $sql = "INSERT INTO usuario(id_pla, nombre, correo, telefono, dni, n_operacion, m_pagado, encargado, banco, fecha_deposito, usuario, password, boucher) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                $id_pla, $nombre, $correo, $telefono, $dni, $nopera, $mpagado, $encargado, $banco, $fecha, $usuario, $pass, $imgboucher
+            ]);
+
+            $iduser = $this->db->lastInsertId();
+
+            $sqlInscrito = "INSERT INTO inscrito(id_user, plc, e_basica, s_p_tierra, m_electrico, banco_c, a_facturas_t_e, g_seguridad_t, r_mercado_e, a_redes, riesgo_e, t_altura, e_motores_e, s_p_t_antiguo, costo_p, idtermo, id_residencial, id_medicion, m_t_electricos, redes_electricas, t_caliente) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmtInscrito = $this->db->prepare($sqlInscrito);
+            $stmtInscrito->execute([
+                $iduser, 
+                $data['2'] ?? 1, $data['3'] ?? 1, $data['4'] ?? 1, $data['5'] ?? 1, $data['6'] ?? 1, 
+                $data['7'] ?? 1, $data['8'] ?? 1, $data['9'] ?? 1, $data['10'] ?? 1, $data['11'] ?? 1, 
+                $data['12'] ?? 1, $data['13'] ?? 1, $data['14'] ?? 1, $data['15'] ?? 1, $data['16'] ?? 1, 
+                $data['17'] ?? 1, $data['18'] ?? 1, $data['19'] ?? 1, $data['20'] ?? 1, $data['21'] ?? 1
+            ]);
+
+            $this->db->commit();
+            return true;
+        } catch (\PDOException $e) {
+            $this->db->rollBack();
+            error_log("Error registrando estudiante de ingenieria: " . $e->getMessage());
+            return false;
+        }
     }
 }

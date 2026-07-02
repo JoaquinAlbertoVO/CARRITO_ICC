@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - master
+      - master  # Se ejecutará cada vez que subas cambios a main o master
 
 jobs:
   deploy:

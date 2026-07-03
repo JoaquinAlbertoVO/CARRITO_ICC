@@ -23,4 +23,4 @@ jobs:
           passphrase: ${{ secrets.FTP_KEY_PASSPHRASE }}
           localDir: '.'
           remoteDir: 'public_html'
-          exclude: '.git/**,.github/**'
+          exclude: '.git/**,.github/**,.env'

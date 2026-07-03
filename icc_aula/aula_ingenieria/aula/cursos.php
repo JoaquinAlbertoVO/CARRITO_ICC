@@ -301,7 +301,7 @@ include 'includes/header.php';
                             <div class="card-header">
                                 <div class="media align-items-center">
                                     <div class="media-left">
-                                        <img src="assets/images/256_luke-porter-261779-unsplash.jpg" alt="About Adrian" width="40" class="rounded-circle">
+                                        <img src="<?php echo isset($base_path) ? $base_path : \'\'; ?>assets/images/256_luke-porter-261779-unsplash.jpg" alt="About Adrian" width="40" class="rounded-circle">
                                     </div>
                                     <div class="media-body">
                                         <div class="card-title mb-0"><a href="student-profile.html" class="text-body"><strong>Adrian Demian</strong></a></div>

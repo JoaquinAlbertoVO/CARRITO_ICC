@@ -1,27 +1,5 @@
 
-<!--Iniciar popup-->
-<!-- Pop-up de promoción--> 
-    <div id="promo-popup" class="popup">
-        <div class="popup-content">
-            <span class="close" id="close-popup">&times;</span>
-            <img src="<?= BASE_URL ?>assets/images/promociones/Capacitacion_Manteniemiento_de_Subestacion_Electrica.jpeg" alt="curso de Mantenimiento de Subestación Eléctrica Presencial" class="promo-image">
-            <!--<h2>¡Oferta Especial!</h2>
-            <p>Obtén un <strong>20% de descuento</strong> en tu primera compra. Usa el código <strong>BIENVENIDO20</strong> al pagar.</p>-->
-            <button onclick="window.location.href='https://wa.link/u045or'">¡LO QUIERO!</button>
-        </div>
-    </div>
-    <script>
-        // Mostrar el pop-up al cargar la página
-        window.onload = function() {
-            document.getElementById('promo-popup').style.display = 'block';
-        };
-
-        // Cerrar el pop-up al hacer clic en el botón de cerrar
-        document.getElementById('close-popup').onclick = function() {
-            document.getElementById('promo-popup').style.display = 'none';
-        };
-    </script>
-<!--Finalizar popup-->        
+        
         <section class="main-slider main-slider-two">
             <div class="swiper-container thm-swiper__slider" data-swiper-options='{"slidesPerView": 1, "loop": true, "effect": "fade", "pagination": {
             "el": "#main-slider-pagination",
@@ -40,7 +18,7 @@
                     <!--Start Single Swiper Slide-->
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background-image: url(assets/images/backgrounds/portada5.png);"></div>
+                            style="background-image: url(<?= BASE_URL ?>assets/images/backgrounds/portada5.png);"></div>
                         <div class="image-layer-overlay"></div>
                         <div class="container">
                             <div class="row">
@@ -60,16 +38,18 @@
                     <!--Start Single Swiper Slide-->
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background-image: url(assets/images/backgrounds/portada2.jpg);"></div>
+                            style="background-image: url(<?= BASE_URL ?>assets/images/backgrounds/portada2.jpg);"></div>
                         <div class="image-layer-overlay"></div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-left">
                                         <h2 class="main-slider-two__tagline">Cursos online</h2><br>
-                                        <h2 class="main-slider__title" style="font-size: 40px;">Análisis de facturas y Evaluación de Tarifas Eléctricas</h2><br>
-                                        <h2 class="main-slider__title" style="font-size: 40px;">Costos y Presupuestos (Proyectos - Servicios de Electricidad)</h2><br>
-                                        <h2 class="main-slider__title" style="font-size: 40px;">Configuración e Instalación de Analizadores de redes</h2><br><br>
+                                        <div style="position: relative; z-index: 10;">
+                                            <p style="color: white; font-size: 20px; font-weight: bold; margin-bottom: 10px; line-height: 1.2;">• Análisis de facturas y Evaluación de Tarifas Eléctricas</p>
+                                            <p style="color: white; font-size: 20px; font-weight: bold; margin-bottom: 10px; line-height: 1.2;">• Costos y Presupuestos (Proyectos - Servicios de Electricidad)</p>
+                                            <p style="color: white; font-size: 20px; font-weight: bold; margin-bottom: 30px; line-height: 1.2;">• Configuración e Instalación de Analizadores de redes</p>
+                                        </div>
                                     </div>
                                     <div class="main-slider-two__button-box text-left">
                                         <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
@@ -82,7 +62,7 @@
                     <!--Start Single Swiper Slide-->
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background-image: url(assets/images/backgrounds/portada4.png);"></div>
+                            style="background-image: url(<?= BASE_URL ?>assets/images/backgrounds/portada4.png);"></div>
                         <div class="image-layer-overlay"></div>
                         <div class="container">
                             <div class="row">
@@ -108,32 +88,21 @@
         </section>
 
 <?php
-$api_url = "https://carrito-backend-ronl.onrender.com/api/courses";
-
-// Obtener datos del API con timeout de 3 segundos para evitar colgar la web
-$ctx = stream_context_create(array('http'=>
-    array(
-        'timeout' => 3, 
-    )
-));
-$api_response = @file_get_contents($api_url, false, $ctx);
-$all_courses = $api_response ? json_decode($api_response, true) : [];
-$ingenieria_courses = array_slice($all_courses, 0, 4);
-$derecho_courses = array_slice($all_courses, 4, 4);
+$ingenieria_courses = $ingenieria_courses ?? [];
 ?>
         <!--Courses One Start INGENIERIA-->
         <section class="courses-one">
             <div class="container">
                 <div class="section-title text-center">
                     <span class="section-title__tagline">Todos los meses encontrarás nuevo contenido en la plataforma</span>
-                    <h2 style="font-family: League Spartan;" class="">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
+                    <h2 style="font-family: League Spartan;" class="">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
                 </div>
                 <div class="row">
                     <?php foreach($ingenieria_courses as $course): ?>
                     <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                         <div class="tarjeta-dark">
                             <div class="tarjeta-dark-img">
-                                <img src="<?= $course['image'] ?>" alt="<?= $course['title'] ?>" />
+                                <img src="<?= BASE_URL . $course['image'] ?>" alt="<?= $course['title'] ?>" />
                             </div>
                             <div class="tarjeta-dark-content">
                                 <span class="etiqueta-verde">CURSO</span>
@@ -273,7 +242,7 @@ $derecho_courses = array_slice($all_courses, 4, 4);
 
         <!--Counter One Start-->
         <section class="counter-one jarallax" data-jarallax data-speed="0.2" data-imgPosition="50% 0%"
-            style="background-image: url(assets/images/backgrounds/section1.png);">
+            style="background-image: url(<?= BASE_URL ?>assets/images/backgrounds/section1.png);">
             <div class="container">
                 <div class="row">
                     <!--Start Counter One Left-->

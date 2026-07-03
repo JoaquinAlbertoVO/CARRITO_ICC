@@ -604,3 +604,6 @@ body {
 
 .counter-one::before { display: none !important; }
 
+
+.swal2-container { z-index: 99999 !important; }
+

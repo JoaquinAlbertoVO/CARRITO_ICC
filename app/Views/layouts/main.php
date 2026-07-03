@@ -62,6 +62,11 @@
     </script>
     <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"7f4d2702c36e51657ae7d91f2c71cf01"})});</script>
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/modern_override.css?v=<?php echo file_exists(__DIR__ . '/../../../assets/css/modern_override.css') ? filemtime(__DIR__ . '/../../../assets/css/modern_override.css') : '1.0'; ?>" />
+    
+    <!-- Modern Frameworks CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
@@ -352,7 +357,13 @@ document.addEventListener("DOMContentLoaded", function() {
                               "&moneda=" + encodeURIComponent(datos.moneda);
                 window.location.href = urlPago;
             } else {
-                alert("Cupón no válido o expirado.");
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Ups!',
+                    text: 'Cupón no válido o expirado.',
+                    confirmButtonColor: 'var(--thm-base)',
+                    confirmButtonText: 'Intentar de nuevo'
+                });
             }
         }
     }
@@ -539,6 +550,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
     <!-- template js -->
     <script src="<?= BASE_URL ?>assets/js/zilom.js"></script>
+
+    <!-- Modern Frameworks JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inicializar AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Configuración por defecto de Toastr
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "timeOut": "4000"
+        };
+    </script>
 </body>
 
 </html>

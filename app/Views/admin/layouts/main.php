@@ -242,6 +242,26 @@ if (empty($_SESSION['active'])) {
                                         </a>
                                     </li>
                                 </ul>
+
+                                <div class="sidebar-heading">Academia</div>
+                                <ul class="sidebar-menu mt-0">
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/cursos">
+                                            <span class="sidebar-menu-icon sidebar-menu-icon--left">
+                                                <i class="material-icons text-muted">class</i>
+                                            </span>
+                                            <span class="sidebar-menu-text">Cursos</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/certificados">
+                                            <span class="sidebar-menu-icon sidebar-menu-icon--left">
+                                                <i class="material-icons text-muted">card_membership</i>
+                                            </span>
+                                            <span class="sidebar-menu-text">Certificados</span>
+                                        </a>
+                                    </li>
+                                </ul>
                                 <?php
                                 }
                                 ?>

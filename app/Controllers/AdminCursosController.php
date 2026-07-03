@@ -172,6 +172,88 @@ class AdminCursosController extends Controller {
         header("Location: " . BASE_URL . "admin/ingenieria");
         exit();
     }
+    
+    public function cursos() {
+        $cursoModel = new \App\Models\Curso();
+        $cursos = $cursoModel->getCursos();
+        $data = ['cursos' => $cursos];
+        $this->view('admin/cursos/lista', $data, 'admin/layouts/main');
+    }
 
+    public function cursos_registro() {
+        $alert = '';
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (empty($_POST['nombre_curso']) || empty($_POST['categoria']) || empty($_POST['fecha_emision'])) {
+                $alert = '<div class="alert alert-danger">Todos los campos son obligatorios</div>';
+            } else {
+                $cursoModel = new \App\Models\Curso();
+                if ($cursoModel->registrarCurso($_POST)) {
+                    $alert = '<div class="alert alert-success">Curso registrado correctamente</div>';
+                } else {
+                    $alert = '<div class="alert alert-warning">Error al registrar el curso</div>';
+                }
+            }
+        }
+        $data = ['alert' => $alert];
+        $this->view('admin/cursos/registro', $data, 'admin/layouts/main');
+    }
 
+    public function cursos_editar() {
+        $alert = '';
+        $cursoModel = new \App\Models\Curso();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($cursoModel->actualizarCurso($_POST)) {
+                $alert = '<div class="alert alert-success">Curso actualizado correctamente</div>';
+            } else {
+                $alert = '<div class="alert alert-warning">Error al actualizar</div>';
+            }
+        }
+        
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            header('Location: ' . BASE_URL . 'admin/cursos');
+            exit;
+        }
+
+        $curso = $cursoModel->getCursoById($id);
+        $data = ['alert' => $alert, 'data' => $curso];
+        $this->view('admin/cursos/editar', $data, 'admin/layouts/main');
+    }
+
+    public function cursos_delete() {
+        if (isset($_GET['id'])) {
+            $cursoModel = new \App\Models\Curso();
+            $cursoModel->eliminarCurso($_GET['id']);
+        }
+        header("Location: " . BASE_URL . "admin/cursos");
+        exit();
+    }
+
+    public function certificados() {
+        // En un futuro aquí listaríamos certificados generados.
+        // Por ahora redirige a estudiantes para generar desde allí
+        header("Location: " . BASE_URL . "admin/ingenieria");
+        exit();
+    }
+
+    public function generar_certificado() {
+        // API Endpoint para generar imagen
+        if (!isset($_GET['alumno']) || !isset($_GET['curso']) || !isset($_GET['fecha']) || !isset($_GET['categoria'])) {
+            die("Faltan parámetros");
+        }
+
+        $alumno = $_GET['alumno'];
+        $curso = $_GET['curso'];
+        $fecha = $_GET['fecha'];
+        $categoria = $_GET['categoria'];
+
+        $certificadoModel = new \App\Models\Certificado();
+        $imagen = $certificadoModel->generarImagenCertificado($alumno, $curso, $fecha, $categoria);
+
+        header("Content-Type: image/jpeg");
+        header("Content-Disposition: inline; filename=certificado.jpg");
+        imagejpeg($imagen, null, 100);
+        imagedestroy($imagen);
+        exit;
+    }
 }

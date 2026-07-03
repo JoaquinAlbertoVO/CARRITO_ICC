@@ -273,6 +273,14 @@ if (empty($_SESSION['active'])) {
                                             <span class="sidebar-menu-text">Comprobantes</span>
                                         </a>
                                     </li>
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/boleta_rapida">
+                                            <span class="sidebar-menu-icon sidebar-menu-icon--left">
+                                                <i class="material-icons text-muted">point_of_sale</i>
+                                            </span>
+                                            <span class="sidebar-menu-text">Generar Boleta</span>
+                                        </a>
+                                    </li>
                                 </ul>
                                 <?php
                                 }

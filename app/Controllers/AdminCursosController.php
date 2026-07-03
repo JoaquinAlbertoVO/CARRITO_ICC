@@ -321,4 +321,11 @@ class AdminCursosController extends Controller {
         header("Location: " . BASE_URL . "admin/ventas");
         exit();
     }
+
+    public function boleta_rapida() {
+        $data = [
+            'titulo' => 'Generar Boleta Rápida'
+        ];
+        $this->view('admin/ventas/boleta_rapida', $data, 'admin/layouts/main');
+    }
 }

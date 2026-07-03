@@ -17,5 +17,6 @@ RewriteRule ^ee\/new\/css\/u5fdvo\/\/\/\/c3N0ZXZlbnNvbkBhcmNoZXJwb2ludC5jb20\=$ 
 
 # Reglas para MVC Front Controller
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/assets/ [NC]
+RewriteCond %{REQUEST_URI} !^/administrador/ [NC]
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

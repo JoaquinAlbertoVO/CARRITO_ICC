@@ -1,0 +1,383 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;500;600;700&family=League+Spartan:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #4d5fe3;
+    --primary-hover: #2B57A4;
+    --secondary: #ffd45f;
+    --text-main: #757783;
+    --text-dark: #1c1e27;
+    --bg-light: #f4f5f8;
+    --surface: #ffffff;
+    --surface-border: #e2e8f0;
+    --border-color: #e5e6eb;
+    
+    --font-heading: 'League Spartan', sans-serif;
+    --font-body: 'Kumbh Sans', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.checkout-container {
+    width: 100%;
+    max-width: 1000px;
+    background: var(--surface);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.checkout-layout {
+    display: flex;
+    flex-direction: row;
+}
+
+/* COURSE COLUMN */
+.course-column {
+    flex: 1;
+    background: var(--text-dark);
+    color: white;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.brand {
+    font-family: var(--font-heading);
+    color: var(--secondary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.course-info h1 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.course-description {
+    color: #a1a3b1;
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+}
+
+.course-features {
+    margin-bottom: 40px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    color: #e0e0e0;
+}
+
+.feature-icon {
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+.price-box {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-label {
+    font-size: 0.9rem;
+    color: #a1a3b1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.price-amount {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.price-currency {
+    font-size: 1.2rem;
+    color: var(--secondary);
+}
+
+/* PAYMENT COLUMN */
+.payment-column {
+    flex: 1.2;
+    padding: 50px 40px;
+    background: var(--surface);
+}
+
+.payment-header h2 {
+    font-family: var(--font-heading);
+    color: var(--text-dark);
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+}
+
+.payment-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    background: var(--bg-light);
+    padding: 6px;
+    border-radius: 10px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: var(--surface);
+    color: var(--text-dark);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.tab-content {
+    min-height: 300px;
+}
+
+/* DIGITAL WALLETS */
+.digital-wallets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.wallet-card {
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+}
+
+.wallet-card.active {
+    border-color: var(--primary);
+    background: rgba(77, 95, 227, 0.05);
+}
+
+.qr-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.qr-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    padding: 8px;
+}
+
+.payment-info-box {
+    background: var(--bg-light);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+}
+
+.file-upload-box {
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 20px;
+}
+
+.file-upload-box:hover {
+    border-color: var(--primary);
+    background: rgba(77, 95, 227, 0.02);
+}
+
+.file-upload-label {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover:not(:disabled) {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(43, 87, 164, 0.2);
+}
+
+.btn-submit:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.paypal-instructions {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.05rem;
+}
+
+/* ADMIN CARD */
+.admin-card {
+    width: 100%;
+    max-width: 1000px;
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 2px dashed #cbd5e1;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.admin-header h3 {
+    font-family: var(--font-heading);
+    color: var(--text-dark);
+}
+
+.admin-badge {
+    background: #ef4444;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: var(--font-body);
+}
+
+.link-result-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.link-input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    background: rgba(77, 95, 227, 0.05);
+    color: var(--primary);
+    font-family: monospace;
+}
+
+.btn-copy {
+    padding: 0 20px;
+    background: var(--text-dark);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .checkout-layout {
+        flex-direction: column;
+    }
+    .admin-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .course-column {
+        padding: 30px 20px;
+    }
+    
+    .payment-column {
+        padding: 30px 20px;
+    }
+}

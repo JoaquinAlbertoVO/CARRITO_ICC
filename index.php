@@ -8,8 +8,12 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Definir constante base
-define('BASE_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/");
+// Definir constante base que detecte subcarpetas (ej. /CARRITO/)
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+$host = $_SERVER['HTTP_HOST'];
+$script = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+$script = $script === '/' ? '' : $script;
+define('BASE_URL', $protocol . "://" . $host . $script . "/");
 
 // Carga automática simple de clases
 spl_autoload_register(function ($class) {

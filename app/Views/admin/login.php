@@ -64,7 +64,6 @@
                         <option selected="">Seleccionar rol ...</option>
                         <option value="1">Administrador</option>
                         <option value="2">Ingenieria Electrica</option>
-                        <option value="3">Derecho Gestion Publica</option>
                     </select>
                 </div>
                 <div class="form-group">

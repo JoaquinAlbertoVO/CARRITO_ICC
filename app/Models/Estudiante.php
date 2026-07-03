@@ -123,11 +123,7 @@ class Estudiante {
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function getEstudianteDerechoById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM usuario_d WHERE iduser = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
-    }
+
 
     public function actualizarEstudianteIngenieria($data, $foto) {
         $id = $data['id_usuario'];
@@ -163,91 +159,7 @@ class Estudiante {
         }
     }
 
-    public function actualizarEstudianteDerecho($data, $foto) {
-        $id = $data['id_usuario'];
-        $nombre = $data['nombre'];
-        $correo = $data['correo'] ?? '';
-        $telefono = $data['telefono'] ?? '';
-        $dni = $data['dni'] ?? '';
-        $nopera = $data['nopera'] ?? '';
-        $mpagado = $data['mpagado'] ?? '';
-        $banco = $data['banco'] ?? '';
-        $fecha = $data['fecha'] ?? '';
-        
-        $imgboucher = $data['foto_actual'] ?? 'ejemplo.png';
-        if ($foto && $foto['name'] != '') {
-            $destino = 'public/assets/img/uploads/';
-            if (!is_dir($destino)) {
-                mkdir($destino, 0777, true);
-            }
-            $img_nombre = 'img_' . md5(date('d-m-Y H:i:s'));
-            $imgboucher = $img_nombre . '.jpg';
-            $src = $destino . $imgboucher;
-            move_uploaded_file($foto['tmp_name'], $src);
-        }
 
-        try {
-            $sql = "UPDATE usuario_d SET nombre = ?, correo = ?, telefono = ?, dni = ?, n_operacion = ?, m_pagado = ?, banco = ?, fecha_deposito = ?, boucher = ? WHERE iduser = ?";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([$nombre, $correo, $telefono, $dni, $nopera, $mpagado, $banco, $fecha, $imgboucher, $id]);
-            return true;
-        } catch (\PDOException $e) {
-            error_log("Error actualizando estudiante derecho: " . $e->getMessage());
-            return false;
-        }
-    }
-    public function registrarEstudianteDerecho($id_pla, $data, $foto) {
-        $nombre = $data['nombre'];
-        $correo = $data['correo'] ?? '';
-        $telefono = $data['telefono'] ?? '';
-        $dni = $data['dni'] ?? '';
-        $nopera = $data['nopera'] ?? '';
-        $mpagado = $data['mpagado'] ?? '';
-        $encargado = $data['encargado'] ?? '';
-        $banco = $data['banco'] ?? '';
-        $fecha = $data['fecha'] ?? '';
-        $usuario = $data['usuario'];
-        $pass = $data['pass'];
-        
-        $imgboucher = 'ejemplo.png';
-
-        if ($foto && $foto['name'] != '') {
-            $destino = 'public/assets/img/uploads/';
-            if (!is_dir($destino)) {
-                mkdir($destino, 0777, true);
-            }
-            $img_nombre = 'img_' . md5(date('d-m-Y H:i:s'));
-            $imgboucher = $img_nombre . '.jpg';
-            $src = $destino . $imgboucher;
-            move_uploaded_file($foto['tmp_name'], $src);
-        }
-
-        try {
-            $this->db->beginTransaction();
-
-            $sql = "INSERT INTO usuario_d(id_pla, nombre, correo, telefono, dni, n_operacion, m_pagado, encargado, banco, fecha_deposito, usuario, password, boucher) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                $id_pla, $nombre, $correo, $telefono, $dni, $nopera, $mpagado, $encargado, $banco, $fecha, $usuario, $pass, $imgboucher
-            ]);
-
-            $iduser = $this->db->lastInsertId();
-
-            $sqlInscrito = "INSERT INTO inscrito_d(id_user, adm_pub, g_p_d_admin, proc_admin, pot_san, c_a_p_r_f) VALUES (?, ?, ?, ?, ?, ?)";
-            $stmtInscrito = $this->db->prepare($sqlInscrito);
-            $stmtInscrito->execute([
-                $iduser, 
-                $data['2'] ?? 1, $data['3'] ?? 1, $data['4'] ?? 1, $data['5'] ?? 1, $data['6'] ?? 1
-            ]);
-
-            $this->db->commit();
-            return true;
-        } catch (\PDOException $e) {
-            $this->db->rollBack();
-            error_log("Error registrando estudiante de derecho: " . $e->getMessage());
-            return false;
-        }
-    }
     public function eliminarEstudianteIngenieria($id) {
         try {
             $sql = "DELETE FROM usuario WHERE iduser = ?";
@@ -259,16 +171,7 @@ class Estudiante {
         }
     }
 
-    public function eliminarEstudianteDerecho($id) {
-        try {
-            $sql = "DELETE FROM usuario_d WHERE iduser_d = ?";
-            $stmt = $this->db->prepare($sql);
-            return $stmt->execute([$id]);
-        } catch (\PDOException $e) {
-            error_log("Error eliminando estudiante de derecho: " . $e->getMessage());
-            return false;
-        }
-    }
+
     public function getDashboardStatsIngenieria() {
         $mes_actual = date('n'); // Mes actual sin ceros a la izquierda, ej: 10
         try {
@@ -292,26 +195,5 @@ class Estudiante {
         }
     }
 
-    public function getDashboardStatsDerecho() {
-        $mes_actual = date('n');
-        try {
-            $sql = "SELECT COUNT(*) as estudiantes, SUM(m_pagado) as total_general FROM usuario_d";
-            $stmt = $this->db->query($sql);
-            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-            $sql_mes = "SELECT SUM(m_pagado) as total_mes FROM usuario_d WHERE MONTH(fecha_deposito) = ?";
-            $stmt_mes = $this->db->prepare($sql_mes);
-            $stmt_mes->execute([$mes_actual]);
-            $row_mes = $stmt_mes->fetch(\PDO::FETCH_ASSOC);
-
-            return [
-                'estudiantes' => $row['estudiantes'] ?? 0,
-                'total_general' => $row['total_general'] ?? 0,
-                'total_mes' => $row_mes['total_mes'] ?? 0
-            ];
-        } catch (\PDOException $e) {
-            error_log("Error obteniendo stats de derecho: " . $e->getMessage());
-            return ['estudiantes' => 0, 'total_general' => 0, 'total_mes' => 0];
-        }
-    }
 }

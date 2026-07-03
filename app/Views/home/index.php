@@ -18,7 +18,7 @@
                     <!--Start Single Swiper Slide-->
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background-image: url(<?= BASE_URL ?>assets/images/backgrounds/portada5.png);"></div>
+                            style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);"></div>
                         <div class="image-layer-overlay"></div>
                         <div class="container">
                             <div class="row">
@@ -38,7 +38,7 @@
                     <!--Start Single Swiper Slide-->
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background-image: url(<?= BASE_URL ?>assets/images/backgrounds/portada2.jpg);"></div>
+                            style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);"></div>
                         <div class="image-layer-overlay"></div>
                         <div class="container">
                             <div class="row">
@@ -62,7 +62,7 @@
                     <!--Start Single Swiper Slide-->
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background-image: url(<?= BASE_URL ?>assets/images/backgrounds/portada4.png);"></div>
+                            style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);"></div>
                         <div class="image-layer-overlay"></div>
                         <div class="container">
                             <div class="row">
@@ -225,12 +225,12 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                             <div class="welcome-one__right-img1 wow slideInRight" data-wow-delay="100ms"
                                 data-wow-duration="2500ms">
                                 <div class="welcome-one__right-img1-inner">
-                                    <img src="<?= BASE_URL ?>assets/images/resources/bienvenida.png" alt="" />
+                                    <!-- Missing image, hidden -->
                                 </div>
                             </div>
                             <div class="welcome-one__right-img2 wow zoomIn" data-wow-delay="100ms"
                                 data-wow-duration="3500ms">
-                                <img src="<?= BASE_URL ?>assets/images/resources/bienvenido.png" alt="" />
+                                <!-- Missing image, hidden -->
                             </div>
                         </div>
                     </div>
@@ -241,8 +241,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
         <!--End Welcome One-->
 
         <!--Counter One Start-->
-        <section class="counter-one jarallax" data-jarallax data-speed="0.2" data-imgPosition="50% 0%"
-            style="background-image: url(<?= BASE_URL ?>assets/images/backgrounds/section1.png);">
+        <section class="counter-one" style="background: transparent; margin-top: 0; padding-top: 100px;">
             <div class="container">
                 <div class="row">
                     <!--Start Counter One Left-->
@@ -250,7 +249,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                         <div class="counter-one__left">
                             <div class="section-title">
                                 <span class="section-title__tagline">Hechos grandiosos</span>
-                                <h2 class="" style="font-size: 50px; color: #FFF; font-family: League Spartan;">La misión de ICC <br>es pulir tu habilidad</h2>
+                                <h2 class="" style="font-size: 50px; color: var(--mo-text-dark); font-family: League Spartan;">La misión de ICC <br>es pulir tu habilidad</h2>
                             </div>
                             <!--<p class="counter-one__left-text">There are many variations of passages of lore ipsum
                                 available but the majority have suffered.</p>-->

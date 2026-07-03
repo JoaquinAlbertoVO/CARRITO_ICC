@@ -601,3 +601,6 @@ body {
 .main-menu__list > li:hover > ul.mo-mega-menu {
   pointer-events: auto !important;
 }
+
+.counter-one::before { display: none !important; }
+

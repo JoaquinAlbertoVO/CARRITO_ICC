@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
         var cuponesValidos = {
-        // INGENIERÍA ELÉCTRICA
+        // INGENIERÍA ELÉCTRICA (Antiguos)
         'TIKTOK-FACTURAS': { curso: 'Análisis de facturas y Evaluación de Tarifas E.', precio: 50, moneda: 'PEN' },
         'TIKTOK-BANCO': { curso: 'Banco de Condensadores', precio: 50, moneda: 'PEN' },
         'TIKTOK-ELECTRICIDAD': { curso: 'Electricidad Básica', precio: 50, moneda: 'PEN' },
@@ -325,6 +325,19 @@ document.addEventListener("DOMContentLoaded", function() {
         'TIKTOK-TIERRA': { curso: 'Sistema Puesta a Tierra', precio: 50, moneda: 'PEN' },
         'TIKTOK-REGULACION': { curso: 'Regulación del Mercado de Energía', precio: 50, moneda: 'PEN' },
         'TIKTOK-REDES': { curso: 'Configuración e Instalación de Analizadores de redes', precio: 50, moneda: 'PEN' },
+        
+        // CUPONES NUEVOS (Google Sheet)
+        'CUPON-TERMOCONTRAIBLES-VIRTUAL': { curso: 'Terminaciones Termocontraibles MT (Virtual)', precio: 99, moneda: 'PEN' },
+        'CUPON-TERMOCONTRAIBLES-SEMI': { curso: 'Terminaciones Termocontraibles MT (Semipresencial)', precio: 350, moneda: 'PEN' },
+        'CUPON-REDES-VIRTUAL': { curso: 'Analizador de Redes BT (Virtual)', precio: 99, moneda: 'PEN' },
+        'CUPON-REDES-SEMI': { curso: 'Analizador de Redes BT (Semipresencial)', precio: 250, moneda: 'PEN' },
+        'CUPON-CONDUIT-VIRTUAL': { curso: 'Canalizaciones Tubería Conduit (Virtual)', precio: 99, moneda: 'PEN' },
+        'CUPON-CONDUIT-SEMI': { curso: 'Canalizaciones Tubería Conduit (Semipresencial)', precio: 350, moneda: 'PEN' },
+        'CUPON-VARIADORES-VIRTUAL': { curso: 'Variadores en Velocidad (Virtual)', precio: 99, moneda: 'PEN' },
+        'CUPON-VARIADORES-SEMI': { curso: 'Variadores en Velocidad (Semipresencial)', precio: 450, moneda: 'PEN' },
+        'CUPON-EMPALME-SEMI': { curso: 'Empalme Autocontraible 3 M (Semipresencial)', precio: 750, moneda: 'PEN' },
+        'CUPON-BANCO-VIRTUAL': { curso: 'Banco de Condensadores (Virtual)', precio: 99, moneda: 'PEN' },
+        'CUPON-BANCO-SEMI': { curso: 'Banco de Condensadores (Semipresencial)', precio: 450, moneda: 'PEN' }
     };
 
     if(btnSubmit) {

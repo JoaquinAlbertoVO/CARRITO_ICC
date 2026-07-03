@@ -262,6 +262,18 @@ if (empty($_SESSION['active'])) {
                                         </a>
                                     </li>
                                 </ul>
+
+                                <div class="sidebar-heading">Ventas</div>
+                                <ul class="sidebar-menu mt-0">
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/ventas">
+                                            <span class="sidebar-menu-icon sidebar-menu-icon--left">
+                                                <i class="material-icons text-muted">receipt_long</i>
+                                            </span>
+                                            <span class="sidebar-menu-text">Comprobantes</span>
+                                        </a>
+                                    </li>
+                                </ul>
                                 <?php
                                 }
                                 ?>

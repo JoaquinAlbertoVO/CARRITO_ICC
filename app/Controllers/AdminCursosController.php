@@ -97,8 +97,12 @@ class AdminCursosController extends Controller {
             }
         }
 
+        $cursoModel = new \App\Models\Curso();
+        $cursos = $cursoModel->getCursos();
+
         $data = [
-            'alert' => $alert
+            'alert' => $alert,
+            'cursos' => $cursos
         ];
         $this->view('admin/ingenieria/registro', $data, 'admin/layouts/main');
     }
@@ -255,5 +259,66 @@ class AdminCursosController extends Controller {
         imagejpeg($imagen, null, 100);
         imagedestroy($imagen);
         exit;
+    }
+    
+    public function ventas() {
+        $dir = __DIR__ . '/../../assets/img/vouchers/';
+        $vouchers = [];
+        
+        if (is_dir($dir)) {
+            $files = scandir($dir);
+            foreach ($files as $file) {
+                // Ignore . and .. and any non-files
+                if ($file === '.' || $file === '..' || !is_file($dir . $file)) {
+                    continue;
+                }
+                
+                // Filename format: voucher_YYYYMMDD_HHMMSS_CursoName.ext
+                $dateFormatted = 'Desconocida';
+                $courseName = 'Desconocido';
+                
+                if (preg_match('/^voucher_(\d{8})_(\d{6})_(.+)\.([a-zA-Z0-9]+)$/', $file, $matches)) {
+                    $dateStr = $matches[1] . ' ' . $matches[2];
+                    $datetime = \DateTime::createFromFormat('Ymd His', $dateStr);
+                    if ($datetime) {
+                        $dateFormatted = $datetime->format('d/m/Y h:i A');
+                    }
+                    $courseName = str_replace('_', ' ', $matches[3]);
+                }
+                
+                $vouchers[] = [
+                    'filename' => $file,
+                    'url' => BASE_URL . 'assets/img/vouchers/' . $file,
+                    'date' => $dateFormatted,
+                    'course' => $courseName,
+                    'timestamp' => filectime($dir . $file)
+                ];
+            }
+            
+            // Sort by timestamp descending (newest first)
+            usort($vouchers, function($a, $b) {
+                return $b['timestamp'] - $a['timestamp'];
+            });
+        }
+        
+        $data = [
+            'vouchers' => $vouchers,
+            'titulo' => 'Ventas y Comprobantes'
+        ];
+        
+        $this->view('admin/ventas/lista', $data, 'admin/layouts/main');
+    }
+
+    public function ventas_delete() {
+        if (isset($_GET['file'])) {
+            $file = basename($_GET['file']); // basename to prevent directory traversal
+            $path = __DIR__ . '/../../assets/img/vouchers/' . $file;
+            
+            if (file_exists($path) && is_file($path)) {
+                unlink($path);
+            }
+        }
+        header("Location: " . BASE_URL . "admin/ventas");
+        exit();
     }
 }

@@ -32,7 +32,7 @@
                         <div class="courses-one__single style2 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                             <div class="courses-one__single-img">
                                 <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 20px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Banner del Curso)</span></h4>
+    
 </div>
                                 <div class="overlay-text">
                                     <p>libre</p>
@@ -507,7 +507,7 @@
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
                                         <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 20px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Banner del Curso)</span></h4>
+    
 </div>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
@@ -531,7 +531,7 @@
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
                                         <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 20px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Banner del Curso)</span></h4>
+    
 </div>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
@@ -555,7 +555,7 @@
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
                                         <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 20px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Banner del Curso)</span></h4>
+    
 </div>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">

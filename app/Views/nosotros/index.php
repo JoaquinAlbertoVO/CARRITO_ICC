@@ -52,7 +52,7 @@
                     <div class="why-choose-one__right  clearfix animated"   style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: slideInRight;">
                         <div class="why-choose-one__right-img clearfix">
                             <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 16px; width: 100%; height: 400px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading);">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Equipo de Trabajo)</span></h4>
+    
 </div>
                             <!--<div class="why-choose-one__right-img-overlay">
                                 <p>SOMOS LA MEJOR INSTITUCIÃ“N</p>
@@ -76,7 +76,7 @@
                         <div class="features-two__single-img">
                             <div class="features-two__single-img-inner">
                                 <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 16px; width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading);">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Misión)</span></h4>
+    
 </div>
                             </div>
                             <div class="features-two__single-overlay">
@@ -95,7 +95,7 @@
                         <div class="features-two__single-img">
                             <div class="features-two__single-img-inner">
                                 <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 16px; width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading);">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Visión)</span></h4>
+    
 </div>
                             </div>
                             <div class="features-two__single-overlay">

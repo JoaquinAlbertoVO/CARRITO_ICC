@@ -55,7 +55,7 @@
                     <div class="courses-one__single" data-aos="fade-up"  >
                         <div class="courses-one__single-img">
                             <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             <div class="overlay-text">
                                 <p>libre</p>
@@ -64,7 +64,7 @@
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
                                 <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             </div>
                             <h6 class="courses-one__single-content-name">Pedro Pablo Aparicio Arias</h6>
@@ -97,7 +97,7 @@
                     <div class="courses-one__single" data-aos="fade-up"  >
                         <div class="courses-one__single-img">
                             <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             <div class="overlay-text">
                                 <p>libre</p>
@@ -106,7 +106,7 @@
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
                                 <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             </div>
                             <h6 class="courses-one__single-content-name">Hipólito Coaguila Berrios</h6>
@@ -143,7 +143,7 @@
                     <div class="courses-one__single" data-aos="fade-up"  >
                         <div class="courses-one__single-img">
                             <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             <div class="overlay-text">
                                 <p>libre</p>
@@ -152,7 +152,7 @@
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
                                 <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             </div>
                             <h6 class="courses-one__single-content-name">Johan Paredes</h6>
@@ -185,7 +185,7 @@
                     <div class="courses-one__single" data-aos="fade-up"  >
                         <div class="courses-one__single-img">
                             <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             <div class="overlay-text">
                                 <p>libre</p>
@@ -194,7 +194,7 @@
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
                                 <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             </div>
                             <h6 class="courses-one__single-content-name">Hipolito Coaguila Berrios</h6>
@@ -235,7 +235,7 @@
                     <div class="courses-one__single" data-aos="fade-up"  >
                         <div class="courses-one__single-img">
                             <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             <div class="overlay-text">
                                 <p>libre</p>
@@ -244,7 +244,7 @@
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
                                 <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             </div>
                             <h6 class="courses-one__single-content-name">Pedro Aparicio Arias</h6>
@@ -277,7 +277,7 @@
                     <div class="courses-one__single" data-aos="fade-up"  >
                         <div class="courses-one__single-img">
                             <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             <div class="overlay-text">
                                 <p>libre</p>
@@ -286,7 +286,7 @@
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
                                 <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             </div>
                             <h6 class="courses-one__single-content-name">Ricardo Cardenas</h6>
@@ -319,7 +319,7 @@
                     <div class="courses-one__single" data-aos="fade-up"  >
                         <div class="courses-one__single-img">
                             <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             <div class="overlay-text">
                                 <p>libre</p>
@@ -328,7 +328,7 @@
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
                                 <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             </div>
                             <h6 class="courses-one__single-content-name">Melissa Jiménez Ll.</h6>
@@ -361,7 +361,7 @@
                     <div class="courses-one__single" data-aos="fade-up"  >
                         <div class="courses-one__single-img">
                             <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             <div class="overlay-text">
                                 <p>libre</p>
@@ -370,7 +370,7 @@
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
                                 <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             </div>
                             <h6 class="courses-one__single-content-name">Francisco Torres Madrid</h6>
@@ -419,7 +419,7 @@
                     <div class="courses-one__single" data-aos="fade-up"  >
                         <div class="courses-one__single-img">
                             <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             <div class="overlay-text">
                                 <p>libre</p>
@@ -428,7 +428,7 @@
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
                                 <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+    
 </div>
                             </div>
                             <h6 class="courses-one__single-content-name">Ricardo Cardenas</h6>
@@ -458,7 +458,8 @@
             </div>
         </div>
     </section>
-    <!--Courses One End-->
+    <!--Courses One End-->
+
 
 
 

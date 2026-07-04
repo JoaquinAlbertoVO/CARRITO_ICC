@@ -98,9 +98,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                     <div class="col-xl-3 col-lg-6 col-md-6" data-aos="fade-up">
                         <div class="tarjeta-dark">
                             <div class="tarjeta-dark-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
-                                    
-                                </div>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><img src="<?= BASE_URL ?><?= $course['image'] ?>" alt="Curso" style="width:100%; height:100%; object-fit:cover; border-radius:10px;"></div>
                             </div>
                             <div class="tarjeta-dark-content">
                                 <span class="etiqueta-verde">CURSO</span>

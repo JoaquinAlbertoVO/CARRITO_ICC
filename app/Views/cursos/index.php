@@ -61,7 +61,7 @@
                         </div>
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
                             </div>
                             <h6 class="courses-one__single-content-name">Pedro Pablo Aparicio Arias</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/electricidad_basica">Electricidad Básica</a></h4>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
                             </div>
                             <h6 class="courses-one__single-content-name">Hipólito Coaguila Berrios</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/motores_electricos">Motores Eléctricos</a></h4>
@@ -141,7 +141,7 @@
                         </div>
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
                             </div>
                             <h6 class="courses-one__single-content-name">Johan Paredes</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/banco_condensadores">Banco de Condensadores</a></h4>
@@ -179,7 +179,7 @@
                         </div>
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
                             </div>
                             <h6 class="courses-one__single-content-name">Hipolito Coaguila Berrios</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/puesta_tierra">Sistema Puesta a Tierra</a></h4>
@@ -225,7 +225,7 @@
                         </div>
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
                             </div>
                             <h6 class="courses-one__single-content-name">Pedro Aparicio Arias</h6>
                             <h4 class="courses-one__single-content-title"><a href="course-details.html">Programación Básica de PLC</a></h4>
@@ -263,7 +263,7 @@
                         </div>
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
                             </div>
                             <h6 class="courses-one__single-content-name">Ricardo Cardenas</h6>
                             <h4 class="courses-one__single-content-title"><a href="course-details.html">Análisis de facturas y Evaluación de Tarifas E.</a></h4>
@@ -301,7 +301,7 @@
                         </div>
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
                             </div>
                             <h6 class="courses-one__single-content-name">Melissa Jiménez Ll.</h6>
                             <h4 class="courses-one__single-content-title"><a href="course-details.html">Gestión y Seguridad en el Trabajo Ley Nº29783</a></h4>
@@ -339,7 +339,7 @@
                         </div>
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
                             </div>
                             <h6 class="courses-one__single-content-name">Francisco Torres Madrid</h6>
                             <h4 class="courses-one__single-content-title"><a href="course-details.html">Regulación del Mercado de Energía</a></h4>
@@ -393,7 +393,7 @@
                         </div>
                         <div class="courses-one__single-content" >
                             <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
                             </div>
                             <h6 class="courses-one__single-content-name">Ricardo Cardenas</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/configuracion_redes">Configuración e Instalación de Analizadores de redes</a></h4>

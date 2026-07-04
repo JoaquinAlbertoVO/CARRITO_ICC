@@ -1,6 +1,10 @@
 <?php  
 
 session_start();
+if (empty($_SESSION['active']) || empty($_SESSION['idUser'])) {
+    header('location: ../../');
+    exit;
+}
 include '../conexion.php';
 include 'includes/head.php';
 include 'includes/header.php';

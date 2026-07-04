@@ -63,7 +63,7 @@
                     <select id="select01" name="rol" data-toggle="select" class="form-control">
                         <option selected="">Seleccionar rol ...</option>
                         <option value="1">Administrador</option>
-                        <option value="2">Ingenieria Electrica</option>
+                        <option value="2">Ingeniería Eléctrica</option>
                     </select>
                 </div>
                 <div class="form-group">

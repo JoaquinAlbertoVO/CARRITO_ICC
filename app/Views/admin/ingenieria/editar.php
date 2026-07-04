@@ -165,12 +165,12 @@
 
                                         while ($mostrar = mysqli_fetch_row($result)) {
 
-                                            //PRIMER CURSO PROGRAMACION BASICA P.L.C
+                                            //PRIMER CURSO PROGRAMACIÓN BÁSICA P.L.C
                                             if ($mostrar[1]) {
                                                 echo "
 
                                                 <div class='col-12 col-md-6 mb-3'>
-                                                    <label for='fname'>PROGRAMACION BASICA P.L.C</label>
+                                                    <label for='fname'>PROGRAMACIÓN BÁSICA P.L.C</label>
                                                     <select id='select01' data-toggle='select' name='2' class='form-control'>
                                                         <option value='2'>$mostrar[1]</option>
                                                         <option value='1'>No</option>
@@ -182,10 +182,10 @@
                                                 echo "
 
                                                 <div class='col-12 col-md-6 mb-3'>
-                                                    <label for='fname'>PROGRAMACION BASICA P.L.C</label>
+                                                    <label for='fname'>PROGRAMACIÓN BÁSICA P.L.C</label>
                                                     <select id='select01' data-toggle='select' name='2' class='form-control'>
                                                         <option value='1'>No</option>
-                                                        <option value='2'>PROGRAMACION BASICA P.L.C</option>
+                                                        <option value='2'>PROGRAMACIÓN BÁSICA P.L.C</option>
                                                     </select>
                                                 </div>
 
@@ -358,11 +358,11 @@
                                         $result5 = mysqli_query($conection, $sql5);
 
                                         while ($mostrar5 = mysqli_fetch_row($result5)) {
-                                            //PRIMER CURSO ANALISIS DE FACTURAS Y EVALUACION DE TARIFAS ELECTRICAS
+                                            //PRIMER CURSO ANÁLISIS DE FACTURAS Y EVALUACIÓN DE TARIFAS ELÉCTRICAS
                                             if ($mostrar5[1]) {
                                                 echo "
                                                 <div class='col-12 col-md-6 mb-3'>
-                                                    <label for='fname'>ANALISIS DE FACTURAS Y EVALUACION DE TARIFAS ELECTRICAS</label>
+                                                    <label for='fname'>ANÁLISIS DE FACTURAS Y EVALUACIÓN DE TARIFAS ELÉCTRICAS</label>
                                                     <select id='select01' data-toggle='select' name='7' class='form-control'>
                                                         <option value='7'>$mostrar5[1]</option>
                                                         <option value='1'>No</option>
@@ -372,10 +372,10 @@
                                             } else {
                                                 echo "
                                                 <div class='col-12 col-md-6 mb-3'>
-                                                    <label for='fname'>ANALISIS DE FACTURAS Y EVALUACION DE TARIFAS ELECTRICAS</label>
+                                                    <label for='fname'>ANÁLISIS DE FACTURAS Y EVALUACIÓN DE TARIFAS ELÉCTRICAS</label>
                                                     <select id='select01' data-toggle='select' name='7' class='form-control'>
                                                         <option value='1'>No</option>
-                                                        <option value='7'>ANALISIS DE FACTURAS Y EVALUACION DE TARIFAS ELECTRICAS</option>
+                                                        <option value='7'>ANÁLISIS DE FACTURAS Y EVALUACIÓN DE TARIFAS ELÉCTRICAS</option>
                                                     </select>
                                                 </div>
                                                 ";

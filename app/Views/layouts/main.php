@@ -155,7 +155,7 @@
                 <li><a href="<?= BASE_URL ?>cursos/detalle/analisis-facturacion">Análisis de facturas y Evaluación de Tarifas E.</a></li>
                 <li><a href="<?= BASE_URL ?>cursos/detalle/banco-condensadores">Banco de Condensadores</a></li>
                 <li><a href="<?= BASE_URL ?>cursos/detalle/electricidad-basica">Electricidad Básica</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/gestion-seguridad">Gestión y Seguridad en el Trabajo Ley NÂº29783</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/gestion-seguridad">Gestión y Seguridad en el Trabajo Ley Nº29783</a></li>
                 <li><a href="<?= BASE_URL ?>cursos/detalle/motores-electricos">Motores Eléctricos</a></li>
                 <li><a href="<?= BASE_URL ?>cursos/detalle/plc">Programación Básica de PLC</a></li>
                 <li><a href="<?= BASE_URL ?>cursos/detalle/puesta-tierra">Sistema Puesta a Tierra</a></li>
@@ -324,7 +324,7 @@ document.addEventListener("DOMContentLoaded", function() {
         'TIKTOK-FACTURAS': { curso: 'Análisis de facturas y Evaluación de Tarifas E.', precio: 50, moneda: 'PEN' },
         'TIKTOK-BANCO': { curso: 'Banco de Condensadores', precio: 50, moneda: 'PEN' },
         'TIKTOK-ELECTRICIDAD': { curso: 'Electricidad Básica', precio: 50, moneda: 'PEN' },
-        'TIKTOK-GESTION': { curso: 'Gestión y Seguridad en el Trabajo Ley NÂº29783', precio: 50, moneda: 'PEN' },
+        'TIKTOK-GESTION': { curso: 'Gestión y Seguridad en el Trabajo Ley Nº29783', precio: 50, moneda: 'PEN' },
         'TIKTOK-MOTORES': { curso: 'Motores Eléctricos', precio: 50, moneda: 'PEN' },
         'TIKTOK-PLC': { curso: 'Programación Básica de PLC', precio: 50, moneda: 'PEN' },
         'TIKTOK-TIERRA': { curso: 'Sistema Puesta a Tierra', precio: 50, moneda: 'PEN' },

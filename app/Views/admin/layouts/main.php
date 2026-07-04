@@ -238,7 +238,7 @@ if (empty($_SESSION['active'])) {
                                 <?php  
                                 if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                                 ?>
-                                <div class="sidebar-heading">Ingenieria Electrica</div>
+                                <div class="sidebar-heading">Ingeniería Eléctrica</div>
 
                                 <ul class="sidebar-menu mt-0">
                                     <li class="sidebar-menu-item">
@@ -250,7 +250,7 @@ if (empty($_SESSION['active'])) {
                                                     </g>
                                                 </svg>
                                             </span>
-                                            <span class="sidebar-menu-text">Ingenieria Electrica</span>
+                                            <span class="sidebar-menu-text">Ingeniería Eléctrica</span>
                                         </a>
                                     </li>
                                 </ul>

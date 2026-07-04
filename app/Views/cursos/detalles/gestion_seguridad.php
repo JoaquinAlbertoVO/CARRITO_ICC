@@ -43,7 +43,7 @@
 </div>
                                 </div>
                                 <h6 class="courses-one__single-content-name">Melissa Jiménez Ll. <span>Actualizado recientemente 20 junio, 2021</span></h6>
-                                <h4 class="courses-one__single-content-title">Gestión y Seguridad en el Trabajo Ley NÂº29783</h4>
+                                <h4 class="courses-one__single-content-title">Gestión y Seguridad en el Trabajo Ley Nº29783</h4>
                                 <div class="courses-one__single-content-review-box">
                                     <ul class="list-unstyled">
                                         <li><i class="fa fa-star"></i></li>

@@ -42,7 +42,7 @@
     <span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span>
 </div>
                                 </div>
-                                <h6 class="courses-one__single-content-name">Ricardo Cardenas <span>Actualizado recientemente 20 junio, 2021</span></h6>
+                                <h6 class="courses-one__single-content-name">Ricardo Cárdenas <span>Actualizado recientemente 20 junio, 2021</span></h6>
                                 <h4 class="courses-one__single-content-title">Análisis de facturas y Evaluación de Tarifas Eléctricas</h4>
                                 <div class="courses-one__single-content-review-box">
                                     <ul class="list-unstyled">

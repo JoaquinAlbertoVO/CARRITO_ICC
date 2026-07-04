@@ -53,6 +53,18 @@
     <link type="text/css" href="<?= BASE_URL ?>assets/admin/css/vendor-select2.rtl.css" rel="stylesheet">
     <link type="text/css" href="<?= BASE_URL ?>assets/admin/vendor/select2/select2.min.css" rel="stylesheet">
 
+
+<style>
+:root {
+  --admin-primary: #0f172a;
+  --admin-surface: #1e293b;
+  --admin-bg: #f8fafc;
+  --admin-accent: #25d366;
+  --admin-text: #64748b;
+  --admin-heading: 'Outfit', sans-serif;
+  --admin-body: 'Inter', sans-serif;
+}
+</style>
 </head>
 
 <body class="layout-default">
@@ -387,3 +399,4 @@ if (empty($_SESSION['active'])) {
 </body>
 
 </html>
+

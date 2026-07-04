@@ -57,14 +57,18 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item development business">
                     <div class="courses-one__single wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="assets/images/resources/electricidad_basica.png" alt=""/>
+                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img1.png" alt=""/>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             </div>
                             <h6 class="courses-one__single-content-name">Pedro Pablo Aparicio Arias</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/electricidad_basica">Electricidad Básica</a></h4>
@@ -95,14 +99,18 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item development business featured">
                     <div class="courses-one__single wow fadeInLeft" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="assets/images/resources/motores_electricos.png" alt=""/>
+                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img2.png" alt=""/>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             </div>
                             <h6 class="courses-one__single-content-name">Hipólito Coaguila Berrios</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/motores_electricos">Motores Eléctricos</a></h4>
@@ -133,14 +141,18 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item photography featured">
                     <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="assets/images/resources/puesta_tierra.jpg" alt=""/>
+                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img8.png" alt=""/>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             </div>
                             <h6 class="courses-one__single-content-name">Hipolito Coaguila Berrios</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/puesta_tierra">Sistema Puesta a Tierra</a></h4>
@@ -171,14 +183,18 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item photography development">
                     <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="assets/images/resources/banco_condensadores.jpg" alt=""/>
+                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img4.png" alt=""/>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             </div>
                             <h6 class="courses-one__single-content-name">Johan Paredes</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/banco_condensadores">Banco de Condensadores</a></h4>
@@ -209,14 +225,18 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item business development photography">
                     <div class="courses-one__single wow fadeInLeft" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="assets/images/resources/analisis_facturacion.jpg" alt=""/>
+                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img6.png" alt=""/>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             </div>
                             <h6 class="courses-one__single-content-name">Ricardo Cardenas</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/analisis_facturacion">Análisis de facturas y Evaluación de Tarifas E.</a></h4>
@@ -247,14 +267,18 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item featured photography development">
                     <div class="courses-one__single wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="assets/images/resources/sistema_gestion_seguridad.png" alt=""/>
+                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img7.png" alt=""/>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             </div>
                             <h6 class="courses-one__single-content-name">Melissa Jiménez Ll.</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/gestion_seguridad">Gestión y Seguridad en el Trabajo Ley Nº29783</a></h4>
@@ -285,14 +309,18 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item photography featured">
                     <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="assets/images/resources/regulacion_mercado.png" alt=""/>
+                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img8.png" alt=""/>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             </div>
                             <h6 class="courses-one__single-content-name">Francisco Torres Madrid</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/regulacion_mercado">Regulación del Mercado de Energía</a></h4>
@@ -323,14 +351,18 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item photography featured">
                     <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="assets/images/resources/analizador_redes.png" alt=""/>
+                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img8.png" alt=""/>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             </div>
                             <h6 class="courses-one__single-content-name">Ricardo Cardenas</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/configuracion_redes">Configuración e Instalación de Analizadores de redes</a></h4>
@@ -361,14 +393,18 @@
                 <div class="col-xl-3 col-lg-6 col-md-6 filter-item development photography featured">
                     <div class="courses-one__single wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                         <div class="courses-one__single-img">
-                            <img src="assets/images/resources/programacio_plc.jpg" alt=""/>
+                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             <div class="overlay-text">
                                 <p>libre</p>
                             </div>
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <img src="assets/images/resources/courses-v1-overlay-img5.png" alt=""/>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;">
+    <h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4>
+</div>
                             </div>
                             <h6 class="courses-one__single-content-name">Pedro Aparicio Arias</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/plc">Programación Básica de PLC</a></h4>
@@ -401,3 +437,4 @@
     </section>
     <!--Courses One End-->
 
+

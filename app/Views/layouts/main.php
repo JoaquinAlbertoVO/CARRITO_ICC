@@ -61,7 +61,7 @@
       gtag('config', 'G-88Z8HWMT5C');
     </script>
     <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"7f4d2702c36e51657ae7d91f2c71cf01"})});</script>
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/modern_override.css?v=<?php echo file_exists(__DIR__ . '/../../../assets/css/modern_override.css') ? filemtime(__DIR__ . '/../../../assets/css/modern_override.css') : '1.0'; ?>" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/modern_override.css?v=2.0.7?v=<?php echo file_exists(__DIR__ . '/../../../assets/css/modern_override.css?v=2.0.7') ? filemtime(__DIR__ . '/../../../assets/css/modern_override.css?v=2.0.7') : '1.0'; ?>" />
     
     <!-- Modern Frameworks CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
@@ -575,3 +575,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </body>
 
 </html>
+
+
+
+
+
+
+

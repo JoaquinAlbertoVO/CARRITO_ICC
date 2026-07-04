@@ -8,12 +8,7 @@ RewriteCond %{HTTP_HOST} ^icc\.com\.pe$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.icc\.com\.pe$
 RewriteRule ^ee\/new\/css\/u5fdvo\/\/\/\/c3N0ZXZlbnNvbkBhcmNoZXJwb2ludC5jb20\=$ "https\:\/\/www\.publiperu\.pe\/" [R=301,L]
 
-# php -- BEGIN cPanel-generated handler, do not edit
-# Set the “ea-php82” package as the default “PHP” programming language.
-<IfModule mime_module>
-  AddHandler application/x-httpd-ea-php82 .php .php8 .phtml
-</IfModule>
-# php -- END cPanel-generated handler, do not edit
+
 
 # Reglas para MVC Front Controller
 RewriteCond %{REQUEST_FILENAME} !-f
@@ -21,3 +16,4 @@ RewriteCond %{REQUEST_URI} !^/assets/ [NC]
 RewriteCond %{REQUEST_URI} !^/administrador/ [NC]
 RewriteCond %{REQUEST_URI} !^/Aula/ [NC]
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+

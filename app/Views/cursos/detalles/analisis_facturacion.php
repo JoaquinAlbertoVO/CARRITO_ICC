@@ -136,7 +136,7 @@
                                 <div class="accordion">
                                     <h1 style="background-color: #F1F2F6; border-radius: 8px; font-family: League Spartan;">Temario</h1>
                                     <dl>
-                                        <dt><a class="accordionTitle courses-one__single-content" href="#" style="font-family: League Spartan;">MÃ“DULO I: DEFINICIONES</a></dt>
+                                        <dt><a class="accordionTitle courses-one__single-content" href="#" style="font-family: League Spartan;">MÓDULO I: DEFINICIONES</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -159,7 +159,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo II: TARIFAS ELÃ‰CTRICAS - MT</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo II: TARIFAS ELÉCTRICAS - MT</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -182,7 +182,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo III: CONOCIENDO LA FACTURA ELÃ‰CTRICA</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo III: CONOCIENDO LA FACTURA ELÉCTRICA</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -205,7 +205,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo IV: CONDICIÃ“N ESPECÍFICA DE APLICACIÃ“N DE CADA OPCIÃ“N TARIFARIA</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo IV: CONDICIÓN ESPECÍFICA DE APLICACIÓN DE CADA OPCIÓN TARIFARIA</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -236,7 +236,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo V: CÁLCULO DE FACTURACIÃ“N</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo V: CÁLCULO DE FACTURACIÓN</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -267,7 +267,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo VI: OPORTUNIDADES AHORRO - EVALUACIÃ“N DE TARIFARIA</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo VI: OPORTUNIDADES AHORRO - EVALUACIÓN DE TARIFARIA</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -403,7 +403,7 @@
                                                 <i class="fas fa-star"></i><!-- /.fas fa-star -->
                                                 <i class="fas fa-star"></i><!-- /.fas fa-star -->
                                             </div>
-                                            <p class="course-details__review-text">30 RESEÃ‘AS</p>
+                                            <p class="course-details__review-text">30 RESEÑAS</p>
                                         </div>
                                     </div>
                                 </div>

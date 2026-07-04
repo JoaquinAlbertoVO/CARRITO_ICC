@@ -221,7 +221,7 @@
                                                 <i class="fas fa-star"></i><!-- /.fas fa-star -->
                                                 <i class="fas fa-star"></i><!-- /.fas fa-star -->
                                             </div>
-                                            <p class="course-details__review-text">30 RESEÃ‘AS</p>
+                                            <p class="course-details__review-text">30 RESEÑAS</p>
                                         </div>
                                     </div>
                                 </div>

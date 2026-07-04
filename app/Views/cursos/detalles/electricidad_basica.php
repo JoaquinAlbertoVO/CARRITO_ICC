@@ -136,7 +136,7 @@
                                 <div class="accordion">
                                     <h1 style="background-color: #F1F2F6; border-radius: 8px; font-family: League Spartan;">Temario</h1>
                                     <dl>
-                                        <dt><a class="accordionTitle courses-one__single-content" href="#" style="font-family: League Spartan;">MÃ“DULO I: PRINCIPIOS DE ELECTRICIDAD</a></dt>
+                                        <dt><a class="accordionTitle courses-one__single-content" href="#" style="font-family: League Spartan;">MÓDULO I: PRINCIPIOS DE ELECTRICIDAD</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -262,7 +262,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo III: SELECCIÃ“N</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Modulo III: SELECCIÓN</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -301,7 +301,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo IV: INSTRUMENTOS DE MEDICIÃ“N Y HERRAMIENTAS</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo IV: INSTRUMENTOS DE MEDICIÓN Y HERRAMIENTAS</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -450,7 +450,7 @@
                                                 </ul><br>
                                             </div>
                                         </dd>
-                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo VII: SIMBOLOGÍA DE LOS CIRCUITOS ELÃ‰CTRICOS</a></dt>
+                                        <dt><a class="accordionTitle" href="#" style="font-family: League Spartan;">Módulo VII: SIMBOLOGÍA DE LOS CIRCUITOS ELÉCTRICOS</a></dt>
                                         <dd class="accordionItem accordionItemCollapsed" style="margin-bottom: 0;">
                                             <div class="course-details__content-list"><br>
                                                 <ul class="list-unstyled" style="padding-left: 35px;">
@@ -570,7 +570,7 @@
                                                 <i class="fas fa-star"></i><!-- /.fas fa-star -->
                                                 <i class="fas fa-star"></i><!-- /.fas fa-star -->
                                             </div>
-                                            <p class="course-details__review-text">30 RESEÃ‘AS</p>
+                                            <p class="course-details__review-text">30 RESEÑAS</p>
                                         </div>
                                     </div>
                                 </div>

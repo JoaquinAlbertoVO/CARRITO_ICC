@@ -251,7 +251,7 @@
                     },
                     plin: {
                         title: 'Pago con Plin',
-                        qrUrl: 'https://via.placeholder.com/200x200/00c8b0/ffffff?text=QR+Plin',
+                        qrUrl: '<?= BASE_URL ?>assets/images/plin.jpg',
                         color: '#00c8b0',
                         name: 'Tu Nombre Apellido',
                         phone: '999 999 999'

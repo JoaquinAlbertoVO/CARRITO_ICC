@@ -31,9 +31,7 @@
                         <!--Start Single Courses One-->
                         <div class="courses-one__single style2 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                             <div class="courses-one__single-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    
-</div>
+                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;"><img src="<?= BASE_URL ?>assets/images/Electricidad_Industrial.jpeg" style="width:100%; height:100%; object-fit:cover; border-radius:8px;"></div>
                                 <div class="overlay-text">
                                     <p>libre</p>
                                 </div>
@@ -307,9 +305,7 @@
                             <ul class="course-details__new-courses-list list-unstyled">
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    
-</div>
+                                        <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;"><img src="<?= BASE_URL ?>assets/images/Electricidad_Industrial.jpeg" style="width:100%; height:100%; object-fit:cover; border-radius:8px;"></div>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="<?= BASE_URL ?>cursos/detalle/analisis-facturacion">Análisis de facturación y tarifas eléctricas</a></h4>
@@ -331,9 +327,7 @@
 
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    
-</div>
+                                        <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;"><img src="<?= BASE_URL ?>assets/images/Electricidad_Industrial.jpeg" style="width:100%; height:100%; object-fit:cover; border-radius:8px;"></div>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_plc">Programación básica de PLC</a></h4>
@@ -355,9 +349,7 @@
 
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    
-</div>
+                                        <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;"><img src="<?= BASE_URL ?>assets/images/Electricidad_Industrial.jpeg" style="width:100%; height:100%; object-fit:cover; border-radius:8px;"></div>
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="detalle_banco_condensadores">Banco de condensadores</a></h4>

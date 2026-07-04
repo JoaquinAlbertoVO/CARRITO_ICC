@@ -1,4 +1,4 @@
-﻿RewriteEngine on
+RewriteEngine on
 RewriteCond %{HTTP_HOST} ^icc\.com\.pe$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.icc\.com\.pe$
 RewriteRule ^ee\/new\/$ "https\:\/\/www\.publiperu\.pe\/" [R=301,L]

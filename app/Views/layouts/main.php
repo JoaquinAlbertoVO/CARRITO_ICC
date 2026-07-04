@@ -24,6 +24,17 @@
     <link rel="manifest" href="<?= BASE_URL ?>assets/images/favicons/site.webmanifest" />
     <meta name="description" content="<?= $meta_description ?? 'ICC - Instituto de Capacitación Continua' ?>" />
 
+    <style>
+        /* Corrección para que las letras del menú sean blancas cuando se hace scroll (sticky header) */
+        .stricky-header.stricky-fixed .main-menu__list > li > a {
+            color: #ffffff !important;
+        }
+        /* Color azul para el ítem activo (opcional, para mantener el contraste si es necesario) */
+        .stricky-header.stricky-fixed .main-menu__list > li.current > a {
+            color: #3b5998 !important; 
+        }
+    </style>
+
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap" rel="stylesheet">

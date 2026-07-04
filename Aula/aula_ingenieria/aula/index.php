@@ -41,6 +41,9 @@ include 'includes/header.php';
                         $sql = "SELECT i.id_inscrito, p.titulo, p.portada,p.sesion,p.horas FROM inscrito i INNER JOIN usuario u ON i.id_user = u.iduser INNER JOIN ingenieria p ON i.t_caliente = p.idinge WHERE i.id_user = $iduser";
 
                         $result = mysqli_query($conection, $sql);
+                        if (!$result) {
+                            die("Error SQL: " . mysqli_error($conection) . " | iduser: " . $iduser);
+                        }
 
                         while ($dato = mysqli_fetch_row($result)) {
                             if ($dato[1]) {

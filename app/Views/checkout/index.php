@@ -113,8 +113,8 @@
                         </div>
 
                         <div class="wallet-details" x-show="manualMethod">
-                            <div class="qr-container">
-                                <img :src="manualDetails[manualMethod]?.qrUrl" alt="Código QR" class="qr-image">
+                            <div class="qr-container" style="text-align: center; padding: 15px;">
+                                <img :src="manualDetails[manualMethod]?.qrUrl" alt="Código QR" class="qr-image" style="max-width: 220px; max-height: 280px; width: auto; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); object-fit: contain;">
                             </div>
 
                             <div class="payment-info-box">
@@ -244,14 +244,14 @@
                 manualDetails: {
                     yape: {
                         title: 'Pago con Yape',
-                        qrUrl: 'https://via.placeholder.com/200x200/7400b8/ffffff?text=QR+Yape',
+                        qrUrl: '<?= BASE_URL ?>assets/images/Yape.jpg',
                         color: '#7400b8',
                         name: 'Tu Nombre Apellido',
                         phone: '999 999 999'
                     },
                     plin: {
                         title: 'Pago con Plin',
-                        qrUrl: 'https://via.placeholder.com/200x200/00c8b0/ffffff?text=QR+Plin',
+                        qrUrl: '<?= BASE_URL ?>assets/images/plin.jpg',
                         color: '#00c8b0',
                         name: 'Tu Nombre Apellido',
                         phone: '999 999 999'

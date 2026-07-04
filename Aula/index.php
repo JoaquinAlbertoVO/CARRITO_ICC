@@ -4,7 +4,7 @@ session_start();
 
 // Si ya est activa la sesin, redirigir directo al aula
 if (!empty($_SESSION['active'])) {
-    header('location: aula_ingenieria/aula/');
+    header('location: /Aula/aula_ingenieria/aula/');
     exit;
 }
 
@@ -32,7 +32,7 @@ if (!empty($_POST)) {
             $_SESSION['nombre'] = $data['nombre'];
             $_SESSION['user'] = $data['usuario'];
 
-            header('location: aula_ingenieria/aula/');
+            header('location: /Aula/aula_ingenieria/aula/');
             exit;
         } else {
             $alert = '<div class="mo-toast mo-toast-error">

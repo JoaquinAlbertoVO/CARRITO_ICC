@@ -3,7 +3,7 @@ mysqli_report(MYSQLI_REPORT_OFF);
 
 $host     = 'localhost';
 $user     = 'icccom_icc';
-$password = 'bpFsCGU@d0sx@zO';
+$password = 'pWhOD~@e{DZ5ie%x';
 $db       = 'icccom_icc';
 
 // Leer .env local si existe para desarrollo

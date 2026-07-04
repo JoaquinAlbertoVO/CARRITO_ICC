@@ -53,7 +53,7 @@ body {
 /* COURSE COLUMN */
 .course-column {
     flex: 1;
-    background: var(--primary);
+    background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 100%);
     color: white;
     padding: 50px 40px;
     display: flex;
@@ -99,6 +99,12 @@ body {
     gap: 12px;
     margin-bottom: 15px;
     color: #e2e8f0;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.feature-item:hover {
+    transform: translateX(5px);
+    color: #ffffff;
 }
 
 .feature-icon {
@@ -107,10 +113,13 @@ body {
 }
 
 .price-box {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
     padding: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 }
 
 .price-label {
@@ -276,7 +285,7 @@ body {
 .btn-submit {
     width: 100%;
     padding: 16px;
-    background: var(--primary);
+    background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
     color: white;
     border: none;
     border-radius: 12px;
@@ -287,13 +296,14 @@ body {
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+    position: relative;
 }
 
 .btn-submit:hover:not(:disabled) {
-    background: var(--primary-hover);
+    background: linear-gradient(135deg, #4338ca 0%, #3730a3 100%);
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.3);
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.5);
 }
 
 .btn-submit:disabled {
@@ -301,6 +311,44 @@ body {
     box-shadow: none;
     cursor: not-allowed;
     transform: none;
+    animation: none !important;
+}
+
+/* Animacion de pulso para el boton */
+@keyframes pulse-btn {
+    0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(79, 70, 229, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+}
+
+.btn-submit:not(:disabled) {
+    animation: pulse-btn 2s infinite;
+}
+
+/* TRUST BADGES */
+.trust-badges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--surface-border);
+}
+
+.trust-badge-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.trust-badge-item svg {
+    width: 16px;
+    height: 16px;
+    fill: #10b981;
 }
 
 .paypal-instructions {

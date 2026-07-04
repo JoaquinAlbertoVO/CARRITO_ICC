@@ -1,7 +1,7 @@
 <?php
 mysqli_report(MYSQLI_REPORT_OFF);
 
-$host     = 'localhost';
+$host     = '149.56.149.235';
 $user     = 'icccom_icc';
 $password = 'bpFsCGU@d0sx@zO';
 $db       = 'icccom_icc';

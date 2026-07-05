@@ -145,7 +145,8 @@
                                 <h4 style="font-size: 0.95rem; margin-bottom: 10px; color: var(--text-color);">Tus datos (Para el certificado):</h4>
                                 <input type="text" x-model="dni" placeholder="DNI o Documento de Identidad" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
                                 <input type="text" x-model="nombre" placeholder="Nombres completos" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
-                                <input type="text" x-model="apellido" placeholder="Apellidos completos" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
+                                <input type="text" x-model="apellido" placeholder="Apellidos completos" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
+                                <input type="text" x-model="celular" placeholder="Número de celular / WhatsApp" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
                             </div>
 
                             <div class="voucher-section">
@@ -262,6 +263,7 @@
                 dni: '',
                 nombre: '',
                 apellido: '',
+                celular: '',
 
                 // Datos de Yape y Plin (Ajusta tus datos reales aquí)
                 manualDetails: {
@@ -323,8 +325,8 @@
                 },
 
                 submitManualPayment() {
-                    if (!this.dni || !this.nombre || !this.apellido) {
-                        alert('Por favor, ingresa tu DNI, Nombres y Apellidos completos.');
+                    if (!this.dni || !this.nombre || !this.apellido || !this.celular) {
+                        alert('Por favor, ingresa tu DNI, Nombres, Apellidos y Celular.');
                         return;
                     }
 
@@ -339,6 +341,7 @@
                     formData.append('dni', this.dni);
                     formData.append('nombre', this.nombre);
                     formData.append('apellido', this.apellido);
+                    formData.append('celular', this.celular);
 
                     const btn = document.getElementById('btn_submit_manual');
                     btn.disabled = true;

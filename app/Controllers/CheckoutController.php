@@ -40,11 +40,13 @@ class CheckoutController extends Controller {
                     $dni = isset($_POST['dni']) ? strip_tags($_POST['dni']) : '';
                     $nombre = isset($_POST['nombre']) ? strip_tags($_POST['nombre']) : '';
                     $apellido = isset($_POST['apellido']) ? strip_tags($_POST['apellido']) : '';
+                    $celular = isset($_POST['celular']) ? strip_tags($_POST['celular']) : '';
                     
                     $studentData = [
                         'dni' => $dni,
                         'nombre' => $nombre,
                         'apellido' => $apellido,
+                        'celular' => $celular,
                         'curso' => $curso,
                         'fecha' => date('Y-m-d H:i:s')
                     ];

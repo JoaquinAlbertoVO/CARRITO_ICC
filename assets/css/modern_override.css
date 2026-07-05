@@ -759,3 +759,284 @@ body {
 .features-one .container { position: relative; z-index: 2; }
 
 
+/* ============================================
+   MOBILE RESPONSIVE OVERRIDES
+   ============================================ */
+
+/* --- Tablets and below (max-width: 991px) --- */
+@media only screen and (max-width: 991px) {
+  /* Top header: hide contact info, center logo */
+  .main-header--one__top-contact-info {
+    display: none !important;
+  }
+  .main-header--one__top-right {
+    display: none !important;
+  }
+  .main-header--one__top-left {
+    text-align: center;
+  }
+  .main-header--one__top-logo {
+    justify-content: center !important;
+  }
+
+  /* Sections padding reduction */
+  .courses-one,
+  .features-one,
+  .welcome-one,
+  .counter-one,
+  .testimonials-two {
+    padding: 60px 0 !important;
+  }
+
+  /* Welcome section images */
+  .welcome-one__right {
+    margin-top: 40px !important;
+  }
+  .welcome-one__right-img2 {
+    margin-left: 0 !important;
+    margin-top: 20px !important;
+  }
+
+  /* Counter section */
+  .counter-one {
+    padding-top: 80px !important;
+  }
+
+  /* Registration CTA */
+  .registration-two__left h2 {
+    font-size: 32px !important;
+    text-align: center;
+  }
+  .registration-two__wrapper {
+    flex-direction: column !important;
+    text-align: center;
+  }
+  .registration-two__right-btn {
+    margin-top: 20px;
+  }
+}
+
+/* --- Mobile phones (max-width: 767px) --- */
+@media only screen and (max-width: 767px) {
+
+  /* === HEADER MOBILE === */
+  .main-header--one__top {
+    padding: 6px 0 !important;
+  }
+  .main-header--one__top-logo img {
+    width: 140px !important;
+  }
+  .tiktok-btn {
+    font-size: 10px !important;
+    padding: 4px 12px !important;
+  }
+
+  /* Aula Virtual button in navbar */
+  .main-menu__right-search-box .thm-btn {
+    padding: 10px 18px !important;
+    font-size: 14px !important;
+  }
+
+  /* Mobile menu hamburger */
+  .mobile-nav__toggler {
+    color: var(--mo-text-dark) !important;
+    font-size: 24px !important;
+  }
+
+  /* === HERO SLIDER === */
+  .main-slider__title {
+    font-size: 32px !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1.2 !important;
+  }
+  .main-slider-two__tagline {
+    font-size: 11px !important;
+    padding: 5px 14px !important;
+    letter-spacing: 1.5px !important;
+  }
+  .main-slider-two__button-box .thm-btn {
+    padding: 12px 24px !important;
+    font-size: 14px !important;
+  }
+  .main-slider .container {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+
+  /* === SECTION TITLES === */
+  .section-title h2,
+  .section-title__title {
+    font-size: 26px !important;
+    line-height: 1.3 !important;
+  }
+  .section-title__tagline {
+    font-size: 13px !important;
+  }
+  .section-title {
+    margin-bottom: 30px !important;
+  }
+
+  /* === COURSE CARDS (2 columns at 425px, 1 column below 375px) === */
+  .courses-one .row > [class*="col-"] {
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    margin-bottom: 20px !important;
+  }
+  .tarjeta-dark {
+    margin-bottom: 0 !important;
+  }
+  .tarjeta-dark-content {
+    padding: 14px !important;
+  }
+  .tarjeta-dark-title a {
+    font-size: 15px !important;
+    line-height: 1.3 !important;
+  }
+  .tarjeta-dark-meta {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .meta-item {
+    font-size: 11px !important;
+  }
+  .tarjeta-dark-img div {
+    height: 160px !important;
+  }
+  .etiqueta-verde {
+    font-size: 10px !important;
+    padding: 3px 8px !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* === FEATURES SECTION (3 columns → 1 column) === */
+  .features-one .row > [class*="col-"] {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 20px !important;
+  }
+  .features-one__single {
+    padding: 30px 20px !important;
+  }
+
+  /* === WELCOME / ABOUT === */
+  .welcome-one {
+    padding: 50px 0 !important;
+  }
+  .welcome-one__right-img1-inner div,
+  .welcome-one__right-img2 div {
+    width: 100% !important;
+    max-width: 280px !important;
+    margin: 0 auto !important;
+  }
+  .welcome-one__left-features-box-single {
+    margin-bottom: 15px !important;
+  }
+  .welcome-one__left-features-box-single-title h4 {
+    font-size: 16px !important;
+  }
+
+  /* === COUNTER SECTION === */
+  .counter-one {
+    padding: 60px 0 !important;
+  }
+  .counter-one .section-title h2 {
+    font-size: 26px !important;
+  }
+  .counter-one__right-single {
+    width: 100% !important;
+    max-width: 280px !important;
+    margin: 0 auto 20px auto !important;
+    float: none !important;
+    display: block !important;
+  }
+
+  /* === TESTIMONIALS === */
+  .testimonials-two {
+    padding: 50px 0 !important;
+  }
+  .testimonials-two .section-title h2 {
+    font-size: 32px !important;
+  }
+  .testimonials-one__single {
+    padding: 25px !important;
+  }
+  .testimonials-one__single-text {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* === REGISTRATION CTA === */
+  .registration-two__left h2 {
+    font-size: 24px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* === FOOTER === */
+  .footer-widget__about-text {
+    font-size: 14px !important;
+  }
+  .footer-widget__title {
+    font-size: 18px !important;
+  }
+
+  /* === GENERAL SPACING === */
+  .container {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  .thm-btn {
+    padding: 12px 24px !important;
+    font-size: 14px !important;
+  }
+
+  /* Better touch targets */
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* --- Extra small phones (max-width: 400px) --- */
+@media only screen and (max-width: 400px) {
+  .main-slider__title {
+    font-size: 26px !important;
+  }
+  .section-title h2,
+  .section-title__title {
+    font-size: 22px !important;
+  }
+  .tarjeta-dark-title a {
+    font-size: 14px !important;
+  }
+  .tarjeta-dark-content {
+    padding: 10px !important;
+  }
+  .meta-item {
+    font-size: 10px !important;
+  }
+  .features-one__single {
+    padding: 25px 15px !important;
+  }
+  .testimonials-two .section-title h2 {
+    font-size: 26px !important;
+  }
+  .registration-two__left h2 {
+    font-size: 20px !important;
+  }
+}
+
+/* --- Very small phones: force single column (max-width: 374px) --- */
+@media only screen and (max-width: 374px) {
+  .courses-one .row > [class*="col-"] {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+  .tarjeta-dark-title a {
+    font-size: 16px !important;
+  }
+  .meta-item {
+    font-size: 12px !important;
+  }
+}

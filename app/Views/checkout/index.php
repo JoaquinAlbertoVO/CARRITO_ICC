@@ -141,6 +141,13 @@
                                 </template>
                             </div>
 
+                            <div class="user-info-section" style="margin-top: 15px; text-align: left;">
+                                <h4 style="font-size: 0.95rem; margin-bottom: 10px; color: var(--text-color);">Tus datos (Para el certificado):</h4>
+                                <input type="text" x-model="dni" placeholder="DNI o Documento de Identidad" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
+                                <input type="text" x-model="nombre" placeholder="Nombres completos" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
+                                <input type="text" x-model="apellido" placeholder="Apellidos completos" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
+                            </div>
+
                             <div class="voucher-section">
                                 <div class="file-upload-box" @click="document.getElementById('voucher_upload').click()">
                                     <span class="file-upload-label" id="file_label"
@@ -251,6 +258,11 @@
                 manualMethod: 'yape',
                 voucherFile: null,
 
+                // Datos del estudiante
+                dni: '',
+                nombre: '',
+                apellido: '',
+
                 // Datos de Yape y Plin (Ajusta tus datos reales aquí)
                 manualDetails: {
                     yape: {
@@ -311,6 +323,11 @@
                 },
 
                 submitManualPayment() {
+                    if (!this.dni || !this.nombre || !this.apellido) {
+                        alert('Por favor, ingresa tu DNI, Nombres y Apellidos completos.');
+                        return;
+                    }
+
                     if (!this.voucherFile) {
                         alert('Por favor, adjunta tu ticket o voucher de pago para continuar.');
                         return;
@@ -319,6 +336,9 @@
                     const formData = new FormData();
                     formData.append('voucher', this.voucherFile);
                     formData.append('curso', this.courseName);
+                    formData.append('dni', this.dni);
+                    formData.append('nombre', this.nombre);
+                    formData.append('apellido', this.apellido);
 
                     const btn = document.getElementById('btn_submit_manual');
                     btn.disabled = true;

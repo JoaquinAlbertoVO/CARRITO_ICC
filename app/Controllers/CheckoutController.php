@@ -35,6 +35,23 @@ class CheckoutController extends Controller {
                 $destination = $uploadDir . $fileName;
 
                 if (move_uploaded_file($_FILES['voucher']['tmp_name'], $destination)) {
+                    
+                    // Guardar datos del estudiante en un JSON
+                    $dni = isset($_POST['dni']) ? strip_tags($_POST['dni']) : '';
+                    $nombre = isset($_POST['nombre']) ? strip_tags($_POST['nombre']) : '';
+                    $apellido = isset($_POST['apellido']) ? strip_tags($_POST['apellido']) : '';
+                    
+                    $studentData = [
+                        'dni' => $dni,
+                        'nombre' => $nombre,
+                        'apellido' => $apellido,
+                        'curso' => $curso,
+                        'fecha' => date('Y-m-d H:i:s')
+                    ];
+                    
+                    $jsonFileName = 'voucher_' . date('Ymd_His') . '_' . $curso . '.json';
+                    file_put_contents($uploadDir . $jsonFileName, json_encode($studentData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
                     echo json_encode(['success' => true, 'file' => $fileName]);
                 } else {
                     echo json_encode(['success' => false, 'error' => 'Error al mover el archivo']);

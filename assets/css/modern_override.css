@@ -110,6 +110,38 @@ body {
   color: var(--mo-primary) !important;
 }
 
+/* =========================================
+   FORZAR DISEÑO FULL-WIDTH (Ancho Completo)
+   ========================================= */
+.container {
+  max-width: 100% !important;
+  padding-left: 5% !important;
+  padding-right: 5% !important;
+}
+
+/* Opcional: Hacer que el sticky header también ocupe todo el ancho */
+.stricky-header.stricky-fixed .main-menu__inner {
+  max-width: 100% !important;
+  padding: 0 5% !important;
+}
+
+/* =========================================
+   OPCIÓN C: ESPACIADO EQUITATIVO EN EL MENÚ
+   ========================================= */
+@media (min-width: 1200px) {
+  .main-header-one__bottom .left {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+  }
+  .main-menu__list {
+    display: flex !important;
+    justify-content: space-evenly !important;
+    width: 100%;
+    max-width: 800px; /* Evita que se estiren de más en pantallas ultrawide */
+  }
+}
+
 /* --- BOTONES PREMIUM --- */
 .thm-btn {
   background-color: var(--mo-primary) !important;

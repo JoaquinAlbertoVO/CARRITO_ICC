@@ -4,18 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="viewport" content="Academia" />
-    <meta name="viewport" content="Cursos" />
-    <meta name="viewport" content="Aprender" />
-    <meta name="viewport" content="Curso Online" />
-    <meta name="viewport" content="Clases Grabadas" />
-    <meta name="viewport" content="Profesor" />
-    <meta name="viewport" content="Estudiante" />
-    <meta name="viewport" content="Networking" />
-    <meta name="viewport" content="Habilidades" />
-    <meta name="viewport" content="Talento" />
-    <meta name="viewport" content="Desarrollar" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="keywords" content="Academia, Cursos, Aprender, Curso Online, Clases Grabadas, Profesor, Estudiante, Networking, Habilidades, Talento, Desarrollar" />
     <title><?= $title ?? 'ICC Perú - Instituto de Capacitación Continua' ?></title>
     <!-- favicons Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>assets/images/favicons/Favicon_Icc.png" />

@@ -111,6 +111,17 @@ body {
 }
 
 /* =========================================
+   MENÚ LATERAL MÓVIL (MOBILE NAV)
+   ========================================= */
+.mobile-nav__content .main-menu__list > li > a {
+  color: #ffffff !important;
+}
+.mobile-nav__content .main-menu__list > li > a:hover,
+.mobile-nav__content .main-menu__list > li.current > a {
+  color: var(--mo-accent) !important;
+}
+
+/* =========================================
    FORZAR DISEÑO FULL-WIDTH (Ancho Completo)
    ========================================= */
 .container {

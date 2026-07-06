@@ -25,7 +25,7 @@
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
                                         <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
-                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">CapacÃ­tate y certificate<br> con nosotros</h1><br><br><br><br>
+                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Capacítate y certificate<br> con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
                                         <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
@@ -45,7 +45,7 @@
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
                                         <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
-                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">EspecialÃ­zate en INGENIERÃA<br> ElÃ©ctrica con nosotros</h1><br><br><br><br>
+                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Especialízate en INGENIERÃA<br> Eléctrica con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
                                         <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
@@ -65,7 +65,7 @@
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
                                         <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
-                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">CapacÃ­tate y certificate<br> con nosotros</h1><br><br><br><br>
+                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Capacítate y certificate<br> con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
                                         <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
@@ -186,7 +186,7 @@ $INGENIERÃA_courses = $INGENIERÃA_courses ?? [];
                                 <span class="section-title__tagline" >Presentaciones de la empresa</h2>
                                 <h2  class="">APRENDE AHORA <br>CON ICC</h2>
                             </div>
-                            <p class="welcome-one__left-text" >Actualiza tus conocimientos y capacÃ­tate con nosotros.<br>Te damÃ¡s lo mejor en INGENIERÃA ElÃ©ctrica.</p>
+                            <p class="welcome-one__left-text" >Actualiza tus conocimientos y capacÃ­tate con nosotros.<br>Te damÃ¡s lo mejor en INGENIERÃA Eléctrica.</p>
                             <ul class="welcome-one__left-features-box list-unstyled">
                                 <!--Start Welcome One Left Features Box Single-->
                                 <li class="welcome-one__left-features-box-single">
@@ -323,8 +323,8 @@ $INGENIERÃA_courses = $INGENIERÃA_courses ?? [];
                                 <!--Start Single Testimonials One -->
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
-                                        <h3 class="testimonials-one__single-title" >RegulaciÃ³n del Mercado ElÃ©ctrico</h3>
-                                        <p class="testimonials-one__single-text">Un curso muy recomendado, ayuda ampliar los conocimientos acerca del Sector EnergÃ­a. AdemÃ¡s de conocer el Marco Interinstitucional del Subsector ElÃ©ctrico de una forma muy didÃ¡ctica.</p>
+                                        <h3 class="testimonials-one__single-title" >Regulación del Mercado ElÃ©ctrico</h3>
+                                        <p class="testimonials-one__single-text">Un curso muy recomendado, ayuda ampliar los conocimientos acerca del Sector Energía. AdemÃ¡s de conocer el Marco Interinstitucional del Subsector ElÃ©ctrico de una forma muy didÃ¡ctica.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio1.png"
@@ -367,7 +367,7 @@ $INGENIERÃA_courses = $INGENIERÃA_courses ?? [];
                                 <!--Start Single Testimonials One -->
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
-                                        <h3 class="testimonials-one__single-title" >EspecializaciÃ³n de Motores ElÃ©ctricos</h3>
+                                        <h3 class="testimonials-one__single-title" >EspecializaciÃ³n de Motores Eléctricos</h3>
                                         <p class="testimonials-one__single-text">Los materiales educativos son muy buenos y completos, del mÃ¡smo modo que resulta muy fÃ¡cil de abordar sin tener conocimientos previos.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">

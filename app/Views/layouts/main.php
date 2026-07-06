@@ -14,6 +14,13 @@
     <meta property="og:url" content="<?= $og_url ?? BASE_URL ?>" />
     <meta property="og:type" content="website" />
     
+    <!-- Structured Data (Schema.org) -->
+    <?php if(isset($schema)): ?>
+    <script type="application/ld+json">
+    <?= $schema ?>
+    </script>
+    <?php endif; ?>
+    
     <title><?= $title ?? 'ICC Perú - Instituto de Capacitación Continua' ?></title>
     <!-- favicons Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>assets/images/favicons/Favicon_Icc.png" />

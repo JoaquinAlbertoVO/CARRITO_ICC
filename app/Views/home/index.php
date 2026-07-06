@@ -1,4 +1,4 @@
-﻿
+
         
         <section class="main-slider main-slider-two">
             <div class="swiper-container thmÃ¡swiper__slider" data-swiper-options='{"slidesPerView": 1, "loop": true, "effect": "fade", "pagination": {
@@ -45,7 +45,7 @@
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
                                         <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
-                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Especialízate en INGENIERÃA<br> Eléctrica con nosotros</h1><br><br><br><br>
+                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Especialízate en INGENIERÍA<br> Eléctrica con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
                                         <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
@@ -84,17 +84,17 @@
         </section>
 
 <?php
-$INGENIERÃA_courses = $INGENIERÃA_courses ?? [];
+$ingenieria_courses = $ingenieria_courses ?? [];
 ?>
-        <!--Courses One Start INGENIERÃA-->
+        <!--Courses One Start INGENIERÍA-->
         <section class="courses-one">
             <div class="container">
                 <div class="section-title text-center">
-                    <span class="section-title__tagline">Todos los mÃ¡ses encontrarÃ¡s nuevo contenido en la plataforma</h2>
-                    <h2  class="">CURSOS ESPECIALIZADOS EN INGENIERÃA</h2>
+                    <span class="section-title__tagline">Todos los meses encontrarás nuevo contenido en la plataforma</h2>
+                    <h2  class="">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
                 </div>
                 <div class="row">
-                    <?php foreach($INGENIERÃA_courses as $course): ?>
+                    <?php foreach($ingenieria_courses as $course): ?>
                     <div class="col-xl-3 col-lg-6 col-md-6" data-aos="fade-up">
                         <div class="tarjeta-dark">
                             <div class="tarjeta-dark-img">
@@ -123,7 +123,7 @@ $INGENIERÃA_courses = $INGENIERÃA_courses ?? [];
 </div>                <div class="row" style="margin-top: 40px;"><div class="col-12 text-center"><a href="<?= BASE_URL ?>cursos" class="thm-btn">Ver todos los cursos</a></div></div>
             </div>
         </section>
-        <!--Courses One End INGENIERÃA-->
+        <!--Courses One End INGENIERÍA-->
 
         <!--Features One Start-->
         <section class="features-one">
@@ -186,7 +186,7 @@ $INGENIERÃA_courses = $INGENIERÃA_courses ?? [];
                                 <span class="section-title__tagline" >Presentaciones de la empresa</h2>
                                 <h2  class="">APRENDE AHORA <br>CON ICC</h2>
                             </div>
-                            <p class="welcome-one__left-text" >Actualiza tus conocimientos y capacÃ­tate con nosotros.<br>Te damÃ¡s lo mejor en INGENIERÃA Eléctrica.</p>
+                            <p class="welcome-one__left-text" >Actualiza tus conocimientos y capacítate con nosotros.<br>Te damos lo mejor en INGENIERÍA Eléctrica.</p>
                             <ul class="welcome-one__left-features-box list-unstyled">
                                 <!--Start Welcome One Left Features Box Single-->
                                 <li class="welcome-one__left-features-box-single">

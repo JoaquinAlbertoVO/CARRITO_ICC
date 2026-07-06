@@ -94,7 +94,7 @@
                     <div class="main-header--one__top-inner clearfix">
                         <div class="main-header--one__top-left">
                             <div class="main-header--one__top-logo" style="display: flex; align-items: center; gap: 20px;">
-        <a href="./" aria-label="Inicio"><img width="190" alt="Logo de ICC" src="<?= BASE_URL ?>assets/images/resources/icc-logo1.png" alt="" /></a>
+        <a href="./" aria-label="Inicio"><img width="190" alt="Logo de ICC" src="<?= BASE_URL ?>assets/images/resources/icc-logo1.png" /></a>
         <button id="btn-tiktok-promo" class="tiktok-btn">TIKTOK</button>
     </div>
                         </div>
@@ -402,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="col-xl-2 col-lg-4 col-md-4 wow animated fadeInUp" data-wow-delay="0.1s">
                             <div class="footer-widget__column footer-widget__about">
                                 <div class="footer-widget__about-logo">
-                                    <a href="./"><img width="160" height="60" src="<?= BASE_URL ?>assets/images/resources/icc-logo1.png" alt=""></a>
+                                    <a href="./"><img width="160" height="60" src="<?= BASE_URL ?>assets/images/resources/icc-logo1.png" alt="Imagen decorativa"></a>
                                 </div>
                             </div>
                         </div>
@@ -488,7 +488,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
 
                 <div class="logo-box">
-                    <a href="./" aria-label="logo image"><img src="<?= BASE_URL ?>assets/images/resources/icc-logo1.png" width="230" alt="" /></a>
+                    <a href="./" aria-label="logo image"><img src="<?= BASE_URL ?>assets/images/resources/icc-logo1.png" width="230" alt="Imagen decorativa" /></a>
                 </div>
                 <!-- /.logo-box -->
                 <div class="mobile-nav__container"></div>

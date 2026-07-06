@@ -14,7 +14,7 @@ class Estudiante {
 
     /**
      * Obtiene la lista de estudiantes para una especialidad
-     * $tabla: 'usuario' para IngenierÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a, 'usuario_d' para Derecho
+     * $tabla: 'usuario' para Ingeniería, 'usuario_d' para Derecho
      */
     public function getEstudiantes($tabla, $desde, $por_pagina, $busqueda = '') {
         $where = "estatus = 1";
@@ -39,7 +39,7 @@ class Estudiante {
     }
 
     /**
-     * Obtiene el total de registros para paginaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n
+     * Obtiene el total de registros para paginación
      */
     public function getTotalEstudiantes($tabla, $busqueda = '') {
         $where = "estatus = 1";

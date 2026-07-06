@@ -562,7 +562,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <script src="<?= BASE_URL ?>assets/vendors/twentytwenty/jquery.event.move.js"></script>
 
 
-    <script src="http://maps.google.com/maps/api/js?key=AIzaSyATY4Rxc8jNvDpsK8ZetC7JyN4PFVYGCGM"></script>
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyATY4Rxc8jNvDpsK8ZetC7JyN4PFVYGCGM"></script>
 
     <!-- template js -->
     <script src="<?= BASE_URL ?>assets/js/zilom.js"></script>

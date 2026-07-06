@@ -20,3 +20,18 @@ RewriteCond %{REQUEST_URI} !^/assets/ [NC]
 RewriteCond %{REQUEST_URI} !^/administrador/ [NC]
 RewriteCond %{REQUEST_URI} !^/Aula/ [NC]
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+# Security Headers (Best Practices)
+<IfModule mod_headers.c>
+    # Enforce HTTPS
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    
+    # Clickjacking protection
+    Header always set X-Frame-Options "SAMEORIGIN"
+    
+    # Cross-Origin Isolation
+    Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+    
+    # Content Security Policy (Basic - Force HTTPS for mixed content)
+    Header always set Content-Security-Policy "upgrade-insecure-requests"
+</IfModule>

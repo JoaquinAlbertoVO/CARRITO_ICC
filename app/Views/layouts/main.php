@@ -88,7 +88,7 @@
 
 <body>
 
-    <div class="page-wrapper"><main>
+    <div class="page-wrapper">
 <header class="main-header main-header--one  clearfix">
             <div class="main-header--one__top clearfix">
                 <div class="container">
@@ -589,7 +589,7 @@ document.addEventListener("DOMContentLoaded", function() {
             "timeOut": "4000"
         };
     </script>
-</main></body>
+</body>
 
 </html>
 

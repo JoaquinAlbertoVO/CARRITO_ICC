@@ -21,3 +21,4 @@ class HomeController extends Controller {
         $this->view('home/index', $data);
     }
 }
+

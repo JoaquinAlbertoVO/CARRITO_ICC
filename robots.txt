@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /assets/
+Disallow: /vendor/
+
+Allow: /
+
+Sitemap: https://imcdelperu.com.pe/sitemap.xml

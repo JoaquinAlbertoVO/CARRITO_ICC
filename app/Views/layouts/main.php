@@ -10,7 +10,8 @@
     <!-- Open Graph SEO -->
     <meta property="og:title" content="<?= $title ?? 'ICC Perú - Instituto de Capacitación Continua' ?>" />
     <meta property="og:description" content="<?= $meta_description ?? 'Actualiza tus conocimientos y capacítate con nosotros. Te damos lo mejor en Ingeniería.' ?>" />
-    <meta property="og:image" content="<?= BASE_URL ?>assets/images/resources/logo-icc.png" />
+    <meta property="og:image" content="<?= $og_image ?? BASE_URL . 'assets/images/resources/logo-icc.png' ?>" />
+    <meta property="og:url" content="<?= $og_url ?? BASE_URL ?>" />
     <meta property="og:type" content="website" />
     
     <title><?= $title ?? 'ICC Perú - Instituto de Capacitación Continua' ?></title>

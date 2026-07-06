@@ -15,68 +15,31 @@
             }}'>
 
                 <div class="swiper-wrapper">
-                    <!--Start Single Swiper Slide-->
-                    <div class="swiper-slide">
-                        <div class="image-layer"
-                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.jpg') center/cover no-repeat;"></div>
-                        <div class="image-layer-overlay"></div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="main-slider-two__content text-center">
-                                        <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
-                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Capacítate y certificate<br> con nosotros</h1><br><br><br><br>
-                                    </div>
-                                    <div class="main-slider-two__button-box text-center">
-                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Swiper Slide-->
-                    <!--Start Single Swiper Slide-->
-                    <div class="swiper-slide">
-                        <div class="image-layer"
-                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.jpg') center/cover no-repeat;"></div>
-                        <div class="image-layer-overlay"></div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="main-slider-two__content text-center">
-                                        <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
-                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Especialízate en INGENIERÍA<br> Eléctrica con nosotros</h1><br><br><br><br>
-                                    </div>
-                                    <div class="main-slider-two__button-box text-center">
-                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Swiper Slide-->
-                    <!--Start Single Swiper Slide-->
-                    <div class="swiper-slide">
-                        <div class="image-layer"
-                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.jpg') center/cover no-repeat;"></div>
-                        <div class="image-layer-overlay"></div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="main-slider-two__content text-center">
-                                        <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
-                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Capacítate y certificate<br> con nosotros</h1><br><br><br><br>
-                                    </div>
-                                    <div class="main-slider-two__button-box text-center">
-                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Swiper Slide-->
 
+                    <!--Start Single Swiper Slide 1-->
+                    <div class="swiper-slide">
+                        <div class="image-layer"
+                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.jpg') center/cover no-repeat;"></div>
+                        <div class="image-layer-overlay" style="background: rgba(0,0,0,0);"></div>
+                        <!-- Texto removido porque el banner ya tiene el texto integrado -->
+                    </div>
+                    <!--End Single Swiper Slide 1-->
 
+                    <!--Start Single Swiper Slide 2-->
+                    <div class="swiper-slide">
+                        <div class="image-layer"
+                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc_2.jpg') center/cover no-repeat; background-color: #0f2027;"></div>
+                        <div class="image-layer-overlay" style="background: rgba(0,0,0,0);"></div>
+                    </div>
+                    <!--End Single Swiper Slide 2-->
+
+                    <!--Start Single Swiper Slide 3-->
+                    <div class="swiper-slide">
+                        <div class="image-layer"
+                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc_3.jpg') center/cover no-repeat; background-color: #0f2027;"></div>
+                        <div class="image-layer-overlay" style="background: rgba(0,0,0,0);"></div>
+                    </div>
+                    <!--End Single Swiper Slide 3-->
                 </div>
                 <!-- If we need navigation buttons -->
                 <div class="swiper-pagination" id="main-slider-pagination"></div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="Academia, Cursos, Aprender, Curso Online, Clases Grabadas, Profesor, Estudiante, Networking, Habilidades, Talento, Desarrollar" />
     
     <!-- Open Graph SEO -->
@@ -87,7 +87,7 @@
 
 <body>
 
-    <div class="page-wrapper">
+    <div class="page-wrapper"><main>
 <header class="main-header main-header--one  clearfix">
             <div class="main-header--one__top clearfix">
                 <div class="container">
@@ -209,7 +209,7 @@
                                         </div>-->
                                         <div class="main-menu__right-cart-search">
                                             <!--<div class="main-menu__right-cart-box">
-                                                <a href="#"><span class="icon-shopping-cart"></span></a>
+                                                <a href="#" aria-label="Carrito de compras"><span class="icon-shopping-cart"></span></a>
                                             </div>-->
                                             <div class="main-menu__right-search-box">
                                                 <a href="https://icc.com.pe/Aula/" target="_black" class="thm-btn comment-form__btn">Aula Virtual</a>
@@ -402,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="col-xl-2 col-lg-4 col-md-4 wow animated fadeInUp" data-wow-delay="0.1s">
                             <div class="footer-widget__column footer-widget__about">
                                 <div class="footer-widget__about-logo">
-                                    <a href="./"><img width="160" height="60" src="<?= BASE_URL ?>assets/images/resources/icc-logo1.png" alt="Imagen decorativa"></a>
+                                    <a href="./" aria-label="Inicio"><img width="160" height="60" src="<?= BASE_URL ?>assets/images/resources/icc-logo1.png" alt="Imagen decorativa"></a>
                                 </div>
                             </div>
                         </div>
@@ -451,7 +451,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <li><a href="https://www.facebook.com/icc.com.pe/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a></li>
                                     <!--<li><a href="https://wa.link/myq5iv" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>-->
                                     <li><a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
-                                    <li><a href="https://www.linkedin.com/in/empresa-icc-313316253//" target="_black"><i class="fab fa-linkedin"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/in/empresa-icc-313316253//" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
                                     <!--Implementación de TikTok-->
                                     <li><a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
                                 </ul>
@@ -506,10 +506,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 </ul><!-- /.mobile-nav__contact -->
                 <div class="mobile-nav__top">
                     <div class="mobile-nav__social">
-                        <a href="https://wa.link/myq5iv" target="_black" class="fab fa-whatsapp"></a>
-                        <a href="https://www.facebook.com/icc.com.pe/" target="_black" class="fab fa-facebook-square"></a>
-                        <a href="https://www.instagram.com/icc.capacitaciones/" target="_black" class="fab fa-instagram"></a>
-                        <a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_black" class="fab fa-linkedin"></a>
+                        <a href="https://wa.link/myq5iv" target="_blank" class="fab fa-whatsapp" aria-label="WhatsApp"></a>
+                        <a href="https://www.facebook.com/icc.com.pe/" target="_blank" class="fab fa-facebook-square" aria-label="Facebook"></a>
+                        <a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" class="fab fa-instagram" aria-label="Instagram"></a>
+                        <a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_blank" class="fab fa-linkedin" aria-label="LinkedIn"></a>
                         <!--Implementación de TikTok -->
                         <a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                     </div><!-- /.mobile-nav__social -->
@@ -538,9 +538,9 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
             <!-- /.search-popup__content -->
         </div>
-        <!-- /.search-popup -->    <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
+        <!-- /.search-popup -->    <a href="#" data-target="html" class="scroll-to-target scroll-to-top" aria-label="Volver arriba"><i class="fa fa-angle-up"></i></a>
 
-    <a target="blank" href="https://wa.link/myq5iv" class="scroll-to-target scroll-to-top btn-whatsapp-pulse"><i style="font-size: 40px;" class="fab fa-whatsapp"></i></a>
+    <a target="_blank" href="https://wa.link/myq5iv" class="scroll-to-target scroll-to-top btn-whatsapp-pulse" aria-label="Contactar por WhatsApp"><i style="font-size: 40px;" class="fab fa-whatsapp"></i></a>
     <script src="<?= BASE_URL ?>assets/vendors/jquery/jquery-3.5.1.min.js"></script>
     <script src="<?= BASE_URL ?>assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="<?= BASE_URL ?>assets/vendors/jarallax/jarallax.min.js"></script>
@@ -588,7 +588,7 @@ document.addEventListener("DOMContentLoaded", function() {
             "timeOut": "4000"
         };
     </script>
-</body>
+</main></body>
 
 </html>
 

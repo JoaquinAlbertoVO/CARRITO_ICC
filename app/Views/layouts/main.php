@@ -94,19 +94,19 @@
                     <div class="main-header--one__top-inner clearfix">
                         <div class="main-header--one__top-left">
                             <div class="main-header--one__top-logo" style="display: flex; align-items: center; gap: 20px;">
-        <a href="./"><img width="190" src="<?= BASE_URL ?>assets/images/resources/icc-logo1.png" alt="" /></a>
+        <a href="./" aria-label="Inicio"><img width="190" alt="Logo de ICC" src="<?= BASE_URL ?>assets/images/resources/icc-logo1.png" alt="" /></a>
         <button id="btn-tiktok-promo" class="tiktok-btn">TIKTOK</button>
     </div>
                         </div>
 
                         <div class="main-header--one__top-right clearfix">
                             <ul class="main-header--one__top-social-link list-unstyled clearfix">
-                                <li><a href="https://wa.link/myq5iv" target="_black"><i class="fab fa-whatsapp"></i></a></li>
-                                <li><a href="https://www.facebook.com/icc.com.pe/" target="_black"><i class="fab fa-facebook"></i></a></li>
-                                <li><a href="https://www.instagram.com/icc.capacitaciones/" target="_black"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_black"><i class="fab fa-linkedin"></i></a></li>
+                                <li><a href="https://wa.link/myq5iv" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+                                <li><a href="https://www.facebook.com/icc.com.pe/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a></li>
+                                <li><a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
                                 <!-- Implementación de TikTok-->
-                                <li><a href="https://www.tiktok.com/@institutoicc" target="_black"><i class="fab fa-tiktok"></i></a></li>
+                                <li><a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
                             </ul>
 
                             <div class="main-header--one__top-contact-info clearfix">
@@ -143,7 +143,7 @@
                     <div class="main-header-one__bottom-inner clearfix">
                         <nav class="main-menu main-menu--1">
                             <div class="main-menu__inner">
-                                <a href="#" class="mobile-nav__toggler"><i class="fa fa-bars"></i></a>
+                                <a href="#" class="mobile-nav__toggler" aria-label="Abrir menú de navegación"><i class="fa fa-bars"></i></a>
 
                                 <div class="left">
                                     <ul class="main-menu__list">
@@ -448,12 +448,12 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="col-xl-3 col-lg-6 col-md-6 wow animated fadeInUp" data-wow-delay="0.9s">
                             <div class="footer-widget__column footer-widget__social-links">
                                 <ul class="footer-widget__social-links-list list-unstyled clearfix">
-                                    <li><a href="https://www.facebook.com/icc.com.pe/" target="_black"><i class="fab fa-facebook"></i></a></li>
-                                    <!--<li><a href="https://wa.link/myq5iv" target="_black"><i class="fab fa-whatsapp"></i></a></li>-->
-                                    <li><a href="https://www.instagram.com/icc.capacitaciones/" target="_black"><i class="fab fa-instagram"></i></a></li>
+                                    <li><a href="https://www.facebook.com/icc.com.pe/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a></li>
+                                    <!--<li><a href="https://wa.link/myq5iv" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>-->
+                                    <li><a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
                                     <li><a href="https://www.linkedin.com/in/empresa-icc-313316253//" target="_black"><i class="fab fa-linkedin"></i></a></li>
                                     <!--Implementación de TikTok-->
-                                    <li><a href="https://www.tiktok.com/@institutoicc" target="_black"><i class="fab fa-tiktok"></i></a></li>
+                                    <li><a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -511,7 +511,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <a href="https://www.instagram.com/icc.capacitaciones/" target="_black" class="fab fa-instagram"></a>
                         <a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_black" class="fab fa-linkedin"></a>
                         <!--Implementación de TikTok -->
-                        <a href="https://www.tiktok.com/@institutoicc" target="_black"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                     </div><!-- /.mobile-nav__social -->
                 </div><!-- /.mobile-nav__top -->
                 <div class="">

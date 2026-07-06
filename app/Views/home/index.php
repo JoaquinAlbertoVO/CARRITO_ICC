@@ -1,7 +1,7 @@
 
         
         <section class="main-slider main-slider-two">
-            <div class="swiper-container thm-swiper__slider" data-swiper-options='{"slidesPerView": 1, "loop": true, "effect": "fade", "pagination": {
+            <div class="swiper-container thmáswiper__slider" data-swiper-options='{"slidesPerView": 1, "loop": true, "effect": "fade", "pagination": {
             "el": "#main-slider-pagination",
             "type": "bullets",
             "clickable": true
@@ -25,7 +25,7 @@
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
                                         <h2 class="main-slider-two__tagline">Cursos online</h2><br>
-                                        <h2 class="main-slider__title">Capacítate y certificate<br> con nosotros</h2><br><br><br><br>
+                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Capacítate y certificate<br> con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
                                         <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
@@ -45,7 +45,7 @@
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
                                         <h2 class="main-slider-two__tagline">Cursos online</h2><br>
-                                        <h2 class="main-slider__title">Especialízate en Ingeniería<br> Eléctrica con nosotros</h2><br><br><br><br>
+                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Especialízate en Ingeniería<br> Eléctrica con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
                                         <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
@@ -65,7 +65,7 @@
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
                                         <h2 class="main-slider-two__tagline">Cursos online</h2><br>
-                                        <h2 class="main-slider__title">Capacítate y certificate<br> con nosotros</h2><br><br><br><br>
+                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Capacítate y certificate<br> con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
                                         <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
@@ -90,7 +90,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
         <section class="courses-one">
             <div class="container">
                 <div class="section-title text-center">
-                    <span class="section-title__tagline">Todos los meses encontrarás nuevo contenido en la plataforma</span>
+                    <span class="section-title__tagline">Todos los máses encontrarás nuevo contenido en la plataforma</span>
                     <h2  class="">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
                 </div>
                 <div class="row">
@@ -186,7 +186,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                                 <span class="section-title__tagline" >Presentaciones de la empresa</span>
                                 <h2  class="">APRENDE AHORA <br>CON ICC</h2>
                             </div>
-                            <p class="welcome-one__left-text" >Actualiza tus conocimientos y capacítate con nosotros.<br>Te damos lo mejor en Ingeniería Eléctrica.</p>
+                            <p class="welcome-one__left-text" >Actualiza tus conocimientos y capacítate con nosotros.<br>Te damás lo mejor en Ingeniería Eléctrica.</p>
                             <ul class="welcome-one__left-features-box list-unstyled">
                                 <!--Start Welcome One Left Features Box Single-->
                                 <li class="welcome-one__left-features-box-single">
@@ -217,7 +217,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                     <!--Start Welcome One Right-->
                     <div class="col-xl-6">
                         <div class="welcome-one__right clearfix">
-                            <div class="shape1 rotate-me"><img src="<?= BASE_URL ?>assets/images/shapes/thm-shape1.png" alt="" /></div>
+                            <div class="shape1 rotate-me"><img src="<?= BASE_URL ?>assets/images/shapes/thmáshape1.png" alt="" /></div>
                             <div class="welcome-one__right-img1" data-aos="fade-left">
                                 <div class="welcome-one__right-img1-inner">
                                     <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 16px; width: 300px; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
@@ -247,7 +247,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                         <div class="counter-one__left">
                             <div class="section-title">
                                 <span class="section-title__tagline">Hechos grandiosos</span>
-                                <h2 class="">La misión de ICC <br>es pulir tu habilidad</h2>
+                                <h2 class="">La másión de ICC <br>es pulir tu habilidad</h2>
                             </div>
                             <!--<p class="counter-one__left-text">There are many variations of passages of lore ipsum
                                 available but the majority have suffered.</p>-->
@@ -310,7 +310,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                                 <span class="section-title__tagline">Qué opinan nuestros Usuarios</span>
                                 <h2 class="" style="font-size: 50px; font-family: League Spartan;">¿Qué están <br>diciendo?</h2>
                             </div>
-                            <p class="testimonials-two__left-text" >Tenemos una calificación promedio de 4.7 de 5 estrellas.</p>
+                            <p class="testimonials-two__left-text" >Tenemás una calificación promedio de 4.7 de 5 estrellas.</p>
                         </div>
                     </div>
                     <!--End Testimonials Two Left-->
@@ -368,7 +368,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
                                         <h4 class="testimonials-one__single-title" >Especialización de Motores Eléctricos</h4>
-                                        <p class="testimonials-one__single-text">Los materiales educativos son muy buenos y completos, del mismo modo que resulta muy fácil de abordar sin tener conocimientos previos.</p>
+                                        <p class="testimonials-one__single-text">Los materiales educativos son muy buenos y completos, del másmo modo que resulta muy fácil de abordar sin tener conocimientos previos.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio3.png"
@@ -390,7 +390,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
                                         <h4 class="testimonials-one__single-title" >Banco de Condensadores</h4>
-                                        <p class="testimonials-one__single-text">Fue todo un placer realizar este curso. Puesto que el enfoque del ponente fue impecable. Me gustaría realizar otro curso que amplie mis conocimientos relacionado a este campo.</p>
+                                        <p class="testimonials-one__single-text">Fue todo un placer realizar este curso. Puesto que el enfoque del ponente fue impecable. Me gustaría realizar otro curso que amplie más conocimientos relacionado a este campo.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio5.png"
@@ -411,7 +411,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
                                         <h4 class="testimonials-one__single-title" >Sistema de Puesta a Tierra</h4>
-                                        <p class="testimonials-one__single-text">El curso dictado fue muy interesante. La estructura y la calidad de los contenidos han sido de lo mejor para el aprendizaje. Me han permitido descubrir acerca de este tema que tardaría en descubrir por mí mismo</p>
+                                        <p class="testimonials-one__single-text">El curso dictado fue muy interesante. La estructura y la calidad de los contenidos han sido de lo mejor para el aprendizaje. Me han permitido descubrir acerca de este tema que tardaría en descubrir por mí másmo</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio4.png"
@@ -441,9 +441,9 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="registration-two__wrapper">
-                            <div class="shape1 zoom-fade"><img src="<?= BASE_URL ?>assets/images/shapes/thm-shape2.png" alt="" /></div>
+                            <div class="shape1 zoom-fade"><img src="<?= BASE_URL ?>assets/images/shapes/thmáshape2.png" alt="" /></div>
                             <div class="shape2 "  ><img
-                                    src="<?= BASE_URL ?>assets/images/shapes/thm-shape3.png" alt="" /></div>
+                                    src="<?= BASE_URL ?>assets/images/shapes/thmáshape3.png" alt="" /></div>
                             <div class="registration-two__left">
                                 <h2 class="" style="font-size: 50px; color: #FFF;">Comience su carrera educativa <br>con ICC</h2>
                             </div>

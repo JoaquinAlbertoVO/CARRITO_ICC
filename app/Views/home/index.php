@@ -1,7 +1,7 @@
-
+﻿
         
         <section class="main-slider main-slider-two">
-            <div class="swiper-container thmáswiper__slider" data-swiper-options='{"slidesPerView": 1, "loop": true, "effect": "fade", "pagination": {
+            <div class="swiper-container thmÃ¡swiper__slider" data-swiper-options='{"slidesPerView": 1, "loop": true, "effect": "fade", "pagination": {
             "el": "#main-slider-pagination",
             "type": "bullets",
             "clickable": true
@@ -18,17 +18,17 @@
                     <!--Start Single Swiper Slide-->
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.png') center/cover no-repeat;"></div>
+                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.jpg') center/cover no-repeat;"></div>
                         <div class="image-layer-overlay"></div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
                                         <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
-                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Capacítate y certificate<br> con nosotros</h1><br><br><br><br>
+                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">CapacÃ­tate y certificate<br> con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
-                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
+                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
                                     </div>
                                 </div>
                             </div>
@@ -38,17 +38,17 @@
                     <!--Start Single Swiper Slide-->
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.png') center/cover no-repeat;"></div>
+                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.jpg') center/cover no-repeat;"></div>
                         <div class="image-layer-overlay"></div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
                                         <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
-                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Especialízate en INGENIERÍA<br> Eléctrica con nosotros</h1><br><br><br><br>
+                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">EspecialÃ­zate en INGENIERÃA<br> ElÃ©ctrica con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
-                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
+                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
                                     </div>
                                 </div>
                             </div>
@@ -58,17 +58,17 @@
                     <!--Start Single Swiper Slide-->
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.png') center/cover no-repeat;"></div>
+                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.jpg') center/cover no-repeat;"></div>
                         <div class="image-layer-overlay"></div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
                                         <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
-                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Capacítate y certificate<br> con nosotros</h1><br><br><br><br>
+                                        <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">CapacÃ­tate y certificate<br> con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
-                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
+                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir mÃ¡s</a>
                                     </div>
                                 </div>
                             </div>
@@ -84,17 +84,17 @@
         </section>
 
 <?php
-$INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
+$INGENIERÃA_courses = $INGENIERÃA_courses ?? [];
 ?>
-        <!--Courses One Start INGENIERÍA-->
+        <!--Courses One Start INGENIERÃA-->
         <section class="courses-one">
             <div class="container">
                 <div class="section-title text-center">
-                    <span class="section-title__tagline">Todos los máses encontrarás nuevo contenido en la plataforma</h2>
-                    <h2  class="">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
+                    <span class="section-title__tagline">Todos los mÃ¡ses encontrarÃ¡s nuevo contenido en la plataforma</h2>
+                    <h2  class="">CURSOS ESPECIALIZADOS EN INGENIERÃA</h2>
                 </div>
                 <div class="row">
-                    <?php foreach($INGENIERÍA_courses as $course): ?>
+                    <?php foreach($INGENIERÃA_courses as $course): ?>
                     <div class="col-xl-3 col-lg-6 col-md-6" data-aos="fade-up">
                         <div class="tarjeta-dark">
                             <div class="tarjeta-dark-img">
@@ -123,7 +123,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
 </div>                <div class="row" style="margin-top: 40px;"><div class="col-12 text-center"><a href="<?= BASE_URL ?>cursos" class="thm-btn">Ver todos los cursos</a></div></div>
             </div>
         </section>
-        <!--Courses One End INGENIERÍA-->
+        <!--Courses One End INGENIERÃA-->
 
         <!--Features One Start-->
         <section class="features-one">
@@ -151,7 +151,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                             </div>
                             <div class="features-one__single-text">
                                 <h3 ><a href="#">Profesores Expertos</a></h3>
-                                <p>Te acompañarán docentes con amplia experiencia.</p>
+                                <p>Te acompaÃ±arÃ¡n docentes con amplia experiencia.</p>
                             </div>
                         </div>
                     </div>
@@ -165,7 +165,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                             </div>
                             <div class="features-one__single-text">
                                 <h3 ><a href="#">Cursos Certificados</a></h3>
-                                <p>Al culminar las horas lectivas recibirán un certificado otorgado por ICC.</p>
+                                <p>Al culminar las horas lectivas recibirÃ¡n un certificado otorgado por ICC.</p>
                             </div>
                         </div>
                     </div>
@@ -186,7 +186,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                                 <span class="section-title__tagline" >Presentaciones de la empresa</h2>
                                 <h2  class="">APRENDE AHORA <br>CON ICC</h2>
                             </div>
-                            <p class="welcome-one__left-text" >Actualiza tus conocimientos y capacítate con nosotros.<br>Te damás lo mejor en INGENIERÍA Eléctrica.</p>
+                            <p class="welcome-one__left-text" >Actualiza tus conocimientos y capacÃ­tate con nosotros.<br>Te damÃ¡s lo mejor en INGENIERÃA ElÃ©ctrica.</p>
                             <ul class="welcome-one__left-features-box list-unstyled">
                                 <!--Start Welcome One Left Features Box Single-->
                                 <li class="welcome-one__left-features-box-single">
@@ -217,7 +217,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                     <!--Start Welcome One Right-->
                     <div class="col-xl-6">
                         <div class="welcome-one__right clearfix">
-                            <div class="shape1 rotate-me"><img src="<?= BASE_URL ?>assets/images/shapes/thmáshape1.png" alt="" /></div>
+                            <div class="shape1 rotate-me"><img src="<?= BASE_URL ?>assets/images/shapes/thmÃ¡shape1.png" alt="" /></div>
                             <div class="welcome-one__right-img1" data-aos="fade-left">
                                 <div class="welcome-one__right-img1-inner">
                                     <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 16px; width: 300px; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
@@ -247,7 +247,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                         <div class="counter-one__left">
                             <div class="section-title">
                                 <span class="section-title__tagline">Hechos grandiosos</h2>
-                                <h2 class="">La másión de ICC <br>es pulir tu habilidad</h2>
+                                <h2 class="">La mÃ¡siÃ³n de ICC <br>es pulir tu habilidad</h2>
                             </div>
                             <!--<p class="counter-one__left-text">There are many variations of passages of lore ipsum
                                 available but the majority have suffered.</p>-->
@@ -307,10 +307,10 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                     <div class="col-xl-4">
                         <div class="testimonials-two__left">
                             <div class="section-title">
-                                <span class="section-title__tagline">Qué opinan nuestros Usuarios</h2>
-                                <h2 class="" style="font-size: 50px; font-family: League Spartan;">¿Qué están <br>diciendo?</h2>
+                                <span class="section-title__tagline">QuÃ© opinan nuestros Usuarios</h2>
+                                <h2 class="" style="font-size: 50px; font-family: League Spartan;">Â¿QuÃ© estÃ¡n <br>diciendo?</h2>
                             </div>
-                            <p class="testimonials-two__left-text" >Tenemás una calificación promedio de 4.7 de 5 estrellas.</p>
+                            <p class="testimonials-two__left-text" >TenemÃ¡s una calificaciÃ³n promedio de 4.7 de 5 estrellas.</p>
                         </div>
                     </div>
                     <!--End Testimonials Two Left-->
@@ -323,8 +323,8 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                                 <!--Start Single Testimonials One -->
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
-                                        <h3 class="testimonials-one__single-title" >Regulación del Mercado Eléctrico</h3>
-                                        <p class="testimonials-one__single-text">Un curso muy recomendado, ayuda ampliar los conocimientos acerca del Sector Energía. Además de conocer el Marco Interinstitucional del Subsector Eléctrico de una forma muy didáctica.</p>
+                                        <h3 class="testimonials-one__single-title" >RegulaciÃ³n del Mercado ElÃ©ctrico</h3>
+                                        <p class="testimonials-one__single-text">Un curso muy recomendado, ayuda ampliar los conocimientos acerca del Sector EnergÃ­a. AdemÃ¡s de conocer el Marco Interinstitucional del Subsector ElÃ©ctrico de una forma muy didÃ¡ctica.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio1.png"
@@ -345,8 +345,8 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                                 <!--Start Single Testimonials One -->
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
-                                        <h3 class="testimonials-one__single-title" >Curso de Especialización de Analizador de Redes</h3>
-                                        <p class="testimonials-one__single-text">Este curso fue útil para abarcarme en la especialización de Redes. Los Ponentes son muy concisos y se observa su profesionalismo.</p>
+                                        <h3 class="testimonials-one__single-title" >Curso de EspecializaciÃ³n de Analizador de Redes</h3>
+                                        <p class="testimonials-one__single-text">Este curso fue Ãºtil para abarcarme en la especializaciÃ³n de Redes. Los Ponentes son muy concisos y se observa su profesionalismo.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio2.png"
@@ -367,8 +367,8 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                                 <!--Start Single Testimonials One -->
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
-                                        <h3 class="testimonials-one__single-title" >Especialización de Motores Eléctricos</h3>
-                                        <p class="testimonials-one__single-text">Los materiales educativos son muy buenos y completos, del másmo modo que resulta muy fácil de abordar sin tener conocimientos previos.</p>
+                                        <h3 class="testimonials-one__single-title" >EspecializaciÃ³n de Motores ElÃ©ctricos</h3>
+                                        <p class="testimonials-one__single-text">Los materiales educativos son muy buenos y completos, del mÃ¡smo modo que resulta muy fÃ¡cil de abordar sin tener conocimientos previos.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio3.png"
@@ -390,7 +390,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
                                         <h3 class="testimonials-one__single-title" >Banco de Condensadores</h3>
-                                        <p class="testimonials-one__single-text">Fue todo un placer realizar este curso. Puesto que el enfoque del ponente fue impecable. Me gustaría realizar otro curso que amplie más conocimientos relacionado a este campo.</p>
+                                        <p class="testimonials-one__single-text">Fue todo un placer realizar este curso. Puesto que el enfoque del ponente fue impecable. Me gustarÃ­a realizar otro curso que amplie mÃ¡s conocimientos relacionado a este campo.</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio5.png"
@@ -411,7 +411,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                                 <div class="testimonials-one__single">
                                     <div class="testimonials-one__single-inner">
                                         <h3 class="testimonials-one__single-title" >Sistema de Puesta a Tierra</h3>
-                                        <p class="testimonials-one__single-text">El curso dictado fue muy interesante. La estructura y la calidad de los contenidos han sido de lo mejor para el aprendizaje. Me han permitido descubrir acerca de este tema que tardaría en descubrir por mí másmo</p>
+                                        <p class="testimonials-one__single-text">El curso dictado fue muy interesante. La estructura y la calidad de los contenidos han sido de lo mejor para el aprendizaje. Me han permitido descubrir acerca de este tema que tardarÃ­a en descubrir por mÃ­ mÃ¡smo</p>
                                         <div class="testimonials-one__single-client-info">
                                             <div class="testimonials-one__single-client-info-img">
                                                 <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio4.png"
@@ -441,15 +441,15 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="registration-two__wrapper">
-                            <div class="shape1 zoom-fade"><img src="<?= BASE_URL ?>assets/images/shapes/thmáshape2.png" alt="" /></div>
+                            <div class="shape1 zoom-fade"><img src="<?= BASE_URL ?>assets/images/shapes/thmÃ¡shape2.png" alt="" /></div>
                             <div class="shape2 "  ><img
-                                    src="<?= BASE_URL ?>assets/images/shapes/thmáshape3.png" alt="" /></div>
+                                    src="<?= BASE_URL ?>assets/images/shapes/thmÃ¡shape3.png" alt="" /></div>
                             <div class="registration-two__left">
                                 <h2 class="" style="font-size: 50px; color: #FFF;">Comience su carrera educativa <br>con ICC</h2>
                             </div>
                             <div class="registration-two__right">
                                 <div class="registration-two__right-btn">
-                                    <a href="<?= BASE_URL ?>contacto" class="thm-btn">Descubrir más</a>
+                                    <a href="<?= BASE_URL ?>contacto" class="thm-btn">Descubrir mÃ¡s</a>
                                 </div>
                             </div>
                         </div>
@@ -460,6 +460,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
         </section>
         <!--End Registration Two-->
         <!--<a target="blank" href="https://wa.link/zw6o1w" class="btn-whatsapp-pulse"><i class="fab fa-whatsapp"></i></a>-->
+
 
 
 

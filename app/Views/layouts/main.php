@@ -22,7 +22,7 @@
     <?php endif; ?>
     
     <title><?= $title ?? 'ICC Perú - Instituto de CapacitaciÃ³n Continua' ?></title>
-    <link rel="preload" as="image" href="<?= BASE_URL ?>assets/images/banner_icc.jpg">
+    <link rel="preload" as="image" href="<?= BASE_URL ?>assets/images/banner_icc.png">
     <!-- favicons Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>assets/images/favicons/Favicon_Icc.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="<?= BASE_URL ?>assets/images/favicons/Favicon_Icc.png" />

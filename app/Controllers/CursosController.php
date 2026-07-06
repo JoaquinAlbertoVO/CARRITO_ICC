@@ -6,7 +6,7 @@ use App\Core\Controller;
 class CursosController extends Controller {
     public function index() {
         $data = [
-            'title' => 'Cursos - Instituto de CapacitaciÃ³n Continua',
+            'title' => 'Cursos - Instituto de Capacitación Continua',
             'meta_description' => 'Explora todos nuestros cursos disponibles.',
         ];
         $this->view('cursos/index', $data);
@@ -14,8 +14,8 @@ class CursosController extends Controller {
 
     public function ingenieria() {
         $data = [
-            'title' => 'Cursos de IngenierÃ­a - ICC',
-            'meta_description' => 'Cursos especializados en IngenierÃ­a.',
+            'title' => 'Cursos de Ingeniería - ICC',
+            'meta_description' => 'Cursos especializados en Ingeniería.',
         ];
         $this->view('cursos/ingenieria', $data);
     }
@@ -33,23 +33,23 @@ class CursosController extends Controller {
             // Diccionario de metadatos SEO por curso
             $seo_data = [
                 'programacion-plc' => [
-                    'title' => 'ProgramaciÃ³n bÃ¡sica de PLC - ICC',
-                    'meta_description' => 'Aprende programaciÃ³n de PLC desde cero. Curso completo para automatizaciÃ³n industrial.',
+                    'title' => 'Programación básica de PLC - ICC',
+                    'meta_description' => 'Aprende programación de PLC desde cero. Curso completo para automatización industrial.',
                     'og_image' => BASE_URL . 'assets/images/Fondo_Plc.png'
                 ],
                 'puesta-tierra' => [
                     'title' => 'Sistema Puesta a Tierra - ICC',
-                    'meta_description' => 'Aprende diseÃ±o, instalaciÃ³n y mediciÃ³n de Sistemas de Puesta a Tierra.',
+                    'meta_description' => 'Aprende diseño, instalación y medición de Sistemas de Puesta a Tierra.',
                     'og_image' => BASE_URL . 'assets/images/Puesta_a_Tierra.jpeg'
                 ],
                 'banco-condensadores' => [
                     'title' => 'Banco de Condensadores - ICC',
-                    'meta_description' => 'DiseÃ±o y montaje de Bancos de Condensadores Industriales.',
+                    'meta_description' => 'Diseño y montaje de Bancos de Condensadores Industriales.',
                     'og_image' => BASE_URL . 'assets/images/Banco_de_Condensadores.jpeg'
                 ],
                 'analisis-facturacion' => [
-                    'title' => 'AnÃ¡lisis de Facturas y Tarifas E. - ICC',
-                    'meta_description' => 'EvaluaciÃ³n de tarifas elÃ©ctricas y analizador de redes BT.',
+                    'title' => 'Análisis de Facturas y Tarifas E. - ICC',
+                    'meta_description' => 'Evaluación de tarifas eléctricas y analizador de redes BT.',
                     'og_image' => BASE_URL . 'assets/images/Analizador_de_Redes_BT.jpeg'
                 ]
             ];

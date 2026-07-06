@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
-                                        <h2 class="main-slider-two__tagline">Cursos online</h2><br>
+                                        <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
                                         <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Capacítate y certificate<br> con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
@@ -44,7 +44,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
-                                        <h2 class="main-slider-two__tagline">Cursos online</h2><br>
+                                        <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
                                         <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Especialízate en Ingeniería<br> Eléctrica con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
@@ -64,7 +64,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="main-slider-two__content text-center">
-                                        <h2 class="main-slider-two__tagline">Cursos online</h2><br>
+                                        <span class="main-slider-two__tagline" style="display:inline-block; margin-bottom:10px;">Cursos online</span><br>
                                         <h1 class="main-slider__title" style="font-size:inherit; font-weight:inherit;">Capacítate y certificate<br> con nosotros</h1><br><br><br><br>
                                     </div>
                                     <div class="main-slider-two__button-box text-center">
@@ -84,17 +84,17 @@
         </section>
 
 <?php
-$ingenieria_courses = $ingenieria_courses ?? [];
+$Ingeniería_courses = $Ingeniería_courses ?? [];
 ?>
-        <!--Courses One Start INGENIERIA-->
+        <!--Courses One Start Ingeniería-->
         <section class="courses-one">
             <div class="container">
                 <div class="section-title text-center">
                     <span class="section-title__tagline">Todos los máses encontrarás nuevo contenido en la plataforma</span>
-                    <h2  class="">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
+                    <h2  class="">CURSOS ESPECIALIZADOS EN INGENIERÍA</span>
                 </div>
                 <div class="row">
-                    <?php foreach($ingenieria_courses as $course): ?>
+                    <?php foreach($Ingeniería_courses as $course): ?>
                     <div class="col-xl-3 col-lg-6 col-md-6" data-aos="fade-up">
                         <div class="tarjeta-dark">
                             <div class="tarjeta-dark-img">
@@ -123,7 +123,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
 </div>                <div class="row" style="margin-top: 40px;"><div class="col-12 text-center"><a href="<?= BASE_URL ?>cursos" class="thm-btn">Ver todos los cursos</a></div></div>
             </div>
         </section>
-        <!--Courses One End INGENIERIA-->
+        <!--Courses One End Ingeniería-->
 
         <!--Features One Start-->
         <section class="features-one">
@@ -184,7 +184,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                         <div class="welcome-one__left">
                             <div class="section-title">
                                 <span class="section-title__tagline" >Presentaciones de la empresa</span>
-                                <h2  class="">APRENDE AHORA <br>CON ICC</h2>
+                                <h2  class="">APRENDE AHORA <br>CON ICC</span>
                             </div>
                             <p class="welcome-one__left-text" >Actualiza tus conocimientos y capacítate con nosotros.<br>Te damás lo mejor en Ingeniería Eléctrica.</p>
                             <ul class="welcome-one__left-features-box list-unstyled">
@@ -247,7 +247,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                         <div class="counter-one__left">
                             <div class="section-title">
                                 <span class="section-title__tagline">Hechos grandiosos</span>
-                                <h2 class="">La másión de ICC <br>es pulir tu habilidad</h2>
+                                <h2 class="">La másión de ICC <br>es pulir tu habilidad</span>
                             </div>
                             <!--<p class="counter-one__left-text">There are many variations of passages of lore ipsum
                                 available but the majority have suffered.</p>-->
@@ -308,7 +308,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                         <div class="testimonials-two__left">
                             <div class="section-title">
                                 <span class="section-title__tagline">Qué opinan nuestros Usuarios</span>
-                                <h2 class="" style="font-size: 50px; font-family: League Spartan;">¿Qué están <br>diciendo?</h2>
+                                <h2 class="" style="font-size: 50px; font-family: League Spartan;">¿Qué están <br>diciendo?</span>
                             </div>
                             <p class="testimonials-two__left-text" >Tenemás una calificación promedio de 4.7 de 5 estrellas.</p>
                         </div>
@@ -445,7 +445,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                             <div class="shape2 "  ><img
                                     src="<?= BASE_URL ?>assets/images/shapes/thmáshape3.png" alt="" /></div>
                             <div class="registration-two__left">
-                                <h2 class="" style="font-size: 50px; color: #FFF;">Comience su carrera educativa <br>con ICC</h2>
+                                <h2 class="" style="font-size: 50px; color: #FFF;">Comience su carrera educativa <br>con ICC</span>
                             </div>
                             <div class="registration-two__right">
                                 <div class="registration-two__right-btn">

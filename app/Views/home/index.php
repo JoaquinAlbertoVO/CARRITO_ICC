@@ -221,13 +221,13 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                             <div class="welcome-one__right-img1" data-aos="fade-left">
                                 <div class="welcome-one__right-img1-inner">
                                     <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 16px; width: 300px; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-                                        <h3 style="color: var(--mo-accent); font-family: var(--mo-font-heading);">[ ESPACIO PARA IMAGEN 1 ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Recomendado: Estudiantes / Profesores)</h2></h3>
+                                        <h3 style="color: var(--mo-accent); font-family: var(--mo-font-heading);">[ ESPACIO PARA IMAGEN 1 ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Recomendado: Estudiantes / Profesores)</span></h3>
                                     </div>
                                 </div>
                             </div>
                             <div class="welcome-one__right-img2" data-aos="zoom-in" style="margin-top: 30px; margin-left: -50px;">
                                 <div style="background-color: var(--mo-primary); border: 2px dashed #ffffff; border-radius: 16px; width: 250px; height: 250px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                                        <h3 style="color: #ffffff; font-family: var(--mo-font-heading);">[ ESPACIO PARA IMAGEN 2 ]<br><span style="font-size:14px; font-weight:normal; color:#aaa;">(Recomendado: Clase en Zoom)</h2></h3>
+                                        <h3 style="color: #ffffff; font-family: var(--mo-font-heading);">[ ESPACIO PARA IMAGEN 2 ]<br><span style="font-size:14px; font-weight:normal; color:#aaa;">(Recomendado: Clase en Zoom)</span></h3>
                                 </div>
                             </div>
                         </div>
@@ -331,7 +331,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                                                     alt="" />-->
                                             </div>
                                             <div class="testimonials-one__single-client-info-text">
-                                                <h5>Carlos Hernandez</h5>
+                                                <h4></h4>
                                                 <p >Usuario</p>
                                             </div>
                                         </div>
@@ -353,7 +353,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                                                     alt="" />-->
                                             </div>
                                             <div class="testimonials-one__single-client-info-text">
-                                                <h5>Joel Aguilar</h5>
+                                                <h4></h4>
                                                 <p >Usuario</p>
                                             </div>
                                         </div>
@@ -375,7 +375,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                                                     alt="" />-->
                                             </div>
                                             <div class="testimonials-one__single-client-info-text">
-                                                <h5>Judith Sanchez</h5>
+                                                <h4></h4>
                                                 <p >Usuario</p>
                                             </div>
                                         </div>
@@ -397,7 +397,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                                                     alt="" />-->
                                             </div>
                                             <div class="testimonials-one__single-client-info-text">
-                                                <h5>Margaret Abarca</h5>
+                                                <h4></h4>
                                                 <p >Usuario</p>
                                             </div>
                                         </div>
@@ -418,7 +418,7 @@ $INGENIERÍA_courses = $INGENIERÍA_courses ?? [];
                                                     alt="" />-->
                                             </div>
                                             <div class="testimonials-one__single-client-info-text">
-                                                <h5>David Julio Vilca</h5>
+                                                <h4></h4>
                                                 <p >Usuario</p>
                                             </div>
                                         </div>

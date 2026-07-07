@@ -210,6 +210,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
+  height: 100% !important; /* Para que todas las tarjetas tengan la misma altura */
 }
 
 .tarjeta-dark-img {
@@ -241,7 +242,7 @@ body {
 .tarjeta-dark-title a {
   color: var(--mo-primary) !important;
   font-weight: 700 !important;
-  font-size: 19px !important;
+  font-size: 15px !important;
   line-height: 1.3 !important;
   font-family: var(--mo-font-heading) !important;
 }

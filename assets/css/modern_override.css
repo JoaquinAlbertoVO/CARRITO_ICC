@@ -993,6 +993,11 @@ body {
 /* --- Mobile phones (max-width: 767px) --- */
 @media only screen and (max-width: 767px) {
 
+  /* === HERO SLIDER MOBILE FOCUS === */
+  .main-slider .image-layer {
+    background-position: 80% center !important;
+  }
+
   /* === HEADER MOBILE === */
   .main-header--one__top {
     padding: 6px 0 !important;

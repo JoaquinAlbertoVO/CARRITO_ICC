@@ -328,4 +328,140 @@ class AdminCursosController extends Controller {
         ];
         $this->view('admin/ventas/boleta_rapida', $data, 'admin/layouts/main');
     }
+
+    // ============================================================
+    // GESTIÓN DE VIDEOS POR CURSO
+    // ============================================================
+
+    public function videos() {
+        $id_curso = isset($_GET['curso']) ? (int)$_GET['curso'] : 0;
+        if (!$id_curso) {
+            header('Location: ' . BASE_URL . 'admin/cursos');
+            exit();
+        }
+        $alert = '';
+        if (isset($_GET['eliminado'])) {
+            $alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Video eliminado correctamente.
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                      </div>';
+        }
+        if (isset($_GET['guardado'])) {
+            $alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Video guardado correctamente.
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                      </div>';
+        }
+        $videoModel = new \App\Models\VideoModel();
+        $data = [
+            'id_curso'     => $id_curso,
+            'nombre_curso' => $videoModel->getNombreCurso($id_curso),
+            'videos'       => $videoModel->getVideosByCurso($id_curso),
+            'alert'        => $alert,
+        ];
+        $this->view('admin/videos/lista', $data, 'admin/layouts/main');
+    }
+
+    public function videos_registro() {
+        $id_curso = isset($_GET['curso']) ? (int)$_GET['curso'] : 0;
+        if (!$id_curso) {
+            header('Location: ' . BASE_URL . 'admin/cursos');
+            exit();
+        }
+        $videoModel = new \App\Models\VideoModel();
+        $alert = '';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $titulo      = trim($_POST['titulo'] ?? '');
+            $url_video   = trim($_POST['url_video'] ?? '');
+            $descripcion = trim($_POST['descripcion'] ?? '');
+            $orden       = (int)($_POST['orden'] ?? 1);
+            $id_curso_post = (int)($_POST['id_curso'] ?? $id_curso);
+
+            if (empty($titulo) || empty($url_video)) {
+                $alert = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            El título y la URL del video son obligatorios.
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                          </div>';
+            } else {
+                $videoModel->crearVideo([
+                    'id_curso'    => $id_curso_post,
+                    'titulo'      => $titulo,
+                    'url_video'   => $url_video,
+                    'descripcion' => $descripcion,
+                    'orden'       => $orden ?: 1,
+                ]);
+                header('Location: ' . BASE_URL . 'admin/videos?curso=' . $id_curso_post . '&guardado=1');
+                exit();
+            }
+        }
+
+        $siguiente_orden = $videoModel->countVideosByCurso($id_curso) + 1;
+        $data = [
+            'id_curso'       => $id_curso,
+            'nombre_curso'   => $videoModel->getNombreCurso($id_curso),
+            'siguiente_orden' => $siguiente_orden,
+            'alert'          => $alert,
+        ];
+        $this->view('admin/videos/registro', $data, 'admin/layouts/main');
+    }
+
+    public function videos_editar() {
+        $id_video = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        if (!$id_video) {
+            header('Location: ' . BASE_URL . 'admin/cursos');
+            exit();
+        }
+        $videoModel = new \App\Models\VideoModel();
+        $video = $videoModel->getVideoById($id_video);
+        if (!$video) {
+            header('Location: ' . BASE_URL . 'admin/cursos');
+            exit();
+        }
+        $alert = '';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $titulo      = trim($_POST['titulo'] ?? '');
+            $url_video   = trim($_POST['url_video'] ?? '');
+            $descripcion = trim($_POST['descripcion'] ?? '');
+            $orden       = (int)($_POST['orden'] ?? 1);
+            $id_curso    = (int)($_POST['id_curso'] ?? $video['id_curso']);
+
+            if (empty($titulo) || empty($url_video)) {
+                $alert = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            El título y la URL son obligatorios.
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                          </div>';
+            } else {
+                $videoModel->actualizarVideo($id_video, [
+                    'titulo'      => $titulo,
+                    'url_video'   => $url_video,
+                    'descripcion' => $descripcion,
+                    'orden'       => $orden ?: 1,
+                ]);
+                header('Location: ' . BASE_URL . 'admin/videos?curso=' . $id_curso . '&guardado=1');
+                exit();
+            }
+        }
+
+        $data = [
+            'id_curso'    => $video['id_curso'],
+            'nombre_curso' => $videoModel->getNombreCurso($video['id_curso']),
+            'video'       => $video,
+            'alert'       => $alert,
+        ];
+        $this->view('admin/videos/editar', $data, 'admin/layouts/main');
+    }
+
+    public function videos_eliminar() {
+        $id_video = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $id_curso = isset($_GET['curso']) ? (int)$_GET['curso'] : 0;
+        if ($id_video) {
+            $videoModel = new \App\Models\VideoModel();
+            $videoModel->eliminarVideo($id_video);
+        }
+        header('Location: ' . BASE_URL . 'admin/videos?curso=' . $id_curso . '&eliminado=1');
+        exit();
+    }
 }
+

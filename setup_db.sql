@@ -78,3 +78,17 @@ CREATE TABLE IF NOT EXISTS `usuario_cursos` (
   `id_curso` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `curso_videos` (
+  `id_video`     int(11) NOT NULL AUTO_INCREMENT,
+  `id_curso`     int(11) NOT NULL,
+  `titulo`       varchar(255) NOT NULL,
+  `url_video`    varchar(500) NOT NULL,
+  `descripcion`  text DEFAULT NULL,
+  `orden`        int(11) NOT NULL DEFAULT 1,
+  `estado`       int(11) NOT NULL DEFAULT 1,
+  `fecha_creado` timestamp DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_video`),
+  KEY `idx_id_curso` (`id_curso`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+

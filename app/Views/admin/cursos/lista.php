@@ -36,6 +36,9 @@
                                             <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown"><i class="material-icons">more_vert</i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a class="dropdown-item" href="<?= BASE_URL ?>admin/cursos_editar?id=<?php echo $data["id_curso"]; ?>">Editar Curso</a>
+                                                <a class="dropdown-item" href="<?= BASE_URL ?>admin/videos?curso=<?php echo $data["id_curso"]; ?>">
+                                                    <i class="material-icons" style="font-size:14px;vertical-align:middle;">play_circle_outline</i> Gestionar Videos
+                                                </a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item text-danger" href="<?= BASE_URL ?>admin/cursos_delete?id=<?php echo $data["id_curso"]; ?>">Eliminar</a>
                                             </div>

@@ -216,7 +216,7 @@
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
+                                <img src="<?= BASE_URL ?>assets/images/2f7c764e-a95d-4002-b411-fd32c0c174d5.jpg" alt="Ricardo Cárdenas" style="width:50px; height:50px; border-radius:50%; object-fit:cover; display:block; margin:0 auto;">
                             </div>
                             <h6 class="courses-one__single-content-name">Ricardo Cárdenas</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/analisis_facturacion">Análisis de facturas y Evaluación de Tarifas E.</a></h4>
@@ -330,7 +330,7 @@
                         </div>
                         <div class="courses-one__single-content" style="background-color: white;">
                             <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
+                                <img src="<?= BASE_URL ?>assets/images/2f7c764e-a95d-4002-b411-fd32c0c174d5.jpg" alt="Ricardo Cárdenas" style="width:50px; height:50px; border-radius:50%; object-fit:cover; display:block; margin:0 auto;">
                             </div>
                             <h6 class="courses-one__single-content-name">Ricardo Cárdenas</h6>
                             <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/configuracion_redes">Configuración e Instalación de Analizadores de redes</a></h4>

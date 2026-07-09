@@ -31,12 +31,14 @@ class VideoModel {
 
     /** Crear un nuevo video */
     public function crearVideo($data) {
-        $sql = "INSERT INTO curso_videos (id_curso, titulo, url_video, descripcion, orden)
-                VALUES (:id_curso, :titulo, :url_video, :descripcion, :orden)";
+        $sql = "INSERT INTO curso_videos (id_curso, modulo, titulo, url_video, duracion, descripcion, orden)
+                VALUES (:id_curso, :modulo, :titulo, :url_video, :duracion, :descripcion, :orden)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_curso',    $data['id_curso'],    PDO::PARAM_INT);
+        $stmt->bindParam(':modulo',      $data['modulo'],      PDO::PARAM_STR);
         $stmt->bindParam(':titulo',      $data['titulo'],      PDO::PARAM_STR);
         $stmt->bindParam(':url_video',   $data['url_video'],   PDO::PARAM_STR);
+        $stmt->bindParam(':duracion',    $data['duracion'],    PDO::PARAM_STR);
         $stmt->bindParam(':descripcion', $data['descripcion'], PDO::PARAM_STR);
         $stmt->bindParam(':orden',       $data['orden'],       PDO::PARAM_INT);
         return $stmt->execute();
@@ -44,12 +46,14 @@ class VideoModel {
 
     /** Actualizar un video existente */
     public function actualizarVideo($id_video, $data) {
-        $sql = "UPDATE curso_videos SET titulo = :titulo, url_video = :url_video,
-                descripcion = :descripcion, orden = :orden
+        $sql = "UPDATE curso_videos SET modulo = :modulo, titulo = :titulo, url_video = :url_video,
+                duracion = :duracion, descripcion = :descripcion, orden = :orden
                 WHERE id_video = :id_video";
         $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':modulo',      $data['modulo'],      PDO::PARAM_STR);
         $stmt->bindParam(':titulo',      $data['titulo'],      PDO::PARAM_STR);
         $stmt->bindParam(':url_video',   $data['url_video'],   PDO::PARAM_STR);
+        $stmt->bindParam(':duracion',    $data['duracion'],    PDO::PARAM_STR);
         $stmt->bindParam(':descripcion', $data['descripcion'], PDO::PARAM_STR);
         $stmt->bindParam(':orden',       $data['orden'],       PDO::PARAM_INT);
         $stmt->bindParam(':id_video',    $id_video,            PDO::PARAM_INT);

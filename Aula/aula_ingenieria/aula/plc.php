@@ -13,9 +13,33 @@ include 'includes/header.php';
             <div class="container page__container mt-4 mb-4">
                 <div class="row" style="height: auto;">
                     <div class="col-md-12">
+<?php
+// Obtener los videos dinámicamente
+$query = "SELECT v.* FROM curso_videos v 
+          INNER JOIN cursos c ON v.id_curso = c.id_curso 
+          WHERE c.nombre_curso LIKE '%plc%' 
+          ORDER BY v.modulo ASC, v.orden ASC";
+$result = mysqli_query($conexion, $query);
 
+$modulos_db = [];
+$first_video_url = "https://www.youtube.com/embed/YETCT606W-w";
+$js_video_urls = [];
+
+if ($result && mysqli_num_rows($result) > 0) {
+    $vid_index = 1;
+    while($row = mysqli_fetch_assoc($result)) {
+        $modulos_db[$row['modulo']][] = $row;
+        $vid_id = "vid_db_" . $vid_index;
+        $js_video_urls[$vid_id] = $row['url_video'];
+        $vid_index++;
+    }
+    $first_module = reset($modulos_db);
+    $first_video = reset($first_module);
+    $first_video_url = $first_video['url_video'];
+}
+?>
                         <div class="embed-responsive embed-responsive-16by9 mb-4" style="max-height:auto; background: #000;">
-                            <iframe id="player1" class="embed-responsive-item" src="https://www.youtube.com/embed/YETCT606W-w" allowfullscreen=""></iframe>
+                            <iframe id="player1" class="embed-responsive-item" src="<?= htmlspecialchars($first_video_url) ?>" allowfullscreen=""></iframe>
                         </div>
 
                     </div>
@@ -124,6 +148,47 @@ include 'includes/header.php';
                                 <div class="">
                                   <div class="">
                                     <div class="tabs">
+<?php if (!empty($modulos_db)): ?>
+    <?php
+    $i = 1;
+    $vid_index = 1;
+    foreach ($modulos_db as $nombre_modulo => $videos):
+        $chck_id = "chck_db_" . $i;
+    ?>
+        <div class="tab">
+            <input type="checkbox" id="<?= $chck_id ?>">
+            <label class="tab-label" style="width: 100%; margin-bottom: 1px;" for="<?= $chck_id ?>"><?= htmlspecialchars($nombre_modulo) ?></label>
+            <?php 
+            $v_idx = 1;
+            foreach ($videos as $vid): 
+                $vid_id = "vid_db_" . $vid_index;
+            ?>
+            <div class="tab-content1">
+                <div class="media">
+                    <div class="media-left mr-1">
+                        <div class="text-muted"><?= $v_idx ?>.</div>
+                    </div>
+                    <div class="media-body">
+                        <a type="button" href="#player1" id="<?= $vid_id ?>" onclick="changeVid(this.id)"><?= htmlspecialchars($vid['titulo']) ?></a>
+                    </div>
+                    <div class="media-right">
+                        <small class="text-muted"><?= htmlspecialchars($vid['duracion'] ?: '0:00') ?></small>
+                    </div>
+                </div>
+            </div>
+            <hr style="margin-top: 0; margin-bottom: 0;">
+            <?php 
+            $v_idx++;
+            $vid_index++;
+            endforeach; 
+            ?>
+        </div>
+    <?php 
+    $i++;
+    endforeach; 
+    ?>
+<?php else: ?>
+<!-- START FALLBACK ESTÁTICO (SI NO HAY VIDEOS EN BD) -->
                                         <div class="tab">
                                             <input type="checkbox" id="chck1">
                                             <label class="tab-label" style="width: 100%; margin-bottom: 1px;" for="chck1">Módulo 1</label>
@@ -156,209 +221,8 @@ include 'includes/header.php';
                                             </div>
                                             <hr style="margin-top: 0; margin-bottom: 0;">
                                         </div>
-                                        <div class="tab">
-                                            <input type="checkbox" id="chck2">
-                                            <label class="tab-label" style="width: 100%; margin-bottom: 1px;" for="chck2">Módulo 2</label>
-                                            <div class="tab-content1">
-                                                <div class="media">
-                                                    <div class="media-left mr-1">
-                                                        <div class="text-muted">1.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" href="#player1" id="vid3" onclick="changeVid(this.id)">CONFIGURACIÓN BÁSICA DE PLC.</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted">3:33</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr style="margin-top: 0; margin-bottom: 0;">
-                                        </div>
-                                        <div class="tab">
-                                            <input type="checkbox" id="chck3">
-                                            <label class="tab-label" style="width: 100%; margin-bottom: 1px;" for="chck3">Módulo 3</label>
-                                            <div class="tab-content1">
-                                                <div class="media">
-                                                    <div class="media-left mr-1">
-                                                        <div class="text-muted">1.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" href="#player1" id="vid4" onclick="changeVid(this.id)">PLC BÁSICO.</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted">3:33</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr style="margin-top: 0; margin-bottom: 0;">
-                                        </div>
-                                        <div class="tab">
-                                            <input type="checkbox" id="chck4">
-                                            <label class="tab-label" style="width: 100%; margin-bottom: 1px;" for="chck4">Módulo 4</label>
-                                            <div class="tab-content1">
-                                                <div class="media">
-                                                    <div class="media-left mr-1">
-                                                        <div class="text-muted">1.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" href="#player1" id="vid5" onclick="changeVid(this.id)">INSTRUCCIONES TIPO BIT SET RESET.</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted">3:33</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr style="margin-top: 0; margin-bottom: 0;">
-                                        </div>
-                                        <div class="tab">
-                                            <input type="checkbox" id="chck5">
-                                            <label class="tab-label" style="width: 100%; margin-bottom: 1px;" for="chck5">Módulo 5</label>
-                                            <div class="tab-content1">
-                                                <div class="media">
-                                                    <div class="media-left mr-1">
-                                                        <div class="text-muted">1.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" href="#player1" id="vid6" onclick="changeVid(this.id)">USO DE TEMPORIZADORES.</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted">3:33</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr style="margin-top: 0; margin-bottom: 0;">
-                                        </div>
-                                        <div class="tab">
-                                            <input type="checkbox" id="chck6">
-                                            <label class="tab-label" style="width: 100%; margin-bottom: 1px;" for="chck6">Módulo 6</label>
-                                            <div class="tab-content1">
-                                                <div class="media">
-                                                    <div class="media-left mr-1">
-                                                        <div class="text-muted">1.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" href="#player1" id="vid7" onclick="changeVid(this.id)">ASCENDENTE Y DESCENDENTE.</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted">3:33</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr style="margin-top: 0; margin-bottom: 0;">
-                                            <div class="tab-content1">
-                                                <div class="media">
-                                                    <div class="media-left mr-1">
-                                                        <div class="text-muted">2.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" href="#player1" id="vid8" onclick="changeVid(this.id)">CONTADORES.</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted">3:33</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr style="margin-top: 0; margin-bottom: 0;">
-                                        </div>
-                                        <div class="tab">
-                                            <input type="checkbox" id="chck7">
-                                            <label class="tab-label" style="width: 100%; margin-bottom: 1px;" for="chck7">Módulo 7</label>
-                                            <div class="tab-content1">
-                                                <div class="media">
-                                                    <div class="media-left mr-1">
-                                                        <div class="text-muted">1.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" href="#player1" id="vid9" onclick="changeVid(this.id)">TRANSFERENCIA.</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted">3:33</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr style="margin-top: 0; margin-bottom: 0;">
-                                            <div class="tab-content1">
-                                                <div class="media">
-                                                    <div class="media-left mr-1">
-                                                        <div class="text-muted">2.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" href="#player1" id="vid10" onclick="changeVid(this.id)">COMPRADORES.</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted">3:33</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr style="margin-top: 0; margin-bottom: 0;">
-                                        </div>
-                                        <div class="tab">
-                                            <input type="checkbox" id="chck8">
-                                            <label class="tab-label" style="width: 100%; margin-bottom: 1px;" for="chck8">Módulo 8</label>
-                                            <div class="tab-content1">
-                                                <div class="media">
-                                                    <div class="media-left mr-1">
-                                                        <div class="text-muted">1.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" href="#player1" id="vid11" onclick="changeVid(this.id)">FBD.</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted">3:33</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr style="margin-top: 0; margin-bottom: 0;">
-                                        </div>
-                                        <div class="tab">
-                                            <input type="checkbox" id="chck9">
-                                            <label class="tab-label" style="width: 100%; margin-bottom: 1px;" for="chck9">Módulo 9</label>
-                                            <div class="tab-content1">
-                                                <div class="media">
-                                                    <div class="media-left mr-1">
-                                                        <div class="text-muted">1.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" href="#player1" id="vid12" onclick="changeVid(this.id)">ARRANQUE DIRECTO.</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted">3:33</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr style="margin-top: 0; margin-bottom: 0;">
-                                            <div class="tab-content1">
-                                                <div class="media">
-                                                    <div class="media-left mr-1">
-                                                        <div class="text-muted">2.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" href="#player1" id="vid13" onclick="changeVid(this.id)">ARRANQUE SECUENCIAL.</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted">3:33</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr style="margin-top: 0; margin-bottom: 0;">
-                                        </div>
-                                        <div class="tab">
-                                            <input type="checkbox" id="chck10">
-                                            <label class="tab-label" style="width: 100%; margin-bottom: 1px;" for="chck10">Módulo 10</label>
-                                            <div class="tab-content1">
-                                                <div class="media">
-                                                    <div class="media-left mr-1">
-                                                        <div class="text-muted">1.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" href="#player1" id="vid14" onclick="changeVid(this.id)">BOMBAS ALTERNADAS.</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted">3:33</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+<!-- END FALLBACK ESTÁTICO -->
+<?php endif; ?>
                                     </div>
                                   </div>
                                 </div>
@@ -369,51 +233,33 @@ include 'includes/header.php';
                 </div>
             </div>
             <script type="text/javascript">
+                var videoUrls = <?= json_encode($js_video_urls) ?>;
+
                 function changeVid(clicked_id)
                 {   
                     var newVid = "https://www.youtube.com/embed/YETCT606W-w";
-                    if (clicked_id === 'vid1') {
-                        newVid = 'https://www.youtube.com/embed/YETCT606W-w';
+                    
+                    // Si el video viene de la BD
+                    if (videoUrls[clicked_id]) {
+                        newVid = videoUrls[clicked_id];
+                    } else {
+                        // Fallback estático si se clickea un ID estático
+                        if (clicked_id === 'vid1') newVid = 'https://www.youtube.com/embed/YETCT606W-w';
+                        if (clicked_id === 'vid2') newVid = 'https://www.youtube.com/embed/Dw2S5v-PdGY';
+                        if (clicked_id === 'vid3') newVid = 'https://www.youtube.com/embed/XURlIHj-nls';
+                        if (clicked_id === 'vid4') newVid = 'https://www.youtube.com/embed/dOtg7Ec16YM';
+                        if (clicked_id === 'vid5') newVid = 'https://www.youtube.com/embed/98en4Jzcti8';
+                        if (clicked_id === 'vid6') newVid = 'https://www.youtube.com/embed/aGB8LSfjWII';
+                        if (clicked_id === 'vid7') newVid = 'https://www.youtube.com/embed/w0303D_0Xt4';
+                        if (clicked_id === 'vid8') newVid = 'https://www.youtube.com/embed/qU8lzSDM8tg';
+                        if (clicked_id === 'vid9') newVid = 'https://www.youtube.com/embed/NtyeKUw6F38';
+                        if (clicked_id === 'vid10') newVid = 'https://www.youtube.com/embed/FwFdnFRbNcY';
+                        if (clicked_id === 'vid11') newVid = 'https://www.youtube.com/embed/zJalwgQu0Xw';
+                        if (clicked_id === 'vid12') newVid = 'https://www.youtube.com/embed/-yrZn-M_pk4';
+                        if (clicked_id === 'vid13') newVid = 'https://www.youtube.com/embed/R_xWkL0nNG8';
+                        if (clicked_id === 'vid14') newVid = 'https://www.youtube.com/embed/sU8uJWccnGw';
                     }
-                    if (clicked_id === 'vid2') {
-                        newVid = 'https://www.youtube.com/embed/Dw2S5v-PdGY';
-                    }
-                    if (clicked_id === 'vid3') {
-                        newVid = 'https://www.youtube.com/embed/XURlIHj-nls';
-                    }
-                    if (clicked_id === 'vid4') {
-                        newVid = 'https://www.youtube.com/embed/dOtg7Ec16YM';
-                    }
-                    if (clicked_id === 'vid5') {
-                        newVid = 'https://www.youtube.com/embed/98en4Jzcti8';
-                    }
-                    if (clicked_id === 'vid6') {
-                        newVid = 'https://www.youtube.com/embed/aGB8LSfjWII';
-                    }
-                    if (clicked_id === 'vid7') {
-                        newVid = 'https://www.youtube.com/embed/w0303D_0Xt4';
-                    }
-                    if (clicked_id === 'vid8') {
-                        newVid = 'https://www.youtube.com/embed/qU8lzSDM8tg';
-                    }
-                    if (clicked_id === 'vid9') {
-                        newVid = 'https://www.youtube.com/embed/NtyeKUw6F38';
-                    }
-                    if (clicked_id === 'vid10') {
-                        newVid = 'https://www.youtube.com/embed/FwFdnFRbNcY';
-                    }
-                    if (clicked_id === 'vid11') {
-                        newVid = 'https://www.youtube.com/embed/zJalwgQu0Xw';
-                    }
-                    if (clicked_id === 'vid12') {
-                        newVid = 'https://www.youtube.com/embed/-yrZn-M_pk4';
-                    }
-                    if (clicked_id === 'vid13') {
-                        newVid = 'https://www.youtube.com/embed/R_xWkL0nNG8';
-                    }
-                    if (clicked_id === 'vid14') {
-                        newVid = 'https://www.youtube.com/embed/sU8uJWccnGw';
-                    }
+                    
                     document.getElementById('player1').src = newVid;
                 }
                 var $allVideos = $("iframe[src^='//player.vimeo.com'], iframe[src^='//www.youtube.com']");

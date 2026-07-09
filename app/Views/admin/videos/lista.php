@@ -23,9 +23,9 @@
                     <thead class="thead-light">
                         <tr>
                             <th style="width:60px;">Orden</th>
+                            <th>Módulo</th>
                             <th>Título</th>
                             <th>URL / Link del Video</th>
-                            <th>Descripción</th>
                             <th style="width:150px;">Acciones</th>
                         </tr>
                     </thead>
@@ -37,18 +37,17 @@
                                 <span class="badge badge-secondary"><?= (int)$v['orden'] ?></span>
                             </td>
                             <td>
-                                <strong><?= htmlspecialchars($v['titulo']) ?></strong>
+                                <span class="badge badge-info"><?= htmlspecialchars($v['modulo'] ?? 'Módulo 1') ?></span>
+                            </td>
+                            <td>
+                                <strong><?= htmlspecialchars($v['titulo']) ?></strong><br>
+                                <small class="text-muted"><i class="material-icons" style="font-size:11px;vertical-align:middle;">schedule</i> <?= htmlspecialchars($v['duracion'] ?? '0:00') ?></small>
                             </td>
                             <td>
                                 <a href="<?= htmlspecialchars($v['url_video']) ?>" target="_blank" class="text-primary text-truncate d-block" style="max-width:260px;" title="<?= htmlspecialchars($v['url_video']) ?>">
                                     <i class="material-icons" style="font-size:14px;vertical-align:middle;">play_circle_outline</i>
                                     <?= htmlspecialchars($v['url_video']) ?>
                                 </a>
-                            </td>
-                            <td>
-                                <span class="text-muted" style="font-size:13px;">
-                                    <?= !empty($v['descripcion']) ? htmlspecialchars(mb_substr($v['descripcion'], 0, 60)) . (mb_strlen($v['descripcion']) > 60 ? '...' : '') : '<em>Sin descripción</em>' ?>
-                                </span>
                             </td>
                             <td>
                                 <a href="<?= BASE_URL ?>admin/videos_editar?id=<?= $v['id_video'] ?>" class="btn btn-sm btn-primary mr-1" title="Editar">

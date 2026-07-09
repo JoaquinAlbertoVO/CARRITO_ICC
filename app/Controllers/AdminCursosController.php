@@ -372,8 +372,10 @@ class AdminCursosController extends Controller {
         $alert = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $modulo      = trim($_POST['modulo'] ?? 'Módulo 1');
             $titulo      = trim($_POST['titulo'] ?? '');
             $url_video   = trim($_POST['url_video'] ?? '');
+            $duracion    = trim($_POST['duracion'] ?? '0:00');
             $descripcion = trim($_POST['descripcion'] ?? '');
             $orden       = (int)($_POST['orden'] ?? 1);
             $id_curso_post = (int)($_POST['id_curso'] ?? $id_curso);
@@ -386,8 +388,10 @@ class AdminCursosController extends Controller {
             } else {
                 $videoModel->crearVideo([
                     'id_curso'    => $id_curso_post,
+                    'modulo'      => $modulo,
                     'titulo'      => $titulo,
                     'url_video'   => $url_video,
+                    'duracion'    => $duracion,
                     'descripcion' => $descripcion,
                     'orden'       => $orden ?: 1,
                 ]);
@@ -421,8 +425,10 @@ class AdminCursosController extends Controller {
         $alert = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $modulo      = trim($_POST['modulo'] ?? 'Módulo 1');
             $titulo      = trim($_POST['titulo'] ?? '');
             $url_video   = trim($_POST['url_video'] ?? '');
+            $duracion    = trim($_POST['duracion'] ?? '0:00');
             $descripcion = trim($_POST['descripcion'] ?? '');
             $orden       = (int)($_POST['orden'] ?? 1);
             $id_curso    = (int)($_POST['id_curso'] ?? $video['id_curso']);
@@ -434,8 +440,10 @@ class AdminCursosController extends Controller {
                           </div>';
             } else {
                 $videoModel->actualizarVideo($id_video, [
+                    'modulo'      => $modulo,
                     'titulo'      => $titulo,
                     'url_video'   => $url_video,
+                    'duracion'    => $duracion,
                     'descripcion' => $descripcion,
                     'orden'       => $orden ?: 1,
                 ]);

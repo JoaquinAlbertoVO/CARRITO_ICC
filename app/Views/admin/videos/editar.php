@@ -20,6 +20,23 @@
                     <form method="POST" action="<?= BASE_URL ?>admin/videos_editar?id=<?= $video['id_video'] ?>">
                         <input type="hidden" name="id_curso" value="<?= $id_curso ?>">
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="modulo"><strong>Módulo <span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="modulo" name="modulo"
+                                           value="<?= htmlspecialchars($video['modulo'] ?? 'Módulo 1') ?>" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" style="max-width:150px;">
+                                    <label for="orden"><strong>Orden</strong></label>
+                                    <input type="number" class="form-control" id="orden" name="orden" min="1"
+                                           value="<?= (int)$video['orden'] ?>">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="titulo"><strong>Título del Video <span class="text-danger">*</span></strong></label>
                             <input type="text" class="form-control" id="titulo" name="titulo"
@@ -43,15 +60,20 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="descripcion"><strong>Descripción <span class="text-muted font-weight-normal">(Opcional)</span></strong></label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3"><?= htmlspecialchars($video['descripcion'] ?? '') ?></textarea>
-                        </div>
-
-                        <div class="form-group" style="max-width:150px;">
-                            <label for="orden"><strong>Orden</strong></label>
-                            <input type="number" class="form-control" id="orden" name="orden" min="1"
-                                   value="<?= (int)$video['orden'] ?>">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="descripcion"><strong>Descripción <span class="text-muted font-weight-normal">(Opcional)</span></strong></label>
+                                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3"><?= htmlspecialchars($video['descripcion'] ?? '') ?></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="duracion"><strong>Duración</strong></label>
+                                    <input type="text" class="form-control" id="duracion" name="duracion"
+                                           value="<?= htmlspecialchars($video['duracion'] ?? '0:00') ?>">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="d-flex align-items-center">

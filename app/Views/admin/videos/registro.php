@@ -20,10 +20,29 @@
                     <form method="POST" action="<?= BASE_URL ?>admin/videos_registro?curso=<?= $id_curso ?>">
                         <input type="hidden" name="id_curso" value="<?= $id_curso ?>">
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="modulo"><strong>Módulo <span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="modulo" name="modulo"
+                                           placeholder="Ej: Módulo 1, Introducción, etc."
+                                           value="<?= htmlspecialchars($_POST['modulo'] ?? 'Módulo 1') ?>" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" style="max-width:150px;">
+                                    <label for="orden"><strong>Orden del Video</strong></label>
+                                    <input type="number" class="form-control" id="orden" name="orden" min="1"
+                                           value="<?= htmlspecialchars($_POST['orden'] ?? $siguiente_orden) ?>">
+                                    <small class="form-text text-muted">Posición global.</small>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="titulo"><strong>Título del Video <span class="text-danger">*</span></strong></label>
                             <input type="text" class="form-control" id="titulo" name="titulo"
-                                   placeholder="Ej: Introducción al curso, Módulo 1 - Conceptos básicos..."
+                                   placeholder="Ej: Conceptos básicos..."
                                    value="<?= htmlspecialchars($_POST['titulo'] ?? '') ?>" required>
                         </div>
 
@@ -43,17 +62,22 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="descripcion"><strong>Descripción <span class="text-muted font-weight-normal">(Opcional)</span></strong></label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3"
-                                      placeholder="Breve descripción de lo que cubre este video..."><?= htmlspecialchars($_POST['descripcion'] ?? '') ?></textarea>
-                        </div>
-
-                        <div class="form-group" style="max-width:150px;">
-                            <label for="orden"><strong>Orden</strong></label>
-                            <input type="number" class="form-control" id="orden" name="orden" min="1"
-                                   value="<?= htmlspecialchars($_POST['orden'] ?? $siguiente_orden) ?>">
-                            <small class="form-text text-muted">Posición en la lista.</small>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="descripcion"><strong>Descripción <span class="text-muted font-weight-normal">(Opcional)</span></strong></label>
+                                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3"
+                                              placeholder="Breve descripción..."><?= htmlspecialchars($_POST['descripcion'] ?? '') ?></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="duracion"><strong>Duración</strong></label>
+                                    <input type="text" class="form-control" id="duracion" name="duracion"
+                                           placeholder="Ej: 4:15"
+                                           value="<?= htmlspecialchars($_POST['duracion'] ?? '0:00') ?>">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="d-flex align-items-center">

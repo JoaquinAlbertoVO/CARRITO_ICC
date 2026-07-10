@@ -9,6 +9,15 @@ class Curso {
 
     public function __construct() {
         $this->db = (new Database())->connect();
+        
+        // Quick migration (ignorar error si ya existen las columnas)
+        try {
+            $this->db->exec("ALTER TABLE cursos 
+              ADD COLUMN precio DECIMAL(10,2) DEFAULT '89.90',
+              ADD COLUMN docente VARCHAR(150) DEFAULT 'Docente',
+              ADD COLUMN docente_foto VARCHAR(255) DEFAULT '50x50',
+              ADD COLUMN lecciones INT(11) DEFAULT 1;");
+        } catch (\PDOException $e) {}
     }
 
     public function getCursos($estado = 1) {
@@ -36,13 +45,18 @@ class Curso {
 
     public function registrarCurso($data) {
         try {
-            $sql = "INSERT INTO cursos(nombre_curso, categoria, fecha_emision, horas_academicas) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO cursos(nombre_curso, categoria, fecha_emision, horas_academicas, foto, precio, docente, docente_foto, lecciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
                 $data['nombre_curso'],
                 $data['categoria'],
                 $data['fecha_emision'],
-                $data['horas_academicas']
+                $data['horas_academicas'],
+                $data['foto'] ?? 'default.png',
+                $data['precio'] ?? 89.90,
+                $data['docente'] ?? 'Docente ICC',
+                $data['docente_foto'] ?? '50x50',
+                $data['lecciones'] ?? 1
             ]);
             return true;
         } catch (\PDOException $e) {
@@ -53,15 +67,32 @@ class Curso {
 
     public function actualizarCurso($data) {
         try {
-            $sql = "UPDATE cursos SET nombre_curso = ?, categoria = ?, fecha_emision = ?, horas_academicas = ? WHERE id_curso = ?";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([
+            // Construir SQL dinámicamente porque las fotos pueden o no enviarse
+            $sql = "UPDATE cursos SET nombre_curso = ?, categoria = ?, fecha_emision = ?, horas_academicas = ?, precio = ?, docente = ?, lecciones = ?";
+            $params = [
                 $data['nombre_curso'],
                 $data['categoria'],
                 $data['fecha_emision'],
                 $data['horas_academicas'],
-                $data['id_curso']
-            ]);
+                $data['precio'],
+                $data['docente'],
+                $data['lecciones']
+            ];
+
+            if (!empty($data['foto'])) {
+                $sql .= ", foto = ?";
+                $params[] = $data['foto'];
+            }
+            if (!empty($data['docente_foto'])) {
+                $sql .= ", docente_foto = ?";
+                $params[] = $data['docente_foto'];
+            }
+
+            $sql .= " WHERE id_curso = ?";
+            $params[] = $data['id_curso'];
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute($params);
             return true;
         } catch (\PDOException $e) {
             error_log("Error actualizando curso: " . $e->getMessage());

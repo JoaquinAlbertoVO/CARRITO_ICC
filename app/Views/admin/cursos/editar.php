@@ -42,17 +42,46 @@
                                     <textarea name="descripcion" class="form-control" rows="3"><?php echo $data['descripcion'] ?? ''; ?></textarea>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>Foto / Portada del curso</label><br>
-                                <input type="file" name="foto" onchange="readURL(this);" accept="image/*"/><br><br>
-                                <?php $url_foto = (!isset($data['foto']) || $data['foto'] == 'default.png') ? 'https://www.file-extension.info/images/resource/formats/img.png' : BASE_URL . 'public/assets/img/cursos/'.$data['foto']; ?>
-                                <img id="blah" src="<?php echo $url_foto; ?>" alt="your image" style="max-width:200px;"/>
+                            <div class="form-row">
+                                <div class="col-12 col-md-3 mb-3">
+                                    <label>Precio (S/)</label>
+                                    <input type="number" step="0.01" name="precio" class="form-control" value="<?php echo $data['precio'] ?? '89.90'; ?>">
+                                </div>
+                                <div class="col-12 col-md-3 mb-3">
+                                    <label>Lecciones</label>
+                                    <input type="number" name="lecciones" class="form-control" value="<?php echo $data['lecciones'] ?? '1'; ?>">
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label>Nombre del Docente</label>
+                                    <input type="text" name="docente" class="form-control" value="<?php echo $data['docente'] ?? ''; ?>" placeholder="Ej. Ricardo Cárdenas">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label>Foto / Portada del curso</label><br>
+                                    <input type="file" name="foto" onchange="readURL(this);" accept="image/*"/><br><br>
+                                    <?php $url_foto = (!isset($data['foto']) || $data['foto'] == 'default.png' || $data['foto'] == '') ? 'https://www.file-extension.info/images/resource/formats/img.png' : BASE_URL . 'assets/images/cursos/'.$data['foto']; ?>
+                                    <img id="blah" src="<?php echo $url_foto; ?>" alt="your image" style="max-width:200px;"/>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label>Foto del Docente</label><br>
+                                    <input type="file" name="docente_foto" onchange="readURLDoc(this);" accept="image/*"/><br><br>
+                                    <?php $url_docente = (!isset($data['docente_foto']) || $data['docente_foto'] == '50x50' || $data['docente_foto'] == '') ? 'https://www.file-extension.info/images/resource/formats/img.png' : BASE_URL . 'assets/images/docentes/'.$data['docente_foto']; ?>
+                                    <img id="blahDoc" src="<?php echo $url_docente; ?>" alt="your image" style="max-width:100px; border-radius:50%;"/>
+                                </div>
                             </div>
                             <script type="text/javascript">
                                 function readURL(input) {
                                     if (input.files && input.files[0]) {
                                         var reader = new FileReader();
                                         reader.onload = function (e) { $('#blah').attr('src', e.target.result); };
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+                                function readURLDoc(input) {
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+                                        reader.onload = function (e) { $('#blahDoc').attr('src', e.target.result); };
                                         reader.readAsDataURL(input.files[0]);
                                     }
                                 }

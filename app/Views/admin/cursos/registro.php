@@ -39,16 +39,44 @@
                                     <textarea name="descripcion" class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>Foto / Portada del curso (Opcional)</label><br>
-                                <input type="file" name="foto" onchange="readURL(this);" accept="image/*"/><br><br>
-                                <img id="blah" src="https://www.file-extension.info/images/resource/formats/img.png" alt="your image" style="max-width:200px;"/>
+                            <div class="form-row">
+                                <div class="col-12 col-md-3 mb-3">
+                                    <label>Precio (S/)</label>
+                                    <input type="number" step="0.01" name="precio" class="form-control" value="89.90">
+                                </div>
+                                <div class="col-12 col-md-3 mb-3">
+                                    <label>Lecciones</label>
+                                    <input type="number" name="lecciones" class="form-control" value="1">
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label>Nombre del Docente</label>
+                                    <input type="text" name="docente" class="form-control" placeholder="Ej. Ricardo Cárdenas">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label>Foto / Portada del curso (Opcional)</label><br>
+                                    <input type="file" name="foto" onchange="readURL(this);" accept="image/*"/><br><br>
+                                    <img id="blah" src="https://www.file-extension.info/images/resource/formats/img.png" alt="your image" style="max-width:200px;"/>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label>Foto del Docente (Opcional)</label><br>
+                                    <input type="file" name="docente_foto" onchange="readURLDoc(this);" accept="image/*"/><br><br>
+                                    <img id="blahDoc" src="https://www.file-extension.info/images/resource/formats/img.png" alt="your image" style="max-width:100px; border-radius:50%;"/>
+                                </div>
                             </div>
                             <script type="text/javascript">
                                 function readURL(input) {
                                     if (input.files && input.files[0]) {
                                         var reader = new FileReader();
                                         reader.onload = function (e) { $('#blah').attr('src', e.target.result); };
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+                                function readURLDoc(input) {
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+                                        reader.onload = function (e) { $('#blahDoc').attr('src', e.target.result); };
                                         reader.readAsDataURL(input.files[0]);
                                     }
                                 }

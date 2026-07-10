@@ -5,9 +5,13 @@ use App\Core\Controller;
 
 class CursosController extends Controller {
     public function index() {
+        $cursoModel = new \App\Models\Curso();
+        $cursos = $cursoModel->getCursos(1); // 1 = estado activo
+
         $data = [
             'title' => 'Cursos - Instituto de Capacitación Continua',
             'meta_description' => 'Explora todos nuestros cursos disponibles.',
+            'cursos' => $cursos
         ];
         $this->view('cursos/index', $data);
     }

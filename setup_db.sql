@@ -24,6 +24,10 @@ CREATE TABLE IF NOT EXISTS `cursos` (
   `foto` varchar(255) DEFAULT 'default.png',
   `categoria` varchar(50) NOT NULL,
   `estado` int(11) NOT NULL DEFAULT 1,
+  `precio` decimal(10,2) DEFAULT '89.90',
+  `docente` varchar(150) DEFAULT 'Docente',
+  `docente_foto` varchar(255) DEFAULT '50x50',
+  `lecciones` int(11) DEFAULT 1,
   PRIMARY KEY (`id_curso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

@@ -188,10 +188,37 @@ class AdminCursosController extends Controller {
         $alert = '';
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (empty($_POST['nombre_curso']) || empty($_POST['categoria']) || empty($_POST['fecha_emision'])) {
-                $alert = '<div class="alert alert-danger">Todos los campos son obligatorios</div>';
+                $alert = '<div class="alert alert-danger">Todos los campos principales son obligatorios</div>';
             } else {
+                $data = $_POST;
+                
+                // Manejar foto del curso
+                if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+                    $nombreFoto = time() . '_' . $_FILES['foto']['name'];
+                    $ruta = 'assets/images/cursos/' . $nombreFoto;
+                    if (!is_dir('assets/images/cursos/')) {
+                        mkdir('assets/images/cursos/', 0777, true);
+                    }
+                    if (move_uploaded_file($_FILES['foto']['tmp_name'], $ruta)) {
+                        $data['foto'] = $nombreFoto;
+                    }
+                }
+                
+                // Manejar foto del docente
+                if (isset($_FILES['docente_foto']) && $_FILES['docente_foto']['error'] == 0) {
+                    $nombreDocenteFoto = time() . '_doc_' . $_FILES['docente_foto']['name'];
+                    $rutaDoc = 'assets/images/docentes/' . $nombreDocenteFoto;
+                    if (!is_dir('assets/images/docentes/')) {
+                        mkdir('assets/images/docentes/', 0777, true);
+                    }
+                    if (move_uploaded_file($_FILES['docente_foto']['tmp_name'], $rutaDoc)) {
+                        $data['docente_foto'] = $nombreDocenteFoto;
+                    }
+                }
+
                 $cursoModel = new \App\Models\Curso();
-                if ($cursoModel->registrarCurso($_POST)) {
+                // trigger DB connection which executes ALTER TABLE
+                if ($cursoModel->registrarCurso($data)) {
                     $alert = '<div class="alert alert-success">Curso registrado correctamente</div>';
                 } else {
                     $alert = '<div class="alert alert-warning">Error al registrar el curso</div>';
@@ -206,7 +233,33 @@ class AdminCursosController extends Controller {
         $alert = '';
         $cursoModel = new \App\Models\Curso();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($cursoModel->actualizarCurso($_POST)) {
+            $data = $_POST;
+
+            // Manejar foto del curso
+            if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+                $nombreFoto = time() . '_' . $_FILES['foto']['name'];
+                $ruta = 'assets/images/cursos/' . $nombreFoto;
+                if (!is_dir('assets/images/cursos/')) {
+                    mkdir('assets/images/cursos/', 0777, true);
+                }
+                if (move_uploaded_file($_FILES['foto']['tmp_name'], $ruta)) {
+                    $data['foto'] = $nombreFoto;
+                }
+            }
+            
+            // Manejar foto del docente
+            if (isset($_FILES['docente_foto']) && $_FILES['docente_foto']['error'] == 0) {
+                $nombreDocenteFoto = time() . '_doc_' . $_FILES['docente_foto']['name'];
+                $rutaDoc = 'assets/images/docentes/' . $nombreDocenteFoto;
+                if (!is_dir('assets/images/docentes/')) {
+                    mkdir('assets/images/docentes/', 0777, true);
+                }
+                if (move_uploaded_file($_FILES['docente_foto']['tmp_name'], $rutaDoc)) {
+                    $data['docente_foto'] = $nombreDocenteFoto;
+                }
+            }
+
+            if ($cursoModel->actualizarCurso($data)) {
                 $alert = '<div class="alert alert-success">Curso actualizado correctamente</div>';
             } else {
                 $alert = '<div class="alert alert-warning">Error al actualizar</div>';

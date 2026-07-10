@@ -18,6 +18,9 @@ class Curso {
               ADD COLUMN docente_foto VARCHAR(255) DEFAULT '50x50',
               ADD COLUMN lecciones INT(11) DEFAULT 1;");
         } catch (\PDOException $e) {}
+        try {
+            $this->db->exec("ALTER TABLE cursos ADD COLUMN requisitos TEXT;");
+        } catch (\PDOException $e) {}
     }
 
     public function getCursos($estado = 1) {
@@ -45,7 +48,7 @@ class Curso {
 
     public function registrarCurso($data) {
         try {
-            $sql = "INSERT INTO cursos(nombre_curso, categoria, fecha_emision, horas_academicas, foto, precio, docente, docente_foto, lecciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO cursos(nombre_curso, categoria, fecha_emision, horas_academicas, foto, precio, docente, docente_foto, lecciones, descripcion, requisitos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
                 $data['nombre_curso'],
@@ -56,7 +59,9 @@ class Curso {
                 $data['precio'] ?? 89.90,
                 $data['docente'] ?? 'Docente ICC',
                 $data['docente_foto'] ?? '50x50',
-                $data['lecciones'] ?? 1
+                $data['lecciones'] ?? 1,
+                $data['descripcion'] ?? '',
+                $data['requisitos'] ?? ''
             ]);
             return true;
         } catch (\PDOException $e) {
@@ -68,7 +73,7 @@ class Curso {
     public function actualizarCurso($data) {
         try {
             // Construir SQL dinámicamente porque las fotos pueden o no enviarse
-            $sql = "UPDATE cursos SET nombre_curso = ?, categoria = ?, fecha_emision = ?, horas_academicas = ?, precio = ?, docente = ?, lecciones = ?";
+            $sql = "UPDATE cursos SET nombre_curso = ?, categoria = ?, fecha_emision = ?, horas_academicas = ?, precio = ?, docente = ?, lecciones = ?, descripcion = ?, requisitos = ?";
             $params = [
                 $data['nombre_curso'],
                 $data['categoria'],
@@ -76,7 +81,9 @@ class Curso {
                 $data['horas_academicas'],
                 $data['precio'],
                 $data['docente'],
-                $data['lecciones']
+                $data['lecciones'],
+                $data['descripcion'] ?? '',
+                $data['requisitos'] ?? ''
             ];
 
             if (!empty($data['foto'])) {

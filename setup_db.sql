@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `cursos` (
   `docente` varchar(150) DEFAULT 'Docente',
   `docente_foto` varchar(255) DEFAULT '50x50',
   `lecciones` int(11) DEFAULT 1,
+  `requisitos` text,
   PRIMARY KEY (`id_curso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

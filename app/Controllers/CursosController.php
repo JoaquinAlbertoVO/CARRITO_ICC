@@ -31,76 +31,71 @@ class CursosController extends Controller {
             exit;
         }
 
-        $view_path = 'cursos/detalles/' . str_replace('-', '_', $slug);
+        $cursoModel = new \App\Models\Curso();
+        $cursos = $cursoModel->getCursos(1);
+        $curso_encontrado = null;
 
-        if(file_exists('app/Views/' . $view_path . '.php')) {
-            // Diccionario de metadatos SEO por curso
-            $seo_data = [
-                'programacion-plc' => [
-                    'title' => 'Programación básica de PLC - ICC',
-                    'meta_description' => 'Aprende programación de PLC desde cero. Curso completo para automatización industrial.',
-                    'og_image' => BASE_URL . 'assets/images/Fondo_Plc.png'
-                ],
-                'puesta-tierra' => [
-                    'title' => 'Sistema Puesta a Tierra - ICC',
-                    'meta_description' => 'Aprende diseño, instalación y medición de Sistemas de Puesta a Tierra.',
-                    'og_image' => BASE_URL . 'assets/images/Puesta_a_Tierra.jpeg'
-                ],
-                'banco-condensadores' => [
-                    'title' => 'Banco de Condensadores - ICC',
-                    'meta_description' => 'Diseño y montaje de Bancos de Condensadores Industriales.',
-                    'og_image' => BASE_URL . 'assets/images/Banco_de_Condensadores.jpeg'
-                ],
-                'analisis-facturacion' => [
-                    'title' => 'Análisis de Facturas y Tarifas E. - ICC',
-                    'meta_description' => 'Evaluación de tarifas eléctricas y analizador de redes BT.',
-                    'og_image' => BASE_URL . 'assets/images/Analizador_de_Redes_BT.jpeg'
-                ]
-            ];
+        foreach ($cursos as $c) {
+            $c_slug = strtolower(str_replace(' ', '_', $c['nombre_curso']));
+            $c_slug = preg_replace('/[^a-z0-9_]/', '', $c_slug);
+            // El slug de entrada puede tener guiones en lugar de subguiones, así que normalizamos
+            $normalized_slug = str_replace('-', '_', $slug);
+            if ($c_slug == $normalized_slug || $c_slug == $slug) {
+                $curso_encontrado = $c;
+                break;
+            }
+        }
 
-            // Obtener los datos del diccionario o usar valores por defecto
-            $curso_seo = isset($seo_data[$slug]) ? $seo_data[$slug] : [
-                'title' => 'Detalle del Curso - ICC',
-                'meta_description' => 'Información detallada del curso en el Instituto de Capacitación Continua.',
-                'og_image' => BASE_URL . 'assets/images/resources/logo-icc.png'
-            ];
-
-            // Generar Schema Markup (JSON-LD) para Rich Snippets
-            $schema = [
-                "@context" => "https://schema.org",
-                "@type" => "Course",
-                "name" => $curso_seo['title'],
-                "description" => $curso_seo['meta_description'],
-                "provider" => [
-                    "@type" => "Organization",
-                    "name" => "Instituto de Capacitación Continua - ICC",
-                    "sameAs" => BASE_URL
-                ],
-                "offers" => [
-                    "@type" => "Offer",
-                    "price" => "120.00",
-                    "priceCurrency" => "PEN",
-                    "category" => "Paid"
-                ],
-                "aggregateRating" => [
-                    "@type" => "AggregateRating",
-                    "ratingValue" => "4.9",
-                    "ratingCount" => "124"
-                ]
-            ];
-
-            $data = [
-                'title' => $curso_seo['title'],
-                'meta_description' => $curso_seo['meta_description'],
-                'og_image' => $curso_seo['og_image'],
-                'og_url' => BASE_URL . 'cursos/detalle/' . $slug,
-                'schema' => json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
-            ];
-
-            $this->view($view_path, $data);
-        } else {
+        if (!$curso_encontrado) {
             die("Error 404: Curso no encontrado");
         }
+
+        // Obtener videos para el temario
+        require_once 'app/Models/VideoModel.php';
+        $videoModel = new \App\Models\VideoModel();
+        $videos_db = $videoModel->getVideosByCurso($curso_encontrado['id_curso']);
+        
+        // Agrupar por módulo
+        $modulos = [];
+        foreach ($videos_db as $v) {
+            $modulos[$v['modulo']][] = $v;
+        }
+
+        // Generar Schema Markup (JSON-LD) para Rich Snippets
+        $schema = [
+            "@context" => "https://schema.org",
+            "@type" => "Course",
+            "name" => $curso_encontrado['nombre_curso'],
+            "description" => $curso_encontrado['descripcion'] ?? 'Curso en el Instituto de Capacitación Continua.',
+            "provider" => [
+                "@type" => "Organization",
+                "name" => "Instituto de Capacitación Continua - ICC",
+                "sameAs" => BASE_URL
+            ],
+            "offers" => [
+                "@type" => "Offer",
+                "price" => $curso_encontrado['precio'] ?? "89.90",
+                "priceCurrency" => "PEN",
+                "category" => "Paid"
+            ],
+            "aggregateRating" => [
+                "@type" => "AggregateRating",
+                "ratingValue" => "4.9",
+                "ratingCount" => "124"
+            ]
+        ];
+
+        $data = [
+            'title' => $curso_encontrado['nombre_curso'] . ' - ICC',
+            'meta_description' => $curso_encontrado['descripcion'] ?? 'Información detallada del curso en el Instituto de Capacitación Continua.',
+            'og_image' => BASE_URL . 'assets/images/cursos/' . ($curso_encontrado['foto'] ?? 'default.png'),
+            'og_url' => BASE_URL . 'cursos/detalle/' . $slug,
+            'schema' => json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
+            'curso' => $curso_encontrado,
+            'modulos' => $modulos
+        ];
+
+        $this->view('cursos/detalle_curso', $data);
     }
 }
 

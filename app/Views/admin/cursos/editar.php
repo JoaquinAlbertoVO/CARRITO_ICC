@@ -43,6 +43,12 @@
                                 </div>
                             </div>
                             <div class="form-row">
+                                <div class="col-12 mb-3">
+                                    <label>Requisitos del Curso</label>
+                                    <textarea name="requisitos" class="form-control" rows="3"><?php echo $data['requisitos'] ?? ''; ?></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
                                 <div class="col-12 col-md-3 mb-3">
                                     <label>Precio (S/)</label>
                                     <input type="number" step="0.01" name="precio" class="form-control" value="<?php echo $data['precio'] ?? '89.90'; ?>">

@@ -565,7 +565,7 @@ class AdminCursosController extends Controller {
             }
         }
 
-        $todos_los_cursos = $cursoModel->getCursosActivos();
+        $todos_los_cursos = $cursoModel->getCursos(1);
         $cursos_inscritos = $estudianteModel->getCursosInscritos($id_usuario);
 
         $data = [

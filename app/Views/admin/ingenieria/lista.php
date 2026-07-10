@@ -44,6 +44,7 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a class="dropdown-item" href="<?= BASE_URL . $ruta_editar ?>?id=<?= $data["iduser"] ?>">Editar</a>
+                                                    <a class="dropdown-item" href="<?= BASE_URL ?>admin/ingenieria_inscripcion?id=<?= $data["iduser"] ?>">Inscribir a Cursos</a>
                                                     <?php if (($_SESSION['rol'] ?? 1) == 1): ?>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-item text-danger lista__delete" href="<?= BASE_URL . $ruta_eliminar ?>?id=<?= $data["iduser"] ?>">Eliminar</a>

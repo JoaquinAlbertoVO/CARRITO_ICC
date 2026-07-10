@@ -195,5 +195,45 @@ class Estudiante {
         }
     }
 
+    public function getEstudianteById($id) {
+        $sql = "SELECT * FROM usuario WHERE iduser = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function getCursosInscritos($id_usuario) {
+        $sql = "SELECT id_curso FROM usuario_cursos WHERE id_usuario = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_usuario]);
+        return $stmt->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    public function actualizarCursosInscritos($id_usuario, $cursos_ids) {
+        try {
+            $this->db->beginTransaction();
+
+            // Eliminar inscripciones anteriores
+            $sqlDelete = "DELETE FROM usuario_cursos WHERE id_usuario = ?";
+            $stmtDelete = $this->db->prepare($sqlDelete);
+            $stmtDelete->execute([$id_usuario]);
+
+            // Insertar nuevas inscripciones
+            if (!empty($cursos_ids)) {
+                $sqlInsert = "INSERT INTO usuario_cursos (id_usuario, id_curso) VALUES (?, ?)";
+                $stmtInsert = $this->db->prepare($sqlInsert);
+                foreach ($cursos_ids as $id_curso) {
+                    $stmtInsert->execute([$id_usuario, $id_curso]);
+                }
+            }
+
+            $this->db->commit();
+            return true;
+        } catch (\PDOException $e) {
+            $this->db->rollBack();
+            error_log("Error actualizando cursos de estudiante: " . $e->getMessage());
+            return false;
+        }
+    }
 
 }

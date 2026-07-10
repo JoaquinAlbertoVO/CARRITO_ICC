@@ -524,5 +524,57 @@ class AdminCursosController extends Controller {
         header('Location: ' . BASE_URL . 'admin/videos?curso=' . $id_curso . '&eliminado=1');
         exit();
     }
-}
+    public function ingenieria_inscripcion() {
+        $id_usuario = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        
+        if (!$id_usuario) {
+            header('Location: ' . BASE_URL . 'admin/ingenieria');
+            exit;
+        }
 
+        $estudianteModel = new \App\Models\Estudiante();
+        $cursoModel = new \App\Models\Curso();
+        $estudiante = $estudianteModel->getEstudianteById($id_usuario);
+        
+        if (!$estudiante) {
+            header('Location: ' . BASE_URL . 'admin/ingenieria');
+            exit;
+        }
+
+        $alert = '';
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $cursos_ids = $_POST['cursos'] ?? [];
+            if ($estudianteModel->actualizarCursosInscritos($id_usuario, $cursos_ids)) {
+                $alert = '
+                    <div class="alert alert-dismissible bg-success text-white border-0 fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Exitoso - </strong> Inscripciones actualizadas correctamente.
+                    </div>
+                ';
+            } else {
+                $alert = '
+                    <div class="alert alert-dismissible bg-warning border-0 fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Advertencia - </strong> Error al actualizar las inscripciones.
+                    </div>
+                ';
+            }
+        }
+
+        $todos_los_cursos = $cursoModel->getCursosActivos();
+        $cursos_inscritos = $estudianteModel->getCursosInscritos($id_usuario);
+
+        $data = [
+            'estudiante' => $estudiante,
+            'cursos' => $todos_los_cursos,
+            'cursos_inscritos' => $cursos_inscritos,
+            'alert' => $alert
+        ];
+
+        $this->view('admin/ingenieria/inscripcion', $data, 'admin/layouts/main');
+    }
+}

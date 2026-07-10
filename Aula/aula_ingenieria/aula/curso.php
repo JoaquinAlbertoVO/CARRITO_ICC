@@ -42,7 +42,6 @@ if(mysqli_num_rows($query_videos) > 0) {
     // Setear el primer video para que cargue por defecto
     if(count($videos) > 0) {
         $primer_video = $videos[0]['url_video'];
-        // Si es URL de YouTube normal, convertirla a embed
         if (strpos($primer_video, 'watch?v=') !== false) {
             $primer_video = str_replace('watch?v=', 'embed/', $primer_video);
         } elseif (strpos($primer_video, 'youtu.be/') !== false) {
@@ -50,127 +49,347 @@ if(mysqli_num_rows($query_videos) > 0) {
         }
     }
 }
+
+// Generar iniciales del docente
+$docente_nombre = $curso['docente'] ?: 'Instructor ICC';
+$iniciales = strtoupper(substr($docente_nombre, 0, 1) . substr(strrchr($docente_nombre, " "), 1, 1));
+if (strlen($iniciales) < 2) $iniciales = substr($docente_nombre, 0, 2);
+
 ?>
-        
-<!-- Header Layout Content -->
-<div class="mdk-header-layout__content page" >
-    <div class="container page__container mt-4 mb-4">
-        <div class="row" style="height: auto;">
-            <div class="col-md-12">
-                <div class="embed-responsive embed-responsive-16by9 mb-4" style="max-height:auto; background: #000;">
-                    <iframe id="player1" class="embed-responsive-item" src="<?= $primer_video ?>" allowfullscreen=""></iframe>
-                </div>
-            </div>
+<style>
+    body {
+        background-color: #1a1a1a !important; /* Dark background */
+        color: #e0e0e0;
+    }
+    .page {
+        background-color: #1a1a1a !important;
+    }
+    .video-container {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        margin-bottom: 30px;
+        background: #000;
+    }
+    
+    /* Tabs customizadas al estilo de la imagen */
+    .custom-tabs {
+        display: flex;
+        background: #9d9d9d;
+        border-radius: 4px;
+        margin-bottom: 30px;
+    }
+    .custom-tab {
+        padding: 12px 25px;
+        color: #444;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .custom-tab.active {
+        color: #f6c039; /* Color oro/amarillo */
+        border-bottom: 3px solid #f6c039;
+    }
+
+    /* Título de sección */
+    .section-title {
+        color: #fff;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    /* Accordion Custom */
+    .accordion-module {
+        background: #f4f5f7;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        overflow: hidden;
+    }
+    .accordion-header {
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        background: #f4f5f7;
+        color: #f6c039; /* Oro */
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .accordion-header i {
+        color: #f6c039;
+        transition: transform 0.3s;
+    }
+    .accordion-header.active i {
+        transform: rotate(180deg);
+    }
+    .accordion-body {
+        background: #ffffff;
+        display: none;
+    }
+    .accordion-body.show {
+        display: block;
+    }
+    .video-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        border-top: 1px solid #eee;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .video-item:hover {
+        background: #f9f9f9;
+    }
+    .video-item .title {
+        color: #555;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+    .video-item .title i {
+        margin-right: 10px;
+        color: #aaa;
+    }
+    .video-item .meta {
+        color: #888;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+    }
+    .video-item .meta i {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+
+    /* Cajas Derecha (Sidebar) */
+    .sidebar-box {
+        background: #222222;
+        border: 1px solid #444;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .sidebar-box.gold-border {
+        border-color: #f6c039;
+    }
+    .btn-gold {
+        background: transparent;
+        color: #f6c039;
+        border: 1px solid #f6c039;
+        width: 100%;
+        padding: 12px;
+        border-radius: 4px;
+        font-weight: bold;
+        text-align: center;
+        display: block;
+        margin-bottom: 20px;
+        transition: all 0.3s;
+    }
+    .btn-gold:hover {
+        background: #f6c039;
+        color: #000;
+        text-decoration: none;
+    }
+    .sidebar-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .sidebar-list li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        color: #ccc;
+        font-size: 14px;
+    }
+    .sidebar-list li i {
+        width: 25px;
+        color: #888;
+    }
+    
+    .instructor-box {
+        display: flex;
+        align-items: center;
+    }
+    .instructor-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #f6c039;
+        color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 18px;
+        margin-right: 15px;
+    }
+    .instructor-info h5 {
+        color: #fff;
+        margin: 0;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .instructor-info span {
+        color: #aaa;
+        font-size: 13px;
+    }
+</style>
+
+<div class="mdk-header-layout__content page" style="min-height: 100vh;">
+    <div class="container page__container mt-5 mb-5">
+        <div class="row">
             
-            <div class="col-md-12">
-                <div data-perfect-scrollbar style="position: relative; height:auto;">
-                    <div class="card clear-shadow border">
-                        <div class="card-body ">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <strong><?= htmlspecialchars($curso['nombre_curso']) ?></strong>
-                                <small class="text-muted"><?= htmlspecialchars($curso['horas_academicas']) ?> hrs</small>
-                            </div>
-                            <div class="mt-2 text-muted">
-                                <?= nl2br(htmlspecialchars($curso['descripcion'] ?? '')) ?>
-                            </div>
-                        </div>
+            <!-- CONTENIDO PRINCIPAL (IZQUIERDA) -->
+            <div class="col-lg-8">
+                
+                <!-- Reproductor de Video -->
+                <div class="video-container">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe id="player1" class="embed-responsive-item" src="<?= $primer_video ?>" allowfullscreen></iframe>
                     </div>
-                    
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-                    <style type="text/css">
-                        input { position: absolute; opacity: 0; z-index: -1; }
-                        .row { display: flex; }
-                        .row .col { flex: 1; }
-                        .row .col:last-child { margin-left: 1em; }
-                        .tabs { border-radius: 8px; overflow: hidden; box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5); margin-bottom: 15px;}
-                        .tab { width: 100%; color: white; overflow: hidden; }
-                        .tab-label {
-                            display: flex; justify-content: space-between; padding: 1em;
-                            background: #fff; font-weight: bold; cursor: pointer; color: #353535;
-                        }
-                        .tab-label:hover { background: #1377c9; color: #fff; }
-                        .tab-label::after {
-                            content: "\276F"; width: 1em; height: 1em; text-align: center; transition: all 0.35s;
-                        }
-                        .tab-content1 {
-                            max-height: 0; padding: 0 1em; color: #3687e4; background: white; transition: all 0.35s;
-                        }
-                        input:checked + .tab-label { background: #1377c9; color: #fff; }
-                        input:checked + .tab-label::after { transform: rotate(90deg); }
-                        input:checked ~ .tab-content1 { max-height: 100vh; padding: 1em; overflow-y: auto;}
-                        .media-body a { cursor: pointer; }
-                    </style>
-                    
-                    <div class="list-group list-group-fit">
-                        <div class="">
-                            <div class="">
-                                <?php if(empty($modulos)): ?>
-                                    <div class="alert alert-info">Aún no hay videos para este curso.</div>
-                                <?php else: ?>
-                                    <?php 
-                                    $mod_index = 1; 
-                                    $vid_index = 1;
-                                    $js_video_urls = [];
-                                    foreach ($modulos as $nombre_modulo => $lista_videos): ?>
-                                    <div class="tabs">
-                                        <div class="tab">
-                                            <input type="checkbox" id="chck_mod_<?= $mod_index ?>" <?= ($mod_index == 1) ? 'checked' : '' ?>>
-                                            <label class="tab-label" style="width: 100%; margin-bottom: 1px;" for="chck_mod_<?= $mod_index ?>"><?= htmlspecialchars($nombre_modulo) ?></label>
-                                            <div class="tab-content1">
-                                                <?php foreach ($lista_videos as $v): 
-                                                    // Convertir a embed
-                                                    $url = $v['url_video'];
-                                                    if (strpos($url, 'watch?v=') !== false) {
-                                                        $url = str_replace('watch?v=', 'embed/', $url);
-                                                    } elseif (strpos($url, 'youtu.be/') !== false) {
-                                                        $url = str_replace('youtu.be/', 'www.youtube.com/embed/', $url);
-                                                    }
-                                                    $js_video_urls["vid".$vid_index] = $url;
-                                                ?>
-                                                <div class="media mb-2 mt-2">
-                                                    <div class="media-left mr-2">
-                                                        <div class="text-muted"><?= $vid_index ?>.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a type="button" id="vid<?= $vid_index ?>" onclick="changeVid(this.id)" class="text-primary font-weight-bold">
-                                                            <?= htmlspecialchars($v['titulo']) ?>
-                                                        </a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted"><?= htmlspecialchars($v['duracion']) ?></small>
-                                                    </div>
-                                                </div>
-                                                <hr style="margin: 5px 0;">
-                                                <?php 
-                                                    $vid_index++;
-                                                endforeach; ?>
+                </div>
+
+                <!-- Tabs -->
+                <div class="custom-tabs">
+                    <div class="custom-tab active">Información del curso</div>
+                    <!-- <div class="custom-tab">Reseñas</div> -->
+                </div>
+
+                <!-- Acordeón de Módulos -->
+                <h3 class="section-title">Contenido del curso</h3>
+                
+                <div class="modules-container">
+                    <?php if(empty($modulos)): ?>
+                        <div class="alert alert-dark" style="background: #222; border-color: #333; color: #ccc;">Aún no hay videos para este curso.</div>
+                    <?php else: ?>
+                        <?php 
+                        $mod_index = 1; 
+                        $vid_index = 1;
+                        $js_video_urls = [];
+                        foreach ($modulos as $nombre_modulo => $lista_videos): ?>
+                            
+                            <div class="accordion-module">
+                                <div class="accordion-header <?= ($mod_index == 1) ? 'active' : '' ?>" onclick="toggleAccordion(this)">
+                                    <span class="text-uppercase"><?= htmlspecialchars($nombre_modulo) ?></span>
+                                    <i class="material-icons">expand_more</i>
+                                </div>
+                                <div class="accordion-body <?= ($mod_index == 1) ? 'show' : '' ?>">
+                                    <?php foreach ($lista_videos as $v): 
+                                        $url = $v['url_video'];
+                                        if (strpos($url, 'watch?v=') !== false) {
+                                            $url = str_replace('watch?v=', 'embed/', $url);
+                                        } elseif (strpos($url, 'youtu.be/') !== false) {
+                                            $url = str_replace('youtu.be/', 'www.youtube.com/embed/', $url);
+                                        }
+                                        $js_video_urls["vid".$vid_index] = $url;
+                                    ?>
+                                        <div class="video-item" id="vid<?= $vid_index ?>" onclick="changeVid(this.id)">
+                                            <div class="title">
+                                                <i class="material-icons" style="font-size: 20px;">play_circle_outline</i>
+                                                <?= htmlspecialchars($v['titulo']) ?>
+                                            </div>
+                                            <div class="meta">
+                                                <?= htmlspecialchars($v['duracion']) ?>
+                                                <i class="material-icons">lock_open</i>
                                             </div>
                                         </div>
-                                    </div>
                                     <?php 
-                                    $mod_index++;
+                                        $vid_index++;
                                     endforeach; ?>
-                                <?php endif; ?>
+                                </div>
                             </div>
+
+                        <?php 
+                        $mod_index++;
+                        endforeach; ?>
+                    <?php endif; ?>
+                </div>
+
+            </div>
+
+            <!-- BARRA LATERAL (DERECHA) -->
+            <div class="col-lg-4">
+                
+                <!-- Caja Detalles -->
+                <div class="sidebar-box gold-border">
+                    <a href="#" class="btn-gold">En progreso</a>
+                    
+                    <ul class="sidebar-list">
+                        <li>
+                            <i class="material-icons">equalizer</i>
+                            <?= htmlspecialchars($curso['categoria'] ?: 'Intermedio') ?>
+                        </li>
+                        <li>
+                            <i class="material-icons">school</i>
+                            <?= htmlspecialchars($curso['lecciones'] ?: 0) ?> Lecciones
+                        </li>
+                        <li>
+                            <i class="material-icons">update</i>
+                            <?= htmlspecialchars($curso['fecha_emision'] ?: date('F j, Y')) ?> Última actualización
+                        </li>
+                        <li>
+                            <i class="material-icons">military_tech</i>
+                            Certificado de finalización
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Caja Instructor -->
+                <div class="sidebar-box">
+                    <div style="color: #ccc; font-size: 14px; margin-bottom: 15px;">Un curso de</div>
+                    <div class="instructor-box">
+                        <div class="instructor-avatar">
+                            <?= $iniciales ?>
+                        </div>
+                        <div class="instructor-info">
+                            <h5><?= htmlspecialchars($docente_nombre) ?></h5>
+                            <span>Instructor Experto</span>
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
     </div>
-    
-    <script type="text/javascript">
-        // Diccionario generado en PHP con los URLs de cada ID
-        var videosUrls = <?= json_encode($js_video_urls ?? []) ?>;
-
-        function changeVid(clicked_id) {   
-            if (videosUrls[clicked_id]) {
-                document.getElementById('player1').src = videosUrls[clicked_id];
-                window.scrollTo({ top: 0, behavior: 'smooth' }); // Subir al reproductor al hacer clic
-            }
-        }
-    </script>
 </div>
+
+<script type="text/javascript">
+    var videosUrls = <?= json_encode($js_video_urls ?? []) ?>;
+
+    function changeVid(clicked_id) {   
+        if (videosUrls[clicked_id]) {
+            document.getElementById('player1').src = videosUrls[clicked_id];
+            
+            // Resaltar el video activo (opcional)
+            var items = document.querySelectorAll('.video-item');
+            items.forEach(function(item) {
+                item.style.background = 'transparent';
+                item.querySelector('.title').style.color = '#555';
+            });
+            
+            var activeItem = document.getElementById(clicked_id);
+            activeItem.style.background = '#f9f9f9';
+            activeItem.querySelector('.title').style.color = '#f6c039';
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    function toggleAccordion(element) {
+        element.classList.toggle("active");
+        var body = element.nextElementSibling;
+        if (body.classList.contains("show")) {
+            body.classList.remove("show");
+        } else {
+            body.classList.add("show");
+        }
+    }
+</script>
+
 <?php  
 include 'includes/footer.php';
 include 'includes/script.php';

@@ -12,7 +12,7 @@ $id_curso = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $iduser = $_SESSION['idUser'];
 
 // Verificar si el alumno tiene acceso a este curso
-$check_acceso = mysqli_query($conection, "SELECT id FROM usuario_cursos WHERE id_usuario = $iduser AND id_curso = $id_curso");
+$check_acceso = mysqli_query($conection, "SELECT id_curso FROM usuario_cursos WHERE id_usuario = $iduser AND id_curso = $id_curso");
 if(mysqli_num_rows($check_acceso) == 0) {
     echo "<div class='container mt-5'><div class='alert alert-danger'>No tienes acceso a este curso o no estás inscrito.</div></div>";
     include 'includes/footer.php';

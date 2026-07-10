@@ -13,7 +13,7 @@ $iduser = $_SESSION['idUser'];
 
 // Verificar si el alumno tiene acceso a este curso
 $check_acceso = mysqli_query($conection, "SELECT id_curso FROM usuario_cursos WHERE id_usuario = $iduser AND id_curso = $id_curso");
-if(mysqli_num_rows($check_acceso) == 0) {
+if(!$check_acceso || mysqli_num_rows($check_acceso) == 0) {
     echo "<div class='container mt-5'><div class='alert alert-danger'>No tienes acceso a este curso o no estás inscrito.</div></div>";
     include 'includes/footer.php';
     exit;
@@ -34,7 +34,10 @@ $query_videos = mysqli_query($conection, "SELECT * FROM curso_videos WHERE id_cu
 $videos = [];
 $modulos = [];
 $primer_video = "https://www.youtube.com/embed/"; // default fallback
-if(mysqli_num_rows($query_videos) > 0) {
+
+if(!$query_videos) {
+    // Si la tabla no existe o hay error, no hacemos nada y dejamos modulos vacios
+} elseif(mysqli_num_rows($query_videos) > 0) {
     while($vid = mysqli_fetch_array($query_videos)) {
         $videos[] = $vid;
         $modulos[$vid['modulo']][] = $vid;

@@ -115,14 +115,14 @@ if (empty($_SESSION['active'])) {
                                     <span class="mr-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                             <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
                                                 <?php  
-                                                if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
+                                                if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)) {
                                                     ?>
                                                     <img width="150" src="<?= BASE_URL ?>assets/admin/images/favicons/icc-logo-electrica.png" alt="ICC-electrica">
                                                     <?php 
                                                 }
                                                 ?>
                                                 <?php  
-                                                if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
+                                                if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3)) {
                                                     ?>
                                                     <img width="150" src="<?= BASE_URL ?>assets/admin/images/favicons/icc-logo-derecho.png" alt="ICC-electrica">
                                                     <?php 
@@ -236,7 +236,7 @@ if (empty($_SESSION['active'])) {
                                 </ul>
 
                                 <?php  
-                                if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
+                                                if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)) {
                                 ?>
                                 <div class="sidebar-heading">Ingeniería Eléctrica</div>
 

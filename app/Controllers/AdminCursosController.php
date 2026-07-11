@@ -617,7 +617,7 @@ class AdminCursosController extends Controller {
                     $file = $_FILES['certificado_pdf'];
                     $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                     if ($ext == 'pdf') {
-                        $upload_dir = __DIR__ . '/../../../assets/certificados/';
+                        $upload_dir = __DIR__ . '/../../assets/certificados/';
                         if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
                         $filename = "cert_" . $id_usuario . "_" . $id_curso_cert . "_" . time() . ".pdf";
                         if (move_uploaded_file($file['tmp_name'], $upload_dir . $filename)) {

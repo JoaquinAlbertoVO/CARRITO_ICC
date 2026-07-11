@@ -116,7 +116,7 @@ if($query_cert && mysqli_num_rows($query_cert) > 0) {
                     </div>
                 </div>
                 <div class='p-3 text-center'>
-                    <a target="_blank" href='../../assets/certificados/<?= $cert['archivo_pdf'] ?>' class='btn btn-success btn-block' style='border-radius:20px; font-weight: bold;'>
+                    <a target="_blank" href='/assets/certificados/<?= $cert['archivo_pdf'] ?>' class='btn btn-success btn-block' style='border-radius:20px; font-weight: bold;'>
                         <i class="material-icons mr-1">file_download</i> Descargar PDF
                     </a>
                 </div>         

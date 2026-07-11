@@ -31,39 +31,7 @@ include 'includes/header.php';
                 <div class="d-flex justify-content-around pb-4">
 
                     <div class="row">
-<?php  
 
-session_start();
-if (empty($_SESSION['active']) || empty($_SESSION['idUser'])) {
-    header('location: ../../');
-    exit;
-}
-include '../conexion.php';
-include 'includes/head.php';
-include 'includes/header.php';
-
-?>
-
-
-        <!-- Header Layout Content -->
-        <div class="mdk-header-layout__content page">
-            <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-            
-            <div class="home-banner text-white mb-4">
-                <div class="container page__container">
-                    <h1 class="display-4 bold" data-aos="fade-up" data-aos-duration="800">Bienvenido a ICC - Instituto de Capacitación Continua</h1>
-                    <p class="lead mb-5" data-aos="fade-up" data-aos-duration="1000">Cursos en Ingeniería Eléctrica</p>
-                </div>
-            </div>
-
-            <div class="container page__container">
-                <div class="m-4 p-4">
-                    <h2 class="bold mb-1 text-center" style="color: #fff;">Cursos Activos</h2>
-                    <p class="lead text-muted text-center" style="color: #fad705;">Nuestros cursos matriculados</p>
-                </div>
-                <div class="d-flex justify-content-around pb-4">
-
-                    <div class="row">
                         
                         <!-- INICIO CURSOS DINAMICOS -->
 <?php  

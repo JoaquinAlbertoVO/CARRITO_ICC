@@ -35,6 +35,8 @@
     <link type="text/css" href="<?php echo isset($base_path) ? $base_path : ''; ?>assets/css/vendor-ion-rangeslider.rtl.css" rel="stylesheet">
 
 
+    <!-- Custom Modern Override CSS -->
+    <link type="text/css" href="<?php echo isset($base_path) ? $base_path : '../../'; ?>assets/css/modern_override.css" rel="stylesheet">
 
 </head>
 

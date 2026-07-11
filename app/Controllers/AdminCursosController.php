@@ -32,6 +32,11 @@ class AdminCursosController extends Controller {
               KEY `idx_id_curso` (`id_curso`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
             
+            try {
+                $this->db->exec("ALTER TABLE `curso_videos` ADD COLUMN `modulo` varchar(100) DEFAULT 'Módulo 1' AFTER `id_curso`;");
+            } catch (\PDOException $e) {}
+            
+
             $this->db->exec("CREATE TABLE IF NOT EXISTS `usuario_certificados` (
               `id_certificado` int(11) NOT NULL AUTO_INCREMENT,
               `id_usuario` int(11) NOT NULL,

@@ -5,6 +5,8 @@ use App\Core\Controller;
 
 class AdminCursosController extends Controller {
 
+    protected $db;
+
     public function __construct() {
         // Proteger el panel completo
         if (empty($_SESSION['active'])) {

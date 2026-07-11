@@ -706,7 +706,8 @@ class AdminCursosController extends Controller {
         $stmt2 = $this->db->prepare("UPDATE usuario_cursos SET estado_certificado = 2 WHERE id_usuario = ? AND id_curso = ?");
         $stmt2->execute([$id_usuario, $id_curso_cert]);
 
-        header('Location: ' . BASE_URL . 'admin/ingenieria_inscripcion?id=' . $id_usuario . '&cert_generado=1');
+        // Redirigir al archivo recién creado para que el admin lo pueda ver de inmediato
+        header('Location: ' . BASE_URL . 'assets/certificados/' . $filename);
         exit;
     }
 

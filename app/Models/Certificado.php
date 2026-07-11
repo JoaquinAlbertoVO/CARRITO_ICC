@@ -6,7 +6,7 @@ class Certificado {
     public function generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha_emision, $categoria) {
         $font_path = __DIR__ . '/../Views/admin/cursos/arial.ttf';
         
-        $imagen_path = __DIR__ . '/../../assets/images/CERTIFICADO DE XD_ICC_page-0001.jpg'; 
+        $imagen_path = __DIR__ . '/../../assets/images/CERTIFICADO DE 2_ICC_page-0001.jpg'; 
         
         if(file_exists($imagen_path)) {
             $imagen = imagecreatefromjpeg($imagen_path);
@@ -28,8 +28,8 @@ class Certificado {
         $x_nombre = (int)(1130 - ($bbox[2] / 2)); // Centrado sobre la linea
         imagettftext($imagen, 45, 0, $x_nombre, 465, $color_nombre, $font_path, mb_strtoupper($alumno, 'UTF-8'));
 
-        // 2. DNI (Solo el numero, colocado a la derecha del texto N° DNI de la plantilla)
-        imagettftext($imagen, 20, 0, 1180, 540, $color_dni, $font_path, $dni);
+        // 2. DNI (Solo el numero, colocado mas a la derecha del texto N° DNI de la plantilla)
+        imagettftext($imagen, 20, 0, 1250, 540, $color_dni, $font_path, $dni);
 
         // 3. Párrafo central
         $parrafo1 = "Certificado por haber culminado las $horas horas lectivas del";
@@ -55,7 +55,7 @@ class Certificado {
 
         // 6. Horas lectivas barra izquierda (solo el numero centrado encima de 'horas lectivas')
         $bbox3 = imagettfbbox(60, 0, $font_path, $horas);
-        $x_horas = (int)(210 - ($bbox3[2] / 2));
+        $x_horas = (int)(140 - ($bbox3[2] / 2)); // Movido a la izquierda
         imagettftext($imagen, 60, 0, $x_horas, 430, $blanco, $font_path, $horas);
 
         return $imagen;

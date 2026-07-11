@@ -696,11 +696,27 @@ class AdminCursosController extends Controller {
         $upload_dir = __DIR__ . '/../../assets/certificados/';
         if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
         
-        $filename = "cert_" . $id_usuario . "_" . $id_curso_cert . "_" . time() . ".jpg";
-        $filepath = $upload_dir . $filename;
+        $filename_jpg = "cert_" . $id_usuario . "_" . $id_curso_cert . "_" . time() . ".jpg";
+        $filepath_jpg = $upload_dir . $filename_jpg;
         
-        imagejpeg($imagen, $filepath, 100);
+        imagejpeg($imagen, $filepath_jpg, 100);
         imagedestroy($imagen);
+
+        // Envolver el JPG en un PDF
+        require_once __DIR__ . '/../Libraries/fpdf/fpdf.php';
+        $pdf = new \FPDF('L', 'mm', 'A4'); // Horizontal, milimetros, A4
+        $pdf->AddPage();
+        // A4 apaisado es 297mm x 210mm
+        $pdf->Image($filepath_jpg, 0, 0, 297, 210);
+        
+        $filename = "cert_" . $id_usuario . "_" . $id_curso_cert . "_" . time() . ".pdf";
+        $filepath = $upload_dir . $filename;
+        $pdf->Output('F', $filepath);
+
+        // Borramos el JPG temporal
+        if (file_exists($filepath_jpg)) {
+            unlink($filepath_jpg);
+        }
 
         $stmt = $this->db->prepare("INSERT INTO usuario_certificados (id_usuario, id_curso, archivo_pdf) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE archivo_pdf = ?");
         $stmt->execute([$id_usuario, $id_curso_cert, $filename, $filename]);

@@ -268,7 +268,8 @@ if (empty($_SESSION['active'])) {
                                 <ul class="sidebar-menu mt-0">
 
 
-                                    <li class="sidebar-menu-item active">
+                                <?php $current_path = $_SERVER['REQUEST_URI'] ?? ''; ?>
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/ingenieria') === false && strpos($current_path, 'admin/cursos') === false && strpos($current_path, 'admin/certificados') === false && strpos($current_path, 'admin/ventas') === false && strpos($current_path, 'admin/boleta_rapida') === false && strpos($current_path, 'admin/gestionar_videos') === false) ? 'active' : '' ?>">
                                         <a class="sidebar-menu-button" href="./">
                                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
@@ -288,7 +289,7 @@ if (empty($_SESSION['active'])) {
                                 <div class="sidebar-heading">Ingeniería Eléctrica</div>
 
                                 <ul class="sidebar-menu mt-0">
-                                    <li class="sidebar-menu-item">
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/ingenieria') !== false) ? 'active' : '' ?>">
                                         <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/ingenieria">
                                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
@@ -304,7 +305,7 @@ if (empty($_SESSION['active'])) {
 
                                 <div class="sidebar-heading">Academia</div>
                                 <ul class="sidebar-menu mt-0">
-                                    <li class="sidebar-menu-item">
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/cursos') !== false || strpos($current_path, 'admin/gestionar_videos') !== false) ? 'active' : '' ?>">
                                         <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/cursos">
                                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                                 <i class="material-icons text-muted">class</i>
@@ -312,7 +313,7 @@ if (empty($_SESSION['active'])) {
                                             <span class="sidebar-menu-text">Cursos</span>
                                         </a>
                                     </li>
-                                    <li class="sidebar-menu-item">
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/certificados') !== false) ? 'active' : '' ?>">
                                         <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/certificados">
                                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                                 <i class="material-icons text-muted">card_membership</i>
@@ -324,7 +325,7 @@ if (empty($_SESSION['active'])) {
 
                                 <div class="sidebar-heading">Ventas</div>
                                 <ul class="sidebar-menu mt-0">
-                                    <li class="sidebar-menu-item">
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/ventas') !== false) ? 'active' : '' ?>">
                                         <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/ventas">
                                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                                 <i class="material-icons text-muted">receipt_long</i>
@@ -332,7 +333,7 @@ if (empty($_SESSION['active'])) {
                                             <span class="sidebar-menu-text">Comprobantes</span>
                                         </a>
                                     </li>
-                                    <li class="sidebar-menu-item">
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/boleta_rapida') !== false) ? 'active' : '' ?>">
                                         <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/boleta_rapida">
                                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                                 <i class="material-icons text-muted">point_of_sale</i>
@@ -348,15 +349,7 @@ if (empty($_SESSION['active'])) {
 
 
                             
-                            <div class="sidebar-p-a sidebar-b-y bg-light">
-                                <div class="d-flex align-items-top mb-2">
-                                    <div class="sidebar-heading m-0 p-0 flex text-body js-text-body">Progress</div>
-                                    <div class="font-weight-bold text-muted">60%</div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>

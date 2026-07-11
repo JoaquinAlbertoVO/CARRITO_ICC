@@ -11,7 +11,25 @@ class AdminCursosController extends Controller {
             header('Location: ' . BASE_URL . 'admin/login');
             exit;
         }
-    }
+        $this->db = (new \App\Core\Database())->connect();
+
+        // Auto-migrate tabla curso_videos
+        try {
+            $this->db->exec("CREATE TABLE IF NOT EXISTS `curso_videos` (
+              `id_video` int(11) NOT NULL AUTO_INCREMENT,
+              `id_curso` int(11) NOT NULL,
+              `modulo` varchar(100) DEFAULT 'Módulo 1',
+              `titulo` varchar(255) NOT NULL,
+              `url_video` varchar(500) NOT NULL,
+              `duracion` varchar(10) DEFAULT '0:00',
+              `descripcion` text DEFAULT NULL,
+              `orden` int(11) NOT NULL DEFAULT 1,
+              `estado` int(11) NOT NULL DEFAULT 1,
+              `fecha_creado` timestamp DEFAULT CURRENT_TIMESTAMP,
+              PRIMARY KEY (`id_video`),
+              KEY `idx_id_curso` (`id_curso`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+        } catch (\PDOException $e) {}
 
     public function dashboard() {
         $estudianteModel = new \App\Models\Estudiante();
@@ -576,5 +594,59 @@ class AdminCursosController extends Controller {
         ];
 
         $this->view('admin/ingenieria/inscripcion', $data, 'admin/layouts/main');
+    }
+
+    // --- GESTION DE VIDEOS ---
+    public function gestionar_videos() {
+        if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
+            header('Location: /');
+            exit;
+        }
+
+        $id_curso = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $cursoModel = new \App\Models\Curso();
+        $curso = $cursoModel->getCursoById($id_curso);
+
+        if (!$curso) {
+            header('Location: /admin/cursos');
+            exit;
+        }
+
+        // Manejar POST (Agregar Video)
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_video') {
+            $modulo = $_POST['modulo'];
+            $titulo = $_POST['titulo'];
+            $url_video = $_POST['url_video'];
+            $duracion = $_POST['duracion'];
+            $orden = (int)$_POST['orden'];
+
+            $stmt = $this->db->prepare("INSERT INTO curso_videos (id_curso, modulo, titulo, url_video, duracion, orden) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$id_curso, $modulo, $titulo, $url_video, $duracion, $orden]);
+            
+            header("Location: /admin/gestionar_videos?id=" . $id_curso);
+            exit;
+        }
+
+        // Manejar GET (Eliminar Video)
+        if (isset($_GET['delete_video'])) {
+            $id_video = (int)$_GET['delete_video'];
+            $stmt = $this->db->prepare("DELETE FROM curso_videos WHERE id_video = ? AND id_curso = ?");
+            $stmt->execute([$id_video, $id_curso]);
+            
+            header("Location: /admin/gestionar_videos?id=" . $id_curso);
+            exit;
+        }
+
+        // Obtener videos
+        $stmt = $this->db->prepare("SELECT * FROM curso_videos WHERE id_curso = ? ORDER BY modulo ASC, orden ASC, id_video ASC");
+        $stmt->execute([$id_curso]);
+        $videos = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        $data = [
+            'curso' => $curso,
+            'videos' => $videos
+        ];
+
+        $this->view('admin/cursos/gestionar_videos', $data, 'admin/layouts/main');
     }
 }

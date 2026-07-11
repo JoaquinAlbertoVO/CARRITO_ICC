@@ -33,6 +33,7 @@
                                     <td><?php echo $data["fecha_emision"]; ?></td>
                                     <td>
                                         <div class="dropdown ml-auto">
+                                            <a href="<?= BASE_URL ?>admin/gestionar_videos?id=<?php echo $data["id_curso"]; ?>" class="btn btn-info btn-sm" title="Gestionar Videos"><i class="material-icons">play_circle_outline</i></a>
                                             <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown"><i class="material-icons">more_vert</i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a class="dropdown-item" href="<?= BASE_URL ?>admin/cursos_editar?id=<?php echo $data["id_curso"]; ?>">Editar Curso</a>

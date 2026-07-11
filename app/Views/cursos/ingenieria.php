@@ -53,353 +53,59 @@
 
 
             <div class="row filter-layout masonary-layout">
-                <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item development business">
-                    <div class="courses-one__single wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Pedro Pablo Aparicio Arias</h6>
-                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/electricidad_basica">Electricidad Básica</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
+                <?php if (!empty($ingenieria_courses)): ?>
+                    <?php foreach ($ingenieria_courses as $course): ?>
+                    <!--Start Single Courses One-->
+                    <div class="col-xl-3 col-lg-6 col-md-6 filter-item development business">
+                        <div class="courses-one__single wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
+                            <div class="courses-one__single-img">
+                                <div style="width: 100%; height: 200px; overflow: hidden;"><img src="<?= BASE_URL ?><?= $course['image'] ?>" alt="<?= htmlspecialchars($course['title']) ?>" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+                                <div class="overlay-text">
+                                    <p>libre</p>
                                 </div>
                             </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>6 Lecciones</li>
-                                <li>20 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!--End Single Courses One-->
-
-                <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item development business featured">
-                    <div class="courses-one__single wow fadeInLeft" data-wow-delay="100ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Hipólito Coaguila Berrios</h6>
-                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/motores_electricos">Motores Eléctricos</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
+                            <div class="courses-one__single-content" style="background-color: white;">
+                                <div class="courses-one__single-content-overlay-img">
+                                    <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto; overflow: hidden;">
+                                        <?php if ($course['docente_foto'] && $course['docente_foto'] !== '50x50'): ?>
+                                            <img src="<?= BASE_URL ?>assets/images/docentes/<?= $course['docente_foto'] ?>" style="width:100%; height:100%; object-fit:cover;" alt="Docente">
+                                        <?php else: ?>
+                                            <span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>6 Lecciones</li>
-                                <li>20 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!--End Single Courses One-->
-
-                <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item photography featured">
-                    <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Hipólito Coaguila Berrios</h6>
-                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/puesta_tierra">Sistema Puesta a Tierra</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
+                                <h6 class="courses-one__single-content-name"><?= htmlspecialchars($course['docente']) ?></h6>
+                                <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/<?= $course['link'] ?>"><?= htmlspecialchars($course['title']) ?></a></h4>
+                                <div class="courses-one__single-content-review-box">
+                                    <ul class="list-unstyled">
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                    </ul>
+                                    <div class="rateing-box">
+                                        <span>(5)</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>4 Lecciones</li>
-                                <li>20 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!--End Single Courses One-->
-
-                <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item photography development">
-                    <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Johan Paredes</h6>
-                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/banco_condensadores">Banco de Condensadores</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
+                                <p class="courses-one__single-content-price">S/<?= $course['price'] ?></p>
+                                <ul class="courses-one__single-content-courses-info list-unstyled">
+                                    <li><?= $course['lecciones'] ?> Lecciones</li>
+                                    <li><?= $course['hours'] ?></li>
+                                    <li>Experto</li>
                                 </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
                             </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>1 Lessons</li>
-                                <li>20 Horas</li>
-                                <li>Experto</li>
-                            </ul>
                         </div>
                     </div>
-                </div>
-                <!--End Single Courses One-->
-
-                <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item business development photography">
-                    <div class="courses-one__single wow fadeInLeft" data-wow-delay="100ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <img src="<?= BASE_URL ?>assets/images/2f7c764e-a95d-4002-b411-fd32c0c174d5.jpg" alt="Ricardo Cárdenas" style="width:50px; height:50px; border-radius:50%; object-fit:cover; display:block; margin:0 auto;">
-                            </div>
-                            <h6 class="courses-one__single-content-name">Ricardo Cárdenas</h6>
-                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/analisis_facturacion">Análisis de facturas y Evaluación de Tarifas E.</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>2 Lecciones</li>
-                                <li>20 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
+                    <!--End Single Courses One-->
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-12 text-center">
+                        <p style="color: white; font-size: 18px; margin-top: 30px;">Próximamente tendremos más cursos disponibles.</p>
                     </div>
-                </div>
-                <!--End Single Courses One-->
-
-                <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item featured photography development">
-                    <div class="courses-one__single wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Melissa Jiménez Ll.</h6>
-                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/gestion_seguridad">Gestión y Seguridad en el Trabajo Ley Nº29783</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>1 Lecciones</li>
-                                <li>10 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!--End Single Courses One-->
-
-                <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item photography featured">
-                    <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Francisco Torres Madrid</h6>
-                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/regulacion_mercado">Regulación del Mercado de Energía</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>6 Lecciones</li>
-                                <li>20 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!--End Single Courses One-->
-                
-                <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item photography featured">
-                    <div class="courses-one__single wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <img src="<?= BASE_URL ?>assets/images/2f7c764e-a95d-4002-b411-fd32c0c174d5.jpg" alt="Ricardo Cárdenas" style="width:50px; height:50px; border-radius:50%; object-fit:cover; display:block; margin:0 auto;">
-                            </div>
-                            <h6 class="courses-one__single-content-name">Ricardo Cárdenas</h6>
-                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/configuracion_redes">Configuración e Instalación de Analizadores de redes</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>6 Lecciones</li>
-                                <li>20 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!--End Single Courses One-->
-
-                <!--Start Single Courses One-->
-                <div class="col-xl-3 col-lg-6 col-md-6 filter-item development photography featured">
-                    <div class="courses-one__single wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="courses-one__single-img">
-                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 12px; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; margin-bottom: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 14px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:11px; font-weight:normal; color:#fff;">(Curso)</span></h4></div>
-                            <div class="overlay-text">
-                                <p>libre</p>
-                            </div>
-                        </div>
-                        <div class="courses-one__single-content" style="background-color: white;">
-                            <div class="courses-one__single-content-overlay-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;"><span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span></div>
-                            </div>
-                            <h6 class="courses-one__single-content-name">Pedro Aparicio Arias</h6>
-                            <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/plc">Programación Básica de PLC</a></h4>
-                            <div class="courses-one__single-content-review-box">
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <div class="rateing-box">
-                                    <span>(5)</span>
-                                </div>
-                            </div>
-                            <p class="courses-one__single-content-price">S/89.90</p>
-                            <ul class="courses-one__single-content-courses-info list-unstyled">
-                                <li>10 Lecciones</li>
-                                <li>20 Horas</li>
-                                <li>Experto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!--End Single Courses One-->
-
-                
+                <?php endif; ?>
             </div>
         </div>
     </section>
     <!--Courses One End-->
-
-
 

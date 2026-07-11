@@ -5,16 +5,32 @@ use App\Core\Controller;
 
 class HomeController extends Controller {
     public function index() {
-        // Datos para SEO y layout
+        $cursoModel = new \App\Models\Curso();
+        $cursos_db = $cursoModel->getCursos(1);
+
+        $ingenieria_courses = [];
+        foreach ($cursos_db as $c) {
+            $cat = strtolower($c['categoria'] ?? '');
+            if ($cat == 'ingeniería' || $cat == 'ingenieria' || $cat == '') {
+                $slug = strtolower(str_replace(' ', '_', $c['nombre_curso']));
+                $slug = preg_replace('/[^a-z0-9_]/', '', $slug);
+                $slug = str_replace('_', '-', $slug); // use hyphens for pretty URLs
+
+                $ingenieria_courses[] = [
+                    "id" => $c['id_curso'],
+                    "title" => $c['nombre_curso'],
+                    "image" => "assets/images/cursos/" . ($c['foto'] ?: 'default.png'),
+                    "price" => $c['precio'],
+                    "hours" => $c['horas_academicas'] . " hrs",
+                    "link" => $slug
+                ];
+            }
+        }
+
         $data = [
             'title' => 'Inicio - Instituto de Capacitación Continua',
             'meta_description' => 'Actualiza tus conocimientos y capacítate con nosotros. Te damos lo mejor en Ingeniería Eléctrica.',
-            'ingenieria_courses' => [
-                ["id" => 1, "title" => "Programación básica de PLC", "image" => "", "price" => "120.00", "hours" => "40 hrs", "link" => "programacion-plc"],
-                ["id" => 2, "title" => "Sistema puesta a tierra", "image" => "", "price" => "99.90", "hours" => "120 hrs", "link" => "puesta-tierra"],
-                ["id" => 3, "title" => "Banco de condensadores", "image" => "assets/images/Banco_de_Condensadores.jpeg", "price" => "99.90", "hours" => "120 hrs", "link" => "banco-condensadores"],
-                ["id" => 4, "title" => "Análisis de facturas y Evaluación de Tarifas E.", "image" => "assets/images/Analizador_de_Redes_BT.jpeg", "price" => "99.90", "hours" => "120 hrs", "link" => "analisis-facturacion"]
-            ]
+            'ingenieria_courses' => $ingenieria_courses
         ];
 
         // Llama a la vista app/Views/home/index.php

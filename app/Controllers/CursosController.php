@@ -17,9 +17,35 @@ class CursosController extends Controller {
     }
 
     public function ingenieria() {
+        $cursoModel = new \App\Models\Curso();
+        $cursos_db = $cursoModel->getCursos(1);
+
+        $ingenieria_courses = [];
+        foreach ($cursos_db as $c) {
+            $cat = strtolower($c['categoria'] ?? '');
+            if ($cat == 'ingeniería' || $cat == 'ingenieria' || $cat == '') {
+                $slug = strtolower(str_replace(' ', '_', $c['nombre_curso']));
+                $slug = preg_replace('/[^a-z0-9_]/', '', $slug);
+                $slug = str_replace('_', '-', $slug); // use hyphens for pretty URLs
+
+                $ingenieria_courses[] = [
+                    "id" => $c['id_curso'],
+                    "title" => $c['nombre_curso'],
+                    "image" => "assets/images/cursos/" . ($c['foto'] ?: 'default.png'),
+                    "price" => $c['precio'],
+                    "hours" => $c['horas_academicas'] . " hrs",
+                    "link" => $slug,
+                    "docente" => $c['docente'] ?? 'Docente',
+                    "docente_foto" => $c['docente_foto'] ?: '50x50',
+                    "lecciones" => $c['lecciones'] ?? 1
+                ];
+            }
+        }
+
         $data = [
             'title' => 'Cursos de Ingeniería - ICC',
             'meta_description' => 'Cursos especializados en Ingeniería.',
+            'ingenieria_courses' => $ingenieria_courses
         ];
         $this->view('cursos/ingenieria', $data);
     }

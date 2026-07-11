@@ -55,6 +55,7 @@ class AdminCursosController extends Controller {
             } catch (\PDOException $e) {}
             
         } catch (\PDOException $e) {}
+    }
 
     public function dashboard() {
         $estudianteModel = new \App\Models\Estudiante();

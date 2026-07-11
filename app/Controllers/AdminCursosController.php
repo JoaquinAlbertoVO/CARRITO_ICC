@@ -31,9 +31,15 @@ class AdminCursosController extends Controller {
               PRIMARY KEY (`id_video`),
               KEY `idx_id_curso` (`id_curso`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-            
+
             try {
                 $this->db->exec("ALTER TABLE `curso_videos` ADD COLUMN `modulo` varchar(100) DEFAULT 'Módulo 1' AFTER `id_curso`;");
+            } catch (\PDOException $e) {}
+            try {
+                $this->db->exec("ALTER TABLE `curso_videos` ADD COLUMN `duracion` varchar(10) DEFAULT '0:00';");
+            } catch (\PDOException $e) {}
+            try {
+                $this->db->exec("ALTER TABLE `curso_videos` ADD COLUMN `descripcion` text DEFAULT NULL;");
             } catch (\PDOException $e) {}
             
 

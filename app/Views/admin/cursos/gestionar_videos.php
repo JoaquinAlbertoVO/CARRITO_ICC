@@ -86,10 +86,10 @@
                                 <?php else: ?>
                                     <?php foreach ($data['videos'] as $video): ?>
                                         <tr>
-                                            <td><?= htmlspecialchars($video['modulo']) ?></td>
-                                            <td><?= htmlspecialchars($video['orden']) ?></td>
-                                            <td><?= htmlspecialchars($video['titulo']) ?></td>
-                                            <td><?= htmlspecialchars($video['duracion']) ?></td>
+                                            <td><?= htmlspecialchars($video['modulo'] ?? 'Módulo 1') ?></td>
+                                            <td><?= htmlspecialchars($video['orden'] ?? 1) ?></td>
+                                            <td><?= htmlspecialchars($video['titulo'] ?? '') ?></td>
+                                            <td><?= htmlspecialchars($video['duracion'] ?? '0:00') ?></td>
                                             <td class="text-center">
                                                 <a href="<?= BASE_URL ?>admin/gestionar_videos?id=<?= $data['curso']['id_curso'] ?>&delete_video=<?= $video['id_video'] ?>" 
                                                    class="btn btn-danger btn-sm" 

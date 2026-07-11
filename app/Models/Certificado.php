@@ -28,8 +28,11 @@ class Certificado {
         $x_nombre = (int)(1130 - ($bbox[2] / 2)); // Centrado sobre la linea
         imagettftext($imagen, 45, 0, $x_nombre, 465, $color_nombre, $font_path, mb_strtoupper($alumno, 'UTF-8'));
 
-        // 2. DNI (Solo el numero, colocado mas a la derecha del texto N° DNI de la plantilla)
-        imagettftext($imagen, 20, 0, 1250, 540, $color_dni, $font_path, $dni);
+        // 2. DNI (Centrado debajo del nombre)
+        $dni_text = "N° DNI " . $dni;
+        $bbox2 = imagettfbbox(20, 0, $font_path, $dni_text);
+        $x_dni = (int)(1130 - ($bbox2[2] / 2));
+        imagettftext($imagen, 20, 0, $x_dni, 540, $color_dni, $font_path, $dni_text);
 
         // 3. Párrafo central
         $parrafo1 = "Certificado por haber culminado las $horas horas lectivas del";

@@ -55,20 +55,20 @@
 
 
 <style>
-/* Premium Dark Admin Sidebar Override */
+/* Premium Dark Admin Sidebar Override (ICC Frontend Palette) */
 .sidebar-light {
-    background-color: #1a1a1a !important; /* Dark background */
-    border-right: 1px solid #333 !important;
+    background-color: #1c1e27 !important; /* --thm-black */
+    border-right: 1px solid #2a2c36 !important;
 }
 .sidebar-light .sidebar-heading {
-    color: #f6c039 !important; /* Gold */
+    color: #ffd45f !important; /* --thm-primary (Gold) */
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
     font-size: 12px;
     margin-top: 1.5rem;
     padding-bottom: 5px;
-    border-bottom: 1px solid rgba(246, 192, 57, 0.2);
+    border-bottom: 1px solid rgba(255, 212, 95, 0.2);
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -80,36 +80,36 @@
     transition: all 0.3s ease;
 }
 .sidebar-light .sidebar-menu-item .sidebar-menu-icon {
-    color: #a0a0a0 !important;
+    color: #757783 !important; /* --thm-gray */
     transition: all 0.3s ease;
 }
 .sidebar-light .sidebar-menu-item:hover .sidebar-menu-button {
-    background-color: rgba(0, 210, 255, 0.1) !important;
-    color: #00d2ff !important; /* Celeste */
+    background-color: rgba(77, 95, 227, 0.1) !important;
+    color: #4d5fe3 !important; /* --thm-base (Blue) */
     transform: translateX(5px);
 }
 .sidebar-light .sidebar-menu-item:hover .sidebar-menu-icon {
-    color: #00d2ff !important;
+    color: #4d5fe3 !important;
 }
 .sidebar-light .sidebar-menu-item.active .sidebar-menu-button {
-    background-color: rgba(0, 210, 255, 0.15) !important;
-    color: #00d2ff !important;
+    background-color: rgba(77, 95, 227, 0.15) !important;
+    color: #4d5fe3 !important;
     font-weight: bold;
-    border-left: 4px solid #00d2ff;
+    border-left: 4px solid #4d5fe3;
 }
 .sidebar-light .sidebar-menu-item.active .sidebar-menu-icon {
-    color: #00d2ff !important;
+    color: #4d5fe3 !important;
 }
 /* Admin name and Top box in sidebar */
 .sidebar-light .bg-light {
-    background-color: #111 !important;
-    border-bottom: 1px solid #333 !important;
+    background-color: #15171e !important; /* Darker than --thm-black */
+    border-bottom: 1px solid #2a2c36 !important;
 }
 .sidebar-light .text-body {
     color: #fff !important;
 }
 .sidebar-light .text-muted {
-    color: #a0a0a0 !important;
+    color: #757783 !important;
 }
 </style>
 </head>

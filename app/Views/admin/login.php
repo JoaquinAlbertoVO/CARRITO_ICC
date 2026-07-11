@@ -47,7 +47,7 @@
                 <!-- LOGO -->
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="60" height="60">
                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
-                        <img width="350" src="<?= BASE_URL ?>assets/admin/images/favicons/icc-logo1.png" alt="">
+                        <img width="350" src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC Ingenieria">
                     </g>
                 </svg>
 

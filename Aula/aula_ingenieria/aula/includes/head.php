@@ -11,9 +11,9 @@
     <meta name="robots" content="noindex">
 
     <!-- favicons Icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo isset($base_path) ? $base_path : ''; ?>assets/images/favicons/icc_favicon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo isset($base_path) ? $base_path : ''; ?>assets/images/favicons/icc_favicon.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo isset($base_path) ? $base_path : ''; ?>assets/images/favicons/icc_favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo_icc.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/logo_icc.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/logo_icc.png" />
 
     <!-- Perfect Scrollbar -->
     <link type="text/css" href="<?php echo isset($base_path) ? $base_path : ''; ?>assets/vendor/perfect-scrollbar.css" rel="stylesheet">

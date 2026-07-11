@@ -76,7 +76,7 @@
                                         </div>
                                         <button type="submit" class="btn btn-sm btn-info">Subir</button>
                                     </form>
-                                    <a href="<?= BASE_URL ?>admin/generar_certificado_auto?id_usuario=<?= $id_usuario ?>&id_curso=<?= $curso['id_curso'] ?>&alumno=<?= urlencode($estudiante['nombre'] ?? '') ?>&curso=<?= urlencode($curso['nombre_curso']) ?>&categoria=<?= urlencode($curso['categoria'] ?? 'Ingeniería') ?>" class="btn btn-sm btn-primary w-100 mt-2" style="border-radius: 20px;">
+                                    <a href="<?= BASE_URL ?>admin/generar_certificado_auto?id_usuario=<?= $estudiante['iduser'] ?>&id_curso=<?= $curso['id_curso'] ?>&alumno=<?= urlencode($estudiante['nombre'] ?? '') ?>&curso=<?= urlencode($curso['nombre_curso']) ?>&categoria=<?= urlencode($curso['categoria'] ?? 'Ingeniería') ?>" class="btn btn-sm btn-primary w-100 mt-2" style="border-radius: 20px;">
                                         <i class="material-icons mr-1" style="vertical-align: middle; font-size: 16px;">auto_awesome</i> Generar Automáticamente
                                     </a>
                                     

@@ -24,15 +24,14 @@ class Certificado {
         // Coordenadas estimadas, requieren ajuste
         
         // 1. Nombres del alumno
-        // imagettftext($imagen, tamaño, angulo, x, y, color, fuente, texto)
         $bbox = imagettfbbox(45, 0, $font_path, mb_strtoupper($alumno, 'UTF-8'));
-        $x_nombre = 1000 - ($bbox[2] / 2); // Centrado aprox lado derecho
+        $x_nombre = (int)(1000 - ($bbox[2] / 2)); // Centrado aprox lado derecho
         imagettftext($imagen, 45, 0, $x_nombre, 600, $color_nombre, $font_path, mb_strtoupper($alumno, 'UTF-8'));
 
         // 2. DNI
         $dni_text = "N° DNI " . $dni;
         $bbox2 = imagettfbbox(20, 0, $font_path, $dni_text);
-        $x_dni = 1000 - ($bbox2[2] / 2);
+        $x_dni = (int)(1000 - ($bbox2[2] / 2));
         imagettftext($imagen, 20, 0, $x_dni, 680, $color_dni, $font_path, $dni_text);
 
         // 3. Párrafo central

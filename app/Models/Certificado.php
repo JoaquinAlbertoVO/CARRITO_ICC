@@ -3,13 +3,11 @@ namespace App\Models;
 
 class Certificado {
     
-    public function generarImagenCertificado($alumno, $curso, $fecha, $categoria) {
+    public function generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha_emision, $categoria) {
         $font_path = __DIR__ . '/../Views/admin/cursos/arial.ttf';
         
-        // Asumiendo que el template base está en assets/images/
-        $imagen_path = __DIR__ . '/../../assets/images/CERTIFICADO DE PRUEBA_ICC.jpg'; 
+        $imagen_path = __DIR__ . '/../../assets/images/CERTIFICADO DE XD_ICC_page-0001.jpg'; 
         
-        // Si el archivo no es jpg o no existe, intentaremos crear uno en blanco
         if(file_exists($imagen_path)) {
             $imagen = imagecreatefromjpeg($imagen_path);
         } else {
@@ -18,18 +16,43 @@ class Certificado {
             imagefill($imagen, 0, 0, $blanco);
         }
         
-        $color_texto = imagecolorallocate($imagen, 0, 0, 0); 
-        $color_fecha = imagecolorallocate($imagen, 100, 100, 100);
+        $color_nombre = imagecolorallocate($imagen, 110, 110, 110); 
+        $color_dni = imagecolorallocate($imagen, 130, 130, 130);
+        $color_texto = imagecolorallocate($imagen, 120, 120, 120);
+        $color_curso = imagecolorallocate($imagen, 150, 150, 150); // Ajustar colores si es necesario
+        
+        // Coordenadas estimadas, requieren ajuste
+        
+        // 1. Nombres del alumno
+        // imagettftext($imagen, tamaño, angulo, x, y, color, fuente, texto)
+        $bbox = imagettfbbox(45, 0, $font_path, mb_strtoupper($alumno, 'UTF-8'));
+        $x_nombre = 1000 - ($bbox[2] / 2); // Centrado aprox lado derecho
+        imagettftext($imagen, 45, 0, $x_nombre, 600, $color_nombre, $font_path, mb_strtoupper($alumno, 'UTF-8'));
 
-        // Nombres del alumno
-        imagettftext($imagen, 30, 0, 400, 350, $color_texto, $font_path, strtoupper($alumno));
+        // 2. DNI
+        $dni_text = "N° DNI " . $dni;
+        $bbox2 = imagettfbbox(20, 0, $font_path, $dni_text);
+        $x_dni = 1000 - ($bbox2[2] / 2);
+        imagettftext($imagen, 20, 0, $x_dni, 680, $color_dni, $font_path, $dni_text);
 
-        // Nombre del curso
-        imagettftext($imagen, 24, 0, 400, 450, $color_texto, $font_path, "Curso: " . strtoupper($curso));
+        // 3. Párrafo central
+        $parrafo1 = "Certificado por haber culminado las $horas horas lectivas del";
+        $parrafo2 = "CURSO DE \"" . mb_strtoupper($curso, 'UTF-8') . "\"";
+        $parrafo3 = "organizado por el \"INSTITUTO DE CAPACITACIÓN CONTINUA.\"";
+        
+        imagettftext($imagen, 18, 0, 600, 780, $color_texto, $font_path, $parrafo1);
+        imagettftext($imagen, 18, 0, 600, 830, $color_texto, $font_path, $parrafo2);
+        imagettftext($imagen, 18, 0, 600, 880, $color_texto, $font_path, $parrafo3);
 
-        // Categoría y Fecha
-        imagettftext($imagen, 18, 0, 400, 520, $color_fecha, $font_path, "Especialidad: " . ucfirst($categoria));
-        imagettftext($imagen, 18, 0, 400, 560, $color_fecha, $font_path, "Fecha de Emisión: " . $fecha);
+        // 4. Fechas (quemadas por ahora como ejemplo, deberían venir de bd)
+        imagettftext($imagen, 18, 0, 600, 950, $color_texto, $font_path, "Realizado del 20 de Julio al 25 de Julio del 2026.");
+
+        // 5. Fecha Emisión
+        imagettftext($imagen, 18, 0, 100, 1100, $color_texto, $font_path, $fecha_emision);
+
+        // 6. Horas lectivas barra izquierda
+        $bbox3 = imagettfbbox(24, 0, $font_path, "$horas horas lectivas");
+        imagettftext($imagen, 24, 0, 200, 480, imagecolorallocate($imagen, 255, 255, 255), $font_path, "$horas horas lectivas");
 
         return $imagen;
     }

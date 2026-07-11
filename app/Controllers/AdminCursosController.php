@@ -670,13 +670,26 @@ class AdminCursosController extends Controller {
 
         $id_usuario = (int)$_GET['id_usuario'];
         $id_curso_cert = (int)$_GET['id_curso'];
-        $alumno = $_GET['alumno'] ?? 'Estudiante';
-        $curso = $_GET['curso'] ?? 'Curso';
-        $categoria = $_GET['categoria'] ?? 'Ingeniería';
-        $fecha = date('d/m/Y');
+        
+        // Obtener datos reales del alumno
+        $stmt_al = $this->db->prepare("SELECT nombre, dni FROM usuario WHERE iduser = ?");
+        $stmt_al->execute([$id_usuario]);
+        $alumno_row = $stmt_al->fetch();
+        $alumno = $alumno_row['nombre'] ?? 'Estudiante';
+        $dni = $alumno_row['dni'] ?? '00000000';
+
+        // Obtener datos reales del curso
+        $stmt_cu = $this->db->prepare("SELECT nombre_curso, horas_academicas, categoria FROM cursos WHERE id_curso = ?");
+        $stmt_cu->execute([$id_curso_cert]);
+        $curso_row = $stmt_cu->fetch();
+        $curso = $curso_row['nombre_curso'] ?? 'Curso';
+        $horas = $curso_row['horas_academicas'] ?? '20';
+        $categoria = $curso_row['categoria'] ?? 'Ingeniería';
+        
+        $fecha = date('d de F del Y'); // We can make this nicer if needed
 
         $certificadoModel = new \App\Models\Certificado();
-        $imagen = $certificadoModel->generarImagenCertificado($alumno, $curso, $fecha, $categoria);
+        $imagen = $certificadoModel->generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha, $categoria);
 
         $upload_dir = __DIR__ . '/../../assets/certificados/';
         if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);

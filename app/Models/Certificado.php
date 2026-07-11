@@ -63,7 +63,8 @@ class Certificado {
         $w_a = $bbox_a[2] - $bbox_a[0];
         
         $total_w = $w_h + $w_a;
-        $start_x = (int)(200 - ($total_w / 2)); // Centrado aprox en la barra lateral
+        // Aumentamos el centro a 240 para que se mueva a la derecha y no se corte el primer dígito
+        $start_x = (int)(240 - ($total_w / 2)); 
         
         imagettftext($imagen, 50, 0, $start_x, 410, $blanco, $font_path, $horas_text);
         imagettftext($imagen, 24, 0, $start_x + $w_h, 410, $blanco, $font_path, $acad_text);

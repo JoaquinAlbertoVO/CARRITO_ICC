@@ -686,7 +686,9 @@ class AdminCursosController extends Controller {
         $horas = $curso_row['horas_academicas'] ?? '20';
         $categoria = $curso_row['categoria'] ?? 'Ingeniería';
         
-        $fecha = date('d de F del Y'); // We can make this nicer if needed
+        $meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+        $mes = $meses[date('n') - 1];
+        $fecha = date('d') . ' de ' . $mes . ' del ' . date('Y');
 
         $certificadoModel = new \App\Models\Certificado();
         $imagen = $certificadoModel->generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha, $categoria);

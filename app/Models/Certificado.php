@@ -25,33 +25,41 @@ class Certificado {
         
         // 1. Nombres del alumno
         $bbox = imagettfbbox(45, 0, $font_path, mb_strtoupper($alumno, 'UTF-8'));
-        $x_nombre = (int)(1000 - ($bbox[2] / 2)); // Centrado aprox lado derecho
-        imagettftext($imagen, 45, 0, $x_nombre, 600, $color_nombre, $font_path, mb_strtoupper($alumno, 'UTF-8'));
+        $x_nombre = (int)(1130 - ($bbox[2] / 2)); // Centrado sobre la linea
+        imagettftext($imagen, 45, 0, $x_nombre, 460, $color_nombre, $font_path, mb_strtoupper($alumno, 'UTF-8'));
 
         // 2. DNI
         $dni_text = "N° DNI " . $dni;
         $bbox2 = imagettfbbox(20, 0, $font_path, $dni_text);
-        $x_dni = (int)(1000 - ($bbox2[2] / 2));
-        imagettftext($imagen, 20, 0, $x_dni, 680, $color_dni, $font_path, $dni_text);
+        $x_dni = (int)(1130 - ($bbox2[2] / 2));
+        imagettftext($imagen, 20, 0, $x_dni, 540, $color_dni, $font_path, $dni_text);
 
         // 3. Párrafo central
         $parrafo1 = "Certificado por haber culminado las $horas horas lectivas del";
         $parrafo2 = "CURSO DE \"" . mb_strtoupper($curso, 'UTF-8') . "\"";
         $parrafo3 = "organizado por el \"INSTITUTO DE CAPACITACIÓN CONTINUA.\"";
         
-        imagettftext($imagen, 18, 0, 600, 780, $color_texto, $font_path, $parrafo1);
-        imagettftext($imagen, 18, 0, 600, 830, $color_texto, $font_path, $parrafo2);
-        imagettftext($imagen, 18, 0, 600, 880, $color_texto, $font_path, $parrafo3);
+        $b_p1 = imagettfbbox(22, 0, $font_path, $parrafo1);
+        $b_p2 = imagettfbbox(24, 0, $font_path, $parrafo2);
+        $b_p3 = imagettfbbox(22, 0, $font_path, $parrafo3);
+
+        imagettftext($imagen, 22, 0, (int)(1130 - ($b_p1[2]/2)), 680, $color_texto, $font_path, $parrafo1);
+        imagettftext($imagen, 24, 0, (int)(1130 - ($b_p2[2]/2)), 730, $color_texto, $font_path, $parrafo2);
+        imagettftext($imagen, 22, 0, (int)(1130 - ($b_p3[2]/2)), 780, $color_texto, $font_path, $parrafo3);
 
         // 4. Fechas (quemadas por ahora como ejemplo, deberían venir de bd)
-        imagettftext($imagen, 18, 0, 600, 950, $color_texto, $font_path, "Realizado del 20 de Julio al 25 de Julio del 2026.");
+        $texto_fecha = "Realizado del 20 de Julio al 25 de Julio del 2026.";
+        $b_fecha = imagettfbbox(20, 0, $font_path, $texto_fecha);
+        imagettftext($imagen, 20, 0, (int)(1130 - ($b_fecha[2]/2)), 880, $color_texto, $font_path, $texto_fecha);
 
-        // 5. Fecha Emisión
-        imagettftext($imagen, 18, 0, 100, 1100, $color_texto, $font_path, $fecha_emision);
+        // 5. Fecha Emisión (Esquina inferior izquierda, texto blanco)
+        $blanco = imagecolorallocate($imagen, 255, 255, 255);
+        imagettftext($imagen, 16, 0, 80, 1180, $blanco, $font_path, "Emitido: " . $fecha_emision);
 
-        // 6. Horas lectivas barra izquierda
-        $bbox3 = imagettfbbox(24, 0, $font_path, "$horas horas lectivas");
-        imagettftext($imagen, 24, 0, 200, 480, imagecolorallocate($imagen, 255, 255, 255), $font_path, "$horas horas lectivas");
+        // 6. Horas lectivas barra izquierda (solo el numero centrado encima de 'horas lectivas')
+        $bbox3 = imagettfbbox(60, 0, $font_path, $horas);
+        $x_horas = (int)(220 - ($bbox3[2] / 2));
+        imagettftext($imagen, 60, 0, $x_horas, 280, $blanco, $font_path, $horas);
 
         return $imagen;
     }

@@ -48,3 +48,57 @@
         </div>
     </div>
 </div>
+
+<!-- SECCION GESTIONAR CERTIFICADOS -->
+<div class="container-fluid page__container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Subir Certificados PDF</h4>
+            <p class="text-muted mb-0">Solo puedes subir certificados para los cursos en los que el estudiante ya está inscrito.</p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <?php $tiene_inscritos = false; ?>
+                <?php if (!empty($cursos)): ?>
+                    <?php foreach ($cursos as $curso): ?>
+                        <?php if (in_array($curso['id_curso'], $cursos_inscritos)): $tiene_inscritos = true; ?>
+                            <div class="col-md-6 mb-4">
+                                <div class="border p-3 rounded">
+                                    <h5 class="mb-2 text-primary"><?= htmlspecialchars($curso['nombre_curso']) ?></h5>
+                                    
+                                    <form action="" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
+                                        <input type="hidden" name="action" value="upload_cert">
+                                        <input type="hidden" name="id_curso" value="<?= $curso['id_curso'] ?>">
+                                        
+                                        <div class="custom-file mr-2" style="flex:1;">
+                                            <input type="file" class="custom-file-input" id="cert_<?= $curso['id_curso'] ?>" name="certificado_pdf" accept="application/pdf" required>
+                                            <label class="custom-file-label" for="cert_<?= $curso['id_curso'] ?>">Elegir PDF...</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-sm btn-info">Subir</button>
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                
+                <?php if (!$tiene_inscritos): ?>
+                    <div class="col-12">
+                        <p class="text-warning">Este estudiante aún no está inscrito en ningún curso. Inscríbelo primero arriba para poder subir sus certificados.</p>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Actualizar nombre del archivo en el input
+    document.querySelectorAll('.custom-file-input').forEach(input => {
+        input.addEventListener('change', function(e) {
+            var fileName = e.target.files[0].name;
+            var nextSibling = e.target.nextElementSibling;
+            nextSibling.innerText = fileName;
+        });
+    });
+</script>

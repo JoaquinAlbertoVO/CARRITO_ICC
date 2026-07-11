@@ -29,6 +29,16 @@ class AdminCursosController extends Controller {
               PRIMARY KEY (`id_video`),
               KEY `idx_id_curso` (`id_curso`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+            
+            $this->db->exec("CREATE TABLE IF NOT EXISTS `usuario_certificados` (
+              `id_certificado` int(11) NOT NULL AUTO_INCREMENT,
+              `id_usuario` int(11) NOT NULL,
+              `id_curso` int(11) NOT NULL,
+              `archivo_pdf` varchar(255) NOT NULL,
+              `fecha_subida` timestamp DEFAULT CURRENT_TIMESTAMP,
+              PRIMARY KEY (`id_certificado`),
+              UNIQUE KEY `idx_user_curso` (`id_usuario`, `id_curso`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
         } catch (\PDOException $e) {}
 
     public function dashboard() {
@@ -561,25 +571,33 @@ class AdminCursosController extends Controller {
 
         $alert = '';
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $cursos_ids = $_POST['cursos'] ?? [];
-            if ($estudianteModel->actualizarCursosInscritos($id_usuario, $cursos_ids)) {
-                $alert = '
-                    <div class="alert alert-dismissible bg-success text-white border-0 fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>Exitoso - </strong> Inscripciones actualizadas correctamente.
-                    </div>
-                ';
+            if (isset($_POST['action']) && $_POST['action'] == 'upload_cert') {
+                $id_curso_cert = (int)$_POST['id_curso'];
+                if (isset($_FILES['certificado_pdf']) && $_FILES['certificado_pdf']['error'] == 0) {
+                    $file = $_FILES['certificado_pdf'];
+                    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                    if ($ext == 'pdf') {
+                        $upload_dir = __DIR__ . '/../../../assets/certificados/';
+                        if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+                        $filename = "cert_" . $id_usuario . "_" . $id_curso_cert . "_" . time() . ".pdf";
+                        if (move_uploaded_file($file['tmp_name'], $upload_dir . $filename)) {
+                            $stmt = $this->db->prepare("INSERT INTO usuario_certificados (id_usuario, id_curso, archivo_pdf) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE archivo_pdf = ?");
+                            $stmt->execute([$id_usuario, $id_curso_cert, $filename, $filename]);
+                            $alert = '<div class="alert alert-success">Certificado PDF subido correctamente.</div>';
+                        } else {
+                            $alert = '<div class="alert alert-danger">Error al subir el archivo.</div>';
+                        }
+                    } else {
+                        $alert = '<div class="alert alert-warning">El archivo debe ser PDF.</div>';
+                    }
+                }
             } else {
-                $alert = '
-                    <div class="alert alert-dismissible bg-warning border-0 fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>Advertencia - </strong> Error al actualizar las inscripciones.
-                    </div>
-                ';
+                $cursos_ids = $_POST['cursos'] ?? [];
+                if ($estudianteModel->actualizarCursosInscritos($id_usuario, $cursos_ids)) {
+                    $alert = '<div class="alert alert-success">Inscripciones actualizadas correctamente.</div>';
+                } else {
+                    $alert = '<div class="alert alert-warning">Error al actualizar las inscripciones.</div>';
+                }
             }
         }
 

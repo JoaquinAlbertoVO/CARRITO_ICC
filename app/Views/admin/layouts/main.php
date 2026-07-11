@@ -144,11 +144,7 @@ if (empty($_SESSION['active'])) {
                             <a href="./" class="flex d-flex align-items-center text-underline-0">
                                 <span class="mr-1  text-white">
                                     <!-- LOGO -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="30" height="30">
-                                        <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
                                             <img width="170" src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC">
-                                        </g>
-                                    </svg>
                                 </span>
                                 <span class="flex d-flex flex-column text-white">
                                     <strong class="sidebar-brand"></strong>

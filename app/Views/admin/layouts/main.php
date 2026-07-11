@@ -84,21 +84,21 @@
     transition: all 0.3s ease;
 }
 .sidebar-light .sidebar-menu-item:hover .sidebar-menu-button {
-    background-color: rgba(246, 192, 57, 0.1) !important;
-    color: #f6c039 !important;
+    background-color: rgba(0, 210, 255, 0.1) !important;
+    color: #00d2ff !important; /* Celeste */
     transform: translateX(5px);
 }
 .sidebar-light .sidebar-menu-item:hover .sidebar-menu-icon {
-    color: #f6c039 !important;
+    color: #00d2ff !important;
 }
 .sidebar-light .sidebar-menu-item.active .sidebar-menu-button {
-    background-color: rgba(246, 192, 57, 0.2) !important;
-    color: #f6c039 !important;
+    background-color: rgba(0, 210, 255, 0.15) !important;
+    color: #00d2ff !important;
     font-weight: bold;
-    border-left: 4px solid #f6c039;
+    border-left: 4px solid #00d2ff;
 }
 .sidebar-light .sidebar-menu-item.active .sidebar-menu-icon {
-    color: #f6c039 !important;
+    color: #00d2ff !important;
 }
 /* Admin name and Top box in sidebar */
 .sidebar-light .bg-light {

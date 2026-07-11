@@ -279,7 +279,7 @@ if (!empty($_POST)) {
     <div class="login-container">
         <div class="login-header">
             <a href="../">
-                <img src="../assets/images/resources/icc-logo-electrica.png" alt="ICC Ingeniería" class="login-logo">
+                <img src="/assets/images/logo_icc.png" alt="ICC Ingeniería" class="login-logo" style="width: 200px;">
             </a>
             <h1 class="login-title">Bienvenido</h1>
             <p class="login-subtitle">Ingresa tus credenciales para acceder al aula</p>

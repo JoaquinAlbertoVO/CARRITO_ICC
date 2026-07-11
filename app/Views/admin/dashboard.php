@@ -51,4 +51,43 @@
         </div>
     </div>
     
+    <div class="row">
+        <div class="col-12 mt-4">
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="card-title mb-0"><i class="material-icons mr-1" style="vertical-align: middle;">notifications_active</i> Solicitudes de Certificados Pendientes</h4>
+                </div>
+                <div class="card-body p-0">
+                    <?php if(!empty($solicitudes_certificados)): ?>
+                    <div class="table-responsive">
+                        <table class="table mb-0 thead-border-top-0 table-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Alumno</th>
+                                    <th>Curso</th>
+                                    <th class="text-center">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                <?php foreach($solicitudes_certificados as $solicitud): ?>
+                                <tr>
+                                    <td><strong><?= htmlspecialchars($solicitud['alumno']) ?></strong></td>
+                                    <td><?= htmlspecialchars($solicitud['nombre_curso']) ?></td>
+                                    <td class="text-center">
+                                        <a href="<?= BASE_URL ?>admin/ingenieria_inscripcion?id=<?= $solicitud['id_usuario'] ?>" class="btn btn-sm btn-success">Subir Certificado</a>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php else: ?>
+                    <div class="p-4 text-center text-muted">
+                        No hay solicitudes pendientes en este momento.
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

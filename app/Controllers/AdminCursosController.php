@@ -39,15 +39,41 @@ class AdminCursosController extends Controller {
               PRIMARY KEY (`id_certificado`),
               UNIQUE KEY `idx_user_curso` (`id_usuario`, `id_curso`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+            
+            $this->db->exec("CREATE TABLE IF NOT EXISTS `progreso_videos` (
+              `id_progreso` int(11) NOT NULL AUTO_INCREMENT,
+              `id_usuario` int(11) NOT NULL,
+              `id_curso` int(11) NOT NULL,
+              `id_video` int(11) NOT NULL,
+              `fecha_visto` timestamp DEFAULT CURRENT_TIMESTAMP,
+              PRIMARY KEY (`id_progreso`),
+              UNIQUE KEY `idx_user_video` (`id_usuario`, `id_curso`, `id_video`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+            
+            try {
+                $this->db->exec("ALTER TABLE `usuario_cursos` ADD COLUMN `estado_certificado` TINYINT(1) DEFAULT 0;");
+            } catch (\PDOException $e) {}
+            
         } catch (\PDOException $e) {}
 
     public function dashboard() {
         $estudianteModel = new \App\Models\Estudiante();
         $statsIngenieria = $estudianteModel->getDashboardStatsIngenieria();
+        
+        $stmt = $this->db->query("
+            SELECT u.iduser as id_usuario, u.nombre as alumno, c.id_curso, c.nombre_curso 
+            FROM usuario_cursos uc 
+            INNER JOIN usuario u ON uc.id_usuario = u.iduser 
+            INNER JOIN cursos c ON uc.id_curso = c.id_curso 
+            WHERE uc.estado_certificado = 1
+        ");
+        $solicitudes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
         $data = [
             'total_mes_ingenieria' => $statsIngenieria['total_mes'],
             'total_general_ingenieria' => $statsIngenieria['total_general'],
             'estudiantes_ingenieria' => $statsIngenieria['estudiantes'],
+            'solicitudes_certificados' => $solicitudes
         ];
 
         // Llama a la vista del dashboard principal usando el layout de admin
@@ -583,6 +609,11 @@ class AdminCursosController extends Controller {
                         if (move_uploaded_file($file['tmp_name'], $upload_dir . $filename)) {
                             $stmt = $this->db->prepare("INSERT INTO usuario_certificados (id_usuario, id_curso, archivo_pdf) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE archivo_pdf = ?");
                             $stmt->execute([$id_usuario, $id_curso_cert, $filename, $filename]);
+                            
+                            // Actualizar estado_certificado a emitido (2)
+                            $stmt2 = $this->db->prepare("UPDATE usuario_cursos SET estado_certificado = 2 WHERE id_usuario = ? AND id_curso = ?");
+                            $stmt2->execute([$id_usuario, $id_curso_cert]);
+                            
                             $alert = '<div class="alert alert-success">Certificado PDF subido correctamente.</div>';
                         } else {
                             $alert = '<div class="alert alert-danger">Error al subir el archivo.</div>';

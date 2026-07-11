@@ -610,16 +610,19 @@ class AdminCursosController extends Controller {
         }
 
         $alert = '';
+        if (isset($_GET['cert_generado']) && $_GET['cert_generado'] == 1) {
+            $alert = '<div class="alert alert-success">Certificado generado automáticamente con éxito.</div>';
+        }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['action']) && $_POST['action'] == 'upload_cert') {
                 $id_curso_cert = (int)$_POST['id_curso'];
                 if (isset($_FILES['certificado_pdf']) && $_FILES['certificado_pdf']['error'] == 0) {
                     $file = $_FILES['certificado_pdf'];
                     $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-                    if ($ext == 'pdf') {
+                    if (in_array($ext, ['pdf', 'jpg', 'jpeg', 'png'])) {
                         $upload_dir = __DIR__ . '/../../assets/certificados/';
                         if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
-                        $filename = "cert_" . $id_usuario . "_" . $id_curso_cert . "_" . time() . ".pdf";
+                        $filename = "cert_" . $id_usuario . "_" . $id_curso_cert . "_" . time() . "." . $ext;
                         if (move_uploaded_file($file['tmp_name'], $upload_dir . $filename)) {
                             $stmt = $this->db->prepare("INSERT INTO usuario_certificados (id_usuario, id_curso, archivo_pdf) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE archivo_pdf = ?");
                             $stmt->execute([$id_usuario, $id_curso_cert, $filename, $filename]);
@@ -657,6 +660,41 @@ class AdminCursosController extends Controller {
         ];
 
         $this->view('admin/ingenieria/inscripcion', $data, 'admin/layouts/main');
+    }
+
+    public function generar_certificado_auto() {
+        if (!isset($_GET['id_usuario']) || !isset($_GET['id_curso'])) {
+            header('Location: ' . BASE_URL . 'admin/ingenieria');
+            exit;
+        }
+
+        $id_usuario = (int)$_GET['id_usuario'];
+        $id_curso_cert = (int)$_GET['id_curso'];
+        $alumno = $_GET['alumno'] ?? 'Estudiante';
+        $curso = $_GET['curso'] ?? 'Curso';
+        $categoria = $_GET['categoria'] ?? 'Ingeniería';
+        $fecha = date('d/m/Y');
+
+        $certificadoModel = new \App\Models\Certificado();
+        $imagen = $certificadoModel->generarImagenCertificado($alumno, $curso, $fecha, $categoria);
+
+        $upload_dir = __DIR__ . '/../../assets/certificados/';
+        if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+        
+        $filename = "cert_" . $id_usuario . "_" . $id_curso_cert . "_" . time() . ".jpg";
+        $filepath = $upload_dir . $filename;
+        
+        imagejpeg($imagen, $filepath, 100);
+        imagedestroy($imagen);
+
+        $stmt = $this->db->prepare("INSERT INTO usuario_certificados (id_usuario, id_curso, archivo_pdf) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE archivo_pdf = ?");
+        $stmt->execute([$id_usuario, $id_curso_cert, $filename, $filename]);
+        
+        $stmt2 = $this->db->prepare("UPDATE usuario_cursos SET estado_certificado = 2 WHERE id_usuario = ? AND id_curso = ?");
+        $stmt2->execute([$id_usuario, $id_curso_cert]);
+
+        header('Location: ' . BASE_URL . 'admin/ingenieria_inscripcion?id=' . $id_usuario . '&cert_generado=1');
+        exit;
     }
 
     // --- GESTION DE VIDEOS ---

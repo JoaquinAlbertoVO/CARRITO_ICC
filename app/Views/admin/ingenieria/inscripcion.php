@@ -66,16 +66,19 @@
                                 <div class="border p-3 rounded">
                                     <h5 class="mb-2 text-primary"><?= htmlspecialchars($curso['nombre_curso']) ?></h5>
                                     
-                                    <form action="" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
+                                    <form action="" method="POST" enctype="multipart/form-data" class="d-flex align-items-center mb-2">
                                         <input type="hidden" name="action" value="upload_cert">
                                         <input type="hidden" name="id_curso" value="<?= $curso['id_curso'] ?>">
                                         
                                         <div class="custom-file mr-2" style="flex:1;">
-                                            <input type="file" class="custom-file-input" id="cert_<?= $curso['id_curso'] ?>" name="certificado_pdf" accept="application/pdf" required>
-                                            <label class="custom-file-label" for="cert_<?= $curso['id_curso'] ?>">Elegir PDF...</label>
+                                            <input type="file" class="custom-file-input" id="cert_<?= $curso['id_curso'] ?>" name="certificado_pdf" accept="application/pdf,image/jpeg,image/png" required>
+                                            <label class="custom-file-label" for="cert_<?= $curso['id_curso'] ?>">Elegir archivo...</label>
                                         </div>
                                         <button type="submit" class="btn btn-sm btn-info">Subir</button>
                                     </form>
+                                    <a href="<?= BASE_URL ?>admin/generar_certificado_auto?id_usuario=<?= $id_usuario ?>&id_curso=<?= $curso['id_curso'] ?>&alumno=<?= urlencode($estudiante['nombre'] ?? '') ?>&curso=<?= urlencode($curso['nombre_curso']) ?>&categoria=<?= urlencode($curso['categoria'] ?? 'Ingeniería') ?>" class="btn btn-sm btn-primary w-100 mt-2" style="border-radius: 20px;">
+                                        <i class="material-icons mr-1" style="vertical-align: middle; font-size: 16px;">auto_awesome</i> Generar Automáticamente
+                                    </a>
                                     
                                 </div>
                             </div>

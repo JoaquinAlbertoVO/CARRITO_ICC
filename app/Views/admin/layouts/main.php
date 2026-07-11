@@ -55,14 +55,61 @@
 
 
 <style>
-:root {
-  --admin-primary: #0f172a;
-  --admin-surface: #1e293b;
-  --admin-bg: #f8fafc;
-  --admin-accent: #25d366;
-  --admin-text: #64748b;
-  --admin-heading: 'Outfit', sans-serif;
-  --admin-body: 'Inter', sans-serif;
+/* Premium Dark Admin Sidebar Override */
+.sidebar-light {
+    background-color: #1a1a1a !important; /* Dark background */
+    border-right: 1px solid #333 !important;
+}
+.sidebar-light .sidebar-heading {
+    color: #f6c039 !important; /* Gold */
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-top: 1.5rem;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(246, 192, 57, 0.2);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.sidebar-light .sidebar-menu-item .sidebar-menu-button {
+    color: #e0e0e0 !important;
+    border-radius: 8px;
+    margin: 4px 15px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+.sidebar-light .sidebar-menu-item .sidebar-menu-icon {
+    color: #a0a0a0 !important;
+    transition: all 0.3s ease;
+}
+.sidebar-light .sidebar-menu-item:hover .sidebar-menu-button {
+    background-color: rgba(246, 192, 57, 0.1) !important;
+    color: #f6c039 !important;
+    transform: translateX(5px);
+}
+.sidebar-light .sidebar-menu-item:hover .sidebar-menu-icon {
+    color: #f6c039 !important;
+}
+.sidebar-light .sidebar-menu-item.active .sidebar-menu-button {
+    background-color: rgba(246, 192, 57, 0.2) !important;
+    color: #f6c039 !important;
+    font-weight: bold;
+    border-left: 4px solid #f6c039;
+}
+.sidebar-light .sidebar-menu-item.active .sidebar-menu-icon {
+    color: #f6c039 !important;
+}
+/* Admin name and Top box in sidebar */
+.sidebar-light .bg-light {
+    background-color: #111 !important;
+    border-bottom: 1px solid #333 !important;
+}
+.sidebar-light .text-body {
+    color: #fff !important;
+}
+.sidebar-light .text-muted {
+    color: #a0a0a0 !important;
 }
 </style>
 </head>

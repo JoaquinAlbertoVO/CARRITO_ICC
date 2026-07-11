@@ -28,21 +28,7 @@ if (empty($_SESSION['active'])) {
                             </a>
                         </div>
 
-                        <ul class="nav navbar-nav d-none d-md-flex">
-                            <li class="nav-item">
-                                <a href="./" data-toggle="sidebar" class="nav-link d-flex align-items-center">
-                                    <span class=" nav-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="25" height="25">
-                                            <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
-                                                <img width="150" src="/assets/images/logo_icc.png" alt="ICC">
 
-                                            </g>
-                                        </svg>
-                                    </span>
-                                </a>
-                            </li>
-
-                        </ul>
 
                         <div class="dropdown">
                             <a href="#account_menu" class="dropdown-toggle navbar-toggler navbar-toggler-dashboard border-left d-flex align-items-center ml-navbar" data-toggle="dropdown">

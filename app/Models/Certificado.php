@@ -73,16 +73,12 @@ class Certificado {
         $blanco = imagecolorallocate($imagen, 255, 255, 255);
         imagettftext($imagen, 16, 0, 80, 1150, $blanco, $font_path, "Emitido: " . $fecha_emision);
 
-        // 6. Horas lectivas barra izquierda (número y texto del mismo tamaño, centrado)
+        // 6. Horas lectivas barra izquierda (número y texto del mismo tamaño)
         $horas_completas = $horas . " horas académicas";
         $font_size_horas = 28;
         
-        $bbox_h = imagettfbbox($font_size_horas, 0, $font_bold, $horas_completas);
-        $w_h = $bbox_h[2] - $bbox_h[0];
-        
-        // Centro aproximado del bloque "CERTIFICADO DE PARTICIPACIÓN"
-        $center_x_izq = 245; 
-        $start_x = (int)($center_x_izq - ($w_h / 2)); 
+        // Alineado a la izquierda, exactamente a la altura de la letra "C" de CERTIFICADO
+        $start_x = 200; 
         
         imagettftext($imagen, $font_size_horas, 0, $start_x, 400, $blanco, $font_bold, $horas_completas);
 

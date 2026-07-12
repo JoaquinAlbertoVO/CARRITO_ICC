@@ -29,8 +29,8 @@ class Certificado {
         $center_x = 1180; // Centro ajustado basado en la linea de la plantilla
         
         // 1. Nombres del alumno (Fuente Serif, con auto-ajuste de tamaño)
-        $font_size_nombre = 52;
-        $max_width_nombre = 1000;
+        $font_size_nombre = 46; // Empezamos con una fuente un poco más pequeña
+        $max_width_nombre = 850; // Ancho máximo igual al largo de la línea gris para que no la rebase
         $alumno_upper = mb_strtoupper($alumno, 'UTF-8');
         
         do {

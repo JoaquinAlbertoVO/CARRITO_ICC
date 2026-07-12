@@ -56,12 +56,11 @@ class Certificado {
         $parrafo3 = "organizado por el \"INSTITUTO DE CAPACITACIÓN CONTINUA.\"";
         
         $b_p1 = imagettfbbox(22, 0, $font_path, $parrafo1);
-        $b_p2 = imagettfbbox(24, 0, $font_bold, $parrafo2);
+        $b_p2 = imagettfbbox(24, 0, $font_path, $parrafo2); // Sin negrita
         $b_p3 = imagettfbbox(22, 0, $font_path, $parrafo3);
 
         imagettftext($imagen, 22, 0, (int)($center_x - ($b_p1[2]/2)), 690, $color_texto, $font_path, $parrafo1);
-        // Curso en negrita y un poco más oscuro
-        imagettftext($imagen, 24, 0, (int)($center_x - ($b_p2[2]/2)), 740, $color_curso_bold, $font_bold, $parrafo2);
+        imagettftext($imagen, 24, 0, (int)($center_x - ($b_p2[2]/2)), 740, $color_texto, $font_path, $parrafo2); // Mismo color y fuente normal
         imagettftext($imagen, 22, 0, (int)($center_x - ($b_p3[2]/2)), 790, $color_texto, $font_path, $parrafo3);
 
         // 4. Fechas (quemadas por ahora como ejemplo, deberían venir de bd)
@@ -75,7 +74,7 @@ class Certificado {
 
         // 6. Horas lectivas barra izquierda (número y texto del mismo tamaño)
         $horas_completas = $horas . " horas académicas";
-        $font_size_horas = 28;
+        $font_size_horas = 23; // Tamaño menor
         
         // Alineado a la izquierda, exactamente a la altura de la letra "C" de CERTIFICADO
         $start_x = 200; 

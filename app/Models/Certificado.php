@@ -52,16 +52,49 @@ class Certificado {
 
         // 3. Párrafo central
         $parrafo1 = "Certificado por haber culminado las $horas horas lectivas del";
-        $parrafo2 = "CURSO DE \"" . mb_strtoupper($curso, 'UTF-8') . "\"";
-        $parrafo3 = "organizado por el \"INSTITUTO DE CAPACITACIÓN CONTINUA.\"";
         
-        $b_p1 = imagettfbbox(22, 0, $font_path, $parrafo1);
-        $b_p2 = imagettfbbox(24, 0, $font_path, $parrafo2); // Sin negrita
-        $b_p3 = imagettfbbox(22, 0, $font_path, $parrafo3);
+        // -- Línea 2 --
+        $txt2_1 = "CURSO DE \"";
+        $txt2_2 = mb_strtoupper($curso, 'UTF-8');
+        $txt2_3 = "\"";
+        
+        $b2_1 = imagettfbbox(24, 0, $font_path, $txt2_1);
+        $w2_1 = $b2_1[2] - $b2_1[0];
+        $b2_2 = imagettfbbox(24, 0, $font_bold, $txt2_2);
+        $w2_2 = $b2_2[2] - $b2_2[0];
+        $b2_3 = imagettfbbox(24, 0, $font_path, $txt2_3);
+        $w2_3 = $b2_3[2] - $b2_3[0];
+        
+        $start_x2 = (int)($center_x - (($w2_1 + $w2_2 + $w2_3) / 2));
+        
+        // -- Línea 3 --
+        $txt3_1 = "organizado por el \"";
+        $txt3_2 = "INSTITUTO DE CAPACITACIÓN CONTINUA";
+        $txt3_3 = ".\"";
+        
+        $b3_1 = imagettfbbox(22, 0, $font_path, $txt3_1);
+        $w3_1 = $b3_1[2] - $b3_1[0];
+        $b3_2 = imagettfbbox(22, 0, $font_bold, $txt3_2);
+        $w3_2 = $b3_2[2] - $b3_2[0];
+        $b3_3 = imagettfbbox(22, 0, $font_path, $txt3_3);
+        $w3_3 = $b3_3[2] - $b3_3[0];
+        
+        $start_x3 = (int)($center_x - (($w3_1 + $w3_2 + $w3_3) / 2));
 
+        // -- Dibujar Párrafo --
+        // Línea 1
+        $b_p1 = imagettfbbox(22, 0, $font_path, $parrafo1);
         imagettftext($imagen, 22, 0, (int)($center_x - ($b_p1[2]/2)), 690, $color_texto, $font_path, $parrafo1);
-        imagettftext($imagen, 24, 0, (int)($center_x - ($b_p2[2]/2)), 740, $color_texto, $font_path, $parrafo2); // Mismo color y fuente normal
-        imagettftext($imagen, 22, 0, (int)($center_x - ($b_p3[2]/2)), 790, $color_texto, $font_path, $parrafo3);
+        
+        // Línea 2
+        imagettftext($imagen, 24, 0, $start_x2, 740, $color_texto, $font_path, $txt2_1);
+        imagettftext($imagen, 24, 0, $start_x2 + $w2_1, 740, $color_texto, $font_bold, $txt2_2);
+        imagettftext($imagen, 24, 0, $start_x2 + $w2_1 + $w2_2, 740, $color_texto, $font_path, $txt2_3);
+        
+        // Línea 3
+        imagettftext($imagen, 22, 0, $start_x3, 790, $color_texto, $font_path, $txt3_1);
+        imagettftext($imagen, 22, 0, $start_x3 + $w3_1, 790, $color_texto, $font_bold, $txt3_2);
+        imagettftext($imagen, 22, 0, $start_x3 + $w3_1 + $w3_2, 790, $color_texto, $font_path, $txt3_3);
 
         // 4. Fechas (quemadas por ahora como ejemplo, deberían venir de bd)
         $texto_fecha = "Realizado del 20 de Julio al 25 de Julio del 2026.";

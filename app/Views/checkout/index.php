@@ -207,15 +207,12 @@
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
                                     <ul>
-                                        <li>Certificado impreso con QR</li>
-                                        <li>Bolsa de trabajo</li>
-                                        <li>Ejecución práctica</li>
+                                        <li>Certificado de participacion con QR</li>
                                         <li>Material digital</li>
-                                        <li>Grupo de WhatsApp</li>
-                                        <li>Oportunidad de networking</li>
-                                        <li>Entregables técnicos</li>
+                                        <li>Grupo de WhatsApp del curso</li>
+                                        <li>Entregables técnicos de mantenimiento y protocolos</li>
                                         <li>Clases teóricas mediante Zoom</li>
-                                        <li>Acceso al aula virtual por un año</li>
+                                        <li>Acceso al aula virtual por un mes</li>
                                     </ul>
                                 </div>
                             </div>
@@ -248,20 +245,20 @@
                                     <div class="schedule-box" x-show="currency === 'PEN'">
                                         <h5>🇵🇪 Virtual Perú</h5>
                                         <ul style="margin-bottom: 5px;">
-                                            <li><strong>07/07:</strong> Zoom de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>08/07:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>09/07:</strong> Zoom de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>10/07:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>01/09:</strong> Zoom en VIVO de 7:00 pm a 9:00 pm</li>
+                                            <li><strong>02/09:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>03/09:</strong> Zoom en VIVO de 7:00 pm a 9:00 pm</li>
+                                            <li><strong>04/09:</strong> Sesión virtual asíncrona</li>
                                         </ul>
                                     </div>
 
                                     <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
                                         <h5>🇪🇨 Virtual Ecuador y otros países</h5>
                                         <ul style="margin-bottom: 0;">
-                                            <li><strong>07/07:</strong> Zoom de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>08/07:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>09/07:</strong> Zoom de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>10/07:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>01/09:</strong> Zoom en VIVO de 7:00 pm a 9:00 pm</li>
+                                            <li><strong>02/09:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>03/09:</strong> Zoom en VIVO de 7:00 pm a 9:00 pm</li>
+                                            <li><strong>04/09:</strong> Sesión virtual asíncrona</li>
                                         </ul>
                                     </div>
                                 </div>

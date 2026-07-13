@@ -41,9 +41,10 @@
                         <div class="course-description" style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
                             <h4 style="color: var(--text-color); margin-bottom: 10px; font-weight: 600;">¿Qué aprenderás en este curso?</h4>
                             <ul style="margin-bottom: 20px; padding-left: 20px; list-style-type: disc;">
-                                <li>Interpretar manuales y armar el equipamiento.</li>
-                                <li>Cableado, conexionado y configuración del controlador de potencia.</li>
-                                <li>Puesta en servicio manual y verificación de resultados.</li>
+                                <li>Identificar los componentes principales de una subestación eléctrica y su funcionamiento.</li>
+                                <li>Aplicar procedimientos de inspección, mantenimiento preventivo y correctivo.</li>
+                                <li>Evaluar el estado de equipos como interruptores, seccionadores, transformadores e instrumentos de medida.</li>
+                                <li>Ejecutar pruebas básicas y verificar la correcta operación de los equipos, siguiendo criterios técnicos y normas de seguridad.</li>
                             </ul>
 
                             <h4 style="color: var(--text-color); margin-bottom: 10px; font-weight: 600;">Beneficios y Entregables</h4>
@@ -53,19 +54,23 @@
                     <div class="course-features" style="display: grid; gap: 12px; margin-top: 15px; margin-bottom: 20px;">
                         <div class="feature-item">
                             <span class="feature-icon">✓</span>
-                            <span>Clases teóricas y prácticas vía ZOOM.</span>
+                            <span>Clases teóricas y prácticas en vivo vía Zoom.</span>
                         </div>
                         <div class="feature-item">
                             <span class="feature-icon">✓</span>
-                            <span>Material completo: manuales, PPTs y fichas técnicas.</span>
+                            <span>Material completo de estudio (manuales, presentaciones y fichas técnicas).</span>
                         </div>
                         <div class="feature-item">
                             <span class="feature-icon">✓</span>
-                            <span>Grupo exclusivo de WhatsApp para networking.</span>
+                            <span>Acceso a las grabaciones de las clases para repasar el contenido.</span>
                         </div>
                         <div class="feature-item">
                             <span class="feature-icon">✓</span>
-                            <span>Certificado de participación (25 horas lectivas).</span>
+                            <span>Grupo exclusivo de WhatsApp para consultas, networking y soporte.</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">✓</span>
+                            <span>Certificado de participación por 25 horas lectivas emitido por ICC – Instituto de Capacitación Continua.</span>
                         </div>
                     </div>
                 </div>

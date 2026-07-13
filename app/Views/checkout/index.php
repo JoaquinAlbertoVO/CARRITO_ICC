@@ -27,7 +27,7 @@
             <!-- Columna Izquierda: Información de Compra del Curso -->
             <div class="course-column">
                 <div>
-                    <div class="brand" style="margin-bottom: 20px;">E-Learning Academy</div>
+                    <div class="brand" style="margin-bottom: 20px;">ICC (Instituto de Capacitación Continua)</div>
                     
                     <!-- Video Promocional -->
                     <div class="video-container" style="margin-bottom: 25px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
@@ -165,17 +165,17 @@
                     </div>
                 </div>
 
-                <div class="promo-price-container" style="position: relative; margin-top: 30px; margin-bottom: 20px; background: #ef4444; border-radius: 12px; padding: 30px 20px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4); transform: skew(-3deg);">
+                <div class="promo-price-container" style="position: relative; margin-top: 30px; margin-bottom: 20px; background: #0f172a; border: 2px solid #3730a3; border-radius: 12px; padding: 30px 20px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); transform: skew(-3deg);">
                     <div style="transform: skew(3deg); text-align: center; width: 100%;">
-                        <div style="position: absolute; top: -25px; right: 0px; background: #facc15; color: #1e293b; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: rotate(5deg); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid white;">
+                        <div style="position: absolute; top: -25px; right: 0px; background: #facc15; color: #0f172a; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: rotate(5deg); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid #0f172a;">
                             <span style="display: block; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase;">Precio Regular</span>
-                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #ef4444; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 250.00' : 'US$ 45.00'"></span>
+                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 250.00' : 'US$ 45.00'"></span>
                         </div>
-                        <div style="text-transform: uppercase; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; opacity: 0.9; margin-bottom: 5px;">Monto total a pagar</div>
-                        <div style="font-size: 3.5rem; font-weight: 900; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.1);">
-                            <span x-text="currencySymbol" style="font-size: 2rem; vertical-align: super;"></span>
+                        <div style="text-transform: uppercase; font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: #818cf8; margin-bottom: 5px;">Monto total a pagar</div>
+                        <div style="font-size: 3.5rem; font-weight: 900; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.2);">
+                            <span x-text="currencySymbol" style="font-size: 2rem; vertical-align: super; color: #818cf8;"></span>
                             <span x-text="coursePrice.toFixed(2)"></span>
-                            <span class="price-currency" x-text="currency" style="font-size: 1.2rem; opacity: 0.8; vertical-align: baseline;">PEN</span>
+                            <span class="price-currency" x-text="currency" style="font-size: 1.2rem; opacity: 0.8; vertical-align: baseline; color: #818cf8;">PEN</span>
                         </div>
                     </div>
                 </div>

@@ -301,13 +301,31 @@
                                 </div>
                             </div>
 
-                            <!-- Item 3: Programación -->
+                            <!-- Item 3: Beneficios -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span>📅 Programación y Horarios</span>
+                                    <span>⭐ Beneficios</span>
                                     <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
+                                    <ul>
+                                        <li>Certificado de participacion con QR</li>
+                                        <li>Material digital</li>
+                                        <li>Grupo de WhatsApp del curso</li>
+                                        <li>Entregables técnicos de mantenimiento y protocolos</li>
+                                        <li>Clases teóricas mediante Zoom</li>
+                                        <li>Acceso al aula virtual por un mes</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Item 4: Programación -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
+                                    <span>📅 Programación y Horarios</span>
+                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
                                     <div class="schedule-box" x-show="currency === 'PEN'">
                                         <h5>🇵🇪 Virtual Perú</h5>
                                         <ul style="margin-bottom: 5px;">

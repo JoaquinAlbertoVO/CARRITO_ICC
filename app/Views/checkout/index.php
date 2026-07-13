@@ -612,7 +612,7 @@
                         title: 'Pago con Yape',
                         qrUrl: '<?= BASE_URL ?>assets/images/Yape.jpg',
                         color: '#7400b8',
-                        name: 'Mariela Guadalupe Martinez Vargas'
+                        name: 'Mariela Ma.'
                     },
                     plin: {
                         title: 'Pago con Plin',

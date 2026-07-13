@@ -165,14 +165,14 @@
                     </div>
                 </div>
 
-                <div class="promo-price-container" style="position: relative; margin-top: 30px; margin-bottom: 20px; background: #0f172a; border: 2px solid #3730a3; border-radius: 12px; padding: 30px 20px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); transform: skew(-3deg);">
-                    <div style="transform: skew(3deg); text-align: center; width: 100%;">
-                        <div style="position: absolute; top: -25px; right: 0px; background: #facc15; color: #0f172a; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: rotate(5deg); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid #0f172a;">
+                <div class="promo-price-container" style="position: relative; margin-top: 30px; margin-bottom: 20px; background: #0f172a; border: 2px solid #3730a3; border-radius: 12px; padding: 25px 20px 20px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); transform: skew(-3deg);">
+                    <div style="transform: skew(3deg); text-align: center; width: 100%; display: flex; flex-direction: column;">
+                        <div style="align-self: flex-end; background: #facc15; color: #0f172a; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: rotate(5deg) translateY(-10px) translateX(10px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid #0f172a; margin-bottom: -10px; position: relative; z-index: 10;">
                             <span style="display: block; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase;">Precio Regular</span>
                             <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 250.00' : 'US$ 45.00'"></span>
                         </div>
-                        <div style="text-transform: uppercase; font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: #818cf8; margin-bottom: 5px;">Monto total a pagar</div>
-                        <div style="font-size: 3.5rem; font-weight: 900; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.2);">
+                        <div style="text-transform: uppercase; font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: #818cf8; margin-bottom: 5px; position: relative; z-index: 1;">Monto total a pagar</div>
+                        <div style="font-size: 3.5rem; font-weight: 900; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.2); position: relative; z-index: 1;">
                             <span x-text="currencySymbol" style="font-size: 2rem; vertical-align: super; color: #818cf8;"></span>
                             <span x-text="coursePrice.toFixed(2)"></span>
                             <span class="price-currency" x-text="currency" style="font-size: 1.2rem; opacity: 0.8; vertical-align: baseline; color: #818cf8;">PEN</span>
@@ -330,7 +330,7 @@
                     <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 20px;">
                         <h4 style="margin-top: 0; color: #0f172a; margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">⚠️ Siguiente paso obligatorio</h4>
                         <p style="color: #475569; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">Para agilizar la validación y enviarte tus accesos de inmediato, haz clic en el botón de abajo y envíanos un mensaje por WhatsApp confirmando tus datos.</p>
-                        <a href="https://wa.me/51999999999?text=Hola,%20acabo%20de%20subir%20mi%20voucher%20para%20el%20curso.%20Mis%20nombres%20son:" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; background: #25D366; color: white; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); transition: transform 0.2s ease;">
+                        <a href="https://wa.me/51986884219?text=Hola,%20acabo%20de%20subir%20mi%20voucher%20para%20el%20curso.%20Mis%20nombres%20son:" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; background: #25D366; color: white; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); transition: transform 0.2s ease;">
                             <span style="font-size: 1.2rem; margin-right: 8px;">💬</span> Escribir a WhatsApp
                         </a>
                     </div>

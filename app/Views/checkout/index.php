@@ -165,14 +165,16 @@
                     </div>
                 </div>
 
-                <div class="promo-price-container" style="position: relative; margin-top: 30px; margin-bottom: 20px; background: #0f172a; border: 2px solid #3730a3; border-radius: 12px; padding: 25px 20px 20px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); transform: skew(-3deg);">
-                    <div style="transform: skew(3deg); text-align: center; width: 100%; display: flex; flex-direction: column;">
-                        <div style="align-self: flex-end; background: #facc15; color: #0f172a; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: rotate(5deg) translateY(-10px) translateX(10px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid #0f172a; margin-bottom: -10px; position: relative; z-index: 10;">
-                            <span style="display: block; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase;">Precio Regular</span>
-                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 250.00' : 'US$ 45.00'"></span>
-                        </div>
-                        <div style="text-transform: uppercase; font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: #818cf8; margin-bottom: 5px; position: relative; z-index: 1;">Monto total a pagar</div>
-                        <div style="font-size: 3.5rem; font-weight: 900; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.2); position: relative; z-index: 1;">
+                <div class="promo-price-container" style="position: relative; margin-top: 30px; margin-bottom: 20px; background: #0f172a; border: 2px solid #3730a3; border-radius: 12px; padding: 35px 20px 25px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); transform: skew(-3deg);">
+                    <!-- Etiqueta amarilla flotante -->
+                    <div style="position: absolute; top: -15px; right: -10px; background: #facc15; color: #0f172a; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: skew(3deg) rotate(5deg); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid #0f172a; z-index: 10;">
+                        <span style="display: block; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase;">Precio Regular</span>
+                        <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 250.00' : 'US$ 45.00'"></span>
+                    </div>
+
+                    <div style="transform: skew(3deg); text-align: center; width: 100%;">
+                        <div style="text-transform: uppercase; font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: #818cf8; margin-bottom: 5px;">Monto total a pagar</div>
+                        <div style="font-size: 3.5rem; font-weight: 900; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.2);">
                             <span x-text="currencySymbol" style="font-size: 2rem; vertical-align: super; color: #818cf8;"></span>
                             <span x-text="coursePrice.toFixed(2)"></span>
                             <span class="price-currency" x-text="currency" style="font-size: 1.2rem; opacity: 0.8; vertical-align: baseline; color: #818cf8;">PEN</span>

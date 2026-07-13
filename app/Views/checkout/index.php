@@ -179,6 +179,7 @@
 
                         </div>
                     </div>
+                </div>
 
                 <div class="price-box">
                     <div class="price-label">Monto total a pagar</div>

@@ -165,22 +165,26 @@
                     </div>
                 </div>
 
-                <div class="price-box">
-                    <div class="price-label" style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 10px;">
-                        <span>Monto total a pagar</span>
-                        <span style="text-decoration: line-through; color: #94a3b8; font-size: 0.85rem; font-weight: normal; white-space: nowrap; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px;" x-text="currency === 'PEN' ? 'Precio Regular: S/ 250.00' : 'Precio Regular: US$ 45.00'"></span>
-                    </div>
-                    <div class="price-amount">
-                        <span x-text="currencySymbol">S/</span>
-                        <span x-text="coursePrice.toFixed(2)">0.00</span>
-                        <span class="price-currency" x-text="currency">PEN</span>
+                <div class="promo-price-container" style="position: relative; margin-top: 30px; margin-bottom: 20px; background: #ef4444; border-radius: 12px; padding: 30px 20px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4); transform: skew(-3deg);">
+                    <div style="transform: skew(3deg); text-align: center; width: 100%;">
+                        <div style="position: absolute; top: -25px; right: 0px; background: #facc15; color: #1e293b; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: rotate(5deg); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid white;">
+                            <span style="display: block; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase;">Precio Regular</span>
+                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #ef4444; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 250.00' : 'US$ 45.00'"></span>
+                        </div>
+                        <div style="text-transform: uppercase; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; opacity: 0.9; margin-bottom: 5px;">Monto total a pagar</div>
+                        <div style="font-size: 3.5rem; font-weight: 900; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.1);">
+                            <span x-text="currencySymbol" style="font-size: 2rem; vertical-align: super;"></span>
+                            <span x-text="coursePrice.toFixed(2)"></span>
+                            <span class="price-currency" x-text="currency" style="font-size: 1.2rem; opacity: 0.8; vertical-align: baseline;">PEN</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Columna Derecha: Opciones de Pago -->
             <div class="payment-column">
-                <div class="payment-header">
+                <div x-show="!paymentSuccess" x-transition>
+                    <div class="payment-header">
                     <h2>Método de Pago</h2>
                 </div>
 
@@ -289,6 +293,48 @@
                         Encriptación SSL 256-bit
                     </div>
                 </div>
+                </div> <!-- End of !paymentSuccess -->
+
+                <!-- Vista de Éxito y Rastreador de Progreso -->
+                <div class="success-view" x-show="paymentSuccess" x-transition style="display: none; text-align: center; padding: 40px 20px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                    <div style="font-size: 3.5rem; color: #10b981; margin-bottom: 10px; line-height: 1;">✅</div>
+                    <h3 style="color: #0f172a; margin-bottom: 15px; font-size: 1.5rem; font-weight: 700;">¡Voucher recibido con éxito!</h3>
+                    <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 35px;">Estamos procesando tu inscripción. Sigue el estado de tu trámite:</p>
+
+                    <!-- Progress Tracker -->
+                    <div class="progress-tracker" style="display: flex; justify-content: space-between; position: relative; margin-bottom: 40px; max-width: 400px; margin-left: auto; margin-right: auto;">
+                        <!-- Line -->
+                        <div style="position: absolute; top: 15px; left: 16%; right: 16%; height: 4px; background: #e2e8f0; z-index: 1;">
+                            <div style="width: 50%; height: 100%; background: #10b981; transition: width 1s ease-in-out;"></div>
+                        </div>
+
+                        <!-- Step 1 -->
+                        <div style="position: relative; z-index: 2; text-align: center; width: 33%;">
+                            <div style="width: 34px; height: 34px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; border: 4px solid white; box-shadow: 0 0 0 2px #10b981;">✓</div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #10b981; line-height: 1.2;">Pago<br>Enviado</div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div style="position: relative; z-index: 2; text-align: center; width: 33%;">
+                            <div style="width: 34px; height: 34px; background: white; color: #f59e0b; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; border: 4px solid #f59e0b; font-size: 1rem;">⏳</div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #f59e0b; line-height: 1.2;">Validando<br>Inscripción</div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div style="position: relative; z-index: 2; text-align: center; width: 33%;">
+                            <div style="width: 34px; height: 34px; background: white; color: #94a3b8; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; border: 4px solid #cbd5e1;">3</div>
+                            <div style="font-size: 0.75rem; font-weight: 600; color: #94a3b8; line-height: 1.2;">Accesos<br>Enviados</div>
+                        </div>
+                    </div>
+
+                    <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 20px;">
+                        <h4 style="margin-top: 0; color: #0f172a; margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">⚠️ Siguiente paso obligatorio</h4>
+                        <p style="color: #475569; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">Para agilizar la validación y enviarte tus accesos de inmediato, haz clic en el botón de abajo y envíanos un mensaje por WhatsApp confirmando tus datos.</p>
+                        <a href="https://wa.me/51999999999?text=Hola,%20acabo%20de%20subir%20mi%20voucher%20para%20el%20curso.%20Mis%20nombres%20son:" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; background: #25D366; color: white; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); transition: transform 0.2s ease;">
+                            <span style="font-size: 1.2rem; margin-right: 8px;">💬</span> Escribir a WhatsApp
+                        </a>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -338,6 +384,7 @@
     <script>
         function checkoutApp() {
             return {
+                paymentSuccess: false,
                 // Estado dinámico cargado desde la URL
                 courseName: '',
                 coursePrice: 30.00,
@@ -446,10 +493,13 @@
                     .then(res => res.json())
                     .then(data => {
                         if(data.success) {
-                            alert('¡Comprobante subido con éxito! Por favor envíanos un mensaje para enviarte tus accesos.');
+                            this.paymentSuccess = true;
                             this.voucherFile = null;
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
                         } else {
                             alert('Ocurrió un error: ' + (data.error || 'Error desconocido'));
+                            btn.disabled = false;
+                            btn.innerText = 'Confirmar mi inscripción';
                         }
                     })
                     .catch(err => {

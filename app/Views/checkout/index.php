@@ -142,7 +142,7 @@
                                     <span x-text="activeAccordion === 5 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 5" x-transition style="display: none;">
-                                    <div class="schedule-box">
+                                    <div class="schedule-box" x-show="currency === 'PEN'">
                                         <h5>🇵🇪 Semipresencial Perú (Precio: S/ 450)</h5>
                                         <ul style="margin-bottom: 5px;">
                                             <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
@@ -153,7 +153,7 @@
                                         </ul>
                                     </div>
                                     
-                                    <div class="schedule-box">
+                                    <div class="schedule-box" x-show="currency === 'PEN'">
                                         <h5>🇵🇪 Virtual Perú (Precio: S/ 150)</h5>
                                         <ul style="margin-bottom: 5px;">
                                             <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
@@ -164,7 +164,7 @@
                                         </ul>
                                     </div>
 
-                                    <div class="schedule-box" style="margin-bottom: 0;">
+                                    <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
                                         <h5>🇪🇨 Virtual Ecuador y otros países (Precio: US$ 45)</h5>
                                         <ul style="margin-bottom: 0;">
                                             <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
@@ -231,10 +231,6 @@
                                 <div class="info-row">
                                     <span>Titular:</span>
                                     <span x-text="manualDetails[manualMethod]?.name">Cargando...</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>Celular:</span>
-                                    <span x-text="manualDetails[manualMethod]?.phone">Cargando...</span>
                                 </div>
                                 <div class="info-row"
                                     style="border-top: 1px dashed var(--surface-border); margin-top: 8px; padding-top: 8px;">
@@ -381,15 +377,13 @@
                         title: 'Pago con Yape',
                         qrUrl: '<?= BASE_URL ?>assets/images/Yape.jpg',
                         color: '#7400b8',
-                        name: 'Tu Nombre Apellido',
-                        phone: '999 999 999'
+                        name: 'Mariela Guadalupe Martinez Vargas'
                     },
                     plin: {
                         title: 'Pago con Plin',
                         qrUrl: '<?= BASE_URL ?>assets/images/plin.jpg',
                         color: '#00c8b0',
-                        name: 'Tu Nombre Apellido',
-                        phone: '999 999 999'
+                        name: 'Ricardo Cardenas'
                     }
                 },
 

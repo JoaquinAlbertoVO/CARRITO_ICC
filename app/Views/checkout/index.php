@@ -93,7 +93,7 @@
 
                 <!-- Tabs para alternar entre métodos de pago -->
                 <div class="payment-tabs">
-                    <button class="tab-btn" :class="{ 'active': activeTab === 'manual' }" @click="setTab('manual')">
+                    <button class="tab-btn" x-show="currency === 'PEN'" :class="{ 'active': activeTab === 'manual' }" @click="setTab('manual')">
                         📱 Yape / Plin
                     </button>
                     <button class="tab-btn" :class="{ 'active': activeTab === 'paypal' }" @click="setTab('paypal')">

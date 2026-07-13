@@ -166,9 +166,9 @@
                 </div>
 
                 <div class="price-box">
-                    <div class="price-label" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <div class="price-label" style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 10px;">
                         <span>Monto total a pagar</span>
-                        <span style="text-decoration: line-through; color: #94a3b8; font-size: 0.9rem; font-weight: normal;" x-text="currency === 'PEN' ? 'Precio Regular: S/ 250.00' : 'Precio Regular: US$ 45.00'"></span>
+                        <span style="text-decoration: line-through; color: #94a3b8; font-size: 0.85rem; font-weight: normal; white-space: nowrap; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px;" x-text="currency === 'PEN' ? 'Precio Regular: S/ 250.00' : 'Precio Regular: US$ 45.00'"></span>
                     </div>
                     <div class="price-amount">
                         <span x-text="currencySymbol">S/</span>

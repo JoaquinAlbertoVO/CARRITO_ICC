@@ -539,7 +539,8 @@
                         },
                         onApprove: function (data, actions) {
                             return actions.order.capture().then(function (details) {
-                                alert(`¡Inscripción confirmada! Pago recibido exitosamente por PayPal. Bienvenido/a al curso, ${details.payer.name.given_name}. Por favor escríbenos para reclamar tus accesos.`);
+                                self.paymentSuccess = true;
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
                                 console.log('PayPal details:', details);
                             });
                         },

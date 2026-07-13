@@ -100,15 +100,12 @@
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
                                     <ul>
-                                        <li>Certificado impreso con QR</li>
-                                        <li>Bolsa de trabajo</li>
-                                        <li>Ejecución práctica</li>
+                                        <li>Certificado de participacion con QR</li>
                                         <li>Material digital</li>
-                                        <li>Grupo de WhatsApp</li>
-                                        <li>Oportunidad de networking</li>
+                                        <li>Grupo de WhatsApp del curso</li>
                                         <li>Entregables técnicos de mantenimiento y protocolos</li>
                                         <li>Clases teóricas mediante Zoom</li>
-                                        <li>Acceso al aula virtual por un año</li>
+                                        <li>Acceso al aula virtual por un mes</li>
                                     </ul>
                                 </div>
                             </div>
@@ -143,35 +140,22 @@
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 5" x-transition style="display: none;">
                                     <div class="schedule-box" x-show="currency === 'PEN'">
-                                        <h5>🇵🇪 Semipresencial Perú (Precio: S/ 450)</h5>
+                                        <h5>🇵🇪 Virtual Perú</h5>
                                         <ul style="margin-bottom: 5px;">
                                             <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
                                             <li><strong>21/07:</strong> Sesión virtual asíncrona</li>
                                             <li><strong>23/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
                                             <li><strong>24/07:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>25/07:</strong> Presencial de 8:00 a. m. a 1:00 p. m.</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="schedule-box" x-show="currency === 'PEN'">
-                                        <h5>🇵🇪 Virtual Perú (Precio: S/ 150)</h5>
-                                        <ul style="margin-bottom: 5px;">
-                                            <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>21/07:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>23/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>24/07:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>25/07:</strong> Zoom de 8:00 a. m. a 1:00 p. m.</li>
                                         </ul>
                                     </div>
 
                                     <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
-                                        <h5>🇪🇨 Virtual Ecuador y otros países (Precio: US$ 45)</h5>
+                                        <h5>🇪🇨 Virtual Ecuador y otros países</h5>
                                         <ul style="margin-bottom: 0;">
                                             <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
                                             <li><strong>21/07:</strong> Sesión virtual asíncrona</li>
                                             <li><strong>23/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
                                             <li><strong>24/07:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>25/07:</strong> Zoom de 8:00 a. m. a 1:00 p. m.</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -182,7 +166,10 @@
                 </div>
 
                 <div class="price-box">
-                    <div class="price-label">Monto total a pagar</div>
+                    <div class="price-label" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <span>Monto total a pagar</span>
+                        <span style="text-decoration: line-through; color: #94a3b8; font-size: 0.9rem; font-weight: normal;" x-text="currency === 'PEN' ? 'Precio Regular: S/ 250.00' : 'Precio Regular: US$ 45.00'"></span>
+                    </div>
                     <div class="price-amount">
                         <span x-text="currencySymbol">S/</span>
                         <span x-text="coursePrice.toFixed(2)">0.00</span>

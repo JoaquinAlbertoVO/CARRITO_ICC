@@ -16,8 +16,8 @@
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <!-- PayPal SDK (client-id=sb es para pruebas/sandbox, cámbialo por tu Client ID de producción) -->
-    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+    <!-- PayPal SDK (Reemplazado con tu Client ID de producción) -->
+    <script src="https://www.paypal.com/sdk/js?client-id=EP2fhOGemUEgzmICxDQ4tkk42-5RWckWMvoP8lwEW3Y3EFkXSLv53ncMv38xgubX3yCXGOrgAiUNRe6X&currency=USD"></script>
 </head>
 
 <body>

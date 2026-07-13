@@ -38,42 +38,147 @@
                     <div class="course-info">
                         <h1 x-text="courseName" style="font-size: 1.8rem; margin-bottom: 15px; font-weight: 700; color: var(--text-color);">Cargando curso...</h1>
                         
-                        <div class="course-description" style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
-                            <h4 style="color: var(--text-color); margin-bottom: 10px; font-weight: 600;">¿Qué aprenderás en este curso?</h4>
-                            <ul style="margin-bottom: 20px; padding-left: 20px; list-style-type: disc;">
-                                <li>Identificar los componentes principales de una subestación eléctrica y su funcionamiento.</li>
-                                <li>Aplicar procedimientos de inspección, mantenimiento preventivo y correctivo.</li>
-                                <li>Evaluar el estado de equipos como interruptores, seccionadores, transformadores e instrumentos de medida.</li>
-                                <li>Ejecutar pruebas básicas y verificar la correcta operación de los equipos, siguiendo criterios técnicos y normas de seguridad.</li>
-                            </ul>
+                        <style>
+                            .accordion-btn {
+                                width: 100%; padding: 14px 18px; text-align: left; background: var(--surface-color, #f8f9fa); border: 1px solid var(--surface-border, #e9ecef); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; color: var(--text-color, #333); margin-bottom: 8px; transition: all 0.2s ease;
+                            }
+                            .accordion-btn:hover { background: #e9ecef; }
+                            .accordion-btn.active { background: #e0f2fe; border-color: #bae6fd; color: #0369a1; border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: 0;}
+                            .accordion-content {
+                                padding: 18px; border: 1px solid #bae6fd; border-top: none; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; font-size: 0.9rem; color: var(--text-muted, #555); background: #fff; margin-bottom: 8px;
+                            }
+                            .accordion-content ul { padding-left: 0; margin-bottom: 10px; list-style-type: none; }
+                            .accordion-content ul li { margin-bottom: 8px; position: relative; padding-left: 24px; line-height: 1.4; }
+                            .accordion-content ul li::before { content: '✅'; position: absolute; left: 0; font-size: 0.85rem; top: 1px;}
+                            .schedule-box { background: #f8fafc; border: 1px dashed #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+                            .schedule-box h5 { margin-top: 0; margin-bottom: 10px; color: #0f172a; font-weight: 700; font-size: 1rem; }
+                            .schedule-box ul li::before { content: '📅'; }
+                        </style>
 
-                            <h4 style="color: var(--text-color); margin-bottom: 10px; font-weight: 600;">Beneficios y Entregables</h4>
+                        <div class="course-accordion" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
+                            
+                            <!-- Item 1: Resumen -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
+                                    <span>ℹ️ Resumen del Curso</span>
+                                    <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
+                                    <p style="margin-bottom: 8px;"><strong>⏳ Duración:</strong> 25 horas académicas</p>
+                                    <p style="margin-bottom: 12px;"><strong>🎓 Incluye:</strong> Certificado de participación con QR</p>
+                                    <p style="line-height: 1.5;">Curso orientado a planificar, ejecutar y documentar mantenimientos de subestaciones eléctricas, combinando contenido teórico y práctica en campo.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: Temas Principales -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
+                                    <span>📚 Temas Principales</span>
+                                    <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
+                                    <ul>
+                                        <li>Mantenimiento correctivo, preventivo y predictivo</li>
+                                        <li>Tipos y partes de subestaciones eléctricas</li>
+                                        <li>Transformadores, seccionadores y fusibles</li>
+                                        <li>Equipos de protección personal y trajes ignífugos</li>
+                                        <li>Equipos de maniobra y reglas de seguridad</li>
+                                        <li>Medición de aislamiento y relación de transformación</li>
+                                        <li>Análisis de aceite dieléctrico</li>
+                                        <li>Visitas técnicas, informes y protocolos</li>
+                                        <li>Certificado de operatividad</li>
+                                        <li>Procedimientos de corte y puesta en marcha</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Item 3: Beneficios -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
+                                    <span>⭐ Beneficios</span>
+                                    <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
+                                    <ul>
+                                        <li>Certificado impreso con QR</li>
+                                        <li>Bolsa de trabajo</li>
+                                        <li>Ejecución práctica</li>
+                                        <li>Material digital</li>
+                                        <li>Grupo de WhatsApp</li>
+                                        <li>Oportunidad de networking</li>
+                                        <li>Entregables técnicos de mantenimiento y protocolos</li>
+                                        <li>Clases teóricas mediante Zoom</li>
+                                        <li>Acceso al aula virtual por un año</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Item 4: Herramientas y Materiales -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
+                                    <span>🛠️ Herramientas y Materiales</span>
+                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
+                                    <ul>
+                                        <li>Megómetro digital de 5000V</li>
+                                        <li>Kit extractor de aceite dieléctrico</li>
+                                        <li>Pértigas de maniobra</li>
+                                        <li>Revelador de tensión</li>
+                                        <li>Pinza amperimétrica</li>
+                                        <li>Traje ignífugo</li>
+                                        <li>Careta contra arco eléctrico</li>
+                                        <li>Guantes dieléctricos</li>
+                                        <li>Equipos de seguridad y señalización</li>
+                                        <li>Herramientas manuales</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Item 5: Programación -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 5 }" @click="activeAccordion = activeAccordion === 5 ? null : 5">
+                                    <span>📅 Programación y Horarios (Julio)</span>
+                                    <span x-text="activeAccordion === 5 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 5" x-transition style="display: none;">
+                                    <div class="schedule-box">
+                                        <h5>🇵🇪 Semipresencial Perú (Precio: S/ 450)</h5>
+                                        <ul style="margin-bottom: 5px;">
+                                            <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>21/07:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>23/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>24/07:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>25/07:</strong> Presencial de 8:00 a. m. a 1:00 p. m.</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="schedule-box">
+                                        <h5>🇵🇪 Virtual Perú (Precio: S/ 150)</h5>
+                                        <ul style="margin-bottom: 5px;">
+                                            <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>21/07:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>23/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>24/07:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>25/07:</strong> Zoom de 8:00 a. m. a 1:00 p. m.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="schedule-box" style="margin-bottom: 0;">
+                                        <h5>🇪🇨 Virtual Ecuador y otros países (Precio: US$ 45)</h5>
+                                        <ul style="margin-bottom: 0;">
+                                            <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>21/07:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>23/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>24/07:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>25/07:</strong> Zoom de 8:00 a. m. a 1:00 p. m.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-
-                    <div class="course-features" style="display: grid; gap: 12px; margin-top: 15px; margin-bottom: 20px;">
-                        <div class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span>Clases teóricas y prácticas en vivo vía Zoom.</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span>Material completo de estudio (manuales, presentaciones y fichas técnicas).</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span>Acceso a las grabaciones de las clases para repasar el contenido.</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span>Grupo exclusivo de WhatsApp para consultas, networking y soporte.</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span>Certificado de participación por 25 horas lectivas emitido por ICC – Instituto de Capacitación Continua.</span>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="price-box">
                     <div class="price-label">Monto total a pagar</div>

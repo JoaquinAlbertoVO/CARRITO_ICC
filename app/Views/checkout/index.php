@@ -55,8 +55,8 @@
                             .schedule-box ul li::before { content: '📅'; }
                         </style>
 
-                        <div class="course-accordion" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
-                            
+                        <!-- Accordion Subestaciones -->
+                        <div class="course-accordion" x-show="courseName.toLowerCase().includes('subestaciones')" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
                             <!-- Item 1: Resumen -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
@@ -135,7 +135,7 @@
                             <!-- Item 5: Programación -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 5 }" @click="activeAccordion = activeAccordion === 5 ? null : 5">
-                                    <span>📅 Programación y Horarios (Julio)</span>
+                                    <span>📅 Programación y Horarios</span>
                                     <span x-text="activeAccordion === 5 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 5" x-transition style="display: none;">
@@ -160,7 +160,112 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
+                        <!-- Accordion Condensadores -->
+                        <div class="course-accordion" x-show="courseName.toLowerCase().includes('condensadores')" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
+                            <!-- Item 1: Resumen -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
+                                    <span>ℹ️ Resumen del Curso</span>
+                                    <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
+                                    <p style="margin-bottom: 8px;"><strong>⏳ Duración:</strong> 25 horas académicas</p>
+                                    <p style="margin-bottom: 12px;"><strong>🎓 Incluye:</strong> Certificado de participación con QR</p>
+                                    <p style="line-height: 1.5;">Curso orientado a la compensación de energía reactiva y a la mejora del factor de potencia en sistemas eléctricos industriales.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: Temas Principales -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
+                                    <span>📚 Temas Principales</span>
+                                    <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
+                                    <ul>
+                                        <li>Energía reactiva y triángulo de potencia</li>
+                                        <li>Sistemas inductivos y capacitivos</li>
+                                        <li>Determinación y corrección del factor de potencia</li>
+                                        <li>Cálculo de KVAR con compensación fija y automática</li>
+                                        <li>Análisis de KVAR.h en facturación eléctrica</li>
+                                        <li>Bancos de condensadores fijos y automáticos</li>
+                                        <li>Diseño bajo normativa IEC</li>
+                                        <li>Reducción de pérdidas y caídas de tensión</li>
+                                        <li>Selección de contactores, fusibles, conductores y reguladores</li>
+                                        <li>Instalación práctica de condensadores</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Item 3: Beneficios -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
+                                    <span>⭐ Beneficios</span>
+                                    <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
+                                    <ul>
+                                        <li>Certificado impreso con QR</li>
+                                        <li>Bolsa de trabajo</li>
+                                        <li>Ejecución práctica</li>
+                                        <li>Material digital</li>
+                                        <li>Grupo de WhatsApp</li>
+                                        <li>Oportunidad de networking</li>
+                                        <li>Entregables técnicos</li>
+                                        <li>Clases teóricas mediante Zoom</li>
+                                        <li>Acceso al aula virtual por un año</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Item 4: Herramientas y Materiales -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
+                                    <span>🛠️ Equipos y herramientas</span>
+                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
+                                    <ul>
+                                        <li>Condensadores cilíndricos de 25 KVAR</li>
+                                        <li>Kit de contactores para condensadores</li>
+                                        <li>Interruptores termomagnéticos</li>
+                                        <li>Controlador de factor de potencia</li>
+                                        <li>Transformadores de corriente</li>
+                                        <li>Herramientas manuales</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Item 5: Programación -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 5 }" @click="activeAccordion = activeAccordion === 5 ? null : 5">
+                                    <span>📅 Programación y Horarios</span>
+                                    <span x-text="activeAccordion === 5 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 5" x-transition style="display: none;">
+                                    <div class="schedule-box" x-show="currency === 'PEN'">
+                                        <h5>🇵🇪 Virtual Perú</h5>
+                                        <ul style="margin-bottom: 5px;">
+                                            <li><strong>07/07:</strong> Zoom de 7:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>08/07:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>09/07:</strong> Zoom de 7:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>10/07:</strong> Sesión virtual asíncrona</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
+                                        <h5>🇪🇨 Virtual Ecuador y otros países</h5>
+                                        <ul style="margin-bottom: 0;">
+                                            <li><strong>07/07:</strong> Zoom de 7:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>08/07:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>09/07:</strong> Zoom de 7:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>10/07:</strong> Sesión virtual asíncrona</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -169,7 +274,7 @@
                     <!-- Etiqueta amarilla flotante -->
                     <div style="position: absolute; top: -15px; right: -10px; background: #facc15; color: #0f172a; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: skew(3deg) rotate(5deg); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid #0f172a; z-index: 10;">
                         <span style="display: block; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase;">Precio Regular</span>
-                        <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 250.00' : 'US$ 45.00'"></span>
+                        <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 250.00' : (courseName.toLowerCase().includes('condensadores') ? 'US$ 50.00' : 'US$ 45.00')"></span>
                     </div>
 
                     <div style="transform: skew(3deg); text-align: center; width: 100%;">

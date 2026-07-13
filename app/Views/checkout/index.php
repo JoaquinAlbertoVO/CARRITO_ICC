@@ -27,67 +27,164 @@
             <!-- Columna Izquierda: Información de Compra del Curso -->
             <div class="course-column">
                 <div>
-                    <div class="brand" style="margin-bottom: 20px;">E-Learning Academy</div>
+                    <div class="brand" style="margin-bottom: 20px;">ICC (Instituto de Capacitación Continua)</div>
                     
                     <!-- Video Promocional -->
                     <div class="video-container" style="margin-bottom: 25px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
                         <!-- Video Placeholder (YouTube) -->
-                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/ScMzIvxBSi4?rel=0" title="Video Promocional" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block;"></iframe>
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/7SMbMxs27K0?rel=0" title="Video Promocional" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block;"></iframe>
                     </div>
 
                     <div class="course-info">
                         <h1 x-text="courseName" style="font-size: 1.8rem; margin-bottom: 15px; font-weight: 700; color: var(--text-color);">Cargando curso...</h1>
                         
-                        <div class="course-description" style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
-                            <h4 style="color: var(--text-color); margin-bottom: 10px; font-weight: 600;">¿Qué aprenderás en este curso?</h4>
-                            <ul style="margin-bottom: 20px; padding-left: 20px; list-style-type: disc;">
-                                <li>Identificar los componentes principales de una subestación eléctrica y su funcionamiento.</li>
-                                <li>Aplicar procedimientos de inspección, mantenimiento preventivo y correctivo.</li>
-                                <li>Evaluar el estado de equipos como interruptores, seccionadores, transformadores e instrumentos de medida.</li>
-                                <li>Ejecutar pruebas básicas y verificar la correcta operación de los equipos, siguiendo criterios técnicos y normas de seguridad.</li>
-                            </ul>
+                        <style>
+                            .accordion-btn {
+                                width: 100%; padding: 14px 18px; text-align: left; background: var(--surface-color, #f8f9fa); border: 1px solid var(--surface-border, #e9ecef); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; color: var(--text-color, #333); margin-bottom: 8px; transition: all 0.2s ease;
+                            }
+                            .accordion-btn:hover { background: #e9ecef; }
+                            .accordion-btn.active { background: #e0f2fe; border-color: #bae6fd; color: #0369a1; border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: 0;}
+                            .accordion-content {
+                                padding: 18px; border: 1px solid #bae6fd; border-top: none; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; font-size: 0.9rem; color: var(--text-muted, #555); background: #fff; margin-bottom: 8px;
+                            }
+                            .accordion-content ul { padding-left: 0; margin-bottom: 10px; list-style-type: none; }
+                            .accordion-content ul li { margin-bottom: 8px; position: relative; padding-left: 24px; line-height: 1.4; }
+                            .accordion-content ul li::before { content: '✅'; position: absolute; left: 0; font-size: 0.85rem; top: 1px;}
+                            .schedule-box { background: #f8fafc; border: 1px dashed #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+                            .schedule-box h5 { margin-top: 0; margin-bottom: 10px; color: #0f172a; font-weight: 700; font-size: 1rem; }
+                            .schedule-box ul li::before { content: '📅'; }
+                        </style>
 
-                            <h4 style="color: var(--text-color); margin-bottom: 10px; font-weight: 600;">Beneficios y Entregables</h4>
-                        </div>
-                    </div>
+                        <div class="course-accordion" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
+                            
+                            <!-- Item 1: Resumen -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
+                                    <span>ℹ️ Resumen del Curso</span>
+                                    <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
+                                    <p style="margin-bottom: 8px;"><strong>⏳ Duración:</strong> 25 horas académicas</p>
+                                    <p style="margin-bottom: 12px;"><strong>🎓 Incluye:</strong> Certificado de participación con QR</p>
+                                    <p style="line-height: 1.5;">Curso orientado a planificar, ejecutar y documentar mantenimientos de subestaciones eléctricas, combinando contenido teórico y práctica en campo.</p>
+                                </div>
+                            </div>
 
-                    <div class="course-features" style="display: grid; gap: 12px; margin-top: 15px; margin-bottom: 20px;">
-                        <div class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span>Clases teóricas y prácticas en vivo vía Zoom.</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span>Material completo de estudio (manuales, presentaciones y fichas técnicas).</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span>Acceso a las grabaciones de las clases para repasar el contenido.</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span>Grupo exclusivo de WhatsApp para consultas, networking y soporte.</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span>Certificado de participación por 25 horas lectivas emitido por ICC – Instituto de Capacitación Continua.</span>
+                            <!-- Item 2: Temas Principales -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
+                                    <span>📚 Temas Principales</span>
+                                    <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
+                                    <ul>
+                                        <li>Mantenimiento correctivo, preventivo y predictivo</li>
+                                        <li>Tipos y partes de subestaciones eléctricas</li>
+                                        <li>Transformadores, seccionadores y fusibles</li>
+                                        <li>Equipos de protección personal y trajes ignífugos</li>
+                                        <li>Equipos de maniobra y reglas de seguridad</li>
+                                        <li>Medición de aislamiento y relación de transformación</li>
+                                        <li>Análisis de aceite dieléctrico</li>
+                                        <li>Visitas técnicas, informes y protocolos</li>
+                                        <li>Certificado de operatividad</li>
+                                        <li>Procedimientos de corte y puesta en marcha</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Item 3: Beneficios -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
+                                    <span>⭐ Beneficios</span>
+                                    <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
+                                    <ul>
+                                        <li>Certificado de participacion con QR</li>
+                                        <li>Material digital</li>
+                                        <li>Grupo de WhatsApp del curso</li>
+                                        <li>Entregables técnicos de mantenimiento y protocolos</li>
+                                        <li>Clases teóricas mediante Zoom</li>
+                                        <li>Acceso al aula virtual por un mes</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Item 4: Herramientas y Materiales -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
+                                    <span>🛠️ Herramientas y Materiales</span>
+                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
+                                    <ul>
+                                        <li>Megómetro digital de 5000V</li>
+                                        <li>Kit extractor de aceite dieléctrico</li>
+                                        <li>Pértigas de maniobra</li>
+                                        <li>Revelador de tensión</li>
+                                        <li>Pinza amperimétrica</li>
+                                        <li>Traje ignífugo</li>
+                                        <li>Careta contra arco eléctrico</li>
+                                        <li>Guantes dieléctricos</li>
+                                        <li>Equipos de seguridad y señalización</li>
+                                        <li>Herramientas manuales</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Item 5: Programación -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 5 }" @click="activeAccordion = activeAccordion === 5 ? null : 5">
+                                    <span>📅 Programación y Horarios (Julio)</span>
+                                    <span x-text="activeAccordion === 5 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 5" x-transition style="display: none;">
+                                    <div class="schedule-box" x-show="currency === 'PEN'">
+                                        <h5>🇵🇪 Virtual Perú</h5>
+                                        <ul style="margin-bottom: 5px;">
+                                            <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>21/07:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>23/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>24/07:</strong> Sesión virtual asíncrona</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
+                                        <h5>🇪🇨 Virtual Ecuador y otros países</h5>
+                                        <ul style="margin-bottom: 0;">
+                                            <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>21/07:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>23/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>24/07:</strong> Sesión virtual asíncrona</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
 
-                <div class="price-box">
-                    <div class="price-label">Monto total a pagar</div>
-                    <div class="price-amount">
-                        <span x-text="currencySymbol">S/</span>
-                        <span x-text="coursePrice.toFixed(2)">0.00</span>
-                        <span class="price-currency" x-text="currency">PEN</span>
+                <div class="promo-price-container" style="position: relative; margin-top: 30px; margin-bottom: 20px; background: #0f172a; border: 2px solid #3730a3; border-radius: 12px; padding: 30px 20px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); transform: skew(-3deg);">
+                    <div style="transform: skew(3deg); text-align: center; width: 100%;">
+                        <div style="position: absolute; top: -25px; right: 0px; background: #facc15; color: #0f172a; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: rotate(5deg); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid #0f172a;">
+                            <span style="display: block; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase;">Precio Regular</span>
+                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 250.00' : 'US$ 45.00'"></span>
+                        </div>
+                        <div style="text-transform: uppercase; font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: #818cf8; margin-bottom: 5px;">Monto total a pagar</div>
+                        <div style="font-size: 3.5rem; font-weight: 900; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.2);">
+                            <span x-text="currencySymbol" style="font-size: 2rem; vertical-align: super; color: #818cf8;"></span>
+                            <span x-text="coursePrice.toFixed(2)"></span>
+                            <span class="price-currency" x-text="currency" style="font-size: 1.2rem; opacity: 0.8; vertical-align: baseline; color: #818cf8;">PEN</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Columna Derecha: Opciones de Pago -->
             <div class="payment-column">
-                <div class="payment-header">
+                <div x-show="!paymentSuccess" x-transition>
+                    <div class="payment-header">
                     <h2>Método de Pago</h2>
                 </div>
 
@@ -126,10 +223,6 @@
                                 <div class="info-row">
                                     <span>Titular:</span>
                                     <span x-text="manualDetails[manualMethod]?.name">Cargando...</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>Celular:</span>
-                                    <span x-text="manualDetails[manualMethod]?.phone">Cargando...</span>
                                 </div>
                                 <div class="info-row"
                                     style="border-top: 1px dashed var(--surface-border); margin-top: 8px; padding-top: 8px;">
@@ -200,6 +293,48 @@
                         Encriptación SSL 256-bit
                     </div>
                 </div>
+                </div> <!-- End of !paymentSuccess -->
+
+                <!-- Vista de Éxito y Rastreador de Progreso -->
+                <div class="success-view" x-show="paymentSuccess" x-transition style="display: none; text-align: center; padding: 40px 20px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                    <div style="font-size: 3.5rem; color: #10b981; margin-bottom: 10px; line-height: 1;">✅</div>
+                    <h3 style="color: #0f172a; margin-bottom: 15px; font-size: 1.5rem; font-weight: 700;">¡Voucher recibido con éxito!</h3>
+                    <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 35px;">Estamos procesando tu inscripción. Sigue el estado de tu trámite:</p>
+
+                    <!-- Progress Tracker -->
+                    <div class="progress-tracker" style="display: flex; justify-content: space-between; position: relative; margin-bottom: 40px; max-width: 400px; margin-left: auto; margin-right: auto;">
+                        <!-- Line -->
+                        <div style="position: absolute; top: 15px; left: 16%; right: 16%; height: 4px; background: #e2e8f0; z-index: 1;">
+                            <div style="width: 50%; height: 100%; background: #10b981; transition: width 1s ease-in-out;"></div>
+                        </div>
+
+                        <!-- Step 1 -->
+                        <div style="position: relative; z-index: 2; text-align: center; width: 33%;">
+                            <div style="width: 34px; height: 34px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; border: 4px solid white; box-shadow: 0 0 0 2px #10b981;">✓</div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #10b981; line-height: 1.2;">Pago<br>Enviado</div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div style="position: relative; z-index: 2; text-align: center; width: 33%;">
+                            <div style="width: 34px; height: 34px; background: white; color: #f59e0b; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; border: 4px solid #f59e0b; font-size: 1rem;">⏳</div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #f59e0b; line-height: 1.2;">Validando<br>Inscripción</div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div style="position: relative; z-index: 2; text-align: center; width: 33%;">
+                            <div style="width: 34px; height: 34px; background: white; color: #94a3b8; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; border: 4px solid #cbd5e1;">3</div>
+                            <div style="font-size: 0.75rem; font-weight: 600; color: #94a3b8; line-height: 1.2;">Accesos<br>Enviados</div>
+                        </div>
+                    </div>
+
+                    <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 20px;">
+                        <h4 style="margin-top: 0; color: #0f172a; margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">⚠️ Siguiente paso obligatorio</h4>
+                        <p style="color: #475569; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">Para agilizar la validación y enviarte tus accesos de inmediato, haz clic en el botón de abajo y envíanos un mensaje por WhatsApp confirmando tus datos.</p>
+                        <a href="https://wa.me/51999999999?text=Hola,%20acabo%20de%20subir%20mi%20voucher%20para%20el%20curso.%20Mis%20nombres%20son:" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; background: #25D366; color: white; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); transition: transform 0.2s ease;">
+                            <span style="font-size: 1.2rem; margin-right: 8px;">💬</span> Escribir a WhatsApp
+                        </a>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -249,6 +384,7 @@
     <script>
         function checkoutApp() {
             return {
+                paymentSuccess: false,
                 // Estado dinámico cargado desde la URL
                 courseName: '',
                 coursePrice: 30.00,
@@ -276,15 +412,13 @@
                         title: 'Pago con Yape',
                         qrUrl: '<?= BASE_URL ?>assets/images/Yape.jpg',
                         color: '#7400b8',
-                        name: 'Tu Nombre Apellido',
-                        phone: '999 999 999'
+                        name: 'Mariela Guadalupe Martinez Vargas'
                     },
                     plin: {
                         title: 'Pago con Plin',
                         qrUrl: '<?= BASE_URL ?>assets/images/plin.jpg',
                         color: '#00c8b0',
-                        name: 'Tu Nombre Apellido',
-                        phone: '999 999 999'
+                        name: 'Ricardo Cardenas'
                     }
                 },
 
@@ -359,10 +493,13 @@
                     .then(res => res.json())
                     .then(data => {
                         if(data.success) {
-                            alert('¡Comprobante subido con éxito! Por favor envíanos un mensaje para enviarte tus accesos.');
+                            this.paymentSuccess = true;
                             this.voucherFile = null;
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
                         } else {
                             alert('Ocurrió un error: ' + (data.error || 'Error desconocido'));
+                            btn.disabled = false;
+                            btn.innerText = 'Confirmar mi inscripción';
                         }
                     })
                     .catch(err => {

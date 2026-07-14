@@ -69,13 +69,13 @@
     <!-- styles for popup-->
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/styles.css">
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-88Z8HWMT5C"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPZGM0RZHW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
     
-      gtag('config', 'G-88Z8HWMT5C');
+      gtag('config', 'G-JPZGM0RZHW');
     </script>
     <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"7f4d2702c36e51657ae7d91f2c71cf01"})});</script>
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/modern_override.css?v=2.0.7?v=<?php echo file_exists(__DIR__ . '/../../../assets/css/modern_override.css?v=2.0.7') ? filemtime(__DIR__ . '/../../../assets/css/modern_override.css?v=2.0.7') : '1.0'; ?>" />

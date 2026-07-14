@@ -54,6 +54,30 @@ class CheckoutController extends Controller {
                     $jsonFileName = 'voucher_' . date('Ymd_His') . '_' . $curso . '.json';
                     file_put_contents($uploadDir . $jsonFileName, json_encode($studentData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
+                    // --- ALERTA POR WHATSAPP (CALLMEBOT) ---
+                    // IMPORTANTE: Reemplaza estos datos con tu numero y tu API key de CallMeBot
+                    $whatsapp_phone = ""; // Ej: +51999999999 (con el simbolo + y el codigo de pais)
+                    $whatsapp_apikey = ""; // Ej: 123456
+                    
+                    if (!empty($whatsapp_phone) && !empty($whatsapp_apikey)) {
+                        $mensaje_wa = "💰 *¡NUEVO PAGO REGISTRADO!* 💰\n\n";
+                        $mensaje_wa .= "👤 *Alumno:* " . $nombre . " " . $apellido . "\n";
+                        $mensaje_wa .= "🪪 *DNI:* " . $dni . "\n";
+                        $mensaje_wa .= "📱 *Celular:* " . $celular . "\n";
+                        $mensaje_wa .= "🎓 *Curso:* " . str_replace('_', ' ', $curso) . "\n\n";
+                        $mensaje_wa .= "Revisa tu panel de administración para ver el voucher subido.";
+                        
+                        $url_wa = "https://api.callmebot.com/whatsapp.php?phone=" . urlencode($whatsapp_phone) . "&text=" . urlencode($mensaje_wa) . "&apikey=" . urlencode($whatsapp_apikey);
+                        
+                        $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_URL, $url_wa);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_TIMEOUT, 5); // Timeout corto para no retrasar al usuario
+                        curl_exec($ch);
+                        curl_close($ch);
+                    }
+                    // ----------------------------------------
+
                     echo json_encode(['success' => true, 'file' => $fileName]);
                 } else {
                     echo json_encode(['success' => false, 'error' => 'Error al mover el archivo']);

@@ -629,13 +629,25 @@
                         </div>
                     </div>
 
-                    <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 20px;">
-                        <h4 style="margin-top: 0; color: #0f172a; margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">⚠️ Siguiente paso obligatorio</h4>
-                        <p style="color: #475569; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">Para agilizar la validación y enviarte tus accesos de inmediato, solicita tus credenciales en el chat de soporte que acaba de aparecer (o haciendo clic en el botón de abajo).</p>
-                        <button @click="$crisp.push(['do', 'chat:show']); $crisp.push(['do', 'chat:open']);" type="button" style="display: inline-flex; align-items: center; justify-content: center; background: #3730a3; color: white; padding: 14px 28px; border-radius: 30px; border: none; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 12px rgba(55, 48, 163, 0.3); transition: transform 0.2s ease; cursor: pointer;">
-                            <span style="font-size: 1.2rem; margin-right: 8px;">💬</span> Abrir Chat de Soporte
-                        </button>
-                    </div>
+                    <template x-if="paymentMethodUsed === 'manual'">
+                        <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 20px;">
+                            <h4 style="margin-top: 0; color: #0f172a; margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">⚠️ Siguiente paso obligatorio</h4>
+                            <p style="color: #475569; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">Para agilizar la validación y enviarte tus accesos de inmediato, haz clic en el botón de abajo y envíanos un mensaje por WhatsApp confirmando tus datos.</p>
+                            <a href="https://wa.me/51941208020?text=Hola,%20acabo%20de%20subir%20mi%20voucher%20para%20el%20curso.%20Mis%20nombres%20son:" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; background: #25D366; color: white; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); transition: transform 0.2s ease;">
+                                <span style="font-size: 1.2rem; margin-right: 8px;">💬</span> Escribir a WhatsApp
+                            </a>
+                        </div>
+                    </template>
+                    
+                    <template x-if="paymentMethodUsed === 'paypal'">
+                        <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 20px;">
+                            <h4 style="margin-top: 0; color: #0f172a; margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">✅ ¡Todo listo!</h4>
+                            <p style="color: #475569; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">Tu pago por PayPal ha sido recibido exitosamente. En un momento, recibirás tus credenciales. (Puedes comunicarte con nosotros desde el chat de soporte abajo a la derecha).</p>
+                            <button @click="$crisp.push(['do', 'chat:show']); $crisp.push(['do', 'chat:open']);" type="button" style="display: inline-flex; align-items: center; justify-content: center; background: #3730a3; color: white; padding: 14px 28px; border-radius: 30px; border: none; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 12px rgba(55, 48, 163, 0.3); transition: transform 0.2s ease; cursor: pointer;">
+                                <span style="font-size: 1.2rem; margin-right: 8px;">💬</span> Abrir Chat de Soporte
+                            </button>
+                        </div>
+                    </template>
                 </div>
             </div>
 
@@ -687,6 +699,7 @@
         function checkoutApp() {
             return {
                 paymentSuccess: false,
+                paymentMethodUsed: null,
                 // Estado dinámico cargado desde la URL
                 courseName: '',
                 coursePrice: 30.00,
@@ -796,11 +809,8 @@
                     .then(data => {
                         if(data.success) {
                             this.paymentSuccess = true;
+                            this.paymentMethodUsed = 'manual';
                             this.voucherFile = null;
-                            if (typeof $crisp !== 'undefined') {
-                                $crisp.push(["do", "chat:show"]);
-                                setTimeout(() => $crisp.push(["do", "chat:open"]), 500);
-                            }
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                         } else {
                             alert('Ocurrió un error: ' + (data.error || 'Error desconocido'));
@@ -846,6 +856,7 @@
                         onApprove: function (data, actions) {
                             return actions.order.capture().then(function (details) {
                                 self.paymentSuccess = true;
+                                self.paymentMethodUsed = 'paypal';
                                 if (typeof $crisp !== 'undefined') {
                                     $crisp.push(["do", "chat:show"]);
                                     setTimeout(() => $crisp.push(["do", "chat:open"]), 500);

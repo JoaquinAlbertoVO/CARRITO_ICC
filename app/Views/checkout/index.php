@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pasarela de Pago Express</title>
+    <?php $nombreCursoGA = isset($_GET['curso']) ? htmlspecialchars($_GET['curso']) : 'Express'; ?>
+    <title>Pasarela de Pago - <?= $nombreCursoGA ?></title>
     <!-- Fuentes de ICC.com.pe -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

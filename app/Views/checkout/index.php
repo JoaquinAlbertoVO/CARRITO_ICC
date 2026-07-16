@@ -811,6 +811,16 @@
                             this.paymentSuccess = true;
                             this.paymentMethodUsed = 'manual';
                             this.voucherFile = null;
+                            
+                            // META PIXEL: Rastrear Compra
+                            if (typeof fbq === 'function') {
+                                fbq('track', 'Purchase', {
+                                    value: this.coursePrice,
+                                    currency: this.currency,
+                                    content_name: this.courseName
+                                });
+                            }
+                            
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                         } else {
                             alert('Ocurrió un error: ' + (data.error || 'Error desconocido'));
@@ -857,6 +867,16 @@
                             return actions.order.capture().then(function (details) {
                                 self.paymentSuccess = true;
                                 self.paymentMethodUsed = 'paypal';
+                                
+                                // META PIXEL: Rastrear Compra
+                                if (typeof fbq === 'function') {
+                                    fbq('track', 'Purchase', {
+                                        value: self.coursePrice,
+                                        currency: self.currency,
+                                        content_name: self.courseName
+                                    });
+                                }
+                                
                                 if (typeof $crisp !== 'undefined') {
                                     $crisp.push(["do", "chat:show"]);
                                     setTimeout(() => $crisp.push(["do", "chat:open"]), 500);

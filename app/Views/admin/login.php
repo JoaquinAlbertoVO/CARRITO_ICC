@@ -45,7 +45,7 @@
             <a href="./" class="text-center text-light-gray mb-4">
 
                 <!-- LOGO -->
-                <img width="250" src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC Ingenieria">
+                <img width="250" src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC Ingeniería">
 
             </a>
         </div>

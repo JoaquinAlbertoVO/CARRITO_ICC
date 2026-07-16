@@ -5,7 +5,7 @@
 </div>
 
 <div class="container-fluid page__container">
-    <h3 class="m-lg-0"><strong>ICC - Ingenieria</strong></h3><br>
+    <h3 class="m-lg-0"><strong>ICC - Ingeniería</strong></h3><br>
     <div class="row card-group-row">
         <!-- Mes Actual -->
         <div class="col-lg-4 col-md-6 card-group-row__col">

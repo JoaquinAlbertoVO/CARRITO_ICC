@@ -35,7 +35,7 @@
 
                                 <div class="form-row">
                                     <div class="col-12 col-md-3 mb-3">
-                                        <label for="fname">Telefono</label>
+                                        <label for="fname">Teléfono</label>
                                         <input id="fname" type="number" name="telefono" class="form-control"
                                             value="<?php echo $data['telefono']; ?>"
                                             placeholder="Ingresar número celular">

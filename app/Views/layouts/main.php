@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="Academia, Cursos, Aprender, Curso Online, Clases Grabadas, Profesor, Estudiante, Networking, Habilidades, Talento, Desarrollar" />
+    <meta name="description" content="<?= $meta_description ?? 'Actualiza tus conocimientos y capacítate con nosotros. Te damos lo mejor en Ingeniería.' ?>" />
     
     <!-- Open Graph SEO -->
-    <meta property="og:title" content="<?= $title ?? 'ICC Perú - Instituto de CapacitaciÃ³n Continua' ?>" />
-    <meta property="og:description" content="<?= $meta_description ?? 'Actualiza tus conocimientos y capacÃ­tate con nosotros. Te damos lo mejor en Ingeniería.' ?>" />
+    <meta property="og:title" content="<?= $title ?? 'ICC Perú - Instituto de Capacitación Continua' ?>" />
+    <meta property="og:description" content="<?= $meta_description ?? 'Actualiza tus conocimientos y capacítate con nosotros. Te damos lo mejor en Ingeniería.' ?>" />
     <meta property="og:image" content="<?= $og_image ?? BASE_URL . 'assets/images/resources/logo-icc.png' ?>" />
     <meta property="og:url" content="<?= $og_url ?? BASE_URL ?>" />
     <meta property="og:type" content="website" />
@@ -21,7 +22,7 @@
     </script>
     <?php endif; ?>
     
-    <title><?= $title ?? 'ICC Perú - Instituto de CapacitaciÃ³n Continua' ?></title>
+    <title><?= $title ?? 'ICC Perú - Instituto de Capacitación Continua' ?></title>
     <link rel="preload" as="image" href="<?= BASE_URL ?>assets/images/banner_icc.png">
     <!-- favicons Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>assets/images/favicons/Favicon_Icc.png" />

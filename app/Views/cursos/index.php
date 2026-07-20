@@ -59,7 +59,7 @@
                             $docFoto = !empty($curso['docente_foto']) ? $curso['docente_foto'] : '50x50';
                         ?>
                         <!--Start Single Courses One-->
-                        <div class="col-xl-3 col-lg-6 col-md-6 filter-item featured">
+                        <div class="col-xl-4 col-lg-4 col-md-6 filter-item featured">
                             <div class="courses-one__single" data-aos="fade-up">
                                 <div class="courses-one__single-img">
                                     <div style="width: 100%; height: 200px; overflow: hidden;"><img src="<?= BASE_URL ?>assets/images/cursos/<?= htmlspecialchars($foto) ?>" alt="<?= htmlspecialchars($curso['nombre_curso']) ?>" style="width:100%; height:100%; object-fit:cover; border-radius: 12px; margin-bottom: 20px;"></div>

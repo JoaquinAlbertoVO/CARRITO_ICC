@@ -56,7 +56,7 @@
                 <?php if (!empty($ingenieria_courses)): ?>
                     <?php foreach ($ingenieria_courses as $course): ?>
                     <!--Start Single Courses One-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 filter-item development business">
+                    <div class="col-xl-4 col-lg-4 col-md-6 filter-item development business">
                         <div class="courses-one__single wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                             <div class="courses-one__single-img">
                                 <div style="width: 100%; height: 200px; overflow: hidden;"><img src="<?= BASE_URL ?><?= $course['image'] ?>" alt="<?= htmlspecialchars($course['title']) ?>" style="width:100%; height:100%; object-fit:cover; display:block;"></div>

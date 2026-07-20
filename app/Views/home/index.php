@@ -95,7 +95,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                 </div>
                 <div class="row">
                     <?php foreach($ingenieria_courses as $course): ?>
-                    <div class="col-xl-3 col-lg-6 col-md-6" data-aos="fade-up">
+                    <div class="col-xl-4 col-lg-4 col-md-6" data-aos="fade-up">
                         <div class="tarjeta-dark">
                             <div class="tarjeta-dark-img">
                                 <div style="width: 100%; height: 200px; overflow: hidden;"><img src="<?= BASE_URL ?><?= $course['image'] ?>" alt="Curso" style="width:100%; height:100%; object-fit:cover; display:block;"></div>

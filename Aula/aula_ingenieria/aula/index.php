@@ -278,7 +278,7 @@ if(mysqli_num_rows($result) > 0) {
     while ($curso = mysqli_fetch_array($result)) {
         $img_curso = ($curso['foto'] == 'default.png') 
             ? 'https://www.file-extension.info/images/resource/formats/img.png' 
-            : '../../administrador/administrador/img/cursos/'.$curso['foto'];
+            : '/assets/images/cursos/'.$curso['foto'];
         ?>
         <div class="col-lg-10 col-12 mb-4" data-aos="fade-up">
             <a href="curso.php?id=<?= $curso['id_curso'] ?>" class="text-decoration-none">
@@ -352,7 +352,7 @@ $query_cert = mysqli_query($conection, "SELECT uc.archivo_pdf, c.nombre_curso, c
 
 if($query_cert && mysqli_num_rows($query_cert) > 0) {
     while($cert = mysqli_fetch_array($query_cert)) {
-        $img_curso = ($cert['foto'] == 'default.png') ? 'https://www.file-extension.info/images/resource/formats/img.png' : '../../administrador/administrador/img/cursos/'.$cert['foto'];
+        $img_curso = ($cert['foto'] == 'default.png') ? 'https://www.file-extension.info/images/resource/formats/img.png' : '/assets/images/cursos/'.$cert['foto'];
         ?>
         <div class='col-md-6 col-lg-4 mb-4' data-aos="fade-up">
             <div class='cert-card h-100 d-flex flex-column'>

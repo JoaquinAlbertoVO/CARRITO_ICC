@@ -228,8 +228,8 @@ include 'includes/header.php';
             
             <?php 
             $iduser = $_SESSION['idUser'];
-            $resume_query = mysqli_query($conection, "SELECT c.id_curso, c.nombre_curso FROM usuario_cursos uc INNER JOIN cursos c ON uc.id_curso = c.id_curso WHERE uc.id_usuario = $iduser AND c.estado = 1 ORDER BY uc.id DESC LIMIT 1");
-            $resume_curso = mysqli_fetch_array($resume_query);
+            $resume_query = mysqli_query($conection, "SELECT c.id_curso, c.nombre_curso FROM usuario_cursos uc INNER JOIN cursos c ON uc.id_curso = c.id_curso WHERE uc.id_usuario = $iduser AND c.estado = 1 LIMIT 1");
+            $resume_curso = $resume_query ? mysqli_fetch_array($resume_query) : null;
             ?>
             <div class="home-banner text-white mb-5">
                 <div class="container-fluid position-relative text-center w-100 px-3 px-md-5">

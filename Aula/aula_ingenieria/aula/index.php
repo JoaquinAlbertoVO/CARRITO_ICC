@@ -13,31 +13,255 @@ include 'includes/header.php';
 
 
         <!-- Header Layout Content -->
-        <div class="mdk-header-layout__content page">
+        <div class="mdk-header-layout__content page" style="background-color: var(--bg-dark); min-height: 100vh;">
             <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
             
-            <div class="home-banner text-white mb-4">
-                <div class="container page__container">
-                    <h1 class="display-4 bold" data-aos="fade-up" data-aos-duration="800">Bienvenido a ICC - Instituto de Capacitación Continua</h1>
-                    <p class="lead mb-5" data-aos="fade-up" data-aos-duration="1000">Cursos en Ingeniería Eléctrica</p>
+            <style>
+                /* Premium UI Enhancements - ICC Brand Colors */
+                :root {
+                    --bg-dark: #111625;
+                    --card-bg: #1a233a;
+                    --card-border: rgba(255, 255, 255, 0.08);
+                    --accent: #e5c924;
+                    --accent-glow: rgba(229, 201, 36, 0.25);
+                    --text-main: #f3f4f6;
+                    --text-muted: #a4b1cd;
+                    --tag-bg: rgba(255, 255, 255, 0.05);
+                    --tag-border: rgba(255, 255, 255, 0.1);
+                }
+                
+                .home-banner {
+                    background: linear-gradient(135deg, rgba(17, 22, 37, 0.95) 0%, rgba(26, 35, 58, 0.98) 100%);
+                    border-bottom: 1px solid var(--card-border);
+                    padding: 5rem 0;
+                    position: relative;
+                    overflow: hidden;
+                }
+                
+                .home-banner::before {
+                    content: '';
+                    position: absolute;
+                    top: -50%;
+                    left: -50%;
+                    width: 200%;
+                    height: 200%;
+                    background: radial-gradient(circle, rgba(229, 201, 36, 0.06) 0%, transparent 50%);
+                    z-index: 0;
+                    pointer-events: none;
+                }
+
+                .home-banner .container {
+                    position: relative;
+                    z-index: 1;
+                }
+
+                .display-4.bold {
+                    font-weight: 800;
+                    background: linear-gradient(to right, #ffffff, #9ca3af);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    letter-spacing: -1px;
+                }
+
+                .course-card-premium {
+                    background-color: var(--card-bg);
+                    border: 1px solid var(--card-border);
+                    border-radius: 16px;
+                    overflow: hidden;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+                    position: relative;
+                }
+
+                .course-card-premium:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7), 0 0 20px var(--accent-glow);
+                    border-color: var(--accent-glow);
+                }
+
+                .course-img-wrapper {
+                    width: 260px;
+                    min-width: 260px;
+                    height: 180px;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .course-img-wrapper img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.6s ease;
+                }
+
+                .course-card-premium:hover .course-img-wrapper img {
+                    transform: scale(1.08);
+                }
+
+                .course-img-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(to right, transparent, var(--card-bg) 95%);
+                    pointer-events: none;
+                }
+
+                /* Play Overlay Hover */
+                .play-overlay {
+                    position: absolute;
+                    top: 0; left: 0; width: 85%; height: 100%;
+                    background: rgba(17, 22, 37, 0.6);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    opacity: 0;
+                    transition: all 0.3s ease;
+                    z-index: 2;
+                }
+                .play-overlay i {
+                    font-size: 4rem;
+                    color: var(--accent);
+                    transform: scale(0.5);
+                    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+                }
+                .course-card-premium:hover .play-overlay {
+                    opacity: 1;
+                }
+                .course-card-premium:hover .play-overlay i {
+                    transform: scale(1);
+                }
+
+                /* Barra de Progreso */
+                .progress-container {
+                    width: 100%;
+                    background-color: rgba(255, 255, 255, 0.1);
+                    border-radius: 10px;
+                    height: 8px;
+                    overflow: hidden;
+                    position: relative;
+                }
+                .progress-bar-fill {
+                    height: 100%;
+                    background: linear-gradient(90deg, #e5c924, #fff3a1);
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(229, 201, 36, 0.5);
+                }
+
+                .course-title {
+                    font-weight: 700;
+                    color: var(--text-main);
+                    font-size: 1.35rem;
+                    transition: color 0.3s ease;
+                }
+
+                .course-card-premium:hover .course-title {
+                    color: var(--accent);
+                }
+
+                .premium-tag {
+                    background-color: var(--tag-bg);
+                    color: var(--text-muted);
+                    font-size: 0.85rem;
+                    padding: 8px 16px;
+                    border-radius: 30px;
+                    display: inline-flex;
+                    align-items: center;
+                    border: 1px solid var(--tag-border);
+                    backdrop-filter: blur(4px);
+                    transition: all 0.2s ease;
+                }
+
+                .premium-tag:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                    color: var(--text-main);
+                }
+
+                .premium-tag i {
+                    font-size: 18px;
+                    margin-right: 6px;
+                    color: var(--accent);
+                }
+                
+                .cert-card {
+                    background-color: var(--card-bg);
+                    border: 1px solid var(--card-border);
+                    border-radius: 16px;
+                    overflow: hidden;
+                    transition: all 0.3s ease;
+                }
+                
+                .cert-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 15px 30px -10px rgba(0,0,0,0.6);
+                    border-color: rgba(255, 255, 255, 0.15);
+                }
+                
+                .btn-premium {
+                    background: linear-gradient(135deg, #e5c924, #bfa61c);
+                    border: none;
+                    color: #111625;
+                    border-radius: 30px;
+                    padding: 10px 20px;
+                    font-weight: 600;
+                    letter-spacing: 0.5px;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(229, 201, 36, 0.3);
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .btn-premium:hover {
+                    background: linear-gradient(135deg, #bfa61c, #998416);
+                    transform: scale(1.02);
+                    box-shadow: 0 6px 20px rgba(229, 201, 36, 0.5);
+                    color: #111625;
+                    text-decoration: none;
+                }
+            </style>
+            
+            <?php 
+            $iduser = $_SESSION['idUser'];
+            $resume_query = mysqli_query($conection, "SELECT c.id_curso, c.nombre_curso FROM usuario_cursos uc INNER JOIN cursos c ON uc.id_curso = c.id_curso WHERE uc.id_usuario = $iduser AND c.estado = 1 ORDER BY uc.id DESC LIMIT 1");
+            $resume_curso = mysqli_fetch_array($resume_query);
+            ?>
+            <div class="home-banner text-white mb-5">
+                <div class="container-fluid position-relative text-center w-100 px-3 px-md-5">
+                    <h1 class="display-4 bold mb-3" data-aos="fade-up" data-aos-duration="800" style="font-size: 2.8rem; line-height: 1.2;">
+                        Bienvenido a ICC <br>
+                        <span style="font-size: 2.2rem; color: #e2e8f0; font-weight: 600;">Instituto de Capacitación Continua</span>
+                    </h1>
+                    <p class="lead mb-4" style="color: #a1a1aa; font-size: 1.25rem;" data-aos="fade-up" data-aos-duration="1000">Cursos en Ingeniería Eléctrica</p>
+                    
+                    <?php if($resume_curso): ?>
+                    <div class="d-inline-flex mt-2 mx-auto" data-aos="fade-up" data-aos-duration="1000">
+                        <div style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 50px; border: 1px solid rgba(229, 201, 36, 0.2); box-shadow: 0 10px 20px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; padding: 6px 6px 6px 20px;">
+                            <h6 class="text-uppercase mb-0 mr-4 d-flex align-items-center" style="color: var(--accent); letter-spacing: 1px; font-size: 0.8rem; font-weight:700;">
+                                <i class="material-icons mr-2" style="font-size: 20px;">play_circle_filled</i> Continuar: <span class="text-white ml-2" style="font-weight: 600; text-transform: none;"><?= htmlspecialchars($resume_curso['nombre_curso']) ?></span>
+                            </h6>
+                            <a href="curso.php?id=<?= $resume_curso['id_curso'] ?>" class="btn-premium" style="padding: 8px 24px; font-size: 0.85rem; border-radius: 30px; margin-bottom: 0;">Retomar</a>
+                        </div>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
 
             <div class="container page__container">
-                <div class="m-4 p-4">
-                    <h2 class="bold mb-1 text-center" style="color: #fff;">Cursos Activos</h2>
-                    <p class="lead text-muted text-center" style="color: #fad705;">Nuestros cursos matriculados</p>
+                <div class="mb-5 pb-2 border-bottom" style="border-color: rgba(255,255,255,0.05) !important;" data-aos="fade-in">
+                    <h2 class="bold mb-2 text-center" style="color: #fff; font-size: 2.2rem;">Cursos Activos</h2>
+                    <p class="text-center" style="color: var(--accent); font-size: 1.1rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;">Nuestros cursos matriculados</p>
                 </div>
-                <div class="d-flex justify-content-around pb-4">
+                <div class="pb-4">
+                    <div class="row justify-content-center">
 
-                    <div class="row">
-
-                        
                         <!-- INICIO CURSOS DINAMICOS -->
 <?php  
-$iduser = $_SESSION['idUser'];
-mysqli_set_charset($conection,"utf8");
-
 // Consulta dinámica a la tabla usuario_cursos unida con cursos
 $sql = "SELECT c.id_curso, c.nombre_curso, c.foto, c.horas_academicas, c.lecciones, c.categoria 
         FROM usuario_cursos uc 
@@ -56,24 +280,40 @@ if(mysqli_num_rows($result) > 0) {
             ? 'https://www.file-extension.info/images/resource/formats/img.png' 
             : '../../administrador/administrador/img/cursos/'.$curso['foto'];
         ?>
-        <div class="col-12 mb-3">
+        <div class="col-lg-10 col-12 mb-4" data-aos="fade-up">
             <a href="curso.php?id=<?= $curso['id_curso'] ?>" class="text-decoration-none">
-                <div class="card shadow-sm border-0 d-flex flex-row align-items-center" style="border-radius:12px; overflow:hidden; background-color: #2d3139; transition: transform 0.2s;">
-                    <div style="width: 220px; min-width: 220px; height: 160px; position: relative;">
-                        <img src="<?= $img_curso ?>" style="width:100%; height:100%; object-fit: cover;" alt="Portada Curso">
+                <div class="course-card-premium">
+                    <div class="course-img-wrapper">
+                        <img src="<?= $img_curso ?>" alt="Portada Curso">
+                        <div class="play-overlay"><i class="material-icons">play_circle_filled</i></div>
+                        <div class="course-img-overlay"></div>
                     </div>
-                    <div class="p-4 w-100">
-                        <h4 class="text-white mb-3 d-flex align-items-center" style="font-weight: 600;">
-                            <i class="material-icons text-success mr-2">check_circle</i> 
+                    <div class="p-4 p-md-5 w-100">
+                        <h4 class="course-title mb-4 d-flex align-items-center">
+                            <i class="material-icons mr-3" style="color: var(--accent); font-size: 28px;">check_circle</i> 
                             <?= htmlspecialchars($curso['nombre_curso']) ?>
                         </h4>
-                        <div class="d-flex align-items-center">
-                            <span class="mr-3" style="background-color: #3b3f46; color: #a1a6b0; font-size: 0.9rem; padding: 6px 14px; border-radius: 20px; display: inline-flex; align-items: center; border: 1px solid #4a505c;">
-                                <i class="material-icons mr-1" style="font-size:16px;">signal_cellular_alt</i> <?= htmlspecialchars($curso['categoria'] ?? 'Básico') ?>
+                        <div class="d-flex flex-wrap align-items-center" style="gap: 12px;">
+                            <span class="premium-tag">
+                                <i class="material-icons">signal_cellular_alt</i> <?= htmlspecialchars($curso['categoria'] ?? 'Básico') ?>
                             </span>
-                            <span style="background-color: #3b3f46; color: #a1a6b0; font-size: 0.9rem; padding: 6px 14px; border-radius: 20px; display: inline-flex; align-items: center; border: 1px solid #4a505c;">
-                                <i class="material-icons mr-1" style="font-size:16px;">schedule</i> <?= $curso['horas_academicas'] ?> horas de contenido
+                            <span class="premium-tag">
+                                <i class="material-icons">schedule</i> <?= $curso['horas_academicas'] ?> horas de contenido
                             </span>
+                        </div>
+                        
+                        <?php 
+                        // Simulación de progreso (en el futuro esto debe venir de la BD)
+                        $progreso_demo = rand(15, 95); 
+                        ?>
+                        <div class="mt-4 pt-3 border-top" style="border-color: var(--card-border) !important;">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">Progreso del curso</span>
+                                <span style="color: var(--accent); font-size: 0.85rem; font-weight: 800;"><?= $progreso_demo ?>%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar-fill" style="width: <?= $progreso_demo ?>%;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,14 +322,26 @@ if(mysqli_num_rows($result) > 0) {
         <?php
     }
 } else {
-    echo "<div class='col-12 text-center text-white'><p>No tienes cursos inscritos por el momento.</p></div>";
+    echo "
+    <div class='col-12 text-center py-5' data-aos='fade-up'>
+        <div style='background: var(--card-bg); border: 1px dashed rgba(255,255,255,0.1); border-radius: 20px; padding: 60px 20px; max-width: 600px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.2);'>
+            <div style='width: 100px; height: 100px; background: rgba(229, 201, 36, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;'>
+                <i class='material-icons' style='font-size: 50px; color: var(--accent);'>explore</i>
+            </div>
+            <h3 class='text-white mb-3' style='font-weight: 700;'>¡Aún no tienes cursos activos!</h3>
+            <p style='color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px;'>Explora nuestro catálogo y empieza a aprender con los mejores expertos de la industria.</p>
+            <a href='../../' class='btn-premium' style='padding: 12px 30px; font-size: 1.1rem;'><i class='material-icons mr-2'>storefront</i> Ver Catálogo de Cursos</a>
+        </div>
+    </div>";
 }
 ?>
 <!-- FIN CURSOS DINAMICOS -->
 
 <!-- SECCION CERTIFICADOS -->
 <div class="col-12 mt-5">
-    <h3 class="text-white text-center mb-4 border-top pt-4" style="border-color: #4a505c !important;">Tus Certificados</h3>
+    <div class="mb-5 pb-2 border-bottom" style="border-color: rgba(255,255,255,0.05) !important;" data-aos="fade-in">
+        <h2 class="bold mb-2 text-center" style="color: #fff; font-size: 2.2rem;">Tus Certificados</h2>
+    </div>
 </div>
 <?php
 $iduser = $_SESSION['idUser'];
@@ -102,22 +354,22 @@ if($query_cert && mysqli_num_rows($query_cert) > 0) {
     while($cert = mysqli_fetch_array($query_cert)) {
         $img_curso = ($cert['foto'] == 'default.png') ? 'https://www.file-extension.info/images/resource/formats/img.png' : '../../administrador/administrador/img/cursos/'.$cert['foto'];
         ?>
-        <div class='col-md-6 col-lg-4 mb-4'>
-            <div class='card' style="background-color: #2d3139; border-radius: 12px; border: 1px solid #4a505c; overflow: hidden;">
+        <div class='col-md-6 col-lg-4 mb-4' data-aos="fade-up">
+            <div class='cert-card h-100 d-flex flex-column'>
                 <div class='card-img-top text-center' style='height:200px; overflow:hidden;'>
                     <img src='<?php echo $img_curso; ?>' style='width:100%; height:100%; object-fit: cover;' alt='Curso'>
                 </div>
-                <div class='p-3 text-center border-bottom' style="border-color: #4a505c !important;">
-                    <div class='bold mb-2'>
-                        <h5 class='text-white'><?php echo $cert['nombre_curso']; ?></h5>
+                <div class='p-4 text-center border-bottom flex-grow-1' style="border-color: rgba(255,255,255,0.05) !important;">
+                    <div class='bold mb-3'>
+                        <h5 class='text-white' style="font-weight: 600; line-height: 1.4;"><?php echo $cert['nombre_curso']; ?></h5>
                     </div>
-                    <div class='mb-2 text-muted'>
-                        <small>Subido el: <?= date('d/m/Y', strtotime($cert['fecha_subida'])) ?></small>
+                    <div class='text-muted'>
+                        <small style="font-size: 0.9rem;">Subido el: <?= date('d/m/Y', strtotime($cert['fecha_subida'])) ?></small>
                     </div>
                 </div>
-                <div class='p-3 text-center'>
-                    <a target="_blank" href='/assets/certificados/<?= $cert['archivo_pdf'] ?>' class='btn btn-success btn-block' style='border-radius:20px; font-weight: bold;'>
-                        <i class="material-icons mr-1">file_download</i> Descargar Certificado
+                <div class='p-4 text-center mt-auto'>
+                    <a target="_blank" href='/assets/certificados/<?= $cert['archivo_pdf'] ?>' class='btn-premium w-100'>
+                        <i class="material-icons mr-2">file_download</i> Descargar
                     </a>
                 </div>         
             </div>
@@ -125,7 +377,16 @@ if($query_cert && mysqli_num_rows($query_cert) > 0) {
         <?php
     }
 } else {
-    echo "<div class='col-12 text-center text-muted'><p>No tienes certificados disponibles aún.</p></div>";
+    echo "
+    <div class='col-12 text-center py-5' data-aos='fade-up'>
+        <div style='background: var(--card-bg); border: 1px dashed rgba(255,255,255,0.1); border-radius: 20px; padding: 50px 20px; max-width: 500px; margin: 0 auto;'>
+            <div style='width: 80px; height: 80px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;'>
+                <i class='material-icons' style='font-size: 40px; color: var(--text-muted);'>workspace_premium</i>
+            </div>
+            <h4 class='text-white mb-2' style='font-weight: 600;'>Sin certificados disponibles</h4>
+            <p style='color: var(--text-muted); font-size: 1rem;'>Tus certificados aparecerán aquí una vez que culmines satisfactoriamente un curso.</p>
+        </div>
+    </div>";
 }
 ?>
                     </div> <!-- row -->

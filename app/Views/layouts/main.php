@@ -29,14 +29,14 @@
     <link rel="icon" type="image/png" sizes="32x32" href="<?= BASE_URL ?>assets/images/favicons/Favicon_Icc.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="<?= BASE_URL ?>assets/images/favicons/Favicon_Icc.png" />
     <link rel="manifest" href="<?= BASE_URL ?>assets/images/favicons/site.webmanifest" />
-    <meta name="description" content="<?= $meta_description ?? 'ICC - Instituto de CapacitaciÃ³n Continua' ?>" />
+    <meta name="description" content="<?= $meta_description ?? 'ICC - Instituto de Capacitación Continua' ?>" />
 
     <style>
-        /* CorrecciÃ³n para que las letras del menÃº sean blancas cuando se hace scroll (sticky header) */
+        /* Corrección para que las letras del menú sean blancas cuando se hace scroll (sticky header) */
         .stricky-header.stricky-fixed .main-menu__list > li > a {
             color: #ffffff !important;
         }
-        /* Color azul para el Ã­tem activo (opcional, para mantener el contraste si es necesario) */
+        /* Color azul para el ítem activo (opcional, para mantener el contraste si es necesario) */
         .stricky-header.stricky-fixed .main-menu__list > li.current > a {
             color: #3b5998 !important; 
         }
@@ -122,12 +122,12 @@
 
                         <div class="main-header--one__top-right clearfix">
                             <ul class="main-header--one__top-social-link list-unstyled clearfix">
-                                <li><a href="https://wa.link/myq5iv" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
-                                <li><a href="https://www.facebook.com/icc.com.pe/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a></li>
-                                <li><a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
-                                <!-- ImplementaciÃ³n de TikTok-->
-                                <li><a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
+                                <li><a href="https://wa.link/myq5iv" target="_blank" aria-label="WhatsApp" style="background-color: #25D366; color: white; opacity: 1;"><i class="fab fa-whatsapp"></i></a></li>
+                                <li><a href="https://www.facebook.com/icc.com.pe/" target="_blank" aria-label="Facebook" style="background-color: #1877F2; color: white; opacity: 1;"><i class="fab fa-facebook"></i></a></li>
+                                <li><a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" aria-label="Instagram" style="background-color: #E1306C; color: white; opacity: 1;"><i class="fab fa-instagram"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_blank" aria-label="LinkedIn" style="background-color: #0077B5; color: white; opacity: 1;"><i class="fab fa-linkedin"></i></a></li>
+                                <!-- Implementación de TikTok-->
+                                <li><a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok" style="background-color: #000000; color: white; opacity: 1;"><i class="fab fa-tiktok"></i></a></li>
                             </ul>
 
                             <div class="main-header--one__top-contact-info clearfix">
@@ -189,15 +189,14 @@
         <li class="dropdown">
             <a href="<?= BASE_URL ?>cursos/ingenieria" class="ver-especialidades">Ver Especialidades</a>
             <ul>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/analisis-facturacion">Análisis de facturas y Evaluación de Tarifas E.</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/banco-condensadores">Banco de Condensadores</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/electricidad-basica">Electricidad Básica</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/gestion-seguridad">Gestión y Seguridad en el Trabajo Ley Nº29783</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/motores-electricos">Motores Eléctricos</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/plc">Programación Básica de PLC</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/puesta-tierra">Sistema Puesta a Tierra</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/regulacion-mercado">Regulación del Mercado de Energía</a></li>
-                <li><a href="<?= BASE_URL ?>cursos/detalle/configuracion-redes">Configuración e Instalación de Analizadores de redes</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/analizador-de-redes">Analizador de Redes</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/banco-de-condensadores">Banco de Condensadores</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/canalizacion-de-tuberias-conduit">Canalización de Tuberías Conduit</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/especializacion-en-electricidad-industrial">Especialización en Electricidad Industrial</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/empalmes-termocontraibles-en-mt">Empalmes Termocontraíbles en MT</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/mantenimiento-de-subestaciones-electricas">Mantenimiento de Subestaciones Eléctricas</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/terminaciones-termocontraibles-en-mt">Terminaciones Termocontraíbles en MT</a></li>
+                <li><a href="<?= BASE_URL ?>cursos/detalle/variadores-de-frecuencia">Variadores de Frecuencia</a></li>
             </ul>
         </li>
     </ul>
@@ -322,8 +321,8 @@
 <div id="tiktok-modal" class="tiktok-modal" style="display: none;">
     <div class="tiktok-modal-content">
         <span class="tiktok-modal-close" id="btn-close-tiktok">&times;</span>
-        <h3 class="tiktok-modal-title">INGRESAR CUPÃ“N</h3>
-        <input type="text" id="tiktok-coupon-input" class="tiktok-modal-input" placeholder="Escribe tu cÃ³digo aquÃ­">
+        <h3 class="tiktok-modal-title">INGRESAR CUPÓN</h3>
+        <input type="text" id="tiktok-coupon-input" class="tiktok-modal-input" placeholder="Escribe tu código aquí">
         <button id="btn-submit-tiktok" class="tiktok-modal-submit">ENVIAR</button>
     </div>
 </div>
@@ -357,7 +356,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
         var cuponesValidos = {
-        // INGENIERÃA ELÃ‰CTRICA (Antiguos)
+        // INGENIERÃA ELÉCTRICA (Antiguos)
         'TIKTOK-FACTURAS': { curso: 'Análisis de facturas y Evaluación de Tarifas E.', precio: 50, moneda: 'PEN' },
         'TIKTOK-BANCO': { curso: 'Banco de Condensadores', precio: 50, moneda: 'PEN' },
         'TIKTOK-ELECTRICIDAD': { curso: 'Electricidad Básica', precio: 50, moneda: 'PEN' },
@@ -396,8 +395,8 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Â¡Ups!',
-                    text: 'Cupón no vÃ¡lido o expirado.',
+                    title: '¡Ups!',
+                    text: 'Cupón no válido o expirado.',
                     confirmButtonColor: 'var(--thm-base)',
                     confirmButtonText: 'Intentar de nuevo'
                 });
@@ -473,7 +472,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <!--<li><a href="https://wa.link/myq5iv" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>-->
                                     <li><a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
                                     <li><a href="https://www.linkedin.com/in/empresa-icc-313316253//" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
-                                    <!--ImplementaciÃ³n de TikTok-->
+                                    <!--Implementación de TikTok-->
                                     <li><a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
                                 </ul>
                             </div>
@@ -531,7 +530,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <a href="https://www.facebook.com/icc.com.pe/" target="_blank" class="fab fa-facebook-square" aria-label="Facebook"></a>
                         <a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" class="fab fa-instagram" aria-label="Instagram"></a>
                         <a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_blank" class="fab fa-linkedin" aria-label="LinkedIn"></a>
-                        <!--ImplementaciÃ³n de TikTok -->
+                        <!--Implementación de TikTok -->
                         <a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                     </div><!-- /.mobile-nav__social -->
                 </div><!-- /.mobile-nav__top -->
@@ -601,7 +600,7 @@ document.addEventListener("DOMContentLoaded", function() {
             offset: 100
         });
         
-        // ConfiguraciÃ³n por defecto de Toastr
+        // Configuración por defecto de Toastr
         toastr.options = {
             "closeButton": true,
             "progressBar": true,

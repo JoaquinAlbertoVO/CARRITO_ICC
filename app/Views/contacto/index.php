@@ -1,6 +1,26 @@
 
     <!--Page Header Start-->
-    <section class="page-header clearfix" style="background-image: url(<?= BASE_URL ?>assets/images/backgrounds/page-header-bg.jpg);">
+    <style>
+        .contact-header {
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+        }
+        .contact-header::before {
+            display: none !important;
+        }
+        .contact-header .page-header__wrapper {
+            padding-top: 100px;
+        }
+        .contact-header .page-header__title {
+            padding-bottom: 70px;
+        }
+        .contact-header h2 {
+            color: #1a1e68 !important; /* Azul oscuro corporativo para que contraste con el fondo claro */
+            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
+        }
+    </style>
+    <section class="page-header contact-header clearfix" style="background-image: url(<?= BASE_URL ?>assets/images/CINTA_DE_CONTACTANOS.png);">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">

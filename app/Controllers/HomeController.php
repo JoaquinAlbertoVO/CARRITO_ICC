@@ -7,14 +7,35 @@ class HomeController extends Controller {
     public function index() {
         $cursoModel = new \App\Models\Curso();
         $cursos_db = $cursoModel->getCursos(1);
-
+        
         $ingenieria_courses = [];
+        
+        $remove_keywords = [
+            'stenergy',
+            'puesta a tierra',
+            'p.l.c',
+            'plc',
+            'electricidad basica',
+            'electricidad básica'
+        ];
+
         foreach ($cursos_db as $c) {
-            $cat = strtolower($c['categoria'] ?? '');
-            if ($cat == 'ingeniería' || $cat == 'ingenieria' || $cat == '') {
+            $nombre_lower = mb_strtolower($c['nombre_curso'], 'UTF-8');
+            
+            $should_remove = false;
+            foreach ($remove_keywords as $rk) {
+                if (mb_strpos($nombre_lower, $rk, 0, 'UTF-8') !== false) {
+                    $should_remove = true;
+                    break;
+                }
+            }
+            if ($should_remove) continue;
+
+            $cat = mb_strtolower($c['categoria'] ?? '', 'UTF-8');
+            if ($cat === 'ingeniería' || $cat === 'ingenieria' || $cat === '') {
                 $slug = strtolower(str_replace(' ', '_', $c['nombre_curso']));
                 $slug = preg_replace('/[^a-z0-9_]/', '', $slug);
-                $slug = str_replace('_', '-', $slug); // use hyphens for pretty URLs
+                $slug = str_replace('_', '-', $slug);
 
                 $ingenieria_courses[] = [
                     "id" => $c['id_curso'],

@@ -31,19 +31,17 @@
                         <!--Start Single Courses One-->
                         <div class="courses-one__single style2 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                             <div class="courses-one__single-img">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 20px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Banner del Curso)</span></h4></div>
+                                <img src="<?= BASE_URL ?>assets/images/cursos/<?= htmlspecialchars($curso['foto'] ?? 'default.png') ?>" alt="<?= htmlspecialchars($curso['nombre_curso'] ?? 'Curso') ?>" style="width: 100%; height: 350px; object-fit: cover; border-top-left-radius: 8px; border-top-right-radius: 8px;">
                                 <div class="overlay-text">
                                     <p>libre</p>
                                 </div>
                             </div>
                             <div class="courses-one__single-content">
                                 <div class="courses-one__single-content-overlay-img">
-                                    <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto;">
-    <span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span>
-</div>
+                                    <img src="https://ui-avatars.com/api/?name=Ricardo+Cardenas&background=random&color=fff&size=50" alt="Profesor" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
                                 </div>
-                                <h6 class="courses-one__single-content-name">Pedro Pablo Aparicio Arias <span>Actualizado recientemente 20 junio, 2021</span></h6>
-                                <h4 class="courses-one__single-content-title">Electricidad Básica</h4>
+                                <h6 class="courses-one__single-content-name">Ricardo Cardenas <span>Actualizado recientemente</span></h6>
+                                <h4 class="courses-one__single-content-title"><?= htmlspecialchars($curso['nombre_curso'] ?? 'Curso en ICC') ?></h4>
                                 <div class="courses-one__single-content-review-box">
                                     <ul class="list-unstyled">
                                         <li><i class="fa fa-star"></i></li>
@@ -79,7 +77,7 @@
                                 </div><br>
                                 <div class="course-details__content-list">
                                     <h3 class="course-details__curriculum-single-title">Inversión</h3>
-                                    <h5 class="" style="color: #4D5FE3;">âž¥ 90 Soles ó 23 dólares</h5><br>
+                                    <h5 class="" style="color: #4D5FE3;">➤ 90 Soles ó 23 dólares</h5><br>
                                     <span style="color: black;">Incluye:</span>
                                     <ul class="list-unstyled">
                                         <li>
@@ -184,11 +182,11 @@
                                             <span class=""></span>
                                         </div>
                                         <div class="text">
-                                            <p>Luego enviar la foto del voucher por este medio, en conjunto con su NÂ° de DNI, correo electrónico y los cursos a elegir.</p>
+                                            <p>Luego enviar la foto del voucher por este medio, en conjunto con su N° de DNI, correo electrónico y los cursos a elegir.</p>
                                         </div>
                                     </li>
                                 </ol>
-                                <span>âš ï¸ NOTA IMPORTANTE Si desea Boleta o Factura, solicitarlo por este medio y abonar únicamente a la Cuenta Corriente, caso contrario solo abonar a las cuentas.</span>
+                                <span>⚠️ NOTA IMPORTANTE Si desea Boleta o Factura, solicitarlo por este medio y abonar únicamente a la Cuenta Corriente, caso contrario solo abonar a las cuentas.</span>
                             </div>
                             <!--End Single Course Details Curriculum-->
 
@@ -340,7 +338,7 @@
                             <ul class="course-details__new-courses-list list-unstyled">
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 20px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Banner del Curso)</span></h4></div>
+                                        <img src="<?= BASE_URL ?>assets/images/cursos/Portada_ANA.png" alt="Curso" style="width: 65px; height: 65px; object-fit: cover; border-radius: 5px;">
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="<?= BASE_URL ?>cursos/detalle/analisis-facturacion">Análisis de facturación y tarifas eléctricas</a></h4>
@@ -362,7 +360,7 @@
 
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 20px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Banner del Curso)</span></h4></div>
+                                        <img src="<?= BASE_URL ?>assets/images/cursos/Portada_EMPTER.png" alt="Curso" style="width: 65px; height: 65px; object-fit: cover; border-radius: 5px;">
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="<?= BASE_URL ?>cursos/detalle/puesta-tierra">Sistema puesta a tierra</a></h4>
@@ -384,7 +382,7 @@
 
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-top-left-radius: 8px; border-top-right-radius: 8px; width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;"><h4 style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 20px;">[ ESPACIO PARA IMAGEN ]<br><span style="font-size:14px; font-weight:normal; color:#fff;">(Banner del Curso)</span></h4></div>
+                                        <img src="<?= BASE_URL ?>assets/images/cursos/Portada_BDC.png" alt="Curso" style="width: 65px; height: 65px; object-fit: cover; border-radius: 5px;">
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
                                         <h4 class="course-details__new-courses-list-item-content-title"><a href="<?= BASE_URL ?>cursos/detalle/banco-condensadores">Banco de condensadores</a></h4>

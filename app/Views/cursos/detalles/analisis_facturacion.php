@@ -79,7 +79,7 @@
                                 </div><br>
                                 <div class="course-details__content-list">
                                     <h3 class="course-details__curriculum-single-title">Inversión</h3>
-                                    <h5 class="" style="color: #4D5FE3;">âž¥ 90 Soles ó 23 dólares</h5><br>
+                                    <h5 class="" style="color: #4D5FE3;">➤ 90 Soles ó 23 dólares</h5><br>
                                     <span style="color: black;">Incluye:</span>
                                     <ul class="list-unstyled">
                                         <li>
@@ -331,11 +331,11 @@
                                             <span class=""></span>
                                         </div>
                                         <div class="text">
-                                            <p>Luego enviar la foto del voucher por este medio, en conjunto con su NÂ° de DNI, correo electrónico y los cursos a elegir.</p>
+                                            <p>Luego enviar la foto del voucher por este medio, en conjunto con su N° de DNI, correo electrónico y los cursos a elegir.</p>
                                         </div>
                                     </li>
                                 </ol>
-                                <span>âš ï¸ NOTA IMPORTANTE Si desea Boleta o Factura, solicitarlo por este medio y abonar únicamente a la Cuenta Corriente, caso contrario solo abonar a las cuentas.</span>
+                                <span>⚠️ NOTA IMPORTANTE Si desea Boleta o Factura, solicitarlo por este medio y abonar únicamente a la Cuenta Corriente, caso contrario solo abonar a las cuentas.</span>
                             </div>
                             <!--End Single Course Details Curriculum-->
 

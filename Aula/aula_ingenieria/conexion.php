@@ -26,5 +26,7 @@ $conection = @mysqli_connect($host, $user, $password, $db);
 
 if (!$conection) {
 	echo "Error de Conexion: " . mysqli_connect_error();
+} else {
+    mysqli_set_charset($conection, "utf8mb4");
 }
 ?>

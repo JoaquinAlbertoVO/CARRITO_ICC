@@ -69,9 +69,9 @@
                                 </div>
                                 <div class="courses-one__single-content" style="background-color: white;">
                                     <div class="courses-one__single-content-overlay-img">
-                                        <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto; overflow: hidden;">
+                                        <div style="background-color: var(--mo-surface); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto; overflow: hidden;">
                                             <?php if ($docFoto !== '50x50'): ?>
-                                                <img src="<?= BASE_URL ?>assets/images/docentes/<?= htmlspecialchars($docFoto) ?>" style="width:100%; height:100%; object-fit:cover;" alt="Docente">
+                                                <img src="<?= BASE_URL ?>assets/images/docentes/<?= htmlspecialchars($docFoto) ?>" style="width:100%; height:100%; object-fit:cover; border-radius: 50%;" alt="Docente">
                                             <?php else: ?>
                                                 <span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span>
                                             <?php endif; ?>

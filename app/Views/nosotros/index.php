@@ -1,7 +1,7 @@
 
 
     <!--Page Header Start-->
-    <section class="page-header clearfix" style="background-image: url(<?= BASE_URL ?>assets/images/backgrounds/icc_capacitacion.png);">
+    <section class="page-header clearfix" style="background-image: url(<?= BASE_URL ?>assets/images/APARTADO_NOSOTROS.png);">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -51,9 +51,7 @@
                 <div class="col-xl-6 col-lg-6">
                     <div class="why-choose-one__right  clearfix animated"   style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: slideInRight;">
                         <div class="why-choose-one__right-img clearfix">
-                            <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 16px; width: 100%; height: 400px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    
-</div>
+                            <img src="<?= BASE_URL ?>assets/images/NOSOTROS_471X400.png" alt="Nosotros" style="width: 100%; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); display: block;">
                             <!--<div class="why-choose-one__right-img-overlay">
                                 <p>SOMOS LA MEJOR INSTITUCIÓN</p>
                             </div>-->
@@ -69,15 +67,34 @@
     <!--Start Features Two-->
     <section class="features-two">
         <div class="container">
+            <style>
+                .hover-flip-z .features-two__single-img {
+                    transform-style: preserve-3d;
+                    perspective: 1000px;
+                }
+                .hover-flip-z .features-two__single-img-inner {
+                    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+                    transform: translateZ(0px);
+                }
+                .hover-flip-z .features-two__single-overlay {
+                    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
+                    transform: translateZ(50px);
+                }
+                .hover-flip-z:hover .features-two__single-img-inner {
+                    transform: translateZ(60px) scale(1.05);
+                }
+                .hover-flip-z:hover .features-two__single-overlay {
+                    transform: translateZ(-20px);
+                    opacity: 0;
+                }
+            </style>
             <div class="row">
                 <!--Start Single Features Two-->
                 <div class="col-xl-6 "  >
-                    <div class="features-two__single">
+                    <div class="features-two__single hover-flip-z">
                         <div class="features-two__single-img">
                             <div class="features-two__single-img-inner">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 16px; width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    
-</div>
+                                <img src="<?= BASE_URL ?>assets/images/MISION.png" alt="Misión" style="width: 100%; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); display: block;">
                             </div>
                             <div class="features-two__single-overlay">
                                 <h3 class="features-two__single-overlay-title"><a href="#">Misión</a>
@@ -91,12 +108,10 @@
 
                 <!--Start Single Features Two-->
                 <div class="col-xl-6 "  >
-                    <div class="features-two__single">
+                    <div class="features-two__single hover-flip-z">
                         <div class="features-two__single-img">
                             <div class="features-two__single-img-inner">
-                                <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 16px; width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-    
-</div>
+                                <img src="<?= BASE_URL ?>assets/images/VISION.png" alt="Visión" style="width: 100%; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); display: block;">
                             </div>
                             <div class="features-two__single-overlay">
                                 <h3 class="features-two__single-overlay-title"><a href="#">Visión</a>

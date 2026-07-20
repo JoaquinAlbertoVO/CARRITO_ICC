@@ -30,7 +30,7 @@
         <div class="container">
             <div class="section-title text-center">
                 <span class="section-title__tagline">Todos los meses encontrarás nuevo contenido en la plataforma</span>
-                <h2 class="section-title__title" style="color: #FFF;">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
+                <h2 class="section-title__title" style="color: #1a1e68;">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
             </div>
 
             <div class="row">
@@ -66,9 +66,9 @@
                             </div>
                             <div class="courses-one__single-content" style="background-color: white;">
                                 <div class="courses-one__single-content-overlay-img">
-                                    <div style="background-color: var(--mo-surface); border: 2px dashed var(--mo-accent); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto; overflow: hidden;">
+                                    <div style="background-color: var(--mo-surface); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; margin: 0 auto; overflow: hidden;">
                                         <?php if ($course['docente_foto'] && $course['docente_foto'] !== '50x50'): ?>
-                                            <img src="<?= BASE_URL ?>assets/images/docentes/<?= $course['docente_foto'] ?>" style="width:100%; height:100%; object-fit:cover;" alt="Docente">
+                                            <img src="<?= BASE_URL ?>assets/images/docentes/<?= $course['docente_foto'] ?>" style="width:100%; height:100%; object-fit:cover; border-radius: 50%;" alt="Docente">
                                         <?php else: ?>
                                             <span style="color: var(--mo-accent); font-family: var(--mo-font-heading); font-size: 9px; line-height: 1;">FOTO<br>50x50</span>
                                         <?php endif; ?>

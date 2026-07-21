@@ -71,6 +71,7 @@
                 .hover-flip-z .features-two__single-img {
                     transform-style: preserve-3d;
                     perspective: 1000px;
+                    position: relative;
                 }
                 .hover-flip-z .features-two__single-img-inner {
                     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -79,6 +80,7 @@
                 .hover-flip-z .features-two__single-overlay {
                     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
                     transform: translateZ(50px);
+                    border-radius: 16px !important;
                 }
                 .hover-flip-z:hover .features-two__single-img-inner {
                     transform: translateZ(60px) scale(1.05);
@@ -86,6 +88,23 @@
                 .hover-flip-z:hover .features-two__single-overlay {
                     transform: translateZ(-20px);
                     opacity: 0;
+                }
+                
+                /* Fix para dispositivos móviles */
+                @media only screen and (max-width: 767px) {
+                    .hover-flip-z .features-two__single-overlay {
+                        position: absolute !important;
+                        width: 100% !important;
+                        height: 100% !important;
+                        bottom: 0 !important;
+                        right: 0 !important;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        padding: 30px 20px !important;
+                    }
                 }
             </style>
             <div class="row">

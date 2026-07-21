@@ -21,11 +21,20 @@ try {
     
     // Lista de módulos a insertar (Duración máximo de 8 a 10 caracteres)
     $modulos = [
+        // PRESENTACIÓN
+        [
+            'modulo' => 'PRESENTACIÓN DEL CURSO',
+            'titulo' => 'Introducción al Curso',
+            'url_video' => 'https://www.youtube.com/watch?v=nDVQPwAPmvo',
+            'duracion' => '05:00',
+            'orden' => 0
+        ],
+        // MÓDULO 1
         [
             'modulo' => 'MÓDULO 1 CLASE VIRTUAL EN VIVO GRABADA',
-            'titulo' => 'Clase Virtual 1',
-            'url_video' => 'https://www.youtube.com/watch?v=nDVQPwAPmvo&list=PLIJfqFdcwwF4&index=8',
-            'duracion' => '01:30:00',
+            'titulo' => 'Clase Virtual 1 (Próximamente)',
+            'url_video' => 'https://www.youtube.com/watch?v=nDVQPwAPmvo', // Fallback temporal
+            'duracion' => '00:00:00',
             'orden' => 1
         ],
         // MÓDULO 2 DESGLOSADO

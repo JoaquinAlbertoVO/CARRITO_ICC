@@ -12,6 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;500;600;700&family=League+Spartan:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout.css?v=2.0">
 
     <!-- Alpine.js -->
@@ -566,9 +567,37 @@
                 </div>
 
                 <!-- Tarjeta de Confianza / Contacto -->
-                <div class="trust-signals" style="margin-top: 20px; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; text-align: center;">
-                    <h4 style="margin-top: 0; margin-bottom: 15px; font-size: 0.9rem; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Comunícate con nuestros asesores</h4>
-                    <img src="<?= BASE_URL ?>assets/images/CINTA_DE_CONTACTANOS.png" alt="Canales de Contacto" style="max-width: 100%; border-radius: 8px; display: block; margin: 0 auto;">
+                <div class="trust-signals" style="margin-top: 20px; background: #0f172a; border-radius: 12px; padding: 25px 20px; text-align: center; color: white; box-shadow: 0 10px 25px rgba(15,23,42,0.4);">
+                    <h4 style="margin-top: 0; margin-bottom: 20px; font-size: 0.95rem; color: #cbd5e1; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Comunícate con nuestros asesores</h4>
+                    
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 25px;">
+                        <a href="https://wa.link/myq5iv" target="_blank" aria-label="WhatsApp" style="background-color: #25D366; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.4rem;"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/icc.com.pe/" target="_blank" aria-label="Facebook" style="background-color: #1877F2; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" aria-label="Instagram" style="background-color: #E1306C; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.4rem;"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_blank" aria-label="LinkedIn" style="background-color: #0077B5; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok" style="background-color: #000000; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 20px; border-top: 1px solid #334155; padding-top: 25px;">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
+                            <div style="width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #3b82f6;">
+                                <i class="fas fa-phone-alt" style="color: #3b82f6; font-size: 1.2rem;"></i>
+                            </div>
+                            <div style="text-align: left;">
+                                <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Agente de mensajes</div>
+                                <div style="font-size: 1.15rem; font-weight: 700; color: white;">+51 986 884 219</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
+                            <div style="width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #3b82f6;">
+                                <i class="fas fa-envelope" style="color: #3b82f6; font-size: 1.2rem;"></i>
+                            </div>
+                            <div style="text-align: left;">
+                                <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Agente de mensajes</div>
+                                <div style="font-size: 1.15rem; font-weight: 700; color: white;">informes@icc.com.pe</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

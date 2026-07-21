@@ -367,7 +367,7 @@ class AdminCursosController extends Controller {
         ";
         
         if (!empty($busqueda)) {
-            $sql_emitidos .= " WHERE (u.nombre LIKE :busqueda OR u.usuario LIKE :busqueda OR c.nombre_curso LIKE :busqueda)";
+            $sql_emitidos .= " WHERE (u.nombre LIKE :b1 OR u.usuario LIKE :b2 OR c.nombre_curso LIKE :b3)";
         }
         
         $sql_emitidos .= " ORDER BY uc.fecha_subida DESC";
@@ -375,7 +375,9 @@ class AdminCursosController extends Controller {
         
         if (!empty($busqueda)) {
             $param = '%' . $busqueda . '%';
-            $stmt_emitidos->bindValue(':busqueda', $param, \PDO::PARAM_STR);
+            $stmt_emitidos->bindValue(':b1', $param, \PDO::PARAM_STR);
+            $stmt_emitidos->bindValue(':b2', $param, \PDO::PARAM_STR);
+            $stmt_emitidos->bindValue(':b3', $param, \PDO::PARAM_STR);
         }
         $stmt_emitidos->execute();
         $certificados_emitidos = $stmt_emitidos->fetchAll(\PDO::FETCH_ASSOC);
@@ -391,7 +393,7 @@ class AdminCursosController extends Controller {
         ";
         
         if (!empty($busqueda)) {
-            $sql_pendientes .= " AND (u.nombre LIKE :busqueda OR u.usuario LIKE :busqueda OR c.nombre_curso LIKE :busqueda)";
+            $sql_pendientes .= " AND (u.nombre LIKE :bp1 OR u.usuario LIKE :bp2 OR c.nombre_curso LIKE :bp3)";
         }
         
         $sql_pendientes .= " ORDER BY uc.id_usuario DESC";
@@ -399,7 +401,9 @@ class AdminCursosController extends Controller {
         
         if (!empty($busqueda)) {
             $param = '%' . $busqueda . '%';
-            $stmt_pendientes->bindValue(':busqueda', $param, \PDO::PARAM_STR);
+            $stmt_pendientes->bindValue(':bp1', $param, \PDO::PARAM_STR);
+            $stmt_pendientes->bindValue(':bp2', $param, \PDO::PARAM_STR);
+            $stmt_pendientes->bindValue(':bp3', $param, \PDO::PARAM_STR);
         }
         $stmt_pendientes->execute();
         $solicitudes_pendientes = $stmt_pendientes->fetchAll(\PDO::FETCH_ASSOC);

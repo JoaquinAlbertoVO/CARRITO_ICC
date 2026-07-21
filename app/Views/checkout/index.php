@@ -84,12 +84,12 @@
                             <!-- Item 1: Resumen -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-info-circle" style="color: #3b82f6; font-size: 1.1rem;"></i> Resumen del Curso</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
                                     <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-hourglass-half" style="color: #f59e0b; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-graduation-cap" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
+                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
+                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
                                     <p style="line-height: 1.5;">Curso orientado a planificar, ejecutar y documentar mantenimientos de subestaciones eléctricas, combinando contenido teórico y práctica en campo.</p>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                             <!-- Item 2: Temas Principales -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-book-open" style="color: #6366f1; font-size: 1.1rem;"></i> Temas Principales</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
                                     <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
@@ -119,7 +119,7 @@
                             <!-- Item 3: Beneficios -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-star" style="color: #eab308; font-size: 1.1rem;"></i> Beneficios</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
                                     <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
@@ -137,7 +137,7 @@
                             <!-- Item 4: Herramientas y Materiales -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-tools" style="color: #64748b; font-size: 1.1rem;"></i> Herramientas y Materiales</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-tools" style="color: #f97316; font-size: 1.1rem;"></i> Herramientas y Materiales</span>
                                     <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
@@ -191,12 +191,12 @@
                             <!-- Item 1: Resumen -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-info-circle" style="color: #3b82f6; font-size: 1.1rem;"></i> Resumen del Curso</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
                                     <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-hourglass-half" style="color: #f59e0b; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-graduation-cap" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
+                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
+                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
                                     <p style="line-height: 1.5;">Curso orientado a la compensación de energía reactiva y a la mejora del factor de potencia en sistemas eléctricos industriales.</p>
                                 </div>
                             </div>
@@ -204,7 +204,7 @@
                             <!-- Item 2: Temas Principales -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-book-open" style="color: #6366f1; font-size: 1.1rem;"></i> Temas Principales</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
                                     <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
@@ -226,7 +226,7 @@
                             <!-- Item 3: Beneficios -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-star" style="color: #eab308; font-size: 1.1rem;"></i> Beneficios</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
                                     <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
@@ -294,12 +294,12 @@
                             <!-- Item 1: Resumen -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-info-circle" style="color: #3b82f6; font-size: 1.1rem;"></i> Resumen del Curso</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
                                     <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-hourglass-half" style="color: #f59e0b; margin-right: 5px;"></i> Duración:</strong> 40 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-graduation-cap" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación</p>
+                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 40 horas académicas</p>
+                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación</p>
                                     <p style="line-height: 1.5;">Curso de especialización en electricidad industrial, cubriendo desde los fundamentos hasta el mantenimiento y automatización.</p>
                                 </div>
                             </div>
@@ -307,7 +307,7 @@
                             <!-- Item 2: Temas Principales -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-book-open" style="color: #6366f1; font-size: 1.1rem;"></i> Temas Principales</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
                                     <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
@@ -328,7 +328,7 @@
                             <!-- Item 3: Beneficios -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-star" style="color: #eab308; font-size: 1.1rem;"></i> Beneficios</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
                                     <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
@@ -390,12 +390,12 @@
                             <!-- Item 1: Resumen -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-info-circle" style="color: #3b82f6; font-size: 1.1rem;"></i> Resumen del Curso</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
                                     <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-hourglass-half" style="color: #f59e0b; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-graduation-cap" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación.</p>
+                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
+                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación.</p>
                                     <p style="line-height: 1.5;">Curso orientado a aprender la correcta instalación de terminaciones en cables de media tensión, aplicando procedimientos técnicos, criterios de seguridad y buenas prácticas del sector.</p>
                                 </div>
                             </div>
@@ -403,7 +403,7 @@
                             <!-- Item 2: Temas Principales -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-book-open" style="color: #6366f1; font-size: 1.1rem;"></i> Temas Principales</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
                                     <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
@@ -423,7 +423,7 @@
                             <!-- Item 3: Beneficios -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-star" style="color: #eab308; font-size: 1.1rem;"></i> Beneficios</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
                                     <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
@@ -471,12 +471,12 @@
                             <!-- Item 1: Resumen -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-info-circle" style="color: #3b82f6; font-size: 1.1rem;"></i> Resumen del Curso</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
                                     <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-hourglass-half" style="color: #f59e0b; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-graduation-cap" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación</p>
+                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
+                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación</p>
                                     <p style="line-height: 1.5;">Curso dirigido a quienes desean evaluar, registrar y analizar parámetros eléctricos y perturbaciones en redes de baja y media tensión.</p>
                                 </div>
                             </div>
@@ -484,7 +484,7 @@
                             <!-- Item 2: Temas Principales -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-book-open" style="color: #6366f1; font-size: 1.1rem;"></i> Temas Principales</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
                                     <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
@@ -504,7 +504,7 @@
                             <!-- Item 3: Beneficios -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-star" style="color: #eab308; font-size: 1.1rem;"></i> Beneficios</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
                                     <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">

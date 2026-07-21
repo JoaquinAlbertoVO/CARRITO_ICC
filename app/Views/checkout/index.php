@@ -459,6 +459,88 @@
                                             <li><strong>18/07:</strong> Zoom en VIVO PRACTICA de 9:00 a. m. a 1:00 p. m.</li>
                                         </ul>
                                     </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Accordion Analizador -->
+                        <div class="course-accordion" x-show="courseName.toLowerCase().includes('analizador')" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
+                            <!-- Item 1: Resumen -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
+                                    <span>ℹ️ Resumen del Curso</span>
+                                    <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
+                                    <p style="margin-bottom: 8px;"><strong>⏳ Duración:</strong> 15 horas académicas</p>
+                                    <p style="margin-bottom: 12px;"><strong>🎓 Incluye:</strong> Certificado de participación</p>
+                                    <p style="line-height: 1.5;">Curso dirigido a quienes desean evaluar, registrar y analizar parámetros eléctricos y perturbaciones en redes de baja y media tensión.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: Temas Principales -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
+                                    <span>📚 Temas Principales</span>
+                                    <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
+                                    <ul>
+                                        <li>Tipos de analizadores y normativa vigente</li>
+                                        <li>Parámetros eléctricos y perturbaciones</li>
+                                        <li>Selección e instalación de analizadores</li>
+                                        <li>Conexionado en tablero y campo</li>
+                                        <li>Configuración de eventos y parámetros</li>
+                                        <li>Tipos de conexión e intervalos de medición</li>
+                                        <li>Extracción y modelación de datos</li>
+                                        <li>Elaboración de informes técnicos</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Item 3: Beneficios -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
+                                    <span>⭐ Beneficios</span>
+                                    <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
+                                    <ul>
+                                        <li>Certificado de participacion con QR</li>
+                                        <li>Material digital</li>
+                                        <li>Grupo de WhatsApp del curso</li>
+                                        <li>Entregables técnicos de mantenimiento y protocolos</li>
+                                        <li>Clases teóricas mediante Zoom</li>
+                                        <li>Acceso al aula virtual por un mes</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Item 4: Programación -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
+                                    <span>📅 Programación y Horarios</span>
+                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
+                                    <div class="schedule-box" x-show="currency === 'PEN'">
+                                        <h5>🇵🇪 Virtual Perú</h5>
+                                        <ul style="margin-bottom: 5px;">
+                                            <li><strong>17/08:</strong> Zoom en Vivo de 7:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>18/08:</strong> Sesión virtual asíncrona (Grabada)</li>
+                                            <li><strong>20/08:</strong> Zoom en Vivo de 7:00 p. m. a 9:00 p. m.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
+                                        <h5>🇪🇨 Virtual Ecuador y otros países</h5>
+                                        <ul style="margin-bottom: 0;">
+                                            <li><strong>17/08:</strong> Zoom en Vivo de 7:00 p. m. a 9:00 p. m.</li>
+                                            <li><strong>18/08:</strong> Sesión virtual asíncrona (Grabada)</li>
+                                            <li><strong>20/08:</strong> Zoom en Vivo de 7:00 p. m. a 9:00 p. m.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -469,7 +551,7 @@
                     <!-- Etiqueta amarilla flotante -->
                     <div style="position: absolute; top: -15px; right: -10px; background: #facc15; color: #0f172a; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: skew(3deg) rotate(5deg); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid #0f172a; z-index: 10;">
                         <span style="display: block; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase;">Precio Regular</span>
-                        <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 250.00' : (courseName.toLowerCase().includes('condensadores') ? 'US$ 50.00' : (courseName.toLowerCase().includes('industrial') || courseName.toLowerCase().includes('terminaciones') ? 'US$ 55.00' : 'US$ 45.00'))"></span>
+                        <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? (courseName.toLowerCase().includes('analizador') ? 'S/ 200.00' : 'S/ 250.00') : (courseName.toLowerCase().includes('condensadores') ? 'US$ 50.00' : (courseName.toLowerCase().includes('industrial') || courseName.toLowerCase().includes('terminaciones') || courseName.toLowerCase().includes('analizador') ? 'US$ 55.00' : 'US$ 45.00'))"></span>
                     </div>
 
                     <div style="transform: skew(3deg); text-align: center; width: 100%;">

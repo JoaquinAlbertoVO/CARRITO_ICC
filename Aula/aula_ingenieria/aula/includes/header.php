@@ -80,10 +80,10 @@ if (empty($_SESSION['active'])) {
                                     </span>
                                 </div>
                                 <div class="dropdown-divider" style="border-top-color: rgba(255,255,255,0.1);"></div>
-                                <a class="dropdown-item dropdown-item-modern d-flex align-items-center py-2" href="#">
+                                <a class="dropdown-item dropdown-item-modern d-flex align-items-center py-2" href="#" onclick="alert('Esta sección estará disponible próximamente.'); return false;">
                                     <i class="material-icons mr-3" style="font-size: 20px;">account_circle</i> Mi Perfil
                                 </a>
-                                <a class="dropdown-item dropdown-item-modern d-flex align-items-center py-2" href="#">
+                                <a class="dropdown-item dropdown-item-modern d-flex align-items-center py-2" href="index.php">
                                     <i class="material-icons mr-3" style="font-size: 20px;">shopping_cart</i> Mis Compras
                                 </a>
                                 <div class="dropdown-divider" style="border-top-color: rgba(255,255,255,0.1);"></div>

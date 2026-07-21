@@ -48,7 +48,9 @@
             <!-- Columna Izquierda: Información de Compra del Curso -->
             <div class="course-column">
                 <div>
-                    <div class="brand" style="margin-bottom: 20px;">ICC (Instituto de Capacitación Continua)</div>
+                    <div class="brand" style="margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
+                        <img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC Logo" style="max-height: 60px;">
+                    </div>
                     
                     <!-- Video Promocional -->
                     <div class="video-container" style="margin-bottom: 25px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
@@ -561,6 +563,12 @@
                             <span class="price-currency" x-text="currency" style="font-size: 1.2rem; opacity: 0.8; vertical-align: baseline; color: #818cf8;">PEN</span>
                         </div>
                     </div>
+                </div>
+
+                <!-- Tarjeta de Confianza / Contacto -->
+                <div class="trust-signals" style="margin-top: 20px; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; text-align: center;">
+                    <h4 style="margin-top: 0; margin-bottom: 15px; font-size: 0.9rem; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Comunícate con nuestros asesores</h4>
+                    <img src="<?= BASE_URL ?>assets/images/CINTA_DE_CONTACTANOS.png" alt="Canales de Contacto" style="max-width: 100%; border-radius: 8px; display: block; margin: 0 auto;">
                 </div>
             </div>
 

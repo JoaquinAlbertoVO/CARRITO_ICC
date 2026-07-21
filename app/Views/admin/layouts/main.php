@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
@@ -47,6 +47,90 @@
     <!-- Dropzone -->
     <link type="text/css" href="<?= BASE_URL ?>assets/admin/css/vendor-dropzone.css" rel="stylesheet">
     <link type="text/css" href="<?= BASE_URL ?>assets/admin/css/vendor-dropzone.rtl.css" rel="stylesheet">
+
+    <!-- Estilos personalizados para la Barra Lateral (Sidebar) -->
+    <style>
+        /* Fondo oscuro moderno */
+        .sidebar {
+            background-color: #0f172a !important; /* Slate 900 */
+            border-right: 1px solid #1e293b !important;
+        }
+        
+        /* Bloque superior del perfil de admin */
+        .sidebar-p-a.bg-light {
+            background-color: #0f172a !important;
+            border-bottom: 1px solid #1e293b !important;
+            color: #f8fafc !important;
+        }
+        .sidebar-p-a .text-body {
+            color: #f8fafc !important;
+        }
+        .sidebar-p-a .text-muted {
+            color: #94a3b8 !important;
+        }
+
+        /* Encabezados de secciones (ADMINISTRADOR, INGENIERÍA ELÉCTRICA, etc.) */
+        .sidebar-heading {
+            color: #94a3b8 !important; /* Slate 400 */
+            font-size: 0.75rem !important;
+            font-weight: 800 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1.5px !important;
+            padding: 25px 20px 10px 20px !important;
+            border-bottom: none !important;
+        }
+
+        /* Opciones del menú */
+        .sidebar-menu-button {
+            color: #cbd5e1 !important; /* Slate 300 */
+            padding: 12px 20px !important;
+            margin: 4px 15px !important;
+            border-radius: 8px !important;
+            transition: all 0.3s ease !important;
+            font-weight: 500 !important;
+        }
+        
+        /* Iconos del menú */
+        .sidebar-menu-icon {
+            color: #64748b !important;
+            margin-right: 15px !important;
+            transition: all 0.3s ease !important;
+        }
+        .sidebar-menu-icon .material-icons, 
+        .sidebar-menu-icon svg {
+            color: inherit !important;
+        }
+
+        /* Hover effect en items inactivos */
+        .sidebar-menu-item:not(.active) .sidebar-menu-button:hover {
+            background-color: #1e293b !important;
+            color: #f8fafc !important;
+            transform: translateX(5px);
+        }
+        .sidebar-menu-item:not(.active) .sidebar-menu-button:hover .sidebar-menu-icon {
+            color: #3b82f6 !important; /* Blue 500 */
+        }
+
+        /* Elemento Activo (Seleccionado) */
+        .sidebar-menu-item.active .sidebar-menu-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+        }
+        .sidebar-menu-item.active .sidebar-menu-icon {
+            color: #ffffff !important;
+        }
+
+        /* Eliminar bordes inferiores por defecto */
+        .sidebar-menu, .sidebar-menu-item {
+            border-bottom: none !important;
+        }
+        
+        /* Evitar que el panel derecho superponga un fondo blanco si lo hay */
+        .sidebar-light {
+            background-color: transparent !important;
+        }
+    </style>
 
     <!-- Select2 -->
     <link type="text/css" href="<?= BASE_URL ?>assets/admin/css/vendor-select2.css" rel="stylesheet">

@@ -459,7 +459,6 @@
                                             <li><strong>18/07:</strong> Zoom en VIVO PRACTICA de 9:00 a. m. a 1:00 p. m.</li>
                                         </ul>
                                     </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

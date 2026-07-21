@@ -571,11 +571,9 @@
                     <h4 style="margin-top: 0; margin-bottom: 20px; font-size: 0.95rem; color: #cbd5e1; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Comunícate con nuestros asesores</h4>
                     
                     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 25px;">
-                        <a href="https://wa.link/myq5iv" target="_blank" aria-label="WhatsApp" style="background-color: #25D366; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.4rem;"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://www.facebook.com/icc.com.pe/" target="_blank" aria-label="Facebook" style="background-color: #1877F2; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" aria-label="Instagram" style="background-color: #E1306C; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.4rem;"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_blank" aria-label="LinkedIn" style="background-color: #0077B5; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok" style="background-color: #000000; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://wa.me/51941208020" target="_blank" aria-label="WhatsApp" style="background-color: #25D366; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.4rem;"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61570845450403" target="_blank" aria-label="Facebook" style="background-color: #1877F2; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.tiktok.com/@icc_capacitaciones_int" target="_blank" aria-label="TikTok" style="background-color: #000000; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;"><i class="fab fa-tiktok"></i></a>
                     </div>
                     
                     <div style="display: flex; flex-direction: column; gap: 20px; border-top: 1px solid #334155; padding-top: 25px;">
@@ -585,7 +583,7 @@
                             </div>
                             <div style="text-align: left;">
                                 <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Agente de mensajes</div>
-                                <div style="font-size: 1.15rem; font-weight: 700; color: white;">+51 986 884 219</div>
+                                <div style="font-size: 1.15rem; font-weight: 700; color: white;">+51 941 208 020</div>
                             </div>
                         </div>
                         <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">

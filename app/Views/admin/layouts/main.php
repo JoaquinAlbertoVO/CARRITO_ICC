@@ -48,154 +48,129 @@
     <link type="text/css" href="<?= BASE_URL ?>assets/admin/css/vendor-dropzone.css" rel="stylesheet">
     <link type="text/css" href="<?= BASE_URL ?>assets/admin/css/vendor-dropzone.rtl.css" rel="stylesheet">
 
-    <!-- Estilos personalizados para la Barra Lateral (Sidebar) -->
-    <style>
-        /* Fondo oscuro moderno */
-        .sidebar {
-            background-color: #0f172a !important; /* Slate 900 */
-            border-right: 1px solid #1e293b !important;
-        }
-        
-        /* Bloque superior del perfil de admin */
-        .sidebar-p-a.bg-light {
-            background-color: #0f172a !important;
-            border-bottom: 1px solid #1e293b !important;
-            color: #f8fafc !important;
-        }
-        .sidebar-p-a .text-body {
-            color: #f8fafc !important;
-        }
-        .sidebar-p-a .text-muted {
-            color: #94a3b8 !important;
-        }
-
-        /* Encabezados de secciones (ADMINISTRADOR, INGENIERÍA ELÉCTRICA, etc.) */
-        .sidebar-heading {
-            color: #94a3b8 !important; /* Slate 400 */
-            font-size: 0.75rem !important;
-            font-weight: 800 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 1.5px !important;
-            padding: 25px 20px 10px 20px !important;
-            border-bottom: none !important;
-        }
-
-        /* Opciones del menú */
-        .sidebar-menu-button {
-            color: #cbd5e1 !important; /* Slate 300 */
-            padding: 12px 20px !important;
-            margin: 4px 15px !important;
-            border-radius: 8px !important;
-            transition: all 0.3s ease !important;
-            font-weight: 500 !important;
-        }
-        
-        /* Iconos del menú */
-        .sidebar-menu-icon {
-            color: #64748b !important;
-            margin-right: 15px !important;
-            transition: all 0.3s ease !important;
-        }
-        .sidebar-menu-icon .material-icons, 
-        .sidebar-menu-icon svg {
-            color: inherit !important;
-        }
-
-        /* Hover effect en items inactivos */
-        .sidebar-menu-item:not(.active) .sidebar-menu-button:hover {
-            background-color: #1e293b !important;
-            color: #f8fafc !important;
-            transform: translateX(5px);
-        }
-        .sidebar-menu-item:not(.active) .sidebar-menu-button:hover .sidebar-menu-icon {
-            color: #3b82f6 !important; /* Blue 500 */
-        }
-
-        /* Elemento Activo (Seleccionado) */
-        .sidebar-menu-item.active .sidebar-menu-button {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-            color: #ffffff !important;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
-        }
-        .sidebar-menu-item.active .sidebar-menu-icon {
-            color: #ffffff !important;
-        }
-
-        /* Eliminar bordes inferiores por defecto */
-        .sidebar-menu, .sidebar-menu-item {
-            border-bottom: none !important;
-        }
-        
-        /* Evitar que el panel derecho superponga un fondo blanco si lo hay */
-        .sidebar-light {
-            background-color: transparent !important;
-        }
-    </style>
-
     <!-- Select2 -->
     <link type="text/css" href="<?= BASE_URL ?>assets/admin/css/vendor-select2.css" rel="stylesheet">
     <link type="text/css" href="<?= BASE_URL ?>assets/admin/css/vendor-select2.rtl.css" rel="stylesheet">
     <link type="text/css" href="<?= BASE_URL ?>assets/admin/vendor/select2/select2.min.css" rel="stylesheet">
 
+    <!-- Style Override Único y Definitivo para la Barra Lateral del Admin -->
+    <style>
+        /* Desactivar fondo blanco de bootstrap y aplicar tema oscuro profundo */
+        .sidebar,
+        .sidebar.bg-white,
+        .sidebar-light,
+        .sidebar-light.bg-white {
+            background-color: #0f172a !important; /* Slate 900 */
+            border-right: 1px solid #1e293b !important;
+        }
 
-<style>
-/* Premium Dark Admin Sidebar Override (ICC Frontend Palette) */
-.sidebar-light {
-    background-color: #1c1e27 !important; /* --thm-black */
-    border-right: 1px solid #2a2c36 !important;
-}
-.sidebar-light .sidebar-heading {
-    color: #ffd45f !important; /* --thm-primary (Gold) */
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-size: 12px;
-    margin-top: 1.5rem;
-    padding-bottom: 5px;
-    border-bottom: 1px solid rgba(255, 212, 95, 0.2);
-    margin-left: 20px;
-    margin-right: 20px;
-}
-.sidebar-light .sidebar-menu-item .sidebar-menu-button {
-    color: #e0e0e0 !important;
-    border-radius: 8px;
-    margin: 4px 15px;
-    padding: 10px 15px;
-    transition: all 0.3s ease;
-}
-.sidebar-light .sidebar-menu-item .sidebar-menu-icon {
-    color: #757783 !important; /* --thm-gray */
-    transition: all 0.3s ease;
-}
-.sidebar-light .sidebar-menu-item:hover .sidebar-menu-button {
-    background-color: rgba(77, 95, 227, 0.1) !important;
-    color: #4d5fe3 !important; /* --thm-base (Blue) */
-    transform: translateX(5px);
-}
-.sidebar-light .sidebar-menu-item:hover .sidebar-menu-icon {
-    color: #4d5fe3 !important;
-}
-.sidebar-light .sidebar-menu-item.active .sidebar-menu-button {
-    background-color: rgba(77, 95, 227, 0.15) !important;
-    color: #4d5fe3 !important;
-    font-weight: bold;
-    border-left: 4px solid #4d5fe3;
-}
-.sidebar-light .sidebar-menu-item.active .sidebar-menu-icon {
-    color: #4d5fe3 !important;
-}
-/* Admin name and Top box in sidebar */
-.sidebar-light .bg-light {
-    background-color: #15171e !important; /* Darker than --thm-black */
-    border-bottom: 1px solid #2a2c36 !important;
-}
-.sidebar-light .text-body {
-    color: #fff !important;
-}
-.sidebar-light .text-muted {
-    color: #757783 !important;
-}
-</style>
+        /* Perfil de usuario superior */
+        .sidebar .sidebar-p-a,
+        .sidebar .sidebar-p-a.bg-light,
+        .sidebar-light .bg-light {
+            background-color: #0f172a !important;
+            border-bottom: 1px solid #1e293b !important;
+        }
+        .sidebar .sidebar-p-a strong,
+        .sidebar .sidebar-p-a .text-body,
+        .sidebar-light .text-body {
+            color: #f8fafc !important;
+            font-weight: 700 !important;
+        }
+        .sidebar .sidebar-p-a .text-muted,
+        .sidebar-light .text-muted {
+            color: #94a3b8 !important;
+        }
+
+        /* Titulares de Categoría (ADMINISTRADOR, INGENIERÍA ELÉCTRICA, ACADEMIA, VENTAS) */
+        .sidebar .sidebar-heading,
+        .sidebar-light .sidebar-heading {
+            color: #38bdf8 !important; /* Celeste Neón legible */
+            font-size: 0.75rem !important;
+            font-weight: 800 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1.2px !important;
+            padding: 20px 20px 8px 20px !important;
+            margin: 10px 0 0 0 !important;
+            border-bottom: none !important;
+            background: transparent !important;
+        }
+
+        /* Botones de menú inactivos */
+        .sidebar .sidebar-menu-item .sidebar-menu-button,
+        .sidebar-light .sidebar-menu-item .sidebar-menu-button {
+            color: #cbd5e1 !important; /* Gris claro muy claro sobre fondo oscuro */
+            background-color: transparent !important;
+            padding: 10px 16px !important;
+            margin: 4px 12px !important;
+            border-radius: 8px !important;
+            transition: all 0.2s ease !important;
+            font-weight: 500 !important;
+            font-size: 0.92rem !important;
+            display: flex !important;
+            align-items: center !important;
+            border-left: none !important;
+        }
+
+        .sidebar .sidebar-menu-text,
+        .sidebar-light .sidebar-menu-text {
+            color: inherit !important;
+        }
+
+        /* Iconos de items inactivos */
+        .sidebar .sidebar-menu-icon,
+        .sidebar-light .sidebar-menu-item .sidebar-menu-icon {
+            color: #94a3b8 !important;
+            margin-right: 12px !important;
+        }
+        .sidebar .sidebar-menu-icon i,
+        .sidebar .sidebar-menu-icon span,
+        .sidebar .sidebar-menu-icon svg,
+        .sidebar .sidebar-menu-icon svg path,
+        .sidebar-light .sidebar-menu-item .sidebar-menu-icon i {
+            color: #94a3b8 !important;
+            fill: #94a3b8 !important;
+        }
+
+        /* Hover sobre opciones inactivas */
+        .sidebar .sidebar-menu-item:not(.active) .sidebar-menu-button:hover,
+        .sidebar-light .sidebar-menu-item:not(.active):hover .sidebar-menu-button {
+            background-color: #1e293b !important;
+            color: #ffffff !important;
+            transform: translateX(4px);
+        }
+        .sidebar .sidebar-menu-item:not(.active) .sidebar-menu-button:hover .sidebar-menu-icon,
+        .sidebar .sidebar-menu-item:not(.active) .sidebar-menu-button:hover .sidebar-menu-icon i,
+        .sidebar .sidebar-menu-item:not(.active) .sidebar-menu-button:hover .sidebar-menu-icon svg,
+        .sidebar .sidebar-menu-item:not(.active) .sidebar-menu-button:hover .sidebar-menu-icon svg path {
+            color: #38bdf8 !important;
+            fill: #38bdf8 !important;
+        }
+
+        /* OPTION ACTIVA (Seleccionada) */
+        .sidebar .sidebar-menu-item.active .sidebar-menu-button,
+        .sidebar-light .sidebar-menu-item.active .sidebar-menu-button {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4) !important;
+            border-left: none !important;
+        }
+
+        .sidebar .sidebar-menu-item.active .sidebar-menu-text {
+            color: #ffffff !important;
+        }
+
+        .sidebar .sidebar-menu-item.active .sidebar-menu-icon,
+        .sidebar .sidebar-menu-item.active .sidebar-menu-icon i,
+        .sidebar .sidebar-menu-item.active .sidebar-menu-icon span,
+        .sidebar .sidebar-menu-item.active .sidebar-menu-icon svg,
+        .sidebar .sidebar-menu-item.active .sidebar-menu-icon svg path,
+        .sidebar-light .sidebar-menu-item.active .sidebar-menu-icon {
+            color: #ffffff !important;
+            fill: #ffffff !important;
+        }
+    </style>
 </head>
 
 <body class="layout-default">

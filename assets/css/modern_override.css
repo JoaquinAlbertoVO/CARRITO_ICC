@@ -1350,7 +1350,14 @@ body {
 /* --- FIX BANNER HERO EN MÓVIL (Encuadre de imagen) --- */
 @media only screen and (max-width: 767px) {
   .main-slider .image-layer {
-    background-position: left center !important;
-    background-size: cover !important;
+    background-size: contain !important;
+    background-position: center center !important;
+    background-color: #0c1527 !important; /* Color de fondo para rellenar los bordes superior/inferior */
+  }
+  
+  /* Asegurar que el contenedor no tenga una altura excesiva que deje demasiado espacio en blanco */
+  .main-slider .container {
+    padding-top: 100px !important; 
+    padding-bottom: 100px !important;
   }
 }

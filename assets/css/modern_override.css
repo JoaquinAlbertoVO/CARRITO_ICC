@@ -1310,21 +1310,39 @@ body {
 /* --- ESTILOS DEL BOTÓN DE SUBMENÚ EN MÓVIL --- */
 .mobile-nav__content .main-menu__list li a button {
   background-color: transparent !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: 50% !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 8px !important; /* Más elegante que un círculo perfecto */
   color: #cbd5e1 !important;
   width: 32px !important;
   height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   transition: all 0.3s ease !important;
 }
 
-.mobile-nav__content .main-menu__list li a button:hover {
+.mobile-nav__content .main-menu__list li a button:hover,
+.mobile-nav__content .main-menu__list li a button.expanded {
   background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
   color: #ffffff !important;
 }
 
-.mobile-nav__content .main-menu__list li a button.expanded {
-  background-color: var(--mo-accent) !important;
-  border-color: var(--mo-accent) !important;
+/* --- FONDO Y TEXTO DE SUBMENÚS (Para evitar el cuadro blanco y texto invisible) --- */
+.mobile-nav__content .main-menu__list ul {
+  background-color: transparent !important;
+  border-top: none !important;
+  padding-left: 15px !important;
+  margin-top: 5px !important;
+  box-shadow: none !important;
+}
+
+.mobile-nav__content .main-menu__list ul li a {
+  color: #cbd5e1 !important;
+  font-size: 14px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.mobile-nav__content .main-menu__list ul li a:hover {
   color: #ffffff !important;
 }

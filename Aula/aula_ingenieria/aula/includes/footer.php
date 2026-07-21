@@ -1,25 +1,13 @@
 <div class="bg-dark text-white" id="footer">
                 <div class="container page__container">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             <a href="./" class="brand d-flex align-items-center mb-4">
                                 <span class="mr-2">
                                     <!-- LOGO -->
                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="24" height="24">
                                         <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
-                                            <img width="230" src="<?php echo isset($base_path) ? $base_path : ''; ?>assets/images/favicons/icc-logo1.png" alt="ICC">
-                                        </g>
-                                    </svg>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="./" class="brand d-flex align-items-center mb-4">
-                                <span class="mr-2">
-                                    <!-- LOGO -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="24" height="24">
-                                        <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
-                                            <img width="200" src="<?php echo isset($base_path) ? $base_path : ''; ?>assets/images/favicons/icc-logo-electrica.png" alt="ICC-electrica">
+                                            <img width="200" src="/assets/images/logo_icc.png" alt="ICC">
                                         </g>
                                     </svg>
                                 </span>

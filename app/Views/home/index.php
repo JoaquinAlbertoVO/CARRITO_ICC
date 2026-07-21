@@ -176,7 +176,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
         <!--Features One End-->
 
         <!--Start Welcome One-->
-        <section class="welcome-one">
+        <section class="welcome-one" style="margin-top: 80px;">
             <div class="container">
                 <div class="row">
                     <!--Start Welcome One Left-->

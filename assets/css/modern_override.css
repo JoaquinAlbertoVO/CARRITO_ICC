@@ -1346,3 +1346,11 @@ body {
 .mobile-nav__content .main-menu__list ul li a:hover {
   color: #ffffff !important;
 }
+
+/* --- FIX BANNER HERO EN MÓVIL (Encuadre de imagen) --- */
+@media only screen and (max-width: 767px) {
+  .main-slider .image-layer {
+    background-position: left center !important;
+    background-size: cover !important;
+  }
+}

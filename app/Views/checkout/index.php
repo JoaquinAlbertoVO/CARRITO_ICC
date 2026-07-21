@@ -597,6 +597,14 @@
                                 <div style="font-size: 1.15rem; font-weight: 700; color: white;">informes@icc.com.pe</div>
                             </div>
                         </div>
+                        
+                        <!-- Sitio web -->
+                        <div style="margin-top: 5px;">
+                            <a href="https://icc.com.pe/" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); transition: all 0.3s ease;">
+                                <i class="fas fa-globe" style="font-size: 1.2rem; margin-right: 10px;"></i>
+                                icc.com.pe
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

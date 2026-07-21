@@ -86,12 +86,41 @@ try {
             'duracion' => '00:00:00',
             'orden' => 9
         ],
+        // MÓDULO 4 DESGLOSADO
         [
-            'modulo' => 'MÓDULO 4 CLASE GRABADA ASINCRONA',
-            'titulo' => 'Playlist Asíncrona 2',
-            'url_video' => 'https://www.youtube.com/playlist?list=PLan4iXtjW3Gs',
-            'duracion' => 'Playlist',
+            'modulo' => 'MÓDULO 4 CLASE GRABADA ASÍNCRONA',
+            'titulo' => 'Tema 1: Protocolo de pruebas',
+            'url_video' => 'https://youtu.be/jB_rjV9NUGQ',
+            'duracion' => '20:40',
             'orden' => 10
+        ],
+        [
+            'modulo' => 'MÓDULO 4 CLASE GRABADA ASÍNCRONA',
+            'titulo' => 'Tema 2: Informe técnico',
+            'url_video' => 'https://youtu.be/P-CdZqBp00Q',
+            'duracion' => '26:55',
+            'orden' => 11
+        ],
+        [
+            'modulo' => 'MÓDULO 4 CLASE GRABADA ASÍNCRONA',
+            'titulo' => 'Tema 3: Protocolo de pruebas',
+            'url_video' => 'https://youtu.be/OSiofcpJuyQ',
+            'duracion' => '16:53',
+            'orden' => 12
+        ],
+        [
+            'modulo' => 'MÓDULO 4 CLASE GRABADA ASÍNCRONA',
+            'titulo' => 'Tema 4: Certificación de operatividad',
+            'url_video' => 'https://youtu.be/Gn12NWBVt0Y',
+            'duracion' => '20:05',
+            'orden' => 13
+        ],
+        [
+            'modulo' => 'MÓDULO 4 CLASE GRABADA ASÍNCRONA',
+            'titulo' => 'Tema 5: Elaboración de cotización o presupuestos',
+            'url_video' => 'https://youtu.be/B-X3u3b6LbU',
+            'duracion' => '10:05',
+            'orden' => 14
         ]
     ];
     

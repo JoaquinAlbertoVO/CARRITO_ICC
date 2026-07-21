@@ -122,12 +122,10 @@
 
                         <div class="main-header--one__top-right clearfix">
                             <ul class="main-header--one__top-social-link list-unstyled clearfix">
-                                <li><a href="https://wa.link/myq5iv" target="_blank" aria-label="WhatsApp" style="background-color: #25D366; color: white; opacity: 1;"><i class="fab fa-whatsapp"></i></a></li>
-                                <li><a href="https://www.facebook.com/icc.com.pe/" target="_blank" aria-label="Facebook" style="background-color: #1877F2; color: white; opacity: 1;"><i class="fab fa-facebook"></i></a></li>
-                                <li><a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" aria-label="Instagram" style="background-color: #E1306C; color: white; opacity: 1;"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_blank" aria-label="LinkedIn" style="background-color: #0077B5; color: white; opacity: 1;"><i class="fab fa-linkedin"></i></a></li>
+                                <li><a href="https://wa.me/51941208020" target="_blank" aria-label="WhatsApp" style="background-color: #25D366; color: white; opacity: 1;"><i class="fab fa-whatsapp"></i></a></li>
+                                <li><a href="https://www.facebook.com/profile.php?id=61570845450403" target="_blank" aria-label="Facebook" style="background-color: #1877F2; color: white; opacity: 1;"><i class="fab fa-facebook"></i></a></li>
                                 <!-- Implementación de TikTok-->
-                                <li><a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok" style="background-color: #000000; color: white; opacity: 1;"><i class="fab fa-tiktok"></i></a></li>
+                                <li><a href="https://www.tiktok.com/@icc_capacitaciones_int" target="_blank" aria-label="TikTok" style="background-color: #000000; color: white; opacity: 1;"><i class="fab fa-tiktok"></i></a></li>
                             </ul>
 
                             <div class="main-header--one__top-contact-info clearfix">
@@ -138,7 +136,7 @@
                                         </div>
                                         <div class="text">
                                             <h6>Agente de mensajes</h6>
-                                            <p><a href="tel:+51986884219" target="_black">+51 986 884 219</a></p>
+                                            <p><a href="tel:+51941208020" target="_black">+51 941 208 020</a></p>
                                         </div>
                                     </li>
                                     <li class="main-header--one__top-contact-info-list-item">
@@ -459,7 +457,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <h3 class="footer-widget__title">Contáctanos</h3>
                                 <!--<p class="text">Av. República de Polonia Mz. A1 Lt.17 -S.J.L - Lima</p>-->
                                 <p><a href="mailto:informes@icc.com.pe" target="_black">informes@icc.com.pe</a></p>
-                                <p class="phone"><a href="tel:+51986884219" target="_black">+51 986 884 219</a></p>
+                                <p class="phone"><a href="tel:+51941208020" target="_black">+51 941 208 020</a></p>
                             </div>
                         </div>
                         <!--End Footer Widget Column-->
@@ -468,12 +466,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="col-xl-3 col-lg-6 col-md-6 wow animated fadeInUp" data-wow-delay="0.9s">
                             <div class="footer-widget__column footer-widget__social-links">
                                 <ul class="footer-widget__social-links-list list-unstyled clearfix">
-                                    <li><a href="https://www.facebook.com/icc.com.pe/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a></li>
-                                    <!--<li><a href="https://wa.link/myq5iv" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>-->
-                                    <li><a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
-                                    <li><a href="https://www.linkedin.com/in/empresa-icc-313316253//" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+                                    <li><a href="https://wa.me/51941208020" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+                                    <li><a href="https://www.facebook.com/profile.php?id=61570845450403" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a></li>
                                     <!--Implementación de TikTok-->
-                                    <li><a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
+                                    <li><a href="https://www.tiktok.com/@icc_capacitaciones_int" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -521,17 +517,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     </li>
                     <li>
                         <i class="icon-phone-call-1"></i>
-                        <a href="+51986884219" target="_black">+51 986 884 219</a>
+                        <a href="tel:+51941208020" target="_black">+51 941 208 020</a>
                     </li>
                 </ul><!-- /.mobile-nav__contact -->
                 <div class="mobile-nav__top">
                     <div class="mobile-nav__social">
-                        <a href="https://wa.link/myq5iv" target="_blank" class="fab fa-whatsapp" aria-label="WhatsApp"></a>
-                        <a href="https://www.facebook.com/icc.com.pe/" target="_blank" class="fab fa-facebook-square" aria-label="Facebook"></a>
-                        <a href="https://www.instagram.com/icc.capacitaciones/" target="_blank" class="fab fa-instagram" aria-label="Instagram"></a>
-                        <a href="https://www.linkedin.com/in/empresa-icc-313316253/" target="_blank" class="fab fa-linkedin" aria-label="LinkedIn"></a>
+                        <a href="https://wa.me/51941208020" target="_blank" class="fab fa-whatsapp" aria-label="WhatsApp"></a>
+                        <a href="https://www.facebook.com/profile.php?id=61570845450403" target="_blank" class="fab fa-facebook-square" aria-label="Facebook"></a>
                         <!--Implementación de TikTok -->
-                        <a href="https://www.tiktok.com/@institutoicc" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.tiktok.com/@icc_capacitaciones_int" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                     </div><!-- /.mobile-nav__social -->
                 </div><!-- /.mobile-nav__top -->
                 <div class="">

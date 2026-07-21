@@ -54,7 +54,7 @@
                             <!-- <span class="icon-chat"></span> -->
                         </div>
                         <div class="contact-details-one__single-text">
-                            <h4><a href="tel:+51986884219" target="_black">+51 986 884 219</a></h4>
+                            <h4><a href="tel:+51941208020" target="_black">+51 941 208 020</a></h4>
                             <p>Llame en cualquier momento</p>
                         </div>
                     </div>

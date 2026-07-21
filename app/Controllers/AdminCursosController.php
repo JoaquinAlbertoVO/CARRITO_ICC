@@ -355,9 +355,86 @@ class AdminCursosController extends Controller {
     }
 
     public function certificados() {
-        // En un futuro aquí listaríamos certificados generados.
-        // Por ahora redirige a estudiantes para generar desde allí
-        header("Location: " . BASE_URL . "admin/ingenieria");
+        $busqueda = isset($_GET['busqueda']) ? trim($_GET['busqueda']) : '';
+        
+        // 1. Obtener certificados ya emitidos/subidos
+        $sql_emitidos = "
+            SELECT uc.id_certificado, uc.id_usuario, uc.id_curso, uc.archivo_pdf, uc.fecha_subida, 
+                   u.nombre as alumno, u.usuario as usuario_dni, c.nombre_curso, c.categoria
+            FROM usuario_certificados uc
+            INNER JOIN usuario u ON uc.id_usuario = u.iduser
+            INNER JOIN cursos c ON uc.id_curso = c.id_curso
+        ";
+        
+        if (!empty($busqueda)) {
+            $sql_emitidos .= " WHERE (u.nombre LIKE :busqueda OR u.usuario LIKE :busqueda OR c.nombre_curso LIKE :busqueda)";
+        }
+        
+        $sql_emitidos .= " ORDER BY uc.fecha_subida DESC";
+        $stmt_emitidos = $this->db->prepare($sql_emitidos);
+        
+        if (!empty($busqueda)) {
+            $param = '%' . $busqueda . '%';
+            $stmt_emitidos->bindValue(':busqueda', $param, \PDO::PARAM_STR);
+        }
+        $stmt_emitidos->execute();
+        $certificados_emitidos = $stmt_emitidos->fetchAll(\PDO::FETCH_ASSOC);
+
+        // 2. Obtener solicitudes pendientes de certificado (estado_certificado = 1 pero sin PDF subido aún)
+        $sql_pendientes = "
+            SELECT uc.id_usuario, uc.id_curso, u.nombre as alumno, u.usuario as usuario_dni, c.nombre_curso, c.categoria
+            FROM usuario_cursos uc
+            INNER JOIN usuario u ON uc.id_usuario = u.iduser
+            INNER JOIN cursos c ON uc.id_curso = c.id_curso
+            LEFT JOIN usuario_certificados ucert ON (uc.id_usuario = ucert.id_usuario AND uc.id_curso = ucert.id_curso)
+            WHERE uc.estado_certificado = 1 AND ucert.id_certificado IS NULL
+        ";
+        
+        if (!empty($busqueda)) {
+            $sql_pendientes .= " AND (u.nombre LIKE :busqueda OR u.usuario LIKE :busqueda OR c.nombre_curso LIKE :busqueda)";
+        }
+        
+        $sql_pendientes .= " ORDER BY uc.id_usuario DESC";
+        $stmt_pendientes = $this->db->prepare($sql_pendientes);
+        
+        if (!empty($busqueda)) {
+            $param = '%' . $busqueda . '%';
+            $stmt_pendientes->bindValue(':busqueda', $param, \PDO::PARAM_STR);
+        }
+        $stmt_pendientes->execute();
+        $solicitudes_pendientes = $stmt_pendientes->fetchAll(\PDO::FETCH_ASSOC);
+
+        $data = [
+            'certificados_emitidos' => $certificados_emitidos,
+            'solicitudes_pendientes' => $solicitudes_pendientes,
+            'busqueda' => $busqueda
+        ];
+
+        $this->view('admin/certificados/lista', $data, 'admin/layouts/main');
+    }
+
+    public function certificado_delete() {
+        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+            $id_certificado = (int)$_GET['id'];
+            
+            // Consultar para borrar el archivo físico
+            $stmt = $this->db->prepare("SELECT archivo_pdf FROM usuario_certificados WHERE id_certificado = ?");
+            $stmt->execute([$id_certificado]);
+            $cert = $stmt->fetch(\PDO::FETCH_ASSOC);
+            
+            if ($cert && !empty($cert['archivo_pdf'])) {
+                $file_path = __DIR__ . '/../../assets/certificados/' . $cert['archivo_pdf'];
+                if (file_exists($file_path)) {
+                    @unlink($file_path);
+                }
+            }
+
+            // Eliminar registro
+            $stmtDelete = $this->db->prepare("DELETE FROM usuario_certificados WHERE id_certificado = ?");
+            $stmtDelete->execute([$id_certificado]);
+        }
+
+        header("Location: " . BASE_URL . "admin/certificados");
         exit();
     }
 

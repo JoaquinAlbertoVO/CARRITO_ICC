@@ -56,7 +56,7 @@
                     <!-- Video Promocional -->
                     <div class="video-container" style="margin-bottom: 25px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
                         <!-- Video Placeholder (YouTube) -->
-                        <iframe width="100%" height="315" :src="courseName.toLowerCase().includes('condensadores') ? 'https://www.youtube.com/embed/8TLJJCuo8Yg?rel=0' : (courseName.toLowerCase().includes('terminaciones') ? 'https://www.youtube.com/embed/EFj6mLwhkjg?rel=0' : (courseName.toLowerCase().includes('industrial') ? 'https://www.youtube.com/embed/lvb5RYvgjL0?rel=0' : 'https://www.youtube.com/embed/7SMbMxs27K0?rel=0'))" title="Video Promocional" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block;"></iframe>
+                        <iframe width="100%" height="315" :src="courseName.toLowerCase().includes('condensadores') ? 'https://www.youtube.com/embed/8TLJJCuo8Yg?rel=0' : (courseName.toLowerCase().includes('terminaciones') ? 'https://www.youtube.com/embed/EFj6mLwhkjg?rel=0' : (courseName.toLowerCase().includes('industrial') ? 'https://www.youtube.com/embed/lvb5RYvgjL0?rel=0' : (courseName.toLowerCase().includes('analizador') ? 'https://www.youtube.com/embed/h9UIxWA7_Lw?rel=0' : 'https://www.youtube.com/embed/7SMbMxs27K0?rel=0')))" title="Video Promocional" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block;"></iframe>
                     </div>
 
                     <div class="course-info">

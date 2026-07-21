@@ -19,34 +19,34 @@ try {
     $stmtDelete = $db->prepare("DELETE FROM curso_videos WHERE id_curso = ?");
     $stmtDelete->execute([$id_curso]);
     
-    // Lista de módulos a insertar
+    // Lista de módulos a insertar (Duración máximo de 8 a 10 caracteres)
     $modulos = [
         [
             'modulo' => 'MÓDULO 1 CLASE VIRTUAL EN VIVO GRABADA',
             'titulo' => 'Clase Virtual 1',
             'url_video' => 'https://www.youtube.com/watch?v=nDVQPwAPmvo&list=PLIJfqFdcwwF4&index=8',
-            'duracion' => '1:30:00',
+            'duracion' => '01:30:00',
             'orden' => 1
         ],
         [
             'modulo' => 'MÓDULO 2 CLASE GRABADA ASINCRONA',
             'titulo' => 'Playlist Asíncrona 1',
             'url_video' => 'https://www.youtube.com/playlist?list=PLIJfqFdcwwF4',
-            'duracion' => 'Varias horas',
+            'duracion' => 'Playlist',
             'orden' => 2
         ],
         [
             'modulo' => 'MÓDULO 3 CLASE VIRTUAL EN VIVO GRABADA',
             'titulo' => 'Clase Virtual 2 (Próximamente)',
-            'url_video' => 'https://www.youtube.com/watch?v=nDVQPwAPmvo', // Fallback, se puede cambiar luego
-            'duracion' => 'Por definir',
+            'url_video' => 'https://www.youtube.com/watch?v=nDVQPwAPmvo', 
+            'duracion' => '00:00:00',
             'orden' => 3
         ],
         [
             'modulo' => 'MÓDULO 4 CLASE GRABADA ASINCRONA',
             'titulo' => 'Playlist Asíncrona 2',
             'url_video' => 'https://www.youtube.com/playlist?list=PLan4iXtjW3Gs',
-            'duracion' => 'Varias horas',
+            'duracion' => 'Playlist',
             'orden' => 4
         ]
     ];
@@ -73,7 +73,9 @@ try {
     echo "<a href='/Aula/aula_ingenieria/aula/curso.php?id={$id_curso}'>Ir al curso</a></div>";
     
     // Auto-eliminar
-    unlink(__FILE__);
+    if (file_exists(__FILE__)) {
+        unlink(__FILE__);
+    }
     
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();

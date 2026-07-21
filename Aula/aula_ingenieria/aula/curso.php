@@ -45,10 +45,17 @@ if(!$query_videos) {
     // Setear el primer video para que cargue por defecto
     if(count($videos) > 0) {
         $primer_video = $videos[0]['url_video'];
-        if (strpos($primer_video, 'watch?v=') !== false) {
-            $primer_video = str_replace('watch?v=', 'embed/', $primer_video);
-        } elseif (strpos($primer_video, 'youtu.be/') !== false) {
-            $primer_video = str_replace('youtu.be/', 'www.youtube.com/embed/', $primer_video);
+        if (strpos($primer_video, 'playlist?list=') !== false) {
+            $primer_video = str_replace('playlist?list=', 'embed/videoseries?list=', $primer_video);
+        } else {
+            if (strpos($primer_video, 'watch?v=') !== false) {
+                $primer_video = str_replace('watch?v=', 'embed/', $primer_video);
+            } elseif (strpos($primer_video, 'youtu.be/') !== false) {
+                $primer_video = str_replace('youtu.be/', 'www.youtube.com/embed/', $primer_video);
+            }
+            if (strpos($primer_video, 'embed/') !== false && strpos($primer_video, '?') === false && strpos($primer_video, '&') !== false) {
+                $primer_video = preg_replace('/&/', '?', $primer_video, 1);
+            }
         }
     }
 }
@@ -305,10 +312,17 @@ $estado_certificado = ($query_estado && $row_estado = mysqli_fetch_array($query_
                                 <div class="accordion-body <?= ($mod_index == 1) ? 'show' : '' ?>">
                                     <?php foreach ($lista_videos as $v): 
                                         $url = $v['url_video'];
-                                        if (strpos($url, 'watch?v=') !== false) {
-                                            $url = str_replace('watch?v=', 'embed/', $url);
-                                        } elseif (strpos($url, 'youtu.be/') !== false) {
-                                            $url = str_replace('youtu.be/', 'www.youtube.com/embed/', $url);
+                                        if (strpos($url, 'playlist?list=') !== false) {
+                                            $url = str_replace('playlist?list=', 'embed/videoseries?list=', $url);
+                                        } else {
+                                            if (strpos($url, 'watch?v=') !== false) {
+                                                $url = str_replace('watch?v=', 'embed/', $url);
+                                            } elseif (strpos($url, 'youtu.be/') !== false) {
+                                                $url = str_replace('youtu.be/', 'www.youtube.com/embed/', $url);
+                                            }
+                                            if (strpos($url, 'embed/') !== false && strpos($url, '?') === false && strpos($url, '&') !== false) {
+                                                $url = preg_replace('/&/', '?', $url, 1);
+                                            }
                                         }
                                         $js_video_urls["vid".$vid_index] = $url;
                                     ?>

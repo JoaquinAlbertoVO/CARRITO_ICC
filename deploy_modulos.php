@@ -28,26 +28,70 @@ try {
             'duracion' => '01:30:00',
             'orden' => 1
         ],
+        // MÓDULO 2 DESGLOSADO
         [
-            'modulo' => 'MÓDULO 2 CLASE GRABADA ASINCRONA',
-            'titulo' => 'Playlist Asíncrona 1',
-            'url_video' => 'https://www.youtube.com/playlist?list=PLIJfqFdcwwF4',
-            'duracion' => 'Playlist',
+            'modulo' => 'MÓDULO 2 CLASE GRABADA ASÍNCRONA',
+            'titulo' => 'Introducción',
+            'url_video' => 'https://youtu.be/i3DGfbp5_9A',
+            'duracion' => '00:42',
             'orden' => 2
         ],
+        [
+            'modulo' => 'MÓDULO 2 CLASE GRABADA ASÍNCRONA',
+            'titulo' => 'Tema 1: Equipos de protección personal, trajes ignífugos',
+            'url_video' => 'https://youtu.be/qOc05IAAjD8',
+            'duracion' => '12:00', // Aproximado por icono superpuesto
+            'orden' => 3
+        ],
+        [
+            'modulo' => 'MÓDULO 2 CLASE GRABADA ASÍNCRONA',
+            'titulo' => 'Tema 2: Equipos de maniobra',
+            'url_video' => 'https://youtu.be/tzDiviqeFxU',
+            'duracion' => '19:29',
+            'orden' => 4
+        ],
+        [
+            'modulo' => 'MÓDULO 2 CLASE GRABADA ASÍNCRONA',
+            'titulo' => 'Tema 3: 5 reglas de oro',
+            'url_video' => 'https://youtu.be/FTyQ-k-tPfQ',
+            'duracion' => '09:49',
+            'orden' => 5
+        ],
+        [
+            'modulo' => 'MÓDULO 2 CLASE GRABADA ASÍNCRONA',
+            'titulo' => 'Tema 4: Apertura y cierre con seccionador tripolar',
+            'url_video' => 'https://youtu.be/su1NSM_3fgk',
+            'duracion' => '15:05',
+            'orden' => 6
+        ],
+        [
+            'modulo' => 'MÓDULO 2 CLASE GRABADA ASÍNCRONA',
+            'titulo' => 'Tema 5: Apertura y cierre de seccionador CUT OUT',
+            'url_video' => 'https://youtu.be/Qp21PFFNzrg',
+            'duracion' => '13:42',
+            'orden' => 7
+        ],
+        [
+            'modulo' => 'MÓDULO 2 CLASE GRABADA ASÍNCRONA',
+            'titulo' => 'Tema 6: Secuencia de actividades en un mantenimiento',
+            'url_video' => 'https://youtu.be/Nt2wwXNUbrM',
+            'duracion' => '15:51',
+            'orden' => 8
+        ],
+        // FIN MÓDULO 2
         [
             'modulo' => 'MÓDULO 3 CLASE VIRTUAL EN VIVO GRABADA',
             'titulo' => 'Clase Virtual 2 (Próximamente)',
             'url_video' => 'https://www.youtube.com/watch?v=nDVQPwAPmvo', 
             'duracion' => '00:00:00',
-            'orden' => 3
+            'orden' => 9
         ],
         [
             'modulo' => 'MÓDULO 4 CLASE GRABADA ASINCRONA',
             'titulo' => 'Playlist Asíncrona 2',
             'url_video' => 'https://www.youtube.com/playlist?list=PLan4iXtjW3Gs',
             'duracion' => 'Playlist',
-            'orden' => 4
+            'orden' => 10
         ]
     ];
     

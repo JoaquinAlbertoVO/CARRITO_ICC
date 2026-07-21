@@ -29,8 +29,8 @@ if(!$curso) {
     exit;
 }
 
-// Obtener videos ordenados por módulo y orden
-$query_videos = mysqli_query($conection, "SELECT * FROM curso_videos WHERE id_curso = $id_curso AND estado = 1 ORDER BY modulo ASC, orden ASC, id_video ASC");
+// Obtener videos ordenados por orden, luego por módulo
+$query_videos = mysqli_query($conection, "SELECT * FROM curso_videos WHERE id_curso = $id_curso AND estado = 1 ORDER BY orden ASC, modulo ASC, id_video ASC");
 $videos = [];
 $modulos = [];
 $primer_video = "https://www.youtube.com/embed/"; // default fallback

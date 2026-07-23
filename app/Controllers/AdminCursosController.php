@@ -413,10 +413,19 @@ class AdminCursosController extends Controller {
         $stmt_pendientes->execute();
         $solicitudes_pendientes = $stmt_pendientes->fetchAll(\PDO::FETCH_ASSOC);
 
+        // 3. Obtener listas para el modal de "Generar Nuevo"
+        $stmt_users = $this->db->query("SELECT iduser, nombre, dni, usuario FROM usuario ORDER BY nombre ASC");
+        $todos_usuarios = $stmt_users->fetchAll(\PDO::FETCH_ASSOC);
+
+        $stmt_courses = $this->db->query("SELECT id_curso, nombre_curso, categoria FROM cursos ORDER BY nombre_curso ASC");
+        $todos_cursos = $stmt_courses->fetchAll(\PDO::FETCH_ASSOC);
+
         $data = [
             'certificados_emitidos' => $certificados_emitidos,
             'solicitudes_pendientes' => $solicitudes_pendientes,
-            'busqueda' => $busqueda
+            'busqueda' => $busqueda,
+            'todos_usuarios' => $todos_usuarios,
+            'todos_cursos' => $todos_cursos
         ];
 
         $this->view('admin/certificados/lista', $data, 'admin/layouts/main');

@@ -5,6 +5,11 @@
                 <h1 class="m-0"><i class="material-icons text-primary mr-2" style="font-size: 32px; vertical-align: middle;">card_membership</i>Gestión de Certificados</h1>
                 <p class="text-muted mb-0">Administra todos los certificados emitidos y atiende solicitudes pendientes.</p>
             </div>
+            <div class="mt-3 mt-md-0">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevoCertificado">
+                    <i class="material-icons mr-1">add_circle</i> Generar Nuevo Certificado
+                </button>
+            </div>
         </div>
     </div>
 
@@ -179,6 +184,50 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Generar Nuevo Certificado -->
+<div class="modal fade" id="modalNuevoCertificado" tabindex="-1" role="dialog" aria-labelledby="modalNuevoCertificadoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalNuevoCertificadoLabel">Generar Nuevo Certificado</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= BASE_URL ?>admin/generar_certificado_auto" method="GET">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="id_usuario">Seleccionar Alumno</label>
+                        <select name="id_usuario" id="id_usuario" class="form-control" data-toggle="select" required>
+                            <option value="">-- Buscar y seleccionar alumno --</option>
+                            <?php foreach ($todos_usuarios as $usr): ?>
+                                <option value="<?= $usr['iduser'] ?>">
+                                    <?= htmlspecialchars($usr['nombre']) ?> (DNI: <?= htmlspecialchars($usr['dni'] ?: $usr['usuario']) ?>)
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="id_curso">Seleccionar Curso</label>
+                        <select name="id_curso" id="id_curso" class="form-control" data-toggle="select" required>
+                            <option value="">-- Buscar y seleccionar curso --</option>
+                            <?php foreach ($todos_cursos as $cur): ?>
+                                <option value="<?= $cur['id_curso'] ?>">
+                                    <?= htmlspecialchars($cur['nombre_curso']) ?> [<?= htmlspecialchars($cur['categoria'] ?: 'General') ?>]
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success"><i class="material-icons mr-1" style="font-size: 16px;">auto_awesome</i> Generar PDF</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

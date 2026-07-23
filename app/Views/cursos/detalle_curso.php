@@ -72,54 +72,7 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </div><br>
-                                <div class="course-details__content-list">
-                                    <h3 class="course-details__curriculum-single-title">Inversión</h3>
-                                    <h5 class="" style="color: #4D5FE3;">➤ 90 Soles ó 23 dólares</h5><br>
-                                    <span style="color: black;">Incluye:</span>
-                                    <ul class="list-unstyled">
-                                        <li>
-                                            <div class="icon">
-                                                <span class="icon-confirmation"></span>
-                                            </div>
-                                            <div class="text">
-                                                <p>Acceso ilimitado a los videos grabados del curso.</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="icon">
-                                                <span class="icon-confirmation"></span>
-                                            </div>
-                                            <div class="text">
-                                                <p>Acceso ilimitado a los manuales y plataforma virtual del curso.</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="icon">
-                                                <span class="icon-confirmation"></span>
-                                            </div>
-                                            <div class="text">
-                                                <p>Certificado virtual y físico a nombre de ICC con duración de 120 horas.</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="icon">
-                                                <span class="icon-confirmation"></span>
-                                            </div>
-                                            <div class="text">
-                                                <p>Asesoría virtual en caso de cualquier duda del curso.</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="icon">
-                                                <span class="icon-confirmation"></span>
-                                            </div>
-                                            <div class="text">
-                                                <p>Docentes altamente calificados a nivel Nacional e Internacional.</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+
                             </div>
                         </div>
                         <!--End Single Courses One-->

@@ -214,21 +214,12 @@
                                         <li>Entregables técnicos de mantenimiento y protocolos</li>
                                         <li>Clases teóricas mediante Zoom</li>
                                         <li>Acceso al aula virtual por un mes</li>
-                                    </ul>
-                                </div>
-            </div>
-        </div>
-
-                            <!-- Item 4: Herramientas y Materiales -->
-                            
-    <div>
-        <div class="info-card">
-            <h4 class="info-card-title">
-                <i class="fas fa-tools" style="color: #f97316; font-size: 1.3rem;"></i> Herramientas y Materiales
-            </h4>
-            <div class="info-card-content">
-                <ul>
-                                        <li>Megómetro digital de 5000V</li>
+                                    
+                                        <!-- Equipos y Herramientas añadidos a Beneficios -->
+                                        <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                                            <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                                            <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li>Megómetro digital de 5000V</li>
                                         <li>Kit extractor de aceite dieléctrico</li>
                                         <li>Pértigas de maniobra</li>
                                         <li>Revelador de tensión</li>
@@ -238,10 +229,14 @@
                                         <li>Guantes dieléctricos</li>
                                         <li>Equipos de seguridad y señalización</li>
                                         <li>Herramientas manuales</li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </div>
             </div>
         </div>
+
+                            
 
                             <!-- Item 5: Programación -->
                             
@@ -332,30 +327,25 @@
                                         <li>Entregables técnicos de mantenimiento y protocolos</li>
                                         <li>Clases teóricas mediante Zoom</li>
                                         <li>Acceso al aula virtual por un mes</li>
-                                    </ul>
-                                </div>
-            </div>
-        </div>
-
-                            <!-- Item 4: Herramientas y Materiales -->
-                            
-    <div>
-        <div class="info-card">
-            <h4 class="info-card-title">
-                🛠️ Equipos y herramientas
-            </h4>
-            <div class="info-card-content">
-                <ul>
-                                        <li>Condensadores cilíndricos de 25 KVAR</li>
+                                    
+                                        <!-- Equipos y Herramientas añadidos a Beneficios -->
+                                        <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                                            <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                                            <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li>Condensadores cilíndricos de 25 KVAR</li>
                                         <li>Kit de contactores para condensadores</li>
                                         <li>Interruptores termomagnéticos</li>
                                         <li>Controlador de factor de potencia</li>
                                         <li>Transformadores de corriente</li>
                                         <li>Herramientas manuales</li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </div>
             </div>
         </div>
+
+                            
 
                             <!-- Item 5: Programación -->
                             
@@ -684,8 +674,6 @@
             </div>
         </div>
                         </div>
-                    </div>
-                </div>
 
                 
 <?php else: ?>
@@ -740,7 +728,6 @@
             </div>
         </div>
     </div>
-</div>
 <?php endif; ?>
 
 

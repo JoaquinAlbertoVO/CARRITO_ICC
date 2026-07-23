@@ -30,30 +30,24 @@
                     <div class="course-details__content">
                         <!--Start Single Courses One-->
                         <div class="courses-one__single style2 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                            <div class="courses-one__single-img">
-                                <img src="<?= BASE_URL ?>assets/images/cursos/<?= htmlspecialchars($curso['foto'] ?? 'default.png') ?>" alt="<?= htmlspecialchars($curso['nombre_curso'] ?? 'Curso') ?>" style="width: 100%; height: 350px; object-fit: cover; border-top-left-radius: 8px; border-top-right-radius: 8px;">
-                                <div class="overlay-text">
-                                    <p>libre</p>
-                                </div>
+                            <?php
+                            $cName = strtolower($curso['nombre_curso'] ?? '');
+                            if (strpos($cName, 'condensadores') !== false) {
+                                $video_url = 'https://www.youtube.com/embed/8TLJJCuo8Yg?rel=0';
+                            } elseif (strpos($cName, 'terminaciones') !== false) {
+                                $video_url = 'https://www.youtube.com/embed/EFj6mLwhkjg?rel=0';
+                            } elseif (strpos($cName, 'industrial') !== false) {
+                                $video_url = 'https://www.youtube.com/embed/lvb5RYvgjL0?rel=0';
+                            } elseif (strpos($cName, 'analizador') !== false) {
+                                $video_url = 'https://www.youtube.com/embed/h9UIxWA7_Lw?rel=0';
+                            } else {
+                                $video_url = 'https://www.youtube.com/embed/7SMbMxs27K0?rel=0';
+                            }
+                            ?>
+                            <div class="course-video-container" style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                                <iframe width="100%" height="450" src="<?= $video_url ?>" title="Video de introducción" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block;"></iframe>
                             </div>
-                            <div class="courses-one__single-content">
-                                <div class="courses-one__single-content-overlay-img">
-                                    <img src="https://ui-avatars.com/api/?name=Ricardo+Cardenas&background=random&color=fff&size=50" alt="Profesor" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
-                                </div>
-                                <h6 class="courses-one__single-content-name">Ricardo Cardenas <span>Actualizado recientemente</span></h6>
-                                <h4 class="courses-one__single-content-title"><?= htmlspecialchars($curso['nombre_curso'] ?? 'Curso en ICC') ?></h4>
-                                <div class="courses-one__single-content-review-box">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <div class="rateing-box">
-                                        <span>(5)</span>
-                                    </div>
-                                </div>
+                            <div class="courses-one__single-content" style="padding-top: 0; border: none; box-shadow: none;">
                                 <div class="course-details__content-list">
                                     <h3 class="course-details__curriculum-single-title">Requisitos</h3>
                                     <ul class="list-unstyled">
@@ -277,6 +271,34 @@
                 <!--Start Course Details Sidebar-->
                 <div class="col-xl-4 col-lg-4">
                     <div class="course-details__sidebar">
+                        <div class="courses-one__single style2 wow fadeInUp" data-wow-delay="0.1s" style="margin-bottom: 30px; box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.07); border-radius: 8px; overflow: hidden; background-color: #ffffff;">
+                            <div class="courses-one__single-img">
+                                <img src="<?= BASE_URL ?>assets/images/cursos/<?= htmlspecialchars($curso['foto'] ?? 'default.png') ?>" alt="<?= htmlspecialchars($curso['nombre_curso'] ?? 'Curso') ?>" style="width: 100%; height: 220px; object-fit: cover; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                                <div class="overlay-text">
+                                    <p>libre</p>
+                                </div>
+                            </div>
+                            <div class="courses-one__single-content" style="padding: 20px 20px 10px 20px;">
+                                <div class="courses-one__single-content-overlay-img">
+                                    <img src="https://ui-avatars.com/api/?name=Ricardo+Cardenas&background=random&color=fff&size=50" alt="Profesor" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
+                                </div>
+                                <h6 class="courses-one__single-content-name">Ricardo Cardenas <span>Actualizado recientemente</span></h6>
+                                <h4 class="courses-one__single-content-title" style="font-size: 18px; line-height: 1.3; margin-bottom: 10px;"><?= htmlspecialchars($curso['nombre_curso'] ?? 'Curso en ICC') ?></h4>
+                                <div class="courses-one__single-content-review-box">
+                                    <ul class="list-unstyled">
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                    </ul>
+                                    <div class="rateing-box">
+                                        <span>(5)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="course-details__price wow fadeInUp animated" data-wow-delay="0.1s">
                             <h2 class="course-details__price-amount">S/89.90<span><del>S/99.90</del></span></h2>
                             <div class="course-details__price-btn">

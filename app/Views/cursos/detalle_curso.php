@@ -174,7 +174,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 2: Temas Principales -->
                             
@@ -199,7 +198,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 3: Beneficios -->
                             
@@ -220,7 +218,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 4: Herramientas y Materiales -->
                             
@@ -245,7 +242,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 5: Programación -->
                             
@@ -277,7 +273,6 @@
                                 </div>
             </div>
         </div>
-    </div>
                         </div>
 
                         
@@ -297,7 +292,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 2: Temas Principales -->
                             
@@ -322,7 +316,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 3: Beneficios -->
                             
@@ -343,7 +336,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 4: Herramientas y Materiales -->
                             
@@ -364,7 +356,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 5: Programación -->
                             
@@ -396,7 +387,6 @@
                                 </div>
             </div>
         </div>
-    </div>
                         </div>
 
                         
@@ -416,7 +406,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 2: Temas Principales -->
                             
@@ -440,7 +429,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 3: Beneficios -->
                             
@@ -461,7 +449,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 4: Programación -->
                             
@@ -505,7 +492,6 @@
                                 </div>
             </div>
         </div>
-    </div>
                         </div>
 
                         
@@ -525,7 +511,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 2: Temas Principales -->
                             
@@ -548,7 +533,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 3: Beneficios -->
                             
@@ -569,7 +553,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 4: Programación -->
                             
@@ -599,7 +582,6 @@
                                 </div>
             </div>
         </div>
-    </div>
                         </div>
 
                         
@@ -619,7 +601,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 2: Temas Principales -->
                             
@@ -642,7 +623,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 3: Beneficios -->
                             
@@ -663,7 +643,6 @@
                                 </div>
             </div>
         </div>
-    </div>
 
                             <!-- Item 4: Programación -->
                             
@@ -693,7 +672,6 @@
                                 </div>
             </div>
         </div>
-    </div>
                         </div>
                     </div>
                 </div>

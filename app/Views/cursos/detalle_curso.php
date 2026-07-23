@@ -640,6 +640,20 @@
                                         <li>Entregables técnicos de mantenimiento y protocolos</li>
                                         <li>Clases teóricas mediante Zoom</li>
                                         <li>Acceso al aula virtual por un mes</li>
+
+                                        <!-- Equipos y Herramientas añadidos a Beneficios -->
+                                        <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                                            <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                                            <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li style="margin-bottom: 5px;">Analizador de redes Circutor</li>
+                                                <li style="margin-bottom: 5px;">Analizador de redes Fluke o Metrel</li>
+                                                <li style="margin-bottom: 5px;">Traje ignífugo y careta contra arco eléctrico</li>
+                                                <li style="margin-bottom: 5px;">Interruptor y transformador de prueba</li>
+                                                <li style="margin-bottom: 5px;">Laptop, recomendable para el alumno</li>
+                                                <li style="margin-bottom: 5px;">Equipos de seguridad y señalización</li>
+                                                <li style="margin-bottom: 0;">Herramientas manuales</li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </div>
             </div>
@@ -676,6 +690,91 @@
                         </div>
 
                 
+<?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'canalizacion') !== false): ?>
+<!-- Default Accordion -->
+<div class="course-cards-grid">
+    
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> Evaluado por horas académicas</p>
+            <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
+            <p style="line-height: 1.5;">Curso orientado a desarrollar competencias prácticas y teóricas en la especialidad elegida, brindando herramientas actualizadas y útiles para el sector industrial.</p>
+        </div>
+            </div>
+        </div>
+
+<div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                <li>Fundamentos teóricos y normativos</li>
+                <li>Equipos de protección y maniobra</li>
+                <li>Procedimientos de trabajo seguro (5 reglas de oro)</li>
+                <li>Mantenimiento preventivo y correctivo</li>
+                <li>Protocolos de pruebas y elaboración de informes técnicos</li>
+            </ul>
+        </div>
+            </div>
+        </div>
+
+<div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                <li>Certificado de participacion con QR</li>
+                <li>Material digital exclusivo</li>
+                <li>Grupo de WhatsApp del curso</li>
+                <li>Entregables técnicos y formatos</li>
+                <li>Clases teóricas grabadas y/o en vivo</li>
+                <li>Acceso al aula virtual por tiempo limitado</li>
+
+                <!-- Equipos y Herramientas añadidos a Beneficios -->
+                <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                    <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                    <ul style="padding-left: 0; margin-bottom: 0;">
+                        <li style="margin-bottom: 5px;">Tuberías Conduit IMC de ¾”</li>
+                        <li style="margin-bottom: 5px;">Tuberías Conduit IMC de 1”</li>
+                        <li style="margin-bottom: 5px;">Tuberías Conduit EMT de ¾”</li>
+                        <li style="margin-bottom: 5px;">Doblador manual y doblador hidráulico</li>
+                        <li style="margin-bottom: 5px;">Cortador manual</li>
+                        <li style="margin-bottom: 5px;">Bandeja metálica y cajas de pase</li>
+                        <li style="margin-bottom: 5px;">Accesorios para anclaje</li>
+                        <li style="margin-bottom: 5px;">Uniones, conectores, curvas y adaptadores</li>
+                        <li style="margin-bottom: 0;">Herramientas manuales</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+            </div>
+        </div>
+
+<div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+                <div class="schedule-box" >
+                    <h5>🇵🇪 Virtual Perú</h5>
+                    <ul style="margin-bottom: 5px;">
+                        <li><strong>Horario:</strong> Por definir</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
 <?php else: ?>
 <!-- Default Accordion -->
 <div class="course-cards-grid">

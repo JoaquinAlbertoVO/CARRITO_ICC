@@ -774,14 +774,34 @@ class AdminCursosController extends Controller {
         $certificadoModel = new \App\Models\Certificado();
         $imagen = $certificadoModel->generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha, $categoria);
 
-        $upload_dir = __DIR__ . '/../../assets/certificados/';
+        $curso_saneado = preg_replace('/[^A-Za-z0-9]/', '_', $curso);
+        $curso_saneado = preg_replace('/_+/', '_', $curso_saneado);
+        $curso_saneado = trim($curso_saneado, '_');
+        $curso_saneado = strtoupper($curso_saneado);
+
+        $upload_dir_relative = $curso_saneado . '/';
+        $upload_dir = __DIR__ . '/../../assets/certificados/' . $upload_dir_relative;
         if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
         
-        $filename_jpg = "cert_" . $id_usuario . "_" . $id_curso_cert . "_" . time() . ".jpg";
+        $filename_base = "cert_" . $id_usuario . "_" . $id_curso_cert . "_" . time();
+        $filename_jpg = $filename_base . ".jpg";
         $filepath_jpg = $upload_dir . $filename_jpg;
         
         imagejpeg($imagen, $filepath_jpg, 100);
         imagedestroy($imagen);
+
+        // Generar QR Code
+        require_once __DIR__ . '/../Libraries/phpqrcode/qrlib.php';
+        
+        $filename_pdf = $filename_base . ".pdf";
+        $filepath_pdf = $upload_dir . $filename_pdf;
+        
+        // Asegurar que el QR usa HTTPS de forma confiable, asumiendo BASE_URL
+        $url_qr = BASE_URL . "assets/certificados/" . $upload_dir_relative . $filename_pdf;
+        $filepath_qr = $upload_dir . $filename_base . "_qr.png";
+        
+        // Generar QR
+        \QRcode::png($url_qr, $filepath_qr, QR_ECLEVEL_M, 10, 0);
 
         // Envolver el JPG en un PDF
         require_once __DIR__ . '/../Libraries/fpdf/fpdf.php';
@@ -790,23 +810,29 @@ class AdminCursosController extends Controller {
         // A4 apaisado es 297mm x 210mm
         $pdf->Image($filepath_jpg, 0, 0, 297, 210);
         
-        $filename = "cert_" . $id_usuario . "_" . $id_curso_cert . "_" . time() . ".pdf";
-        $filepath = $upload_dir . $filename;
-        $pdf->Output('F', $filepath);
+        // Añadir el QR
+        $pdf->Image($filepath_qr, 13.4, 174.7, 27.5, 27.5);
+        
+        $pdf->Output('F', $filepath_pdf);
 
-        // Borramos el JPG temporal
+        // Borramos el JPG y PNG temporal
         if (file_exists($filepath_jpg)) {
             unlink($filepath_jpg);
         }
+        if (file_exists($filepath_qr)) {
+            unlink($filepath_qr);
+        }
+
+        $archivo_pdf_db = $upload_dir_relative . $filename_pdf;
 
         $stmt = $this->db->prepare("INSERT INTO usuario_certificados (id_usuario, id_curso, archivo_pdf) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE archivo_pdf = ?");
-        $stmt->execute([$id_usuario, $id_curso_cert, $filename, $filename]);
+        $stmt->execute([$id_usuario, $id_curso_cert, $archivo_pdf_db, $archivo_pdf_db]);
         
         $stmt2 = $this->db->prepare("UPDATE usuario_cursos SET estado_certificado = 2 WHERE id_usuario = ? AND id_curso = ?");
         $stmt2->execute([$id_usuario, $id_curso_cert]);
 
         // Redirigir al archivo recién creado para que el admin lo pueda ver de inmediato
-        header('Location: ' . BASE_URL . 'assets/certificados/' . $filename);
+        header('Location: ' . BASE_URL . 'assets/certificados/' . $archivo_pdf_db);
         exit;
     }
 

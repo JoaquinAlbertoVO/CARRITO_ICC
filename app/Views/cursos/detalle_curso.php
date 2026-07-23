@@ -549,6 +549,17 @@
                                         <li>Entregables técnicos de mantenimiento y protocolos</li>
                                         <li>Clases teóricas mediante Zoom</li>
                                         <li>Acceso al aula virtual por un mes</li>
+
+                                        <!-- Equipos y Herramientas añadidos a Beneficios -->
+                                        <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                                            <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                                            <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li style="margin-bottom: 5px;">Cilindro de gas GLP y boquilla de 2”</li>
+                                                <li style="margin-bottom: 5px;">Kit de terminación termocontraíble de uso exterior</li>
+                                                <li style="margin-bottom: 5px;">Cable de media tensión de 10 kV y/o 25 kV</li>
+                                                <li style="margin-bottom: 0;">Herramientas manuales</li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </div>
             </div>
@@ -693,9 +704,8 @@
         </div>
             </div>
         </div>
-    </div>
-    
-    <div>
+
+<div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
@@ -711,9 +721,8 @@
         </div>
             </div>
         </div>
-    </div>
-    
-    <div>
+
+<div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios

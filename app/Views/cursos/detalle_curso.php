@@ -771,54 +771,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             </div>
                         </div>
 
-                        <div class="course-details__sidebar-meta wow fadeInUp animated" data-wow-delay="0.3s">
-                            <ul class="course-details__sidebar-meta-list list-unstyled">
-                                <li class="course-details__sidebar-meta-list-item">
-                                    <div class="icon">
-                                        <a href=""><i class="far fa-clock"></i></a>
-                                    </div>
-                                    <div class="text">
-                                        <p><a href="#">Duración:<span> 10 horas</span></a></p>
-                                    </div>
-                                </li>
 
-                                <li class="course-details__sidebar-meta-list-item">
-                                    <div class="icon">
-                                        <a href=""><i class="far fa-folder-open"></i></a>
-                                    </div>
-                                    <div class="text">
-                                        <p><a href="#">Conferencias:<span> 6</span></a></p>
-                                    </div>
-                                </li>
-
-                                <li class="course-details__sidebar-meta-list-item">
-                                    <div class="icon">
-                                        <a href=""><i class="far fa-user-circle"></i></a>
-                                    </div>
-                                    <div class="text">
-                                        <p><a href="#">Estudiantes:<span> Máximo 6</span></a></p>
-                                    </div>
-                                </li>
-
-                                <li class="course-details__sidebar-meta-list-item">
-                                    <div class="icon">
-                                        <a href=""><i class="fas fa-play"></i></a>
-                                    </div>
-                                    <div class="text">
-                                        <p><a href="#">Video:<span> 8 horas</span></a></p>
-                                    </div>
-                                </li>
-
-                                <li class="course-details__sidebar-meta-list-item">
-                                    <div class="icon">
-                                        <a href=""><i class="far fa-flag"></i></a>
-                                    </div>
-                                    <div class="text">
-                                        <p><a href="#">Nivel de habilidad::<span> Avanzado</span></a></p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
 
                         <div class="course-details__new-courses wow fadeInUp animated" data-wow-delay="0.5s">
                             <h3 class="course-details__new-courses-title">Nuevos cursos</h3>

@@ -202,7 +202,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="id_usuario">Seleccionar Alumno</label>
-                        <select name="id_usuario" id="id_usuario" class="form-control" data-toggle="select" required>
+                        <select name="id_usuario" id="id_usuario" class="form-control" required>
                             <option value="">-- Buscar y seleccionar alumno --</option>
                             <?php foreach ($todos_usuarios as $usr): ?>
                                 <option value="<?= $usr['iduser'] ?>">
@@ -213,7 +213,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="id_curso">Seleccionar Curso</label>
-                        <select name="id_curso" id="id_curso" class="form-control" data-toggle="select" required>
+                        <select name="id_curso" id="id_curso" class="form-control" required>
                             <option value="">-- Buscar y seleccionar curso --</option>
                             <?php foreach ($todos_cursos as $cur): ?>
                                 <option value="<?= $cur['id_curso'] ?>">
@@ -231,3 +231,16 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Mover el modal al final del body para evitar conflictos de z-index
+    document.body.appendChild(document.getElementById('modalNuevoCertificado'));
+    
+    // Inicializar Select2 con el parent del modal para asegurar que el input de búsqueda funcione
+    $('#id_usuario, #id_curso').select2({
+        dropdownParent: $('#modalNuevoCertificado'),
+        width: '100%'
+    });
+});
+</script>

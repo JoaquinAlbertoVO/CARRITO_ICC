@@ -82,18 +82,13 @@
 <style>
     .course-cards-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 24px;
         margin-top: 20px;
         margin-bottom: 30px;
     }
-    @media (max-width: 768px) {
-        .course-cards-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
     .info-card {
+        text-align: left !important;
         background: #ffffff;
         border-radius: 12px;
         padding: 25px;

@@ -72,7 +72,7 @@
                                             </div>
                                         </li>
                                     </ul>
-
+                                </div><br>
                             </div>
                         </div>
                         <!--End Single Courses One-->

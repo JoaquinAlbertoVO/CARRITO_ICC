@@ -78,45 +78,86 @@
                         <!--End Single Courses One-->
 
                         <!--Start Dynamic Course Curriculum Accordions-->
+
 <style>
-                            .accordion-btn {
-                                width: 100%; padding: 14px 18px; text-align: left; background: var(--surface-color, #f8f9fa); border: 1px solid var(--surface-border, #e9ecef); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; color: var(--text-color, #333); margin-bottom: 8px; transition: all 0.2s ease;
-                            }
-                            .accordion-btn:hover { background: #e9ecef; }
-                            .accordion-btn.active { background: #e0f2fe; border-color: #bae6fd; color: #0369a1; border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: 0;}
-                            .accordion-content {
-                                padding: 18px; border: 1px solid #bae6fd; border-top: none; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; font-size: 0.9rem; color: var(--text-muted, #555); background: #fff; margin-bottom: 8px;
-                            }
-                            .accordion-content ul { padding-left: 0; margin-bottom: 10px; list-style-type: none; }
-                            .accordion-content ul li { margin-bottom: 8px; position: relative; padding-left: 24px; line-height: 1.4; }
-                            .accordion-content ul li::before { content: '\f00c'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; left: 0; font-size: 0.9rem; top: 2px; color: #10b981;}
-                            .schedule-box { background: #f8fafc; border: 1px dashed #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
-                            .schedule-box h5 { margin-top: 0; margin-bottom: 10px; color: #0f172a; font-weight: 700; font-size: 1rem; }
-                            .schedule-box ul li::before { content: '📅'; }
-                        </style>
+    .info-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        height: 100%;
+        border: 1px solid #f1f5f9;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .info-card:hover { 
+        transform: translateY(-4px); 
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+    }
+    .info-card-title {
+        font-size: 1.15rem; 
+        margin-bottom: 18px; 
+        display: flex; 
+        align-items: center; 
+        gap: 12px; 
+        font-weight: 700; 
+        color: #0f172a;
+    }
+    .info-card-content {
+        font-size: 0.95rem; 
+        color: #475569; 
+        line-height: 1.6;
+    }
+    .info-card-content ul { padding-left: 0; margin-bottom: 10px; list-style-type: none; }
+    .info-card-content ul li { margin-bottom: 10px; position: relative; padding-left: 28px; }
+    .info-card-content ul li::before { 
+        content: '\f00c'; 
+        font-family: 'Font Awesome 5 Free'; 
+        font-weight: 900; 
+        position: absolute; 
+        left: 0; 
+        font-size: 1rem; 
+        top: 2px; 
+        color: #10b981;
+    }
+    .schedule-box { 
+        background: #f8fafc; 
+        border: 1px dashed #cbd5e1; 
+        padding: 15px; 
+        border-radius: 8px; 
+        margin-bottom: 15px; 
+    }
+    .schedule-box h5 { margin-top: 0; margin-bottom: 10px; color: #0f172a; font-weight: 700; font-size: 1rem; }
+    .schedule-box ul li::before { content: '📅'; }
+</style>
+<!--Start Dynamic Course Curriculum Accordions-->
+
 <?php if (strpos(strtolower($curso['nombre_curso'] ?? ''), 'subestaciones') !== false): ?>
-<div class="course-accordion"   style="margin-top: 20px;">
+<div class="row" style="margin-top: 20px;">
                             <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn active"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"  >
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
                                     <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
                                     <p style="line-height: 1.5;">Curso orientado a planificar, ejecutar y documentar mantenimientos de subestaciones eléctricas, combinando contenido teórico y práctica en campo.</p>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <ul>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
                                         <li>Mantenimiento correctivo, preventivo y predictivo</li>
                                         <li>Tipos y partes de subestaciones eléctricas</li>
                                         <li>Transformadores, seccionadores y fusibles</li>
@@ -129,16 +170,19 @@
                                         <li>Procedimientos de corte y puesta en marcha</li>
                                     </ul>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <ul>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
                                         <li>Certificado de participacion con QR</li>
                                         <li>Material digital</li>
                                         <li>Grupo de WhatsApp del curso</li>
@@ -147,16 +191,19 @@
                                         <li>Acceso al aula virtual por un mes</li>
                                     </ul>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 4: Herramientas y Materiales -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-tools" style="color: #f97316; font-size: 1.1rem;"></i> Herramientas y Materiales</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <ul>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-tools" style="color: #f97316; font-size: 1.3rem;"></i> Herramientas y Materiales
+            </h4>
+            <div class="info-card-content">
+                <ul>
                                         <li>Megómetro digital de 5000V</li>
                                         <li>Kit extractor de aceite dieléctrico</li>
                                         <li>Pértigas de maniobra</li>
@@ -169,16 +216,19 @@
                                         <li>Herramientas manuales</li>
                                     </ul>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 5: Programación -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span>📅 Programación y Horarios</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <div class="schedule-box" >
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+                <div class="schedule-box" >
                                         <h5>🇵🇪 Virtual Perú</h5>
                                         <ul style="margin-bottom: 5px;">
                                             <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
@@ -198,33 +248,39 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
                         </div>
 
                         
 <?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'condensadores') !== false): ?>
-<div class="course-accordion"   style="margin-top: 20px;">
+<div class="row" style="margin-top: 20px;">
                             <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn active"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"  >
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
                                     <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
                                     <p style="line-height: 1.5;">Curso orientado a la compensación de energía reactiva y a la mejora del factor de potencia en sistemas eléctricos industriales.</p>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <ul>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
                                         <li>Energía reactiva y triángulo de potencia</li>
                                         <li>Sistemas inductivos y capacitivos</li>
                                         <li>Determinación y corrección del factor de potencia</li>
@@ -237,16 +293,19 @@
                                         <li>Instalación práctica de condensadores</li>
                                     </ul>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <ul>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
                                         <li>Certificado de participacion con QR</li>
                                         <li>Material digital</li>
                                         <li>Grupo de WhatsApp del curso</li>
@@ -255,16 +314,19 @@
                                         <li>Acceso al aula virtual por un mes</li>
                                     </ul>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 4: Herramientas y Materiales -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span>🛠️ Equipos y herramientas</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <ul>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                🛠️ Equipos y herramientas
+            </h4>
+            <div class="info-card-content">
+                <ul>
                                         <li>Condensadores cilíndricos de 25 KVAR</li>
                                         <li>Kit de contactores para condensadores</li>
                                         <li>Interruptores termomagnéticos</li>
@@ -273,16 +335,19 @@
                                         <li>Herramientas manuales</li>
                                     </ul>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 5: Programación -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span>📅 Programación y Horarios</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <div class="schedule-box" >
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+                <div class="schedule-box" >
                                         <h5>🇵🇪 Virtual Perú</h5>
                                         <ul style="margin-bottom: 5px;">
                                             <li><strong>01/09:</strong> Zoom en VIVO de 7:00 pm a 9:00 pm</li>
@@ -302,33 +367,39 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
                         </div>
 
                         
 <?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'industrial') !== false): ?>
-<div class="course-accordion"   style="margin-top: 20px;">
+<div class="row" style="margin-top: 20px;">
                             <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn active"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"  >
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 40 horas académicas</p>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 40 horas académicas</p>
                                     <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación</p>
                                     <p style="line-height: 1.5;">Curso de especialización en electricidad industrial, cubriendo desde los fundamentos hasta el mantenimiento y automatización.</p>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <ul>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
                                         <li>MÓDULO 1: FUNDAMENTOS DE ELECTROTECNIA</li>
                                         <li>MÓDULO 2: INSTRUMENTOS ELÉCTRICOS</li>
                                         <li>MÓDULO 3: PROTECCIONES ELÉCTRICAS</li>
@@ -340,16 +411,19 @@
                                         <li>MÓDULO 9: MANTENIMIENTO ELÉCTRICO INDUSTRIAL</li>
                                     </ul>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <ul>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
                                         <li>Certificado de participacion con QR</li>
                                         <li>Material digital</li>
                                         <li>Grupo de WhatsApp del curso</li>
@@ -358,16 +432,19 @@
                                         <li>Acceso al aula virtual por un mes</li>
                                     </ul>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 4: Programación -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span>📅 Programación y Horarios</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <div class="schedule-box" >
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+                <div class="schedule-box" >
                                         <h5>🇵🇪 Virtual Perú</h5>
                                         <ul style="margin-bottom: 5px;">
                                             <li><strong>03/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
@@ -399,33 +476,39 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
                         </div>
 
                         
 <?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'terminaciones') !== false): ?>
-<div class="course-accordion"   style="margin-top: 20px;">
+<div class="row" style="margin-top: 20px;">
                             <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn active"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"  >
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
                                     <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación.</p>
                                     <p style="line-height: 1.5;">Curso orientado a aprender la correcta instalación de terminaciones en cables de media tensión, aplicando procedimientos técnicos, criterios de seguridad y buenas prácticas del sector.</p>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <ul>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
                                         <li>Tipos de cables y niveles de tensión</li>
                                         <li>Conductor, aislamiento, semiconductoras y pantalla metálica</li>
                                         <li>Aislamientos XLPE, HEPR y EPR</li>
@@ -436,16 +519,19 @@
                                         <li>Práctica de terminaciones interior y exterior hasta 25 kV</li>
                                     </ul>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <ul>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
                                         <li>Certificado de participacion con QR</li>
                                         <li>Material digital</li>
                                         <li>Grupo de WhatsApp del curso</li>
@@ -454,16 +540,19 @@
                                         <li>Acceso al aula virtual por un mes</li>
                                     </ul>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 4: Programación -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span>📅 Programación y Horarios</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <div class="schedule-box" >
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+                <div class="schedule-box" >
                                         <h5>🇵🇪 Virtual Perú</h5>
                                         <ul style="margin-bottom: 5px;">
                                             <li><strong>15/07:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
@@ -481,33 +570,39 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
                         </div>
 
                         
 <?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'analizador') !== false): ?>
-<div class="course-accordion"   style="margin-top: 20px;">
+<div class="row" style="margin-top: 20px;">
                             <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn active"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"  >
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
                                     <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación</p>
                                     <p style="line-height: 1.5;">Curso dirigido a quienes desean evaluar, registrar y analizar parámetros eléctricos y perturbaciones en redes de baja y media tensión.</p>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <ul>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
                                         <li>Tipos de analizadores y normativa vigente</li>
                                         <li>Parámetros eléctricos y perturbaciones</li>
                                         <li>Selección e instalación de analizadores</li>
@@ -518,16 +613,19 @@
                                         <li>Elaboración de informes técnicos</li>
                                     </ul>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <ul>
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
                                         <li>Certificado de participacion con QR</li>
                                         <li>Material digital</li>
                                         <li>Grupo de WhatsApp del curso</li>
@@ -536,16 +634,19 @@
                                         <li>Acceso al aula virtual por un mes</li>
                                     </ul>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
 
                             <!-- Item 4: Programación -->
-                            <div>
-                                <button class="accordion-btn vanilla-btn"  >
-                                    <span>📅 Programación y Horarios</span>
-                                    <span  style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content"   style="display: none;">
-                                    <div class="schedule-box" >
+                            
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+                <div class="schedule-box" >
                                         <h5>🇵🇪 Virtual Perú</h5>
                                         <ul style="margin-bottom: 5px;">
                                             <li><strong>17/08:</strong> Zoom en Vivo de 7:00 p. m. a 9:00 p. m.</li>
@@ -563,7 +664,9 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+            </div>
+        </div>
+    </div>
                         </div>
                     </div>
                 </div>
@@ -571,25 +674,29 @@
                 
 <?php else: ?>
 <!-- Default Accordion -->
-<div class="course-accordion" style="margin-top: 20px;">
-    <div>
-        <button class="accordion-btn vanilla-btn active">
-            <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-            <span style="font-weight: bold; font-size: 1.2rem;">−</span>
-        </button>
-        <div class="accordion-content">
-            <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> Evaluado por horas académicas</p>
+<div class="row" style="margin-top: 20px;">
+    
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> Evaluado por horas académicas</p>
             <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
             <p style="line-height: 1.5;">Curso orientado a desarrollar competencias prácticas y teóricas en la especialidad elegida, brindando herramientas actualizadas y útiles para el sector industrial.</p>
         </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <button class="accordion-btn vanilla-btn">
-            <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-            <span style="font-weight: bold; font-size: 1.2rem;">+</span>
-        </button>
-        <div class="accordion-content" style="display: none;">
-            <ul>
+    
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
                 <li>Fundamentos teóricos y normativos</li>
                 <li>Equipos de protección y maniobra</li>
                 <li>Procedimientos de trabajo seguro (5 reglas de oro)</li>
@@ -597,14 +704,17 @@
                 <li>Protocolos de pruebas y elaboración de informes técnicos</li>
             </ul>
         </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <button class="accordion-btn vanilla-btn">
-            <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-            <span style="font-weight: bold; font-size: 1.2rem;">+</span>
-        </button>
-        <div class="accordion-content" style="display: none;">
-            <ul>
+    
+    <div class="col-md-6" style="margin-bottom: 24px;">
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
                 <li>Certificado de participacion con QR</li>
                 <li>Material digital exclusivo</li>
                 <li>Grupo de WhatsApp del curso</li>
@@ -613,41 +723,14 @@
                 <li>Acceso al aula virtual por tiempo limitado</li>
             </ul>
         </div>
+            </div>
+        </div>
     </div>
 </div>
 <?php endif; ?>
 
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const btns = document.querySelectorAll('.vanilla-btn');
-    btns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const content = this.nextElementSibling;
-            const span = this.querySelector('span:last-child');
-            
-            if (this.classList.contains('active')) {
-                this.classList.remove('active');
-                content.style.display = 'none';
-                if(span) span.textContent = '+';
-            } else {
-                const parent = this.closest('.course-accordion');
-                if(parent) {
-                    parent.querySelectorAll('.vanilla-btn.active').forEach(act => {
-                        act.classList.remove('active');
-                        if(act.nextElementSibling) act.nextElementSibling.style.display = 'none';
-                        const otherSpan = act.querySelector('span:last-child');
-                        if(otherSpan) otherSpan.textContent = '+';
-                    });
-                }
-                this.classList.add('active');
-                content.style.display = 'block';
-                if(span) span.textContent = '−';
-            }
-        });
-    });
-});
-</script>
+
 
 
                         <!--Start Course Details Reviews-->

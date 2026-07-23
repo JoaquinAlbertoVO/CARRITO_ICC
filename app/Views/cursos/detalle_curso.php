@@ -82,10 +82,14 @@
 <style>
     .course-cards-grid {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
         gap: 20px;
         margin-top: 20px;
         margin-bottom: 30px;
+    }
+    .course-cards-grid > div {
+        flex: 1 1 calc(50% - 20px);
+        min-width: 280px; /* Force stacking on small screens */
     }
     .info-card {
         text-align: left !important;
@@ -95,6 +99,9 @@
         box-shadow: 0 4px 15px rgba(0,0,0,0.04);
         border: 1px solid #f1f5f9;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
     .info-card:hover { 
         transform: translateY(-4px); 
@@ -113,25 +120,17 @@
         font-size: 0.95rem; 
         color: #475569; 
         line-height: 1.6;
+        flex-grow: 1;
     }
     .info-card-content ul { 
         padding-left: 0; 
         margin-bottom: 10px; 
         list-style-type: none;
-        column-count: 2;
-        column-gap: 40px;
-    }
-    @media (max-width: 768px) {
-        .info-card-content ul {
-            column-count: 1;
-        }
     }
     .info-card-content ul li { 
         margin-bottom: 10px; 
         position: relative; 
         padding-left: 28px;
-        break-inside: avoid;
-        page-break-inside: avoid;
     }
     .info-card-content ul li::before { 
         content: '\f00c'; 
@@ -151,9 +150,6 @@
         margin-bottom: 15px; 
     }
     .schedule-box h5 { margin-top: 0; margin-bottom: 10px; color: #0f172a; font-weight: 700; font-size: 1rem; }
-    .schedule-box ul {
-        column-count: 1 !important; /* Do not split schedule into columns */
-    }
     .schedule-box ul li::before { content: '📅'; }
 </style>
 <!--Start Dynamic Course Curriculum Accordions-->

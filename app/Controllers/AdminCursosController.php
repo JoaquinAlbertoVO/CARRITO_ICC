@@ -228,9 +228,14 @@ class AdminCursosController extends Controller {
             exit;
         }
 
+        $stmt = $this->db->prepare("SELECT i.id_inscrito, p.titulo FROM inscrito i INNER JOIN usuario u ON i.id_user = u.iduser INNER JOIN ingenieria p ON i.plc = p.idinge WHERE i.id_user = ?");
+        $stmt->execute([$id]);
+        $cursos_matriculados = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
         $data = [
             'alert' => $alert,
-            'data' => $estudiante
+            'data' => $estudiante,
+            'cursos_matriculados' => $cursos_matriculados
         ];
         $this->view('admin/ingenieria/editar', $data, 'admin/layouts/main');
     }
@@ -800,8 +805,16 @@ class AdminCursosController extends Controller {
         $url_qr = BASE_URL . "assets/certificados/" . $upload_dir_relative . $filename_pdf;
         $filepath_qr = $upload_dir . $filename_base . "_qr.png";
         
+        // Guardar nivel de reporte de errores actual
+        $old_error_reporting = error_reporting();
+        // Ocultar deprecados temporales de phpqrcode para evitar headers_sent en PHP 8+
+        error_reporting($old_error_reporting & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+
         // Generar QR
         \QRcode::png($url_qr, $filepath_qr, QR_ECLEVEL_M, 10, 0);
+
+        // Restaurar
+        error_reporting($old_error_reporting);
 
         // Envolver el JPG en un PDF
         require_once __DIR__ . '/../Libraries/fpdf/fpdf.php';

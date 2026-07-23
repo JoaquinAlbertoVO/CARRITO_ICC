@@ -4,7 +4,8 @@
         </div>
     </div>
 
-    <div class="container-fluid page__container">
+    <div class="container-fluid" id="container-wrapper">
+    <!-- Updated file to force SFTP sync: 2026-07-23 -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -139,25 +140,15 @@
                                         Matriculados</label><br><br>
                                     <div class="form-row">
                                         <?php
-
-                                        include '../conexion.php';
-                                        $id_usuario = $_GET['id'];
-                                        mysqli_set_charset($conection, "utf8");
-
-                                        $sql = "SELECT i.id_inscrito, p.titulo FROM inscrito i INNER JOIN usuario u ON i.id_user = u.iduser INNER JOIN ingenieria p ON i.plc = p.idinge WHERE i.id_user = $id_usuario";
-
-                                        $result = mysqli_query($conection, $sql);
-
-                                        while ($mostrar = mysqli_fetch_row($result)) {
-
-                                            //PRIMER CURSO PROGRAMACIÓN BÁSICA P.L.C
-                                            if ($mostrar[1]) {
-                                                echo "
+                                        if (isset($data['cursos_matriculados'])) {
+                                            foreach ($data['cursos_matriculados'] as $mostrar) {
+                                                if (!empty($mostrar['titulo'])) {
+                                                    echo "
 
                                                 <div class='col-12 col-md-6 mb-3'>
                                                     <label for='fname'>PROGRAMACIÓN BÁSICA P.L.C</label>
                                                     <select id='select01' data-toggle='select' name='2' class='form-control'>
-                                                        <option value='2'>$mostrar[1]</option>
+                                                        <option value='2'>{$mostrar['titulo']}</option>
                                                         <option value='1'>No</option>
                                                     </select>
                                                 </div>

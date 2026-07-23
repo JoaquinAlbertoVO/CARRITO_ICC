@@ -81,9 +81,9 @@
 
 <style>
     .course-cards-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
         margin-top: 20px;
         margin-bottom: 30px;
     }
@@ -93,7 +93,6 @@
         border-radius: 12px;
         padding: 25px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-        height: 100%;
         border: 1px solid #f1f5f9;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
@@ -115,8 +114,25 @@
         color: #475569; 
         line-height: 1.6;
     }
-    .info-card-content ul { padding-left: 0; margin-bottom: 10px; list-style-type: none; }
-    .info-card-content ul li { margin-bottom: 10px; position: relative; padding-left: 28px; }
+    .info-card-content ul { 
+        padding-left: 0; 
+        margin-bottom: 10px; 
+        list-style-type: none;
+        column-count: 2;
+        column-gap: 40px;
+    }
+    @media (max-width: 768px) {
+        .info-card-content ul {
+            column-count: 1;
+        }
+    }
+    .info-card-content ul li { 
+        margin-bottom: 10px; 
+        position: relative; 
+        padding-left: 28px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
     .info-card-content ul li::before { 
         content: '\f00c'; 
         font-family: 'Font Awesome 5 Free'; 
@@ -135,6 +151,9 @@
         margin-bottom: 15px; 
     }
     .schedule-box h5 { margin-top: 0; margin-bottom: 10px; color: #0f172a; font-weight: 700; font-size: 1rem; }
+    .schedule-box ul {
+        column-count: 1 !important; /* Do not split schedule into columns */
+    }
     .schedule-box ul li::before { content: '📅'; }
 </style>
 <!--Start Dynamic Course Curriculum Accordions-->

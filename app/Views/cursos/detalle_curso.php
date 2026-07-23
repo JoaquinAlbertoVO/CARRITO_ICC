@@ -40,6 +40,10 @@
                                 $video_url = 'https://www.youtube.com/embed/lvb5RYvgjL0?rel=0';
                             } elseif (strpos($cName, 'analizador') !== false) {
                                 $video_url = 'https://www.youtube.com/embed/h9UIxWA7_Lw?rel=0';
+                            } elseif (strpos($cName, 'canalizaciones') !== false) {
+                                $video_url = 'https://www.youtube.com/embed/HhwUmtNPrto?rel=0';
+                            } elseif (strpos($cName, 'empalmes') !== false) {
+                                $video_url = 'https://www.youtube.com/embed/EFwgRMFiN-A?rel=0';
                             } else {
                                 $video_url = 'https://www.youtube.com/embed/7SMbMxs27K0?rel=0';
                             }

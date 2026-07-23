@@ -80,6 +80,19 @@
                         <!--Start Dynamic Course Curriculum Accordions-->
 
 <style>
+    .course-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+    @media (max-width: 768px) {
+        .course-cards-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
     .info-card {
         background: #ffffff;
         border-radius: 12px;
@@ -132,10 +145,10 @@
 <!--Start Dynamic Course Curriculum Accordions-->
 
 <?php if (strpos(strtolower($curso['nombre_curso'] ?? ''), 'subestaciones') !== false): ?>
-<div class="row" style="margin-top: 20px;">
+<div class="course-cards-grid">
                             <!-- Item 1: Resumen -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
@@ -151,7 +164,7 @@
 
                             <!-- Item 2: Temas Principales -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
@@ -176,7 +189,7 @@
 
                             <!-- Item 3: Beneficios -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
@@ -197,7 +210,7 @@
 
                             <!-- Item 4: Herramientas y Materiales -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-tools" style="color: #f97316; font-size: 1.3rem;"></i> Herramientas y Materiales
@@ -222,7 +235,7 @@
 
                             <!-- Item 5: Programación -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 📅 Programación y Horarios
@@ -255,10 +268,10 @@
 
                         
 <?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'condensadores') !== false): ?>
-<div class="row" style="margin-top: 20px;">
+<div class="course-cards-grid">
                             <!-- Item 1: Resumen -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
@@ -274,7 +287,7 @@
 
                             <!-- Item 2: Temas Principales -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
@@ -299,7 +312,7 @@
 
                             <!-- Item 3: Beneficios -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
@@ -320,7 +333,7 @@
 
                             <!-- Item 4: Herramientas y Materiales -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 🛠️ Equipos y herramientas
@@ -341,7 +354,7 @@
 
                             <!-- Item 5: Programación -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 📅 Programación y Horarios
@@ -374,10 +387,10 @@
 
                         
 <?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'industrial') !== false): ?>
-<div class="row" style="margin-top: 20px;">
+<div class="course-cards-grid">
                             <!-- Item 1: Resumen -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
@@ -393,7 +406,7 @@
 
                             <!-- Item 2: Temas Principales -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
@@ -417,7 +430,7 @@
 
                             <!-- Item 3: Beneficios -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
@@ -438,7 +451,7 @@
 
                             <!-- Item 4: Programación -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 📅 Programación y Horarios
@@ -483,10 +496,10 @@
 
                         
 <?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'terminaciones') !== false): ?>
-<div class="row" style="margin-top: 20px;">
+<div class="course-cards-grid">
                             <!-- Item 1: Resumen -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
@@ -502,7 +515,7 @@
 
                             <!-- Item 2: Temas Principales -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
@@ -525,7 +538,7 @@
 
                             <!-- Item 3: Beneficios -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
@@ -546,7 +559,7 @@
 
                             <!-- Item 4: Programación -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 📅 Programación y Horarios
@@ -577,10 +590,10 @@
 
                         
 <?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'analizador') !== false): ?>
-<div class="row" style="margin-top: 20px;">
+<div class="course-cards-grid">
                             <!-- Item 1: Resumen -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
@@ -596,7 +609,7 @@
 
                             <!-- Item 2: Temas Principales -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
@@ -619,7 +632,7 @@
 
                             <!-- Item 3: Beneficios -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
@@ -640,7 +653,7 @@
 
                             <!-- Item 4: Programación -->
                             
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 📅 Programación y Horarios
@@ -674,9 +687,9 @@
                 
 <?php else: ?>
 <!-- Default Accordion -->
-<div class="row" style="margin-top: 20px;">
+<div class="course-cards-grid">
     
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
@@ -690,7 +703,7 @@
         </div>
     </div>
     
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
@@ -708,7 +721,7 @@
         </div>
     </div>
     
-    <div class="col-md-6" style="margin-bottom: 24px;">
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios

@@ -300,13 +300,15 @@
                                         <span>(5)</span>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="course-details__price wow fadeInUp animated" data-wow-delay="0.1s">
-                            <h2 class="course-details__price-amount">S/89.90<span><del>S/99.90</del></span></h2>
-                            <div class="course-details__price-btn">
-                                <a href="https://wa.link/zkj9jo" target="_black" class="thm-btn">compra este curso</a>
+                                
+                                <hr style="margin: 25px 0 20px 0; border-top: 1px solid #eaeaea;">
+                                
+                                <div class="course-details__price-united" style="text-align: center; padding-bottom: 10px;">
+                                    <h2 class="course-details__price-amount" style="font-size: 32px; font-weight: 700; color: #000; margin-bottom: 20px;">S/89.90<span style="font-size: 16px; color: #a1a1a1; margin-left: 10px; text-decoration: line-through; font-weight: 400;">S/99.90</span></h2>
+                                    <div class="course-details__price-btn">
+                                        <a href="https://wa.link/zkj9jo" target="_black" class="thm-btn" style="width: 100%; display: block; text-align: center; background-color: #0d1b2a; padding: 12px 0; border-radius: 6px;">compra este curso</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

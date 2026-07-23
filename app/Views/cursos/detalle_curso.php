@@ -81,15 +81,17 @@
 
 <style>
     .course-cards-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 20px !important;
         margin-top: 20px;
         margin-bottom: 30px;
+        width: 100%;
     }
-    .course-cards-grid > div {
-        flex: 1 1 calc(50% - 20px);
-        min-width: 280px; /* Force stacking on small screens */
+    @media (max-width: 768px) {
+        .course-cards-grid {
+            grid-template-columns: 1fr !important;
+        }
     }
     .info-card {
         text-align: left !important;
@@ -102,6 +104,8 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        width: 100% !important;
+        box-sizing: border-box;
     }
     .info-card:hover { 
         transform: translateY(-4px); 

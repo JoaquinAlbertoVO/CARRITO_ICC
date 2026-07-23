@@ -19,17 +19,11 @@
                     <div class="swiper-slide">
                         <div class="image-layer"
                             style="background: url('<?= BASE_URL ?>assets/images/banner_icc.png') center/cover no-repeat;"></div>
-                        <div class="image-layer-overlay"></div>
+
                         <div class="container">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="main-slider-two__content text-center">
-                                        <h2 class="main-slider-two__tagline">Cursos online</h2><br>
-                                        <h2 class="main-slider__title">Capacítate y certificate<br> con nosotros</h2><br><br><br><br>
-                                    </div>
-                                    <div class="main-slider-two__button-box text-center">
-                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
-                                    </div>
+                                <div class="col-lg-12" style="min-height: 400px;">
+                                    <!-- El texto y botón ya están incluidos en el diseño de la imagen banner_icc.png -->
                                 </div>
                             </div>
                         </div>
@@ -39,17 +33,11 @@
                     <div class="swiper-slide">
                         <div class="image-layer"
                             style="background: url('<?= BASE_URL ?>assets/images/banner_icc.png') center/cover no-repeat;"></div>
-                        <div class="image-layer-overlay"></div>
+
                         <div class="container">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="main-slider-two__content text-center">
-                                        <h2 class="main-slider-two__tagline">Cursos online</h2><br>
-                                        <h2 class="main-slider__title">Especialízate en Ingeniería<br> Eléctrica con nosotros</h2><br><br><br><br>
-                                    </div>
-                                    <div class="main-slider-two__button-box text-center">
-                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
-                                    </div>
+                                <div class="col-lg-12" style="min-height: 400px;">
+                                    <!-- El texto y botón ya están incluidos en el diseño de la imagen banner_icc.png -->
                                 </div>
                             </div>
                         </div>
@@ -59,17 +47,11 @@
                     <div class="swiper-slide">
                         <div class="image-layer"
                             style="background: url('<?= BASE_URL ?>assets/images/banner_icc.png') center/cover no-repeat;"></div>
-                        <div class="image-layer-overlay"></div>
+
                         <div class="container">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="main-slider-two__content text-center">
-                                        <h2 class="main-slider-two__tagline">Cursos online</h2><br>
-                                        <h2 class="main-slider__title">Capacítate y certificate<br> con nosotros</h2><br><br><br><br>
-                                    </div>
-                                    <div class="main-slider-two__button-box text-center">
-                                        <a href="<?= BASE_URL ?>nosotros" class="thm-btn">Descubrir más</a>
-                                    </div>
+                                <div class="col-lg-12" style="min-height: 400px;">
+                                    <!-- El texto y botón ya están incluidos en el diseño de la imagen banner_icc.png -->
                                 </div>
                             </div>
                         </div>

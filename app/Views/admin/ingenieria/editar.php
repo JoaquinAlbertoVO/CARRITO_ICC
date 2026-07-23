@@ -168,11 +168,18 @@
                                               ";
                                             }
                                         }
+                                        }
                                         ?>
 
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -211,7 +218,13 @@
                                     <div class="form-row">
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -248,7 +261,13 @@
 
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -288,7 +307,13 @@
                                     <div class="form-row">
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -325,7 +350,13 @@
 
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -364,7 +395,13 @@
                                     <div class="form-row">
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -401,7 +438,13 @@
 
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -440,7 +483,13 @@
                                     <div class="form-row">
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -477,7 +526,13 @@
 
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -516,7 +571,13 @@
                                     <div class="form-row">
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -552,7 +613,13 @@
                                         
                                         <?php
                                         // IMPLEMENTACIÓN CURSO ELECTRICIDAD RESIDENCIAL - INICIO
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -592,7 +659,13 @@
                                     <div class="form-row">
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -629,7 +702,13 @@
 
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -669,7 +748,13 @@
                                     <div class="form-row">
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -706,7 +791,13 @@
 
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -746,7 +837,13 @@
                                     <div class="form-row">
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -783,7 +880,13 @@
 
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -826,7 +929,13 @@
                                     <div class="form-row">
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 
@@ -863,7 +972,13 @@
 
                                         <?php
 
-                                        include '../conexion.php';
+                                        if (!isset($conection)) {
+                                            $con_host = $_ENV['DB_HOST'] ?? 'localhost';
+                                            $con_user = $_ENV['DB_USER'] ?? 'icccom_icc';
+                                            $con_pass = $_ENV['DB_PASS'] ?? 'pWhOD~@e{DZ5ie%x';
+                                            $con_db = $_ENV['DB_NAME'] ?? 'icccom_icc';
+                                            $conection = @mysqli_connect($con_host, $con_user, $con_pass, $con_db);
+                                        }
                                         $id_usuario = $_GET['id'];
                                         mysqli_set_charset($conection, "utf8");
 

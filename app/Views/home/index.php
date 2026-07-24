@@ -1,6 +1,102 @@
 
         
-        <section class="main-slider main-slider-two">
+        
+<style>
+.hero-banner-custom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 0;
+    min-height: 500px;
+}
+.hero-text-box {
+    max-width: 600px;
+    z-index: 2;
+    position: relative;
+}
+.hero-text-box h2 {
+    font-size: 65px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+.hero-subtext {
+    text-transform: none;
+    font-weight: 500;
+    font-size: 0.7em;
+    display: inline-block;
+    margin: 5px 0;
+}
+.hero-highlight {
+    color: #d8ea1b;
+}
+.hero-btn {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #1a4497;
+    font-weight: 900;
+    font-size: 22px;
+    padding: 12px 35px;
+    border-radius: 40px;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+.hero-btn:hover {
+    background-color: #d8ea1b;
+    color: #000;
+    transform: translateY(-3px);
+}
+.hero-mascot {
+    max-width: 450px;
+    z-index: 2;
+    position: relative;
+    animation: float 4s ease-in-out infinite;
+}
+.hero-mascot img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+@media (max-width: 991px) {
+    .hero-banner-custom {
+        flex-direction: column;
+        text-align: center;
+        padding: 50px 15px 20px;
+        justify-content: center;
+    }
+    .hero-text-box h2 {
+        font-size: 45px;
+    }
+    .hero-mascot {
+        margin-top: 40px;
+        max-width: 350px;
+    }
+}
+@media (max-width: 575px) {
+    .hero-text-box h2 {
+        font-size: 35px;
+    }
+    .hero-btn {
+        font-size: 18px;
+        padding: 10px 25px;
+    }
+    .hero-mascot {
+        max-width: 280px;
+    }
+}
+</style>
+<section class="main-slider main-slider-two">
             <div class="swiper-container thmáswiper__slider" data-swiper-options='{"slidesPerView": 1, "loop": true, "effect": "fade", "pagination": {
             "el": "#main-slider-pagination",
             "type": "bullets",
@@ -14,51 +110,25 @@
             "delay": 5000
             }}'>
 
-                <div class="swiper-wrapper">
+                                <div class="swiper-wrapper">
                     <!--Start Single Swiper Slide-->
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.png') center/cover no-repeat;"></div>
-
+                            style="background: url('<?= BASE_URL ?>assets/images/ICC_FONDO.png') center/cover no-repeat;"></div>
+                        
                         <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12" style="min-height: 400px;">
-                                    <!-- El texto y botón ya están incluidos en el diseño de la imagen banner_icc.png -->
+                            <div class="hero-banner-custom">
+                                <div class="hero-text-box">
+                                    <h2>CAPACÍTATE Y<br><span class="hero-subtext">certifícate con</span><br><span class="hero-highlight">NOSOTROS</span></h2>
+                                    <a href="<?= BASE_URL ?>cursos" class="hero-btn">CURSOS ONLINE</a>
+                                </div>
+                                <div class="hero-mascot">
+                                    <img src="<?= BASE_URL ?>assets/images/Ingeniero_mascota.png" alt="Ingeniero ICC">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--End Single Swiper Slide-->
-                    <!--Start Single Swiper Slide-->
-                    <div class="swiper-slide">
-                        <div class="image-layer"
-                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.png') center/cover no-repeat;"></div>
-
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12" style="min-height: 400px;">
-                                    <!-- El texto y botón ya están incluidos en el diseño de la imagen banner_icc.png -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Swiper Slide-->
-                    <!--Start Single Swiper Slide-->
-                    <div class="swiper-slide">
-                        <div class="image-layer"
-                            style="background: url('<?= BASE_URL ?>assets/images/banner_icc.png') center/cover no-repeat;"></div>
-
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12" style="min-height: 400px;">
-                                    <!-- El texto y botón ya están incluidos en el diseño de la imagen banner_icc.png -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Swiper Slide-->
-
-
                 </div>
                 <!-- If we need navigation buttons -->
                 <div class="swiper-pagination" id="main-slider-pagination"></div>

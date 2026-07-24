@@ -25,7 +25,7 @@ class Curso {
 
     public function getCursos($estado = 1) {
         try {
-            $sql = "SELECT * FROM cursos WHERE estado = :estado ORDER BY id_curso DESC";
+            $sql = "SELECT c.*, (SELECT COUNT(DISTINCT modulo) FROM curso_videos v WHERE v.id_curso = c.id_curso AND v.estado = 1) AS lecciones_reales FROM cursos c WHERE c.estado = :estado ORDER BY c.id_curso DESC";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':estado', $estado, PDO::PARAM_INT);
             $stmt->execute();

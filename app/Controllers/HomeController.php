@@ -98,7 +98,8 @@ class HomeController extends Controller {
                     "price_usd" => number_format($precioPreventaUSD, 2),
                     "date" => $fechaProx,
                     "hours" => $horas,
-                    "link" => $slug
+                    "link" => $slug,
+                    "lecciones" => $c['lecciones_reales'] ?? 0
                 ];
             }
         }

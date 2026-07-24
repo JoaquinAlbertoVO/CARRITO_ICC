@@ -221,7 +221,7 @@
                                         <span class="price-val">S/<?= number_format($precioPreventa, 2) ?></span>
                                     </p>
                                     <ul class="courses-one__single-content-courses-info list-unstyled">
-                                        <li><?= htmlspecialchars($curso['lecciones'] ?? 10) ?> Lecciones</li>
+                                        <li><?= htmlspecialchars($curso['lecciones'] ?? 0) ?> Módulos</li>
                                         <li><?= htmlspecialchars($horas) ?> Horas</li>
                                         <li>Experto</li>
                                     </ul>

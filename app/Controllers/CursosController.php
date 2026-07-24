@@ -92,7 +92,7 @@ class CursosController extends Controller {
                     "link" => $slug,
                     "docente" => $c['docente'] ?? 'Docente',
                     "docente_foto" => $c['docente_foto'] ?: '50x50',
-                    "lecciones" => $c['lecciones'] ?? 1
+                    "lecciones" => $c['lecciones_reales'] ?? 0
                 ];
             }
         }

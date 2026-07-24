@@ -26,7 +26,7 @@
         <div class="container">
             <div class="row">
                 <!--Start Course Details Content-->
-                <div class="col-xl-8 col-lg-8">
+                <div class="col-xl-8 col-lg-8 order-2 order-lg-1">
                     <div class="course-details__content">
                         <!--Start Single Courses One-->
                         <div class="courses-one__single style2 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
@@ -1017,7 +1017,7 @@
                 <!--End Course Details Content-->
 
                 <!--Start Course Details Sidebar-->
-                <div class="col-xl-4 col-lg-4">
+                <div class="col-xl-4 col-lg-4 order-1 order-lg-2">
                     <div class="course-details__sidebar">
                         <div class="courses-one__single style2 wow fadeInUp" data-wow-delay="0.1s" style="margin-bottom: 30px; box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.07); border-radius: 8px; overflow: hidden; background-color: #ffffff;">
                             <div class="courses-one__single-img">

@@ -93,30 +93,41 @@
                                     </div>
                                     <?php
                                     $precioPreventa = 89.90;
+                                    $horas = ($curso['horas_academicas'] ?? 20);
                                     $nombreCursoSafe = strtolower($curso['nombre_curso'] ?? '');
                                     
                                     if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
                                         $precioPreventa = 99.00;
+                                        $horas = 25;
                                     } elseif (strpos($nombreCursoSafe, 'condensadores') !== false) {
                                         $precioPreventa = 99.00;
+                                        $horas = 25;
                                     } elseif (strpos($nombreCursoSafe, 'analizador') !== false) {
                                         $precioPreventa = 99.00;
+                                        $horas = 25;
                                     } elseif (strpos($nombreCursoSafe, 'canalizacion') !== false) {
                                         $precioPreventa = 100.00;
+                                        $horas = 16;
                                     } elseif (strpos($nombreCursoSafe, 'terminaciones') !== false) {
                                         $precioPreventa = 99.00;
+                                        $horas = 15;
                                     } elseif (strpos($nombreCursoSafe, 'empalmes') !== false) {
                                         $precioPreventa = 99.00;
+                                        $horas = 15;
                                     } elseif (strpos($nombreCursoSafe, 'variadores') !== false) {
                                         $precioPreventa = 99.00;
+                                        $horas = 30;
+                                    } elseif (strpos($nombreCursoSafe, 'electricidad industrial') !== false) {
+                                        $precioPreventa = 100.00;
+                                        $horas = 40;
                                     } else {
                                         $precioPreventa = $curso['precio'] ?? 89.90;
                                     }
                                     ?>
                                     <p class="courses-one__single-content-price">S/<?= number_format($precioPreventa, 2) ?></p>
                                     <ul class="courses-one__single-content-courses-info list-unstyled">
-                                        <li><?= htmlspecialchars($curso['lecciones'] ?? 1) ?> Lecciones</li>
-                                        <li><?= htmlspecialchars($curso['horas_academicas'] ?? 20) ?> Horas</li>
+                                        <li><?= htmlspecialchars($curso['lecciones'] ?? 10) ?> Lecciones</li>
+                                        <li><?= htmlspecialchars($horas) ?> Horas</li>
                                         <li>Experto</li>
                                     </ul>
                                 </div>

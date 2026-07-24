@@ -1073,6 +1073,9 @@
                                 } elseif (strpos($nombreCursoSafe, 'variadores') !== false) {
                                     $precioPreventa = 99.00;
                                     $precioRegular = 200.00;
+                                } elseif (strpos($nombreCursoSafe, 'electricidad industrial') !== false) {
+                                    $precioPreventa = 100.00;
+                                    $precioRegular = 200.00;
                                 } else {
                                     // Default fallback
                                     $precioPreventa = 89.90;

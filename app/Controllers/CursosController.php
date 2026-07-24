@@ -33,7 +33,7 @@ class CursosController extends Controller {
                 $fechaProx = 'PRÓXIMAMENTE';
                 $horas = $c['horas_academicas'] . " hrs";
                 
-                $nombreCursoSafe = strtolower($c['nombre_curso'] ?? '');
+                $nombreCursoSafe = mb_strtolower($c['nombre_curso'] ?? '', 'UTF-8');
                 
                 if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
                     $precioPreventa = 99.00;
@@ -63,6 +63,10 @@ class CursosController extends Controller {
                     $precioPreventa = 99.00;
                     $fechaProx = '20/08';
                     $horas = '30 hrs';
+                } elseif (strpos($nombreCursoSafe, 'electricidad industrial') !== false) {
+                    $precioPreventa = 100.00;
+                    $fechaProx = '17/08';
+                    $horas = '40 hrs';
                 } else {
                     $precioPreventa = $c['precio'] ?? 89.90;
                 }

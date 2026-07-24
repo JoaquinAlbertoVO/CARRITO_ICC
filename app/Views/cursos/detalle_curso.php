@@ -31,7 +31,7 @@
                         <!--Start Single Courses One-->
                         <div class="courses-one__single style2 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
                             <?php
-                            $cName = strtolower($curso['nombre_curso'] ?? '');
+                            $cName = mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8');
                             if (strpos($cName, 'condensadores') !== false) {
                                 $video_url = 'https://www.youtube.com/embed/8TLJJCuo8Yg?rel=0';
                             } elseif (strpos($cName, 'terminaciones') !== false) {
@@ -159,7 +159,7 @@
 <!--Start Dynamic Course Curriculum Accordions-->
 
 
-<?php if (strpos(strtolower($curso['nombre_curso'] ?? ''), 'subestaciones') !== false): ?>
+<?php if (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'subestaciones') !== false): ?>
 <div class="course-cards-grid">
     <div>
         <div class="info-card">
@@ -252,7 +252,7 @@
     </div>
 </div>
 
-<?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'condensadores') !== false): ?>
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'condensadores') !== false): ?>
 <div class="course-cards-grid">
     <div>
         <div class="info-card">
@@ -342,7 +342,7 @@
     </div>
 </div>
 
-<?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'analizador') !== false): ?>
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'analizador') !== false): ?>
 <div class="course-cards-grid">
     <div>
         <div class="info-card">
@@ -430,7 +430,7 @@
     </div>
 </div>
 
-<?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'canalizacion') !== false): ?>
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'canalizacion') !== false): ?>
 <div class="course-cards-grid">
     <div>
         <div class="info-card">
@@ -524,7 +524,7 @@
     </div>
 </div>
 
-<?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'terminaciones') !== false): ?>
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'terminaciones') !== false): ?>
 <div class="course-cards-grid">
     <div>
         <div class="info-card">
@@ -607,7 +607,7 @@
     </div>
 </div>
 
-<?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'empalmes') !== false): ?>
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'empalmes') !== false): ?>
 <div class="course-cards-grid">
     <div>
         <div class="info-card">
@@ -690,7 +690,7 @@
     </div>
 </div>
 
-<?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'variadores') !== false): ?>
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'variadores') !== false): ?>
 <div class="course-cards-grid">
     <div>
         <div class="info-card">
@@ -783,7 +783,7 @@
     </div>
 </div>
 
-<?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'electricidad industrial') !== false): ?>
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'electricidad industrial') !== false): ?>
 <div class="course-cards-grid">
     <div>
         <div class="info-card">
@@ -1050,7 +1050,7 @@
                                 <?php
                                 $precioPreventa = 99.00;
                                 $precioRegular = 200.00;
-                                $nombreCursoSafe = strtolower($curso['nombre_curso'] ?? '');
+                                $nombreCursoSafe = mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8');
 
                                 if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
                                     $precioPreventa = 99.00;

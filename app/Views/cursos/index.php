@@ -94,7 +94,7 @@
                                     <?php
                                     $precioPreventa = 89.90;
                                     $horas = ($curso['horas_academicas'] ?? 20);
-                                    $nombreCursoSafe = strtolower($curso['nombre_curso'] ?? '');
+                                    $nombreCursoSafe = mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8');
                                     
                                     if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
                                         $precioPreventa = 99.00;

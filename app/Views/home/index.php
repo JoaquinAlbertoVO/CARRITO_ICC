@@ -88,7 +88,8 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                         display: inline-flex;
                         background-color: #e4e6eb;
                         border-radius: 30px;
-                        padding: 5px;
+                        padding: 4px;
+                        align-items: center;
                         box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
                     }
                     .currency-toggle .currency-btn {

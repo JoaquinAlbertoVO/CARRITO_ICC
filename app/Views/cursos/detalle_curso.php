@@ -1104,9 +1104,10 @@
                         display: inline-flex;
                         background-color: #e4e6eb;
                         border-radius: 30px;
-                        padding: 5px;
+                        padding: 3px;
                         box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
                         margin-bottom: 20px;
+                        align-items: center;
                     }
                     .currency-toggle-detalle .currency-btn {
                         border: none;

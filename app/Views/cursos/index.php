@@ -57,6 +57,49 @@
             <div class="section-title text-center">
                 <span class="section-title__tagline">Revisar nueva lista</span>
                 <h2 class="section-title__title">Explorar Cursos</h2>
+                <div class="currency-toggle-wrapper" style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px;">
+                    <style>
+                    .currency-toggle {
+                        display: inline-flex;
+                        background-color: #e4e6eb;
+                        border-radius: 30px;
+                        padding: 4px;
+                        align-items: center;
+                        box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+                    }
+                    .currency-toggle .currency-btn {
+                        border: none;
+                        background: transparent;
+                        padding: 8px 25px;
+                        border-radius: 25px;
+                        font-size: 15px;
+                        font-weight: 600;
+                        color: #555;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        outline: none;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                    }
+                    .currency-toggle .currency-btn:hover {
+                        color: #1a1e68;
+                    }
+                    .currency-toggle .currency-btn.active {
+                        background-color: #1a1e68;
+                        color: #fff;
+                        box-shadow: 0 4px 10px rgba(26, 30, 104, 0.3);
+                    }
+                    </style>
+                    <div class="currency-toggle" id="globalCurrencyToggle">
+                        <button type="button" class="currency-btn active" data-currency="PEN">
+                            PEN
+                        </button>
+                        <button type="button" class="currency-btn" data-currency="USD">
+                            USD
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div class="row">

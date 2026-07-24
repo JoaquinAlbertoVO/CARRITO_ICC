@@ -124,10 +124,10 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                     <div class="currency-toggle-wrapper">
                         <div class="currency-toggle" id="globalCurrencyToggle">
                             <button type="button" class="currency-btn active" data-currency="PEN">
-                                <span style="font-size: 16px;">🇵🇪</span> Soles (PEN)
+                                PEN
                             </button>
                             <button type="button" class="currency-btn" data-currency="USD">
-                                <span style="font-size: 16px;">🌎</span> Dólares (USD)
+                                USD
                             </button>
                         </div>
                     </div>

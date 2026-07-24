@@ -1135,19 +1135,94 @@
                     <div style="text-align: center;">
                         <div class="currency-toggle-detalle" id="detailCurrencyToggle">
                             <button type="button" class="currency-btn active" data-currency="PEN">
-                                <span style="font-size: 14px;">🇵🇪</span> PEN
+                                PEN
                             </button>
                             <button type="button" class="currency-btn" data-currency="USD">
-                                <span style="font-size: 14px;">🌎</span> USD
+                                USD
                             </button>
                         </div>
                     </div>
 
                                     
-                                    <h2 class="course-details__price-amount" style="font-size: 32px; font-weight: 700; color: #000; margin-bottom: 20px;">
-                                        <span id="priceDisplay">S/<?= number_format($precioPreventa, 2) ?></span>
-                                        <span id="priceRegularDisplay" style="font-size: 16px; color: #a1a1a1; margin-left: 10px; text-decoration: line-through; font-weight: 400;">S/<?= number_format($precioRegular, 2) ?></span>
-                                    </h2>
+                                    
+                                    <style>
+                                    .price-showcase-box {
+                                        background-color: #0b1126;
+                                        border: 2px solid #3b4cb8;
+                                        border-radius: 12px;
+                                        padding: 30px 20px;
+                                        position: relative;
+                                        text-align: center;
+                                        margin: 30px auto;
+                                        max-width: 100%;
+                                        box-shadow: 0 10px 30px rgba(11, 17, 38, 0.4);
+                                    }
+                                    .price-showcase-box .monto-label {
+                                        color: #8b9be5;
+                                        font-size: 14px;
+                                        font-weight: 700;
+                                        letter-spacing: 1px;
+                                        text-transform: uppercase;
+                                        margin-bottom: 5px;
+                                    }
+                                    .price-showcase-box .monto-value {
+                                        color: #ffffff;
+                                        font-size: 55px;
+                                        font-weight: 700;
+                                        line-height: 1;
+                                        display: flex;
+                                        align-items: baseline;
+                                        justify-content: center;
+                                        gap: 8px;
+                                    }
+                                    .price-showcase-box .monto-value .currency-code {
+                                        font-size: 20px;
+                                        color: #8b9be5;
+                                        font-weight: 700;
+                                    }
+                                    
+                                    .price-regular-tag {
+                                        position: absolute;
+                                        top: -20px;
+                                        right: -10px;
+                                        background-color: #ffd000;
+                                        color: #000;
+                                        padding: 8px 18px;
+                                        border-radius: 6px;
+                                        transform: rotate(5deg);
+                                        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                                        text-align: center;
+                                        z-index: 10;
+                                    }
+                                    .price-regular-tag .tag-label {
+                                        font-size: 11px;
+                                        font-weight: 800;
+                                        text-transform: uppercase;
+                                        line-height: 1.2;
+                                        letter-spacing: 0.5px;
+                                    }
+                                    .price-regular-tag .tag-value {
+                                        font-size: 20px;
+                                        font-weight: 800;
+                                        text-decoration: line-through;
+                                        text-decoration-color: #3b4cb8;
+                                        text-decoration-thickness: 3px;
+                                        line-height: 1.2;
+                                    }
+                                    </style>
+                                    
+                                    <div class="price-showcase-box">
+                                        <div class="price-regular-tag">
+                                            <div class="tag-label">Precio Regular</div>
+                                            <div class="tag-value" id="priceRegularDisplay">S/ <?= number_format($precioRegular, 2) ?></div>
+                                        </div>
+                                        <div class="monto-label">Monto total a pagar</div>
+                                        <div class="monto-value">
+                                            <span id="priceDisplay">S/ <?= number_format($precioPreventa, 2) ?></span>
+                                            <span class="currency-code" id="currencyCodeDisplay">PEN</span>
+                                        </div>
+                                    </div>
+
                                     <div class="course-details__price-btn">
                                         <a id="buyButton" href="<?= BASE_URL ?>checkout?curso=<?= urlencode($curso['nombre_curso'] ?? 'Curso en ICC') ?>&precio=<?= $precioPreventa ?>&moneda=PEN" class="thm-btn" style="width: 100%; display: block; text-align: center; background-color: #0d1b2a; padding: 12px 0; border-radius: 6px;">compra este curso</a>
                                     </div>
@@ -1187,8 +1262,12 @@
                                                 const currency = this.getAttribute('data-currency');
                                                 const data = prices[currency];
                                                 
-                                                priceDisplay.innerText = data.symbol + data.preventa;
-                                                priceRegularDisplay.innerText = data.symbol + data.regular;
+                                                priceDisplay.innerText = data.symbol + " " + data.preventa;
+                                                priceRegularDisplay.innerText = data.symbol + " " + data.regular;
+                                                const currencyCodeDisplay = document.getElementById('currencyCodeDisplay');
+                                                if(currencyCodeDisplay) {
+                                                    currencyCodeDisplay.innerText = currency;
+                                                }
                                                 
                                                 buyButton.href = baseUrl + '&precio=' + data.preventa_raw + '&moneda=' + currency;
                                             });

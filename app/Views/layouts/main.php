@@ -296,8 +296,8 @@
                                                 <a href="#" id="btnOpenUbigeo" aria-label="Ubicación" style="color: white; display: flex; align-items: center; gap: 8px; text-decoration: none; margin-right: 15px;" title="Cambiar mi ubicación">
                                                     <i class="fas fa-map-marker-alt" style="font-size: 22px;"></i>
                                                     <div style="display: flex; flex-direction: column; font-size: 13px; line-height: 1.2; text-align: left;">
-                                                        <span style="font-weight: 300; opacity: 0.9;">Ubicación</span>
-                                                        <span id="headerLocationText" style="font-weight: bold; color: #ff7e00;">Perú</span>
+                                                        <span style="font-weight: 400; color: #ffffff;">Ubicación</span>
+                                                        <span id="headerLocationText" style="font-weight: bold; color: #ff7e00;">Lima, Lima</span>
                                                     </div>
                                                 </a>
                                             </div>
@@ -677,10 +677,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     <!-- Modal Ubigeo -->
     <div class="modal fade" id="ubigeoModal" tabindex="-1" aria-labelledby="ubigeoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 450px;">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ubigeoModalLabel">Elige tu ubicación</h5>
+            <h5 class="modal-title" id="ubigeoModalLabel" style="color: #172A4E; font-size: 1.25rem;">Elige tu ubicación</h5>
             <button type="button" class="btn-close-modal" data-bs-dismiss="modal" aria-label="Close" id="btnCloseModalUbigeo">&times;</button>
           </div>
           <div class="modal-body">
@@ -872,7 +872,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     }).then(r => r.json()).then(res => {
                         // Guardar cookie
                         setCookie('visitor_location_saved', '1', 30);
-                        let locText = pais === 'Perú' ? payload.distrito : payload.ciudad;
+                        let locText = "";
+                        if (pais === 'Perú') {
+                            locText = payload.departamento;
+                            if (payload.provincia && payload.provincia !== payload.departamento) locText += ", " + payload.provincia;
+                            if (payload.distrito && payload.distrito !== payload.provincia) locText += ", " + payload.distrito;
+                        } else {
+                            locText = payload.ciudad;
+                        }
                         if (!locText) locText = pais;
                         localStorage.setItem('visitor_location_text', locText);
                         let ht = document.getElementById('headerLocationText');

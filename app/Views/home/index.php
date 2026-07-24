@@ -5,7 +5,8 @@
 .hero-banner-custom {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 100px;
     padding: 60px 0;
     min-height: 500px;
 }
@@ -13,6 +14,7 @@
     max-width: 600px;
     z-index: 2;
     position: relative;
+    text-align: center;
 }
 .hero-text-box h2 {
     font-size: 65px;
@@ -114,7 +116,7 @@
                     <!--Start Single Swiper Slide-->
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background: url('<?= BASE_URL ?>assets/images/ICC_FONDO.png') center/cover no-repeat;"></div>
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('<?= BASE_URL ?>assets/images/ICC_FONDO.png') center bottom / cover no-repeat; z-index: 1;"></div>
                         
                         <div class="container">
                             <div class="hero-banner-custom">

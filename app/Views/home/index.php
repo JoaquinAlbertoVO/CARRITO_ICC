@@ -71,9 +71,17 @@ $ingenieria_courses = $ingenieria_courses ?? [];
         <!--Courses One Start INGENIERÍA-->
         <section class="courses-one">
             <div class="container">
+                
                 <div class="section-title text-center">
                     <span class="section-title__tagline">Todos los meses encontrarás nuevo contenido en la plataforma</h2>
                     <h2 class="" style="color: #1a1e68;">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
+                    
+                    <div style="margin-top: 20px;">
+                        <select id="globalCurrencySelector" style="padding: 8px 15px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; outline: none; background: #fff; cursor: pointer;">
+                            <option value="PEN">🇵🇪 Soles (PEN)</option>
+                            <option value="USD">🌎 Dólares (USD)</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row">
                     <?php foreach($ingenieria_courses as $course): ?>
@@ -91,8 +99,8 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                                     <div class="meta-item">
                                         <i class="far fa-calendar-alt"></i> <?= $course['date'] ?? 'PRÓXIMAMENTE' ?>
                                     </div>
-                                    <div class="meta-item">
-                                        <i class="far fa-money-bill-alt"></i> <?= $course['price'] ?>
+                                    <div class="meta-item price-container" data-price-pen="<?= $course['price'] ?>" data-price-usd="<?= $course['price_usd'] ?? '30.00' ?>">
+                                        <i class="far fa-money-bill-alt"></i> <span class="price-val">S/<?= $course['price'] ?></span>
                                     </div>
                                     <div class="meta-item">
                                         <i class="fas fa-graduation-cap"></i> <?= $course['hours'] ?>
@@ -104,6 +112,22 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                     <?php endforeach; ?>
 </div>                <div class="row" style="margin-top: 40px;"><div class="col-12 text-center"><a href="<?= BASE_URL ?>cursos" class="thm-btn">Ver todos los cursos</a></div></div>
             </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const globalSelector = document.getElementById('globalCurrencySelector');
+                    if(globalSelector) {
+                        globalSelector.addEventListener('change', function(e) {
+                            const currency = e.target.value;
+                            const symbol = currency === 'PEN' ? 'S/' : 'US$';
+                            
+                            document.querySelectorAll('.price-container').forEach(function(el) {
+                                const priceVal = currency === 'PEN' ? el.getAttribute('data-price-pen') : el.getAttribute('data-price-usd');
+                                el.querySelector('.price-val').innerText = symbol + priceVal;
+                            });
+                        });
+                    }
+                });
+            </script>
         </section>
         <!--Courses One End INGENIERÍA-->
 

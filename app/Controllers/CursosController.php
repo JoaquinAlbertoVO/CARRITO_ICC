@@ -30,6 +30,7 @@ class CursosController extends Controller {
 
 
                 $precioPreventa = 89.90;
+                $precioPreventaUSD = 30.00;
                 $fechaProx = 'PRÓXIMAMENTE';
                 $horas = $c['horas_academicas'] . " hrs";
                 
@@ -37,38 +38,47 @@ class CursosController extends Controller {
                 
                 if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
                     $precioPreventa = 99.00;
+                    $precioPreventaUSD = 45.00;
                     $fechaProx = '18/08';
                     $horas = '25 hrs';
                 } elseif (strpos($nombreCursoSafe, 'condensadores') !== false) {
                     $precioPreventa = 99.00;
+                    $precioPreventaUSD = 30.00;
                     $fechaProx = '01/09';
                     $horas = '25 hrs';
                 } elseif (strpos($nombreCursoSafe, 'analizador') !== false) {
                     $precioPreventa = 99.00;
+                    $precioPreventaUSD = 30.00;
                     $fechaProx = '17/08';
                     $horas = '25 hrs';
                 } elseif (strpos($nombreCursoSafe, 'canalizacion') !== false) {
                     $precioPreventa = 100.00;
+                    $precioPreventaUSD = 30.00;
                     $fechaProx = '04/08';
                     $horas = '16 hrs';
                 } elseif (strpos($nombreCursoSafe, 'terminaciones') !== false) {
                     $precioPreventa = 99.00;
+                    $precioPreventaUSD = 30.00;
                     $fechaProx = '26/08';
                     $horas = '15 hrs';
                 } elseif (strpos($nombreCursoSafe, 'empalmes') !== false) {
                     $precioPreventa = 99.00;
+                    $precioPreventaUSD = 30.00;
                     $fechaProx = '26/08';
                     $horas = '15 hrs';
                 } elseif (strpos($nombreCursoSafe, 'variadores') !== false) {
                     $precioPreventa = 99.00;
+                    $precioPreventaUSD = 35.00;
                     $fechaProx = '20/08';
                     $horas = '30 hrs';
                 } elseif (strpos($nombreCursoSafe, 'electricidad industrial') !== false) {
                     $precioPreventa = 100.00;
+                    $precioPreventaUSD = 30.00;
                     $fechaProx = '17/08';
                     $horas = '40 hrs';
                 } else {
                     $precioPreventa = $c['precio'] ?? 89.90;
+                    $precioPreventaUSD = 30.00;
                 }
                 
                 $ingenieria_courses[] = [
@@ -76,6 +86,7 @@ class CursosController extends Controller {
                     "title" => $c['nombre_curso'],
                     "image" => "assets/images/cursos/" . ($c['foto'] ?: 'default.png'),
                     "price" => number_format($precioPreventa, 2),
+                    "price_usd" => number_format($precioPreventaUSD, 2),
                     "date" => $fechaProx,
                     "hours" => $horas,
                     "link" => $slug,

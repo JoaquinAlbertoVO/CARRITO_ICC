@@ -1048,46 +1048,107 @@
                                 <hr style="margin: 25px 0 20px 0; border-top: 1px solid #eaeaea;">
                                 
                                 <?php
-                                $precioPreventa = 99.00;
-                                $precioRegular = 200.00;
+                                $precioPreventa = 89.90;
+                                $precioRegular = 99.90;
+                                $precioPreventaUSD = 30.00;
+                                $precioRegularUSD = 60.00;
                                 $nombreCursoSafe = mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8');
 
                                 if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
                                     $precioPreventa = 99.00;
                                     $precioRegular = 450.00;
+                                    $precioPreventaUSD = 45.00;
+                                    $precioRegularUSD = 120.00;
                                 } elseif (strpos($nombreCursoSafe, 'condensadores') !== false) {
                                     $precioPreventa = 99.00;
                                     $precioRegular = 200.00;
+                                    $precioPreventaUSD = 30.00;
+                                    $precioRegularUSD = 60.00;
                                 } elseif (strpos($nombreCursoSafe, 'analizador') !== false) {
                                     $precioPreventa = 99.00;
                                     $precioRegular = 150.00;
+                                    $precioPreventaUSD = 30.00;
+                                    $precioRegularUSD = 60.00;
                                 } elseif (strpos($nombreCursoSafe, 'canalizacion') !== false) {
                                     $precioPreventa = 100.00;
                                     $precioRegular = 450.00;
+                                    $precioPreventaUSD = 30.00;
+                                    $precioRegularUSD = 60.00;
                                 } elseif (strpos($nombreCursoSafe, 'terminaciones') !== false) {
                                     $precioPreventa = 99.00;
                                     $precioRegular = 200.00;
+                                    $precioPreventaUSD = 30.00;
+                                    $precioRegularUSD = 60.00;
                                 } elseif (strpos($nombreCursoSafe, 'empalmes') !== false) {
                                     $precioPreventa = 99.00;
                                     $precioRegular = 200.00;
+                                    $precioPreventaUSD = 30.00;
+                                    $precioRegularUSD = 60.00;
                                 } elseif (strpos($nombreCursoSafe, 'variadores') !== false) {
                                     $precioPreventa = 99.00;
                                     $precioRegular = 200.00;
+                                    $precioPreventaUSD = 35.00;
+                                    $precioRegularUSD = 60.00;
                                 } elseif (strpos($nombreCursoSafe, 'electricidad industrial') !== false) {
                                     $precioPreventa = 100.00;
                                     $precioRegular = 200.00;
-                                } else {
-                                    // Default fallback
-                                    $precioPreventa = 89.90;
-                                    $precioRegular = 99.90;
+                                    $precioPreventaUSD = 30.00;
+                                    $precioRegularUSD = 60.00;
                                 }
                                 ?>
                                 <div class="course-details__price-united" style="text-align: center; padding-bottom: 10px;">
-                                    <h2 class="course-details__price-amount" style="font-size: 32px; font-weight: 700; color: #000; margin-bottom: 20px;">S/<?= number_format($precioPreventa, 2) ?><span style="font-size: 16px; color: #a1a1a1; margin-left: 10px; text-decoration: line-through; font-weight: 400;">S/<?= number_format($precioRegular, 2) ?></span></h2>
+                                    
+                                    <div style="margin-bottom: 15px; text-align: right;">
+                                        <select id="currencySelector" style="padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; outline: none;">
+                                            <option value="PEN">🇵🇪 Soles (PEN)</option>
+                                            <option value="USD">🌎 Dólares (USD)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <h2 class="course-details__price-amount" style="font-size: 32px; font-weight: 700; color: #000; margin-bottom: 20px;">
+                                        <span id="priceDisplay">S/<?= number_format($precioPreventa, 2) ?></span>
+                                        <span id="priceRegularDisplay" style="font-size: 16px; color: #a1a1a1; margin-left: 10px; text-decoration: line-through; font-weight: 400;">S/<?= number_format($precioRegular, 2) ?></span>
+                                    </h2>
                                     <div class="course-details__price-btn">
-                                        <a href="<?= BASE_URL ?>checkout?curso=<?= urlencode($curso['nombre_curso'] ?? 'Curso en ICC') ?>&precio=<?= $precioPreventa ?>&moneda=PEN" class="thm-btn" style="width: 100%; display: block; text-align: center; background-color: #0d1b2a; padding: 12px 0; border-radius: 6px;">compra este curso</a>
+                                        <a id="buyButton" href="<?= BASE_URL ?>checkout?curso=<?= urlencode($curso['nombre_curso'] ?? 'Curso en ICC') ?>&precio=<?= $precioPreventa ?>&moneda=PEN" class="thm-btn" style="width: 100%; display: block; text-align: center; background-color: #0d1b2a; padding: 12px 0; border-radius: 6px;">compra este curso</a>
                                     </div>
                                 </div>
+                                
+                                <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const currencySelector = document.getElementById('currencySelector');
+                                    const priceDisplay = document.getElementById('priceDisplay');
+                                    const priceRegularDisplay = document.getElementById('priceRegularDisplay');
+                                    const buyButton = document.getElementById('buyButton');
+                                    
+                                    const prices = {
+                                        PEN: {
+                                            preventa: '<?= number_format($precioPreventa, 2) ?>',
+                                            preventa_raw: '<?= $precioPreventa ?>',
+                                            regular: '<?= number_format($precioRegular, 2) ?>',
+                                            symbol: 'S/'
+                                        },
+                                        USD: {
+                                            preventa: '<?= number_format($precioPreventaUSD, 2) ?>',
+                                            preventa_raw: '<?= $precioPreventaUSD ?>',
+                                            regular: '<?= number_format($precioRegularUSD, 2) ?>',
+                                            symbol: 'US$'
+                                        }
+                                    };
+                                    
+                                    const baseUrl = '<?= BASE_URL ?>checkout?curso=<?= urlencode($curso['nombre_curso'] ?? 'Curso en ICC') ?>';
+                                    
+                                    currencySelector.addEventListener('change', function(e) {
+                                        const currency = e.target.value;
+                                        const data = prices[currency];
+                                        
+                                        priceDisplay.innerText = data.symbol + data.preventa;
+                                        priceRegularDisplay.innerText = data.symbol + data.regular;
+                                        
+                                        buyButton.href = baseUrl + '&precio=' + data.preventa_raw + '&moneda=' + currency;
+                                    });
+                                });
+                                </script>
                             </div>
                         </div>
 

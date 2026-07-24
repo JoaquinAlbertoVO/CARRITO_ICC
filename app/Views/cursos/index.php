@@ -20,6 +20,23 @@
             </div>
         </div>
     </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const globalSelector = document.getElementById('globalCurrencySelector');
+            if(globalSelector) {
+                globalSelector.addEventListener('change', function(e) {
+                    const currency = e.target.value;
+                    const symbol = currency === 'PEN' ? 'S/' : 'US$';
+                    
+                    document.querySelectorAll('.price-container').forEach(function(el) {
+                        const priceVal = currency === 'PEN' ? el.getAttribute('data-price-pen') : el.getAttribute('data-price-usd');
+                        el.querySelector('.price-val').innerText = symbol + priceVal;
+                    });
+                });
+            }
+        });
+    </script>
     <!--Page Header End-->
 
 
@@ -93,38 +110,50 @@
                                     </div>
                                     <?php
                                     $precioPreventa = 89.90;
+                                    $precioPreventaUSD = 30.00;
                                     $horas = ($curso['horas_academicas'] ?? 20);
                                     $nombreCursoSafe = mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8');
                                     
                                     if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
                                         $precioPreventa = 99.00;
+                                        $precioPreventaUSD = 45.00;
                                         $horas = 25;
                                     } elseif (strpos($nombreCursoSafe, 'condensadores') !== false) {
                                         $precioPreventa = 99.00;
+                                        $precioPreventaUSD = 30.00;
                                         $horas = 25;
                                     } elseif (strpos($nombreCursoSafe, 'analizador') !== false) {
                                         $precioPreventa = 99.00;
+                                        $precioPreventaUSD = 30.00;
                                         $horas = 25;
                                     } elseif (strpos($nombreCursoSafe, 'canalizacion') !== false) {
                                         $precioPreventa = 100.00;
+                                        $precioPreventaUSD = 30.00;
                                         $horas = 16;
                                     } elseif (strpos($nombreCursoSafe, 'terminaciones') !== false) {
                                         $precioPreventa = 99.00;
+                                        $precioPreventaUSD = 30.00;
                                         $horas = 15;
                                     } elseif (strpos($nombreCursoSafe, 'empalmes') !== false) {
                                         $precioPreventa = 99.00;
+                                        $precioPreventaUSD = 30.00;
                                         $horas = 15;
                                     } elseif (strpos($nombreCursoSafe, 'variadores') !== false) {
                                         $precioPreventa = 99.00;
+                                        $precioPreventaUSD = 35.00;
                                         $horas = 30;
                                     } elseif (strpos($nombreCursoSafe, 'electricidad industrial') !== false) {
                                         $precioPreventa = 100.00;
+                                        $precioPreventaUSD = 30.00;
                                         $horas = 40;
                                     } else {
                                         $precioPreventa = $curso['precio'] ?? 89.90;
+                                        $precioPreventaUSD = 30.00;
                                     }
                                     ?>
-                                    <p class="courses-one__single-content-price">S/<?= number_format($precioPreventa, 2) ?></p>
+                                    <p class="courses-one__single-content-price price-container" data-price-pen="<?= number_format($precioPreventa, 2) ?>" data-price-usd="<?= number_format($precioPreventaUSD, 2) ?>">
+                                        <span class="price-val">S/<?= number_format($precioPreventa, 2) ?></span>
+                                    </p>
                                     <ul class="courses-one__single-content-courses-info list-unstyled">
                                         <li><?= htmlspecialchars($curso['lecciones'] ?? 10) ?> Lecciones</li>
                                         <li><?= htmlspecialchars($horas) ?> Horas</li>

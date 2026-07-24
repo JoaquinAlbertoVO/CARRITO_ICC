@@ -63,24 +63,29 @@
                         display: inline-flex;
                         background-color: #e4e6eb;
                         border-radius: 30px;
-                        padding: 4px;
-                        align-items: center;
+                        padding: 3px;
                         box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+                        line-height: 1;
+                        height: auto;
+                        min-height: 0;
                     }
                     .currency-toggle .currency-btn {
+                        margin: 0;
                         border: none;
                         background: transparent;
                         padding: 8px 25px;
                         border-radius: 25px;
-                        font-size: 15px;
+                        font-size: 14px;
                         font-weight: 600;
                         color: #555;
                         cursor: pointer;
                         transition: all 0.3s ease;
                         outline: none;
-                        display: flex;
+                        display: inline-flex;
                         align-items: center;
-                        gap: 8px;
+                        justify-content: center;
+                        line-height: 1;
+                        height: auto;
                     }
                     .currency-toggle .currency-btn:hover {
                         color: #1a1e68;

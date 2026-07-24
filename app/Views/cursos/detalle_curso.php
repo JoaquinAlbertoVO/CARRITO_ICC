@@ -804,7 +804,8 @@
                 <p style="margin-top: 10px;">Curso enfocado en brindar los conocimientos y habilidades necesarios para el trabajo en el sector eléctrico industrial, abarcando desde los fundamentos hasta el mantenimiento de sistemas y automatización.</p>
             </div>
         </div>
-
+    </div>
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-list-ul" style="color: #3b82f6; font-size: 20px;"></i>
@@ -841,7 +842,8 @@
                 </ul>
             </div>
         </div>
-
+    </div>
+    <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="far fa-calendar-alt" style="color: #ec4899; font-size: 20px;"></i>

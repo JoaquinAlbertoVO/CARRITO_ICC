@@ -44,6 +44,8 @@
                                 $video_url = 'https://www.youtube.com/embed/HhwUmtNPrto?rel=0';
                             } elseif (strpos($cName, 'empalmes') !== false) {
                                 $video_url = 'https://www.youtube.com/embed/EFwgRMFiN-A?rel=0';
+                            } elseif (strpos($cName, 'variadores') !== false) {
+                                $video_url = 'https://www.youtube.com/embed/r6lolq0LJhE?rel=0';
                             } else {
                                 $video_url = 'https://www.youtube.com/embed/7SMbMxs27K0?rel=0';
                             }

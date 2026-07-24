@@ -783,6 +783,85 @@
     </div>
 </div>
 
+<?php elseif (strpos(strtolower($curso['nombre_curso'] ?? ''), 'electricidad industrial') !== false): ?>
+<div class="course-cards-grid">
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 20px;"></i>
+                Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p><strong>Duración:</strong> 40 horas académicas</p>
+                <p><strong>Modalidad:</strong> 100% Virtual (En vivo y Asíncrono)</p>
+                <p><strong>Incluye:</strong> Certificado de participación.</p>
+                <p style="margin-top: 10px;">Curso enfocado en brindar los conocimientos y habilidades necesarios para el trabajo en el sector eléctrico industrial, abarcando desde los fundamentos hasta el mantenimiento de sistemas y automatización.</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-list-ul" style="color: #3b82f6; font-size: 20px;"></i>
+                Temas a tratar
+            </h4>
+            <div class="info-card-content">
+                <ul class="list-unstyled" style="padding-left: 10px; margin-bottom: 0;">
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 1: FUNDAMENTOS DE ELECTROTECNIA</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 2: INSTRUMENTOS ELÉCTRICOS</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 3: PROTECCIONES ELÉCTRICAS</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 4: INTERPRETACIÓN DE PLANOS ELÉCTRICOS</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 5: TRANSFORMADORES ELÉCTRICOS</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 6: MOTORES ELÉCTRICOS INDUSTRIALES</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 7: EQUIPOS DE AUTOMATIZACIÓN</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 8: AUTOMATIZACIÓN INDUSTRIAL</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 9: MANTENIMIENTO ELÉCTRICO INDUSTRIAL</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-star" style="color: #f59e0b; font-size: 20px;"></i>
+                Beneficios del Curso
+            </h4>
+            <div class="info-card-content">
+                <ul class="list-unstyled" style="padding-left: 10px; margin-bottom: 0;">
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>Acceso de por vida al material.</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>Soporte directo del docente.</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>Material de estudio descargable.</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>Certificado de participación.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="far fa-calendar-alt" style="color: #ec4899; font-size: 20px;"></i>
+                Programación
+            </h4>
+            <div class="info-card-content">
+                <div class="schedule-box" style="margin-bottom: 15px;">
+                    <h5>🌎 VIRTUAL Perú, Ecuador, Colombia y otros</h5>
+                    <ul style="margin-bottom: 0;">
+                        <li><strong>17/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>19/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>24/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>26/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>31/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>02/09:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>07/09:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>09/09:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>14/09:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>16/09:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php else: ?>
 <div class="course-cards-grid">
     <div>

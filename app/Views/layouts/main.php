@@ -144,7 +144,7 @@
             border-color: #f27a1a;
         }
         #ubigeoModal .btn-guardar {
-            background-color: #ff7e00;
+            background-color: #172A4E;
             color: white;
             font-weight: bold;
             border-radius: 20px;
@@ -156,7 +156,7 @@
             display: block;
         }
         #ubigeoModal .btn-guardar:hover {
-            background-color: #e67300;
+            background-color: #0d1a33;
         }
         .btn-close-modal {
             background: none;
@@ -292,14 +292,27 @@
                                             <!--<div class="main-menu__right-cart-box">
                                                 <a href="#" aria-label="Carrito de compras"><span class="icon-shopping-cart"></span></a>
                                             </div>-->
-                                            <div class="main-menu__right-search-box" style="margin-right: 15px; display: flex; align-items: center;">
+                                            <div class="main-menu__right-search-box" style="margin-right: 15px; display: flex; align-items: center; position: relative;">
                                                 <a href="#" id="btnOpenUbigeo" aria-label="Ubicación" style="color: white; display: flex; align-items: center; gap: 8px; text-decoration: none; margin-right: 15px;" title="Cambiar mi ubicación">
                                                     <i class="fas fa-map-marker-alt" style="font-size: 22px;"></i>
                                                     <div style="display: flex; flex-direction: column; font-size: 13px; line-height: 1.2; text-align: left;">
                                                         <span style="font-weight: 400; color: #ffffff;">Ubicación</span>
-                                                        <span id="headerLocationText" style="font-weight: bold; color: #ff7e00;">Lima, Lima</span>
+                                                        <span id="headerLocationText" style="font-weight: bold; color: #4a90e2;">Lima, Lima</span>
                                                     </div>
                                                 </a>
+                                                <!-- Popover de Ubicación -->
+                                                <div id="locationPopover" style="display: none; position: absolute; top: calc(100% + 10px); left: 0; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 1000; width: 280px; text-align: left; cursor: default;">
+                                                    <div style="font-weight: 700; color: #172A4E; font-size: 15px; margin-bottom: 8px;">Estás navegando en:</div>
+                                                    <div id="popoverLocationText" style="color: #666; font-size: 14px; margin-bottom: 20px; line-height: 1.4;">Lima, Lima</div>
+                                                    <div style="display: flex; gap: 10px;">
+                                                        <button id="btnConfirmLocation" style="flex: 1; background: #172A4E; color: white; border: none; border-radius: 20px; padding: 8px 10px; font-size: 13px; font-weight: bold; transition: background 0.3s;">Confirmar</button>
+                                                        <button id="btnChangeLocation" style="flex: 1; background: transparent; color: #172A4E; border: 1px solid #172A4E; border-radius: 20px; padding: 8px 10px; font-size: 13px; font-weight: bold; transition: background 0.3s;">Cambiar</button>
+                                                    </div>
+                                                    <!-- Flecha -->
+                                                    <div style="position: absolute; top: -6px; left: 25px; width: 14px; height: 14px; background: white; transform: rotate(45deg); border-left: 1px solid rgba(0,0,0,0.05); border-top: 1px solid rgba(0,0,0,0.05);"></div>
+                                                    <!-- Cerrar -->
+                                                    <button id="btnClosePopover" style="position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 18px; color: #999; line-height: 1;">&times;</button>
+                                                </div>
                                             </div>
                                             <div class="main-menu__right-search-box">
                                                 <a href="https://icc.com.pe/Aula/" target="_black" class="thm-btn comment-form__btn">Aula Virtual</a>
@@ -913,7 +926,34 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (!getCookie('visitor_location_saved')) {
             initUbigeo();
-            myModal.show();
+            // Show popover instead of modal
+            let popover = document.getElementById('locationPopover');
+            if (popover) {
+                popover.style.display = 'block';
+                document.getElementById('popoverLocationText').innerText = savedLocText || 'Lima, Lima';
+                
+                document.getElementById('btnConfirmLocation').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    setCookie('visitor_location_saved', '1', 30);
+                    popover.style.display = 'none';
+                    // Save default as Lima if nothing else
+                    if (!localStorage.getItem('visitor_location_text')) {
+                        localStorage.setItem('visitor_location_text', 'Lima, Lima');
+                    }
+                });
+                
+                document.getElementById('btnChangeLocation').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    popover.style.display = 'none';
+                    myModal.show();
+                });
+                
+                document.getElementById('btnClosePopover').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    setCookie('visitor_location_saved', '1', 1);
+                    popover.style.display = 'none';
+                });
+            }
         } else {
             // Si hacen click manual y los datos an no se cargaron, se cargan
             let btnOpen = document.getElementById('btnOpenUbigeo');

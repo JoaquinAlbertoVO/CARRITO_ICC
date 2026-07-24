@@ -104,7 +104,70 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Modal Ubigeo Styles -->
+    <style>
+        #ubigeoModal .modal-content {
+            border-radius: 12px;
+            padding: 10px;
+        }
+        #ubigeoModal .modal-header {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        #ubigeoModal .modal-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        #ubigeoModal .modal-body p {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        #ubigeoModal label {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        #ubigeoModal select {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            margin-bottom: 15px;
+            appearance: none;
+            background: url("data:image/svg+xml;utf8,<svg fill='%23f27a1a' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") no-repeat;
+            background-position: right 10px top 50%;
+        }
+        #ubigeoModal select:focus {
+            box-shadow: none;
+            border-color: #f27a1a;
+        }
+        #ubigeoModal .btn-guardar {
+            background-color: #ff7e00;
+            color: white;
+            font-weight: bold;
+            border-radius: 20px;
+            padding: 10px 40px;
+            border: none;
+            width: 100%;
+            max-width: 200px;
+            margin: 10px auto;
+            display: block;
+        }
+        #ubigeoModal .btn-guardar:hover {
+            background-color: #e67300;
+        }
+        .btn-close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #999;
+            line-height: 1;
+        }
+    </style>
 </head>
+
 
 <body>
 
@@ -602,7 +665,172 @@ document.addEventListener("DOMContentLoaded", function() {
             "timeOut": "4000"
         };
     </script>
+
+    <!-- Modal Ubigeo -->
+    <div class="modal fade" id="ubigeoModal" tabindex="-1" aria-labelledby="ubigeoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ubigeoModalLabel">Elige tu ubicación</h5>
+            <button type="button" class="btn-close-modal" data-bs-dismiss="modal" aria-label="Close" id="btnCloseModalUbigeo">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p>Conocer tu ubicación nos ayuda a ofrecerte cursos más relevantes para tu zona.</p>
+            
+            <form id="ubigeoForm">
+                <label>Departamento</label>
+                <select id="selDepartamento" class="form-control" required>
+                    <option value="">Selecciona</option>
+                </select>
+                
+                <label>Provincia</label>
+                <select id="selProvincia" class="form-control" disabled required>
+                    <option value="">Selecciona</option>
+                </select>
+                
+                <label>Distrito</label>
+                <select id="selDistrito" class="form-control" disabled required>
+                    <option value="">Selecciona</option>
+                </select>
+                
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-guardar">Guardar</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script Ubigeo -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Verificar cookie
+        function getCookie(name) {
+            let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            if (match) return match[2];
+            return null;
+        }
+        
+        function setCookie(name, value, days) {
+            let d = new Date();
+            d.setTime(d.getTime() + (days*24*60*60*1000));
+            document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/";
+        }
+
+        if (!getCookie('visitor_location_saved')) {
+            // Cargar datos de ubigeo local
+            fetch('<?= BASE_URL ?>assets/js/ubigeo.json')
+            .then(res => res.json())
+            .then(data => {
+                let ubigeoData = data;
+                
+                // Extraer departamentos únicos
+                let departamentos = {};
+                ubigeoData.forEach(item => {
+                    departamentos[item.departamento] = item.departamento;
+                });
+                
+                let depSelect = document.getElementById('selDepartamento');
+                let provSelect = document.getElementById('selProvincia');
+                let distSelect = document.getElementById('selDistrito');
+                
+                Object.keys(departamentos).sort().forEach(dep => {
+                    depSelect.innerHTML += `<option value="${dep}">${dep}</option>`;
+                });
+                
+                depSelect.addEventListener('change', function() {
+                    provSelect.innerHTML = '<option value="">Selecciona</option>';
+                    distSelect.innerHTML = '<option value="">Selecciona</option>';
+                    distSelect.disabled = true;
+                    
+                    if(this.value) {
+                        provSelect.disabled = false;
+                        let provincias = {};
+                        ubigeoData.forEach(item => {
+                            if(item.departamento === this.value) {
+                                provincias[item.provincia] = item.provincia;
+                            }
+                        });
+                        Object.keys(provincias).sort().forEach(prov => {
+                            provSelect.innerHTML += `<option value="${prov}">${prov}</option>`;
+                        });
+                    } else {
+                        provSelect.disabled = true;
+                    }
+                });
+                
+                provSelect.addEventListener('change', function() {
+                    distSelect.innerHTML = '<option value="">Selecciona</option>';
+                    
+                    if(this.value) {
+                        distSelect.disabled = false;
+                        let distritos = {};
+                        ubigeoData.forEach(item => {
+                            if(item.departamento === depSelect.value && item.provincia === this.value) {
+                                distritos[item.distrito] = item.distrito;
+                            }
+                        });
+                        Object.keys(distritos).sort().forEach(dist => {
+                            distSelect.innerHTML += `<option value="${dist}">${dist}</option>`;
+                        });
+                    } else {
+                        distSelect.disabled = true;
+                    }
+                });
+                
+                // Mostrar modal
+                var myModal = new bootstrap.Modal(document.getElementById('ubigeoModal'));
+                myModal.show();
+                
+                // Enviar datos
+                document.getElementById('ubigeoForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    let dep = depSelect.value;
+                    let prov = provSelect.value;
+                    let dist = distSelect.value;
+                    
+                    if(dep && prov && dist) {
+                        fetch('<?= BASE_URL ?>visitor/saveLocation', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                departamento: dep,
+                                provincia: prov,
+                                distrito: dist
+                            })
+                        }).then(r => r.json()).then(res => {
+                            // Guardar cookie
+                            setCookie('visitor_location_saved', '1', 30);
+                            myModal.hide();
+                            if(res.success && typeof gtag === 'function') {
+                                // Opcional: Evento de Google Analytics
+                                gtag('event', 'location_selected', {
+                                    'event_category': 'Visitor Location',
+                                    'event_label': dep + '-' + prov + '-' + dist
+                                });
+                            }
+                        }).catch(e => {
+                            console.error(e);
+                            setCookie('visitor_location_saved', '1', 30);
+                            myModal.hide();
+                        });
+                    }
+                });
+                
+                // Si lo cierran sin guardar
+                document.getElementById('btnCloseModalUbigeo').addEventListener('click', function() {
+                    setCookie('visitor_location_saved', '1', 1); // No molestar por 1 da si cierra
+                });
+            }).catch(e => console.error('Error loading ubigeo', e));
+        }
+    });
+    </script>
 </body>
+
 
 </html>
 

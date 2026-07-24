@@ -90,7 +90,7 @@
                                 </div>
                                 <p class="courses-one__single-content-price">S/<?= $course['price'] ?></p>
                                 <ul class="courses-one__single-content-courses-info list-unstyled">
-                                    <li><?= $course['lecciones'] ?> Módulos</li>
+                                    <li>Certificado Incluido</li>
                                     <li><?= $course['hours'] ?></li>
                                     <li>Experto</li>
                                 </ul>

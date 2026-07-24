@@ -301,7 +301,7 @@
                                                     </div>
                                                 </a>
                                                 <!-- Popover de Ubicación -->
-                                                <div id="locationPopover" style="display: none; position: absolute; top: calc(100% + 10px); left: 0; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 1000; width: 280px; text-align: left; cursor: default;">
+                                                <div id="locationPopover" style="display: none; position: absolute; top: calc(100% + 10px); left: 0; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 999999; width: 280px; text-align: left; cursor: default;">
                                                     <div style="font-weight: 700; color: #172A4E; font-size: 15px; margin-bottom: 8px;">Estás navegando en:</div>
                                                     <div id="popoverLocationText" style="color: #666; font-size: 14px; margin-bottom: 20px; line-height: 1.4;">Lima, Lima</div>
                                                     <div style="display: flex; gap: 10px;">
@@ -884,7 +884,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         body: JSON.stringify(payload)
                     }).then(r => r.json()).then(res => {
                         // Guardar cookie
-                        setCookie('visitor_location_saved', '1', 30);
+                        setCookie('visitor_location_saved_v2', '1', 30);
                         let locText = "";
                         if (pais === 'Perú') {
                             locText = payload.departamento;
@@ -906,14 +906,14 @@ document.addEventListener("DOMContentLoaded", function() {
                         }
                     }).catch(e => {
                         console.error(e);
-                        setCookie('visitor_location_saved', '1', 30);
+                        setCookie('visitor_location_saved_v2', '1', 30);
                         myModal.hide();
                     });
                 });
                 
                 // Si lo cierran sin guardar
                 document.getElementById('btnCloseModalUbigeo').addEventListener('click', function() {
-                    setCookie('visitor_location_saved', '1', 1); // No molestar por 1 dia
+                    setCookie('visitor_location_saved_v2', '1', 1); // No molestar por 1 dia
                 });
             }).catch(e => console.error('Error loading ubigeo', e));
         }
@@ -924,7 +924,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (ht) ht.innerText = savedLocText;
         }
 
-        if (!getCookie('visitor_location_saved')) {
+        if (!getCookie('visitor_location_saved_v2')) {
             initUbigeo();
             // Show popover instead of modal
             let popover = document.getElementById('locationPopover');
@@ -934,7 +934,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 document.getElementById('btnConfirmLocation').addEventListener('click', function(e) {
                     e.preventDefault();
-                    setCookie('visitor_location_saved', '1', 30);
+                    setCookie('visitor_location_saved_v2', '1', 30);
                     popover.style.display = 'none';
                     // Save default as Lima if nothing else
                     if (!localStorage.getItem('visitor_location_text')) {
@@ -950,7 +950,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 document.getElementById('btnClosePopover').addEventListener('click', function(e) {
                     e.preventDefault();
-                    setCookie('visitor_location_saved', '1', 1);
+                    setCookie('visitor_location_saved_v2', '1', 1);
                     popover.style.display = 'none';
                 });
             }

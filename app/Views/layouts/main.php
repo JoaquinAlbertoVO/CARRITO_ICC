@@ -162,7 +162,7 @@
                     <div class="main-header-one__bottom-inner clearfix">
                         <nav class="main-menu main-menu--1">
                             <div class="main-menu__inner">
-                                <a href="#" class="mobile-nav__toggler" aria-label="Abrir menú de navegación"><i class="fa fa-bars"></i></a>
+                                <a href="#" class="mobile-nav__toggler" style="color: #ffffff !important;" aria-label="Abrir menú de navegación"><i class="fa fa-bars"></i></a>
 
                                 <div class="left">
                                     <ul class="main-menu__list">
@@ -501,7 +501,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="mobile-nav__overlay mobile-nav__toggler"></div>
             <!-- /.mobile-nav__overlay -->
             <div class="mobile-nav__content">
-                <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
+                <span class="mobile-nav__close mobile-nav__toggler" style="color: #ffffff !important;"><i class="fa fa-times"></i></span>
 
                 <div class="logo-box">
                     <a href="./" aria-label="logo image"><img src="<?= BASE_URL ?>assets/images/logo_icc.png" width="230" alt="Imagen decorativa" /></a>

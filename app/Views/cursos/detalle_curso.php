@@ -982,7 +982,7 @@
                                                 <p class="course-details__progress-count">0</p>
                                             </div>
                                         </div>
-                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio'] ?? 89.90, 2) ?></p>
+                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio_calculado'], 2) ?></p>
                                     </div>
 
                                     <div class="col-xl-5 col-lg-5 col-md-5">
@@ -997,7 +997,7 @@
                                             </div>
                                             <p class="course-details__review-text">30 RESEÑAS</p>
                                         </div>
-                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio'] ?? 89.90, 2) ?></p>
+                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio_calculado'], 2) ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -1229,7 +1229,7 @@
                                             <span id="priceDisplay">S/ <?= number_format($precioPreventa, 2) ?></span>
                                             <span class="currency-code" id="currencyCodeDisplay">PEN</span>
                                         </div>
-                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio'] ?? 89.90, 2) ?></p>
+                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio_calculado'], 2) ?></p>
                                     </div>
 
                                     <div class="course-details__price-btn">
@@ -1317,7 +1317,7 @@
                                                 <span>(5)</span>
                                             </div>
                                         </div>
-                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio'] ?? 89.90, 2) ?></p>
+                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio_calculado'], 2) ?></p>
                                     </div>
                                 </li>
                                 <?php endforeach; ?>
@@ -1354,7 +1354,7 @@
                                                 <span>(5)</span>
                                             </div>
                                         </div>
-                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio'] ?? 89.90, 2) ?></p>
+                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio_calculado'], 2) ?></p>
                                     </div>
                                 </li>
                                 <?php endforeach; ?>

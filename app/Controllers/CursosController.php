@@ -147,6 +147,28 @@ class CursosController extends Controller {
         $latest_courses = [];
         foreach ($cursos as $c) {
             if ($c['id_curso'] != $curso_encontrado['id_curso']) {
+                $nombreCursoSafe = mb_strtolower($c['nombre_curso'] ?? '', 'UTF-8');
+                $precioPreventa = $c['precio'] ?? 89.90;
+                
+                if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
+                    $precioPreventa = 99.00;
+                } elseif (strpos($nombreCursoSafe, 'condensadores') !== false) {
+                    $precioPreventa = 99.00;
+                } elseif (strpos($nombreCursoSafe, 'analizador') !== false) {
+                    $precioPreventa = 99.00;
+                } elseif (strpos($nombreCursoSafe, 'canalizacion') !== false) {
+                    $precioPreventa = 100.00;
+                } elseif (strpos($nombreCursoSafe, 'terminaciones') !== false) {
+                    $precioPreventa = 99.00;
+                } elseif (strpos($nombreCursoSafe, 'empalmes') !== false) {
+                    $precioPreventa = 99.00;
+                } elseif (strpos($nombreCursoSafe, 'variadores') !== false) {
+                    $precioPreventa = 99.00;
+                } elseif (strpos($nombreCursoSafe, 'electricidad industrial') !== false) {
+                    $precioPreventa = 100.00;
+                }
+                
+                $c['precio_calculado'] = $precioPreventa;
                 $latest_courses[] = $c;
             }
             if (count($latest_courses) >= 3) break;

@@ -954,14 +954,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Observer para actualizar textos si el theme clona el header despues
     const observer = new MutationObserver((mutations) => {
+        let shouldUpdate = false;
         mutations.forEach((mutation) => {
-            if (mutation.addedNodes.length) {
-                let savedLoc = localStorage.getItem('visitor_location_text');
-                if (savedLoc) {
-                    document.querySelectorAll('.headerLocationText').forEach(el => el.innerText = savedLoc);
+            // Only update if a significant chunk of DOM was added, not just text nodes
+            mutation.addedNodes.forEach(node => {
+                if (node.nodeType === 1 && (node.classList.contains('stricky-header') || node.classList.contains('main-header'))) {
+                    shouldUpdate = true;
                 }
-            }
+            });
         });
+        if (shouldUpdate) {
+            let savedLoc = localStorage.getItem('visitor_location_text');
+            if (savedLoc) {
+                // Disconnect to avoid infinite loops if we were to modify something it watches
+                observer.disconnect();
+                document.querySelectorAll('.headerLocationText').forEach(el => {
+                    if (el.innerText !== savedLoc) {
+                        el.innerText = savedLoc;
+                    }
+                });
+                observer.observe(document.body, { childList: true, subtree: true });
+            }
+        }
     });
     observer.observe(document.body, { childList: true, subtree: true });
 

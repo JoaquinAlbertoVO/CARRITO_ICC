@@ -153,7 +153,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                     <div class="col-xl-4 col-lg-4 col-md-6" data-aos="fade-up">
                         <div class="tarjeta-dark">
                             <div class="tarjeta-dark-img">
-                                <div style="width: 100%; height: 200px; overflow: hidden;"><img src="<?= BASE_URL ?><?= $course['image'] ?>" alt="Curso" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+                                <div style="width: 100%; height: 210px; overflow: hidden; border-radius: 12px 12px 0 0; background-color: #0b1126;"><img src="<?= BASE_URL ?><?= $course['image'] ?>" alt="Curso" style="width:100%; height:100%; object-fit:cover; display:block; transform: scale(1.02);"></div>
                             </div>
                             <div class="tarjeta-dark-content">
                                 <span class="etiqueta-verde">CURSO</h2>

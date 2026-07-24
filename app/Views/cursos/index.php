@@ -145,7 +145,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6 filter-item featured">
                             <div class="courses-one__single" data-aos="fade-up">
                                 <div class="courses-one__single-img">
-                                    <div style="width: 100%; height: 200px; overflow: hidden;"><img src="<?= BASE_URL ?>assets/images/cursos/<?= htmlspecialchars($foto) ?>" alt="<?= htmlspecialchars($curso['nombre_curso']) ?>" style="width:100%; height:100%; object-fit:cover; border-radius: 12px; margin-bottom: 20px;"></div>
+                                    <div style="width: 100%; height: 210px; overflow: hidden; border-radius: 12px 12px 0 0; background-color: #0b1126;"><img src="<?= BASE_URL ?>assets/images/cursos/<?= htmlspecialchars($foto) ?>" alt="<?= htmlspecialchars($curso['nombre_curso']) ?>" style="width:100%; height:100%; object-fit:cover; display:block; transform: scale(1.02);"></div>
                                     <div class="overlay-text">
                                         <p>libre</p>
                                     </div>

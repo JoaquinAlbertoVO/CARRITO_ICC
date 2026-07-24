@@ -1045,10 +1045,42 @@
                                 
                                 <hr style="margin: 25px 0 20px 0; border-top: 1px solid #eaeaea;">
                                 
+                                <?php
+                                $precioPreventa = 99.00;
+                                $precioRegular = 200.00;
+                                $nombreCursoSafe = strtolower($curso['nombre_curso'] ?? '');
+
+                                if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
+                                    $precioPreventa = 99.00;
+                                    $precioRegular = 450.00;
+                                } elseif (strpos($nombreCursoSafe, 'condensadores') !== false) {
+                                    $precioPreventa = 99.00;
+                                    $precioRegular = 200.00;
+                                } elseif (strpos($nombreCursoSafe, 'analizador') !== false) {
+                                    $precioPreventa = 99.00;
+                                    $precioRegular = 150.00;
+                                } elseif (strpos($nombreCursoSafe, 'canalizacion') !== false) {
+                                    $precioPreventa = 100.00;
+                                    $precioRegular = 450.00;
+                                } elseif (strpos($nombreCursoSafe, 'terminaciones') !== false) {
+                                    $precioPreventa = 99.00;
+                                    $precioRegular = 200.00;
+                                } elseif (strpos($nombreCursoSafe, 'empalmes') !== false) {
+                                    $precioPreventa = 99.00;
+                                    $precioRegular = 200.00;
+                                } elseif (strpos($nombreCursoSafe, 'variadores') !== false) {
+                                    $precioPreventa = 99.00;
+                                    $precioRegular = 200.00;
+                                } else {
+                                    // Default fallback
+                                    $precioPreventa = 89.90;
+                                    $precioRegular = 99.90;
+                                }
+                                ?>
                                 <div class="course-details__price-united" style="text-align: center; padding-bottom: 10px;">
-                                    <h2 class="course-details__price-amount" style="font-size: 32px; font-weight: 700; color: #000; margin-bottom: 20px;">S/89.90<span style="font-size: 16px; color: #a1a1a1; margin-left: 10px; text-decoration: line-through; font-weight: 400;">S/99.90</span></h2>
+                                    <h2 class="course-details__price-amount" style="font-size: 32px; font-weight: 700; color: #000; margin-bottom: 20px;">S/<?= number_format($precioPreventa, 2) ?><span style="font-size: 16px; color: #a1a1a1; margin-left: 10px; text-decoration: line-through; font-weight: 400;">S/<?= number_format($precioRegular, 2) ?></span></h2>
                                     <div class="course-details__price-btn">
-                                        <a href="https://wa.link/zkj9jo" target="_black" class="thm-btn" style="width: 100%; display: block; text-align: center; background-color: #0d1b2a; padding: 12px 0; border-radius: 6px;">compra este curso</a>
+                                        <a href="<?= BASE_URL ?>checkout?curso=<?= urlencode($curso['nombre_curso'] ?? 'Curso en ICC') ?>&precio=<?= $precioPreventa ?>&moneda=PEN" class="thm-btn" style="width: 100%; display: block; text-align: center; background-color: #0d1b2a; padding: 12px 0; border-radius: 6px;">compra este curso</a>
                                     </div>
                                 </div>
                             </div>

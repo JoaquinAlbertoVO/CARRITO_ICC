@@ -293,7 +293,13 @@
                                                 <a href="#" aria-label="Carrito de compras"><span class="icon-shopping-cart"></span></a>
                                             </div>-->
                                             <div class="main-menu__right-search-box" style="margin-right: 15px; display: flex; align-items: center;">
-                                                <a href="#" id="btnOpenUbigeo" aria-label="Ubicación" style="color: white; font-size: 20px; margin-right: 15px;" title="Cambiar mi ubicación"><i class="fas fa-map-marker-alt"></i></a>
+                                                <a href="#" id="btnOpenUbigeo" aria-label="Ubicación" style="color: white; display: flex; align-items: center; gap: 8px; text-decoration: none; margin-right: 15px;" title="Cambiar mi ubicación">
+                                                    <i class="fas fa-map-marker-alt" style="font-size: 22px;"></i>
+                                                    <div style="display: flex; flex-direction: column; font-size: 13px; line-height: 1.2; text-align: left;">
+                                                        <span style="font-weight: 300; opacity: 0.9;">Ubicación</span>
+                                                        <span id="headerLocationText" style="font-weight: bold; color: #ff7e00;">Perú</span>
+                                                    </div>
+                                                </a>
                                             </div>
                                             <div class="main-menu__right-search-box">
                                                 <a href="https://icc.com.pe/Aula/" target="_black" class="thm-btn comment-form__btn">Aula Virtual</a>
@@ -671,7 +677,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     <!-- Modal Ubigeo -->
     <div class="modal fade" id="ubigeoModal" tabindex="-1" aria-labelledby="ubigeoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-      <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="ubigeoModalLabel">Elige tu ubicación</h5>
@@ -866,6 +872,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     }).then(r => r.json()).then(res => {
                         // Guardar cookie
                         setCookie('visitor_location_saved', '1', 30);
+                        let locText = pais === 'Perú' ? payload.distrito : payload.ciudad;
+                        if (!locText) locText = pais;
+                        localStorage.setItem('visitor_location_text', locText);
+                        let ht = document.getElementById('headerLocationText');
+                        if (ht) ht.innerText = locText;
                         myModal.hide();
                         if(res.success && typeof gtag === 'function') {
                             gtag('event', 'location_selected', {
@@ -885,6 +896,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     setCookie('visitor_location_saved', '1', 1); // No molestar por 1 dia
                 });
             }).catch(e => console.error('Error loading ubigeo', e));
+        }
+
+        let savedLocText = localStorage.getItem('visitor_location_text');
+        if (savedLocText) {
+            let ht = document.getElementById('headerLocationText');
+            if (ht) ht.innerText = savedLocText;
         }
 
         if (!getCookie('visitor_location_saved')) {

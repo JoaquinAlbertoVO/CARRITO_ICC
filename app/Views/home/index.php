@@ -68,7 +68,16 @@
 <?php
 $ingenieria_courses = $ingenieria_courses ?? [];
 ?>
-        <!--Courses One Start INGENIERÍA-->
+        
+<style>
+.tarjeta-dark { position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.tarjeta-dark:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); cursor: pointer; }
+.stretched-link::after { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 1; content: ""; }
+/* Make sure other links stay clickable if any */
+.tarjeta-dark a:not(.stretched-link) { position: relative; z-index: 2; }
+</style>
+
+<!--Courses One Start INGENIERÍA-->
         <section class="courses-one">
             <div class="container">
                 
@@ -149,7 +158,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                             <div class="tarjeta-dark-content">
                                 <span class="etiqueta-verde">CURSO</h2>
                                 <h3 class="tarjeta-dark-title">
-                                    <a href="<?= BASE_URL . 'cursos/detalle/' . str_replace(['detalle_', '.php', '_'], ['', '', '-'], $course['link']) ?>"><?= $course['title'] ?></a>
+                                    <a href="<?= BASE_URL . 'cursos/detalle/' . str_replace(['detalle_', '.php', '_'], ['', '', '-'], $course['link']) ?>" class="stretched-link text-decoration-none"><?= $course['title'] ?></a>
                                 </h3>
                                 <div class="tarjeta-dark-meta">
                                     <div class="meta-item">

@@ -51,7 +51,15 @@
 
 
 
-    <!--Courses One Start-->
+    
+<style>
+.courses-one__single { position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.courses-one__single:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); cursor: pointer; }
+.stretched-link::after { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 1; content: ""; }
+.courses-one__single a:not(.stretched-link) { position: relative; z-index: 2; }
+</style>
+
+<!--Courses One Start-->
     <section class="courses-one courses-one--courses">
         <div class="container">
             <div class="section-title text-center">
@@ -153,7 +161,7 @@
                                         </div>
                                     </div>
                                     <h6 class="courses-one__single-content-name"><?= htmlspecialchars($curso['docente'] ?? 'Docente ICC') ?></h6>
-                                    <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/<?= $slug ?>"><?= htmlspecialchars($curso['nombre_curso']) ?></a></h4>
+                                    <h4 class="courses-one__single-content-title"><a href="<?= BASE_URL ?>cursos/detalle/<?= $slug ?>" class="stretched-link text-decoration-none"><?= htmlspecialchars($curso['nombre_curso']) ?></a></h4>
                                     <div class="courses-one__single-content-review-box">
                                         <ul class="list-unstyled">
                                             <li><i class="fa fa-star"></i></li>

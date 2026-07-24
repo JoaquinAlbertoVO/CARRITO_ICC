@@ -238,26 +238,6 @@
             <div class="info-card-content">
 
                                     <div class="schedule-box" style="margin-bottom: 15px;">
-                                        <h5>🇵🇪 SEMIPRESENCIAL Perú AGOSTO</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>18/08:</strong> Online - Zoom de 6:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>19/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>20/08:</strong> Online - Zoom de 6:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>21/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>22/08:</strong> Presencial de 2:00 p.m. a 7:00 p.m.</li>
-                                        </ul>
-                                    </div>
-                                    <div class="schedule-box" style="margin-bottom: 15px;">
-                                        <h5>🇵🇪 SEMIPRESENCIAL Perú SETIEMBRE</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>28/09:</strong> Online - Zoom de 6:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>29/09:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>30/09:</strong> Online - Zoom de 6:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>01/09:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>03/09:</strong> Presencial de 8:00 a.m. a 1:00 p.m. o 2:00 p.m. a 7 p.m.</li>
-                                        </ul>
-                                    </div>
-                                    <div class="schedule-box" style="margin-bottom: 15px;">
                                         <h5>🌎 VIRTUAL Perú, Ecuador y otros países</h5>
                                         <ul style="margin-bottom: 0;">
                                             <li><strong>18/08:</strong> Online - Zoom de 6:00 p.m. a 9:00 p.m.</li>
@@ -348,16 +328,6 @@
             <div class="info-card-content">
 
                                     <div class="schedule-box" style="margin-bottom: 15px;">
-                                        <h5>🇵🇪 SEMIPRESENCIAL Perú SETIEMBRE</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>01/09:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>02/09:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>03/09:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>04/09:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>05/09:</strong> Presencial de 9:00 a. m. a 1:00 p. m.</li>
-                                        </ul>
-                                    </div>
-                                    <div class="schedule-box" style="margin-bottom: 15px;">
                                         <h5>🌎 VIRTUAL Perú, Ecuador y otros países</h5>
                                         <ul style="margin-bottom: 0;">
                                             <li><strong>01/09:</strong> En VIVO Zoom de 7:00 p.m. a 9:00 p.m.</li>
@@ -446,15 +416,6 @@
             </h4>
             <div class="info-card-content">
 
-                                    <div class="schedule-box" style="margin-bottom: 15px;">
-                                        <h5>🇵🇪 SEMIPRESENCIAL Perú AGOSTO</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>17/08:</strong> Zoom de 6:00 p.m. a 8:00 p.m.</li>
-                                            <li><strong>18/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>20/08:</strong> Zoom de 6:00 p.m. a 8:00 p.m.</li>
-                                            <li><strong>22/08:</strong> Presencial de 9:00 a.m. a 1:00 p.m.</li>
-                                        </ul>
-                                    </div>
                                     <div class="schedule-box" style="margin-bottom: 15px;">
                                         <h5>🌎 VIRTUAL Perú, Ecuador y otros países</h5>
                                         <ul style="margin-bottom: 0;">
@@ -548,15 +509,6 @@
             <div class="info-card-content">
 
                                     <div class="schedule-box" style="margin-bottom: 15px;">
-                                        <h5>🇵🇪 PRESENCIAL Perú – Setiembre</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>05/09:</strong> Presencial de 2pm a 6pm.</li>
-                                            <li><strong>12/09:</strong> Presencial de 2pm a 6pm.</li>
-                                            <li><strong>19/09:</strong> Presencial de 2pm a 6pm.</li>
-                                            <li><strong>26/09:</strong> Presencial de 2pm a 6pm</li>
-                                        </ul>
-                                    </div>
-                                    <div class="schedule-box" style="margin-bottom: 15px;">
                                         <h5>🌎 VIRTUAL Perú, Ecuador y otros países (NO HAY POR EL MOMENTO)</h5>
                                         <ul style="margin-bottom: 0;">
                                             <li><strong>04/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
@@ -643,14 +595,6 @@
             <div class="info-card-content">
 
                                     <div class="schedule-box" style="margin-bottom: 15px;">
-                                        <h5>🇵🇪 SEMIPRESENCIAL Perú AGOSTO</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>26/08:</strong> Zoom en VIVO de 6:00 p.m. a 8:00 p.m.</li>
-                                            <li><strong>27/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>29/08:</strong> Presencial de 8:00 a.m. a 12:00 p.m.</li>
-                                        </ul>
-                                    </div>
-                                    <div class="schedule-box" style="margin-bottom: 15px;">
                                         <h5>🌎 VIRTUAL Perú, Ecuador y otros países</h5>
                                         <ul style="margin-bottom: 0;">
                                             <li><strong>26/08:</strong> Zoom en VIVO de 6:00 p.m. a 8:00 p.m.</li>
@@ -733,14 +677,6 @@
             </h4>
             <div class="info-card-content">
 
-                                    <div class="schedule-box" style="margin-bottom: 15px;">
-                                        <h5>🇵🇪 SEMIPRESENCIAL Perú AGOSTO</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>26/08:</strong> Zoom en VIVO de 6:00 p.m. a 8:00 p.m.</li>
-                                            <li><strong>27/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>29/08:</strong> Presencial de 1:00 p.m. a 5:00 p.m.</li>
-                                        </ul>
-                                    </div>
                                     <div class="schedule-box" style="margin-bottom: 15px;">
                                         <h5>🌎 VIRTUAL Perú, Ecuador y otros países</h5>
                                         <ul style="margin-bottom: 0;">
@@ -829,19 +765,6 @@
             </h4>
             <div class="info-card-content">
 
-                                    <div class="schedule-box" style="margin-bottom: 15px;">
-                                        <h5>🇵🇪 SEMIPRESENCIAL Perú AGOSTO</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>20/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>21/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>22/08:</strong> Presencial de 9:00 a.m. a 11:00 a.m. (BLOQUE 1)</li>
-                                            <li><strong>22/08:</strong> Presencial de 11:00 a.m. a 1:00 p.m. (BLOQUE 2)</li>
-                                            <li><strong>29/08:</strong> Presencial de 9:00 a.m. a 11:00 a.m. (BLOQUE 1)</li>
-                                            <li><strong>29/08:</strong> Presencial de 11:00 a.m. a 1:00 p.m. (BLOQUE 2)</li>
-                                            <li><strong>05/09:</strong> Presencial de 9:00 a.m. a 11:00 a.m. (BLOQUE 1)</li>
-                                            <li><strong>05/09:</strong> Presencial de 11:00 a.m. a 1:00 p.m. (BLOQUE 2)</li>
-                                        </ul>
-                                    </div>
                                     <div class="schedule-box" style="margin-bottom: 15px;">
                                         <h5>🌎 VIRTUAL Perú, Ecuador y otros países AGOSTO</h5>
                                         <ul style="margin-bottom: 0;">

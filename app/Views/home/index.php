@@ -89,7 +89,7 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                                 </h3>
                                 <div class="tarjeta-dark-meta">
                                     <div class="meta-item">
-                                        <i class="far fa-calendar-alt"></i> PROX.
+                                        <i class="far fa-calendar-alt"></i> <?= $course['date'] ?? 'PRÓXIMAMENTE' ?>
                                     </div>
                                     <div class="meta-item">
                                         <i class="far fa-money-bill-alt"></i> <?= $course['price'] ?>

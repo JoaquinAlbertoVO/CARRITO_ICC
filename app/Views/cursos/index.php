@@ -21,22 +21,32 @@
         </div>
     </section>
     
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const globalSelector = document.getElementById('globalCurrencySelector');
-            if(globalSelector) {
-                globalSelector.addEventListener('change', function(e) {
-                    const currency = e.target.value;
-                    const symbol = currency === 'PEN' ? 'S/' : 'US$';
-                    
-                    document.querySelectorAll('.price-container').forEach(function(el) {
-                        const priceVal = currency === 'PEN' ? el.getAttribute('data-price-pen') : el.getAttribute('data-price-usd');
-                        el.querySelector('.price-val').innerText = symbol + priceVal;
-                    });
+    
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const toggleContainer = document.getElementById('globalCurrencyToggle');
+                    if(toggleContainer) {
+                        const buttons = toggleContainer.querySelectorAll('.currency-btn');
+                        buttons.forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                // Remove active class from all
+                                buttons.forEach(b => b.classList.remove('active'));
+                                // Add to clicked
+                                this.classList.add('active');
+                                
+                                const currency = this.getAttribute('data-currency');
+                                const symbol = currency === 'PEN' ? 'S/' : 'US$';
+                                
+                                document.querySelectorAll('.price-container').forEach(function(el) {
+                                    const priceVal = currency === 'PEN' ? el.getAttribute('data-price-pen') : el.getAttribute('data-price-usd');
+                                    el.querySelector('.price-val').innerText = symbol + priceVal;
+                                });
+                            });
+                        });
+                    }
                 });
-            }
-        });
-    </script>
+            </script>
+
     <!--Page Header End-->
 
 

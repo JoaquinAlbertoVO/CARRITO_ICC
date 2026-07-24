@@ -76,12 +76,62 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                     <span class="section-title__tagline">Todos los meses encontrarás nuevo contenido en la plataforma</h2>
                     <h2 class="" style="color: #1a1e68;">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
                     
-                    <div style="margin-top: 20px;">
-                        <select id="globalCurrencySelector" style="padding: 8px 15px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; outline: none; background: #fff; cursor: pointer;">
-                            <option value="PEN">🇵🇪 Soles (PEN)</option>
-                            <option value="USD">🌎 Dólares (USD)</option>
-                        </select>
+                    
+                    <style>
+                    .currency-toggle-wrapper {
+                        display: flex;
+                        justify-content: center;
+                        margin-top: 20px;
+                        margin-bottom: 20px;
+                    }
+                    .currency-toggle {
+                        display: inline-flex;
+                        background-color: #e4e6eb;
+                        border-radius: 30px;
+                        padding: 5px;
+                        box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+                    }
+                    .currency-toggle .currency-btn {
+                        border: none;
+                        background: transparent;
+                        padding: 8px 25px;
+                        border-radius: 25px;
+                        font-size: 15px;
+                        font-weight: 600;
+                        color: #555;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        outline: none;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                    }
+                    .currency-toggle .currency-btn:hover {
+                        color: #1a1e68;
+                    }
+                    .currency-toggle .currency-btn.active {
+                        background-color: #1a1e68;
+                        color: #fff;
+                        box-shadow: 0 4px 10px rgba(26, 30, 104, 0.3);
+                    }
+                    .currency-toggle .currency-btn img {
+                        width: 18px;
+                        height: 18px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                    </style>
+                    <div class="currency-toggle-wrapper">
+                        <div class="currency-toggle" id="globalCurrencyToggle">
+                            <button type="button" class="currency-btn active" data-currency="PEN">
+                                <span style="font-size: 16px;">🇵🇪</span> Soles (PEN)
+                            </button>
+                            <button type="button" class="currency-btn" data-currency="USD">
+                                <span style="font-size: 16px;">🌎</span> Dólares (USD)
+                            </button>
+                        </div>
                     </div>
+
                 </div>
                 <div class="row">
                     <?php foreach($ingenieria_courses as $course): ?>
@@ -112,22 +162,32 @@ $ingenieria_courses = $ingenieria_courses ?? [];
                     <?php endforeach; ?>
 </div>                <div class="row" style="margin-top: 40px;"><div class="col-12 text-center"><a href="<?= BASE_URL ?>cursos" class="thm-btn">Ver todos los cursos</a></div></div>
             </div>
+            
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    const globalSelector = document.getElementById('globalCurrencySelector');
-                    if(globalSelector) {
-                        globalSelector.addEventListener('change', function(e) {
-                            const currency = e.target.value;
-                            const symbol = currency === 'PEN' ? 'S/' : 'US$';
-                            
-                            document.querySelectorAll('.price-container').forEach(function(el) {
-                                const priceVal = currency === 'PEN' ? el.getAttribute('data-price-pen') : el.getAttribute('data-price-usd');
-                                el.querySelector('.price-val').innerText = symbol + priceVal;
+                    const toggleContainer = document.getElementById('globalCurrencyToggle');
+                    if(toggleContainer) {
+                        const buttons = toggleContainer.querySelectorAll('.currency-btn');
+                        buttons.forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                // Remove active class from all
+                                buttons.forEach(b => b.classList.remove('active'));
+                                // Add to clicked
+                                this.classList.add('active');
+                                
+                                const currency = this.getAttribute('data-currency');
+                                const symbol = currency === 'PEN' ? 'S/' : 'US$';
+                                
+                                document.querySelectorAll('.price-container').forEach(function(el) {
+                                    const priceVal = currency === 'PEN' ? el.getAttribute('data-price-pen') : el.getAttribute('data-price-usd');
+                                    el.querySelector('.price-val').innerText = symbol + priceVal;
+                                });
                             });
                         });
                     }
                 });
             </script>
+
         </section>
         <!--Courses One End INGENIERÍA-->
 

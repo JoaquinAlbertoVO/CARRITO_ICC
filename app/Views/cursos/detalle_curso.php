@@ -1098,12 +1098,51 @@
                                 ?>
                                 <div class="course-details__price-united" style="text-align: center; padding-bottom: 10px;">
                                     
-                                    <div style="margin-bottom: 15px; text-align: right;">
-                                        <select id="currencySelector" style="padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; outline: none;">
-                                            <option value="PEN">🇵🇪 Soles (PEN)</option>
-                                            <option value="USD">🌎 Dólares (USD)</option>
-                                        </select>
-                                    </div>
+                                    
+                    <style>
+                    .currency-toggle-detalle {
+                        display: inline-flex;
+                        background-color: #e4e6eb;
+                        border-radius: 30px;
+                        padding: 5px;
+                        box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+                        margin-bottom: 20px;
+                    }
+                    .currency-toggle-detalle .currency-btn {
+                        border: none;
+                        background: transparent;
+                        padding: 6px 15px;
+                        border-radius: 25px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: #555;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        outline: none;
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                    }
+                    .currency-toggle-detalle .currency-btn:hover {
+                        color: #1a1e68;
+                    }
+                    .currency-toggle-detalle .currency-btn.active {
+                        background-color: #1a1e68;
+                        color: #fff;
+                        box-shadow: 0 4px 10px rgba(26, 30, 104, 0.3);
+                    }
+                    </style>
+                    <div style="text-align: center;">
+                        <div class="currency-toggle-detalle" id="detailCurrencyToggle">
+                            <button type="button" class="currency-btn active" data-currency="PEN">
+                                <span style="font-size: 14px;">🇵🇪</span> PEN
+                            </button>
+                            <button type="button" class="currency-btn" data-currency="USD">
+                                <span style="font-size: 14px;">🌎</span> USD
+                            </button>
+                        </div>
+                    </div>
+
                                     
                                     <h2 class="course-details__price-amount" style="font-size: 32px; font-weight: 700; color: #000; margin-bottom: 20px;">
                                         <span id="priceDisplay">S/<?= number_format($precioPreventa, 2) ?></span>
@@ -1116,37 +1155,45 @@
                                 
                                 <script>
                                 document.addEventListener('DOMContentLoaded', function() {
-                                    const currencySelector = document.getElementById('currencySelector');
+                                    const toggleContainer = document.getElementById('detailCurrencyToggle');
                                     const priceDisplay = document.getElementById('priceDisplay');
                                     const priceRegularDisplay = document.getElementById('priceRegularDisplay');
                                     const buyButton = document.getElementById('buyButton');
                                     
-                                    const prices = {
-                                        PEN: {
-                                            preventa: '<?= number_format($precioPreventa, 2) ?>',
-                                            preventa_raw: '<?= $precioPreventa ?>',
-                                            regular: '<?= number_format($precioRegular, 2) ?>',
-                                            symbol: 'S/'
-                                        },
-                                        USD: {
-                                            preventa: '<?= number_format($precioPreventaUSD, 2) ?>',
-                                            preventa_raw: '<?= $precioPreventaUSD ?>',
-                                            regular: '<?= number_format($precioRegularUSD, 2) ?>',
-                                            symbol: 'US$'
-                                        }
-                                    };
-                                    
-                                    const baseUrl = '<?= BASE_URL ?>checkout?curso=<?= urlencode($curso['nombre_curso'] ?? 'Curso en ICC') ?>';
-                                    
-                                    currencySelector.addEventListener('change', function(e) {
-                                        const currency = e.target.value;
-                                        const data = prices[currency];
+                                    if(toggleContainer) {
+                                        const prices = {
+                                            PEN: {
+                                                preventa: '<?= number_format($precioPreventa, 2) ?>',
+                                                preventa_raw: '<?= $precioPreventa ?>',
+                                                regular: '<?= number_format($precioRegular, 2) ?>',
+                                                symbol: 'S/'
+                                            },
+                                            USD: {
+                                                preventa: '<?= number_format($precioPreventaUSD, 2) ?>',
+                                                preventa_raw: '<?= $precioPreventaUSD ?>',
+                                                regular: '<?= number_format($precioRegularUSD, 2) ?>',
+                                                symbol: 'US$'
+                                            }
+                                        };
                                         
-                                        priceDisplay.innerText = data.symbol + data.preventa;
-                                        priceRegularDisplay.innerText = data.symbol + data.regular;
+                                        const baseUrl = '<?= BASE_URL ?>checkout?curso=<?= urlencode($curso['nombre_curso'] ?? 'Curso en ICC') ?>';
                                         
-                                        buyButton.href = baseUrl + '&precio=' + data.preventa_raw + '&moneda=' + currency;
-                                    });
+                                        const buttons = toggleContainer.querySelectorAll('.currency-btn');
+                                        buttons.forEach(btn => {
+                                            btn.addEventListener('click', function() {
+                                                buttons.forEach(b => b.classList.remove('active'));
+                                                this.classList.add('active');
+                                                
+                                                const currency = this.getAttribute('data-currency');
+                                                const data = prices[currency];
+                                                
+                                                priceDisplay.innerText = data.symbol + data.preventa;
+                                                priceRegularDisplay.innerText = data.symbol + data.regular;
+                                                
+                                                buyButton.href = baseUrl + '&precio=' + data.preventa_raw + '&moneda=' + currency;
+                                            });
+                                        });
+                                    }
                                 });
                                 </script>
                             </div>

@@ -142,6 +142,16 @@ class CursosController extends Controller {
             $modulos[$v['modulo']][] = $v;
         }
 
+        
+        // Obtener ultimos 3 cursos para el widget, excluyendo el actual
+        $latest_courses = [];
+        foreach ($cursos as $c) {
+            if ($c['id_curso'] != $curso_encontrado['id_curso']) {
+                $latest_courses[] = $c;
+            }
+            if (count($latest_courses) >= 3) break;
+        }
+
         // Generar Schema Markup (JSON-LD) para Rich Snippets
         $schema = [
             "@context" => "https://schema.org",
@@ -173,7 +183,8 @@ class CursosController extends Controller {
             'og_url' => BASE_URL . 'cursos/detalle/' . $slug,
             'schema' => json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
             'curso' => $curso_encontrado,
-            'modulos' => $modulos
+            'modulos' => $modulos,
+            'latest_courses' => $latest_courses
         ];
 
         $this->view('cursos/detalle_curso', $data);

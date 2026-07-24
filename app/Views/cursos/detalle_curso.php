@@ -982,6 +982,7 @@
                                                 <p class="course-details__progress-count">0</p>
                                             </div>
                                         </div>
+                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio'] ?? 89.90, 2) ?></p>
                                     </div>
 
                                     <div class="col-xl-5 col-lg-5 col-md-5">
@@ -996,6 +997,7 @@
                                             </div>
                                             <p class="course-details__review-text">30 RESEÑAS</p>
                                         </div>
+                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio'] ?? 89.90, 2) ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -1227,6 +1229,7 @@
                                             <span id="priceDisplay">S/ <?= number_format($precioPreventa, 2) ?></span>
                                             <span class="currency-code" id="currencyCodeDisplay">PEN</span>
                                         </div>
+                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio'] ?? 89.90, 2) ?></p>
                                     </div>
 
                                     <div class="course-details__price-btn">
@@ -1286,15 +1289,22 @@
 
 
 
-                        <div class="course-details__new-courses wow fadeInUp animated" data-wow-delay="0.5s">
+                        <div class="d-none d-lg-block">
+<div class="course-details__new-courses wow fadeInUp animated" data-wow-delay="0.5s">
                             <h3 class="course-details__new-courses-title">Nuevos cursos</h3>
                             <ul class="course-details__new-courses-list list-unstyled">
+                                <?php foreach($latest_courses as $lc): 
+                                    $lc_slug = strtolower(str_replace(' ', '-', preg_replace('/[^a-zA-Z0-9\s]/', '', $lc['nombre_curso'])));
+                                    $img = $lc['foto'] ? $lc['foto'] : 'default.png';
+                                ?>
                                 <li class="course-details__new-courses-list-item">
                                     <div class="course-details__new-courses-list-item-img">
-                                        <img src="<?= BASE_URL ?>assets/images/cursos/Portada_ANA.png" alt="Curso" style="width: 65px; height: 65px; object-fit: cover; border-radius: 5px;">
+                                        <img src="<?= BASE_URL ?>assets/images/cursos/<?= $img ?>" alt="Curso" style="width: 65px; height: 65px; object-fit: cover; border-radius: 5px;">
                                     </div>
                                     <div class="course-details__new-courses-list-item-content">
-                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="<?= BASE_URL ?>cursos/detalle/analisis-facturacion">Análisis de facturación y tarifas eléctricas</a></h4>
+                                        <h4 class="course-details__new-courses-list-item-content-title">
+                                            <a href="<?= BASE_URL ?>cursos/detalle/<?= $lc_slug ?>"><?= htmlspecialchars($lc['nombre_curso']) ?></a>
+                                        </h4>
                                         <div class="course-details__new-courses-rateing-box">
                                             <ul class="list-unstyled">
                                                 <li><i class="fas fa-star"></i></li>
@@ -1307,59 +1317,50 @@
                                                 <span>(5)</span>
                                             </div>
                                         </div>
-                                        <p class="course-details__new-courses-price">S/89.90</p>
+                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio'] ?? 89.90, 2) ?></p>
                                     </div>
                                 </li>
-
-                                <li class="course-details__new-courses-list-item">
-                                    <div class="course-details__new-courses-list-item-img">
-                                        <img src="<?= BASE_URL ?>assets/images/cursos/Portada_EMPTER.png" alt="Curso" style="width: 65px; height: 65px; object-fit: cover; border-radius: 5px;">
-                                    </div>
-                                    <div class="course-details__new-courses-list-item-content">
-                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="<?= BASE_URL ?>cursos/detalle/puesta-tierra">Sistema puesta a tierra</a></h4>
-                                        <div class="course-details__new-courses-rateing-box">
-                                            <ul class="list-unstyled">
-                                                <li><i class="fas fa-star"></i></li>
-                                                <li><i class="fas fa-star"></i></li>
-                                                <li><i class="fas fa-star"></i></li>
-                                                <li><i class="fas fa-star"></i></li>
-                                                <li><i class="fas fa-star"></i></li>
-                                            </ul>
-                                            <div class="course-details__new-courses-rateing-count">
-                                                <span>(5)</span>
-                                            </div>
-                                        </div>
-                                        <p class="course-details__new-courses-price">S/89.90</p>
-                                    </div>
-                                </li>
-
-                                <li class="course-details__new-courses-list-item">
-                                    <div class="course-details__new-courses-list-item-img">
-                                        <img src="<?= BASE_URL ?>assets/images/cursos/Portada_BDC.png" alt="Curso" style="width: 65px; height: 65px; object-fit: cover; border-radius: 5px;">
-                                    </div>
-                                    <div class="course-details__new-courses-list-item-content">
-                                        <h4 class="course-details__new-courses-list-item-content-title"><a href="<?= BASE_URL ?>cursos/detalle/banco-condensadores">Banco de condensadores</a></h4>
-                                        <div class="course-details__new-courses-rateing-box">
-                                            <ul class="list-unstyled">
-                                                <li><i class="fas fa-star"></i></li>
-                                                <li><i class="fas fa-star"></i></li>
-                                                <li><i class="fas fa-star"></i></li>
-                                                <li><i class="fas fa-star"></i></li>
-                                                <li><i class="fas fa-star"></i></li>
-                                            </ul>
-                                            <div class="course-details__new-courses-rateing-count">
-                                                <span>(5)</span>
-                                            </div>
-                                        </div>
-                                        <p class="course-details__new-courses-price">S/89.90</p>
-                                    </div>
-                                </li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
-                    </div>
-                </div>
+</div>   </div>
                 <!--End Course Details Sidebar-->
             </div>
+<div class="col-12 d-block d-lg-none order-3" style="margin-top: 30px;">
+<div class="course-details__new-courses wow fadeInUp animated" data-wow-delay="0.5s">
+                            <h3 class="course-details__new-courses-title">Nuevos cursos</h3>
+                            <ul class="course-details__new-courses-list list-unstyled">
+                                <?php foreach($latest_courses as $lc): 
+                                    $lc_slug = strtolower(str_replace(' ', '-', preg_replace('/[^a-zA-Z0-9\s]/', '', $lc['nombre_curso'])));
+                                    $img = $lc['foto'] ? $lc['foto'] : 'default.png';
+                                ?>
+                                <li class="course-details__new-courses-list-item">
+                                    <div class="course-details__new-courses-list-item-img">
+                                        <img src="<?= BASE_URL ?>assets/images/cursos/<?= $img ?>" alt="Curso" style="width: 65px; height: 65px; object-fit: cover; border-radius: 5px;">
+                                    </div>
+                                    <div class="course-details__new-courses-list-item-content">
+                                        <h4 class="course-details__new-courses-list-item-content-title">
+                                            <a href="<?= BASE_URL ?>cursos/detalle/<?= $lc_slug ?>"><?= htmlspecialchars($lc['nombre_curso']) ?></a>
+                                        </h4>
+                                        <div class="course-details__new-courses-rateing-box">
+                                            <ul class="list-unstyled">
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                            </ul>
+                                            <div class="course-details__new-courses-rateing-count">
+                                                <span>(5)</span>
+                                            </div>
+                                        </div>
+                                        <p class="course-details__new-courses-price">S/<?= number_format($lc['precio'] ?? 89.90, 2) ?></p>
+                                    </div>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+</div>
         </div>
     </section>
     <!--End Course Details-->

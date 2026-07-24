@@ -12,19 +12,32 @@ class VisitorController extends Controller {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = json_decode(file_get_contents('php://input'), true);
             
-            $departamento = $data['departamento'] ?? '';
-            $provincia = $data['provincia'] ?? '';
-            $distrito = $data['distrito'] ?? '';
+            $pais = $data['pais'] ?? 'Perú';
             
-            if (empty($departamento) || empty($provincia) || empty($distrito)) {
-                echo json_encode(['success' => false, 'message' => 'Faltan datos']);
-                return;
+            if ($pais === 'Perú') {
+                $departamento = $data['departamento'] ?? '';
+                $provincia = $data['provincia'] ?? '';
+                $distrito = $data['distrito'] ?? '';
+                
+                if (empty($departamento) || empty($provincia) || empty($distrito)) {
+                    echo json_encode(['success' => false, 'message' => 'Faltan datos de ubicación']);
+                    return;
+                }
+            } else {
+                $departamento = $data['ciudad'] ?? ''; // Guardamos ciudad en departamento
+                $provincia = '';
+                $distrito = '';
+                
+                if (empty($departamento)) {
+                    echo json_encode(['success' => false, 'message' => 'Falta indicar la ciudad']);
+                    return;
+                }
             }
             
             $ip = $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN';
             
             $model = new VisitorLocation();
-            $result = $model->saveLocation($ip, $departamento, $provincia, $distrito);
+            $result = $model->saveLocation($ip, $pais, $departamento, $provincia, $distrito);
             
             if ($result) {
                 echo json_encode(['success' => true]);

@@ -292,6 +292,9 @@
                                             <!--<div class="main-menu__right-cart-box">
                                                 <a href="#" aria-label="Carrito de compras"><span class="icon-shopping-cart"></span></a>
                                             </div>-->
+                                            <div class="main-menu__right-search-box" style="margin-right: 15px; display: flex; align-items: center;">
+                                                <a href="#" id="btnOpenUbigeo" aria-label="Ubicación" style="color: white; font-size: 20px; margin-right: 15px;" title="Cambiar mi ubicación"><i class="fas fa-map-marker-alt"></i></a>
+                                            </div>
                                             <div class="main-menu__right-search-box">
                                                 <a href="https://icc.com.pe/Aula/" target="_black" class="thm-btn comment-form__btn">Aula Virtual</a>
                                             </div>
@@ -678,20 +681,40 @@ document.addEventListener("DOMContentLoaded", function() {
             <p>Conocer tu ubicación nos ayuda a ofrecerte cursos más relevantes para tu zona.</p>
             
             <form id="ubigeoForm">
-                <label>Departamento</label>
-                <select id="selDepartamento" class="form-control" required>
-                    <option value="">Selecciona</option>
+                <label>País</label>
+                <select id="selPais" class="form-control" required>
+                    <option value="Perú">Perú</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="México">México</option>
+                    <option value="Chile">Chile</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Ecuador">Ecuador</option>
+                    <option value="Bolivia">Bolivia</option>
+                    <option value="España">España</option>
+                    <option value="Otro">Otro</option>
                 </select>
-                
-                <label>Provincia</label>
-                <select id="selProvincia" class="form-control" disabled required>
-                    <option value="">Selecciona</option>
-                </select>
-                
-                <label>Distrito</label>
-                <select id="selDistrito" class="form-control" disabled required>
-                    <option value="">Selecciona</option>
-                </select>
+
+                <div id="container-peru">
+                    <label>Departamento</label>
+                    <select id="selDepartamento" class="form-control">
+                        <option value="">Selecciona</option>
+                    </select>
+                    
+                    <label>Provincia</label>
+                    <select id="selProvincia" class="form-control" disabled>
+                        <option value="">Selecciona</option>
+                    </select>
+                    
+                    <label>Distrito</label>
+                    <select id="selDistrito" class="form-control" disabled>
+                        <option value="">Selecciona</option>
+                    </select>
+                </div>
+
+                <div id="container-extranjero" style="display: none;">
+                    <label>Ciudad / Región</label>
+                    <input type="text" id="txtCiudadExtranjera" class="form-control" placeholder="Ej. Bogotá" style="border-radius: 8px; border: 1px solid #ccc; padding: 8px 12px; margin-bottom: 15px;">
+                </div>
                 
                 <div class="text-center mt-3">
                     <button type="submit" class="btn btn-guardar">Guardar</button>
@@ -718,14 +741,29 @@ document.addEventListener("DOMContentLoaded", function() {
             document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/";
         }
 
-        if (!getCookie('visitor_location_saved')) {
+        var myModal = new bootstrap.Modal(document.getElementById('ubigeoModal'));
+        
+        // Abrir modal manualmente
+        let btnOpen = document.getElementById('btnOpenUbigeo');
+        if(btnOpen) {
+            btnOpen.addEventListener('click', function(e) {
+                e.preventDefault();
+                myModal.show();
+            });
+        }
+
+        let isDataLoaded = false;
+        
+        function initUbigeo() {
+            if (isDataLoaded) return;
             // Cargar datos de ubigeo local
             fetch('<?= BASE_URL ?>assets/js/ubigeo.json')
             .then(res => res.json())
             .then(data => {
+                isDataLoaded = true;
                 let ubigeoData = data;
                 
-                // Extraer departamentos únicos
+                // Extraer departamentos unicos
                 let departamentos = {};
                 ubigeoData.forEach(item => {
                     departamentos[item.departamento] = item.departamento;
@@ -734,11 +772,36 @@ document.addEventListener("DOMContentLoaded", function() {
                 let depSelect = document.getElementById('selDepartamento');
                 let provSelect = document.getElementById('selProvincia');
                 let distSelect = document.getElementById('selDistrito');
+                let paisSelect = document.getElementById('selPais');
+                let contPeru = document.getElementById('container-peru');
+                let contExt = document.getElementById('container-extranjero');
+                let txtCiudad = document.getElementById('txtCiudadExtranjera');
                 
                 Object.keys(departamentos).sort().forEach(dep => {
                     depSelect.innerHTML += `<option value="${dep}">${dep}</option>`;
                 });
                 
+                paisSelect.addEventListener('change', function() {
+                    if(this.value === 'Perú') {
+                        contPeru.style.display = 'block';
+                        contExt.style.display = 'none';
+                        depSelect.required = true;
+                        provSelect.required = true;
+                        distSelect.required = true;
+                        txtCiudad.required = false;
+                    } else {
+                        contPeru.style.display = 'none';
+                        contExt.style.display = 'block';
+                        depSelect.required = false;
+                        provSelect.required = false;
+                        distSelect.required = false;
+                        txtCiudad.required = true;
+                    }
+                });
+
+                // Inicializar requireds
+                paisSelect.dispatchEvent(new Event('change'));
+
                 depSelect.addEventListener('change', function() {
                     provSelect.innerHTML = '<option value="">Selecciona</option>';
                     distSelect.innerHTML = '<option value="">Selecciona</option>';
@@ -779,53 +842,62 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 });
                 
-                // Mostrar modal
-                var myModal = new bootstrap.Modal(document.getElementById('ubigeoModal'));
-                myModal.show();
-                
                 // Enviar datos
                 document.getElementById('ubigeoForm').addEventListener('submit', function(e) {
                     e.preventDefault();
                     
-                    let dep = depSelect.value;
-                    let prov = provSelect.value;
-                    let dist = distSelect.value;
-                    
-                    if(dep && prov && dist) {
-                        fetch('<?= BASE_URL ?>visitor/saveLocation', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                departamento: dep,
-                                provincia: prov,
-                                distrito: dist
-                            })
-                        }).then(r => r.json()).then(res => {
-                            // Guardar cookie
-                            setCookie('visitor_location_saved', '1', 30);
-                            myModal.hide();
-                            if(res.success && typeof gtag === 'function') {
-                                // Opcional: Evento de Google Analytics
-                                gtag('event', 'location_selected', {
-                                    'event_category': 'Visitor Location',
-                                    'event_label': dep + '-' + prov + '-' + dist
-                                });
-                            }
-                        }).catch(e => {
-                            console.error(e);
-                            setCookie('visitor_location_saved', '1', 30);
-                            myModal.hide();
-                        });
+                    let pais = paisSelect.value;
+                    let payload = { pais: pais };
+
+                    if (pais === 'Perú') {
+                        payload.departamento = depSelect.value;
+                        payload.provincia = provSelect.value;
+                        payload.distrito = distSelect.value;
+                    } else {
+                        payload.ciudad = txtCiudad.value;
                     }
+                    
+                    fetch('<?= BASE_URL ?>visitor/saveLocation', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    }).then(r => r.json()).then(res => {
+                        // Guardar cookie
+                        setCookie('visitor_location_saved', '1', 30);
+                        myModal.hide();
+                        if(res.success && typeof gtag === 'function') {
+                            gtag('event', 'location_selected', {
+                                'event_category': 'Visitor Location',
+                                'event_label': pais === 'Perú' ? (payload.departamento + '-' + payload.provincia + '-' + payload.distrito) : (pais + '-' + payload.ciudad)
+                            });
+                        }
+                    }).catch(e => {
+                        console.error(e);
+                        setCookie('visitor_location_saved', '1', 30);
+                        myModal.hide();
+                    });
                 });
                 
                 // Si lo cierran sin guardar
                 document.getElementById('btnCloseModalUbigeo').addEventListener('click', function() {
-                    setCookie('visitor_location_saved', '1', 1); // No molestar por 1 da si cierra
+                    setCookie('visitor_location_saved', '1', 1); // No molestar por 1 dia
                 });
             }).catch(e => console.error('Error loading ubigeo', e));
+        }
+
+        if (!getCookie('visitor_location_saved')) {
+            initUbigeo();
+            myModal.show();
+        } else {
+            // Si hacen click manual y los datos an no se cargaron, se cargan
+            let btnOpen = document.getElementById('btnOpenUbigeo');
+            if(btnOpen) {
+                btnOpen.addEventListener('click', function(e) {
+                    initUbigeo();
+                });
+            }
         }
     });
     </script>

@@ -98,7 +98,7 @@
     }
 }
 </style>
-<section class="main-slider main-slider-two">
+<section class="main-slider main-slider-two" style="background: url('<?= BASE_URL ?>assets/images/ICC_FONDO.png') center bottom / cover no-repeat; background-color: #0b1126;">
             <div class="swiper-container thmáswiper__slider" data-swiper-options='{"slidesPerView": 1, "loop": true, "effect": "fade", "pagination": {
             "el": "#main-slider-pagination",
             "type": "bullets",
@@ -115,8 +115,7 @@
                                 <div class="swiper-wrapper">
                     <!--Start Single Swiper Slide-->
                     <div class="swiper-slide">
-                        <div class="image-layer"
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('<?= BASE_URL ?>assets/images/ICC_FONDO.png') center bottom / cover no-repeat; z-index: 1;"></div>
+                        <div class="image-layer" style="display: none;"></div>
                         
                         <div class="container">
                             <div class="hero-banner-custom">

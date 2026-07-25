@@ -1,6 +1,6 @@
 
     <!--Page Header Start-->
-    <section class="page-header clearfix" style="background-image: url(<?= BASE_URL ?>assets/images/backgrounds/icc_capacitacion.png);">
+    <section class="page-header clearfix" style="background-image: url(<?= BASE_URL ?>assets/images/resources/BANNER_CURSOS.png);">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">

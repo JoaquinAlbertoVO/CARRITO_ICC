@@ -48,5 +48,16 @@ class VisitorLocation {
             error_log("Error guardando ubicacion: " . $e->getMessage());
             return false;
         }
+
+    public function getAllLocations() {
+        try {
+            $sql = "SELECT * FROM visitor_locations ORDER BY created_at DESC";
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Error obteniendo ubicaciones: " . $e->getMessage());
+            return [];
+        }
     }
 }
+

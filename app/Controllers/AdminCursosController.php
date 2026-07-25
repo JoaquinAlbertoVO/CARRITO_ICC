@@ -911,4 +911,21 @@ class AdminCursosController extends Controller {
 
         $this->view('admin/cursos/gestionar_videos', $data, 'admin/layouts/main');
     }
+
+    public function visitantes() {
+        if (!isset($_SESSION['active']) || $_SESSION['active'] !== true) {
+            header('Location: ' . BASE_URL . 'admin/login');
+            exit;
+        }
+
+        require_once 'app/Models/VisitorLocation.php';
+        $locationModel = new \App\Models\VisitorLocation();
+        $visitantes = $locationModel->getAllLocations();
+
+        $data = [
+            'visitantes' => $visitantes
+        ];
+
+        $this->view('admin/visitantes/index', $data, 'admin/layouts/main');
+    }
 }

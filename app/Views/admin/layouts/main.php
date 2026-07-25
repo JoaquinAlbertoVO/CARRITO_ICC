@@ -396,7 +396,17 @@ if (empty($_SESSION['active'])) {
                                             <span class="sidebar-menu-text">Generar Boleta</span>
                                         </a>
                                     </li>
+                                
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/visitantes') !== false) ? 'active' : '' ?>">
+                                        <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/visitantes">
+                                            <span class="sidebar-menu-icon sidebar-menu-icon--left">
+                                                <i class="material-icons text-muted">public</i>
+                                            </span>
+                                            <span class="sidebar-menu-text">Visitantes / Ubicaciones</span>
+                                        </a>
+                                    </li>
                                 </ul>
+
                                 <?php
                                 }
                                 ?>

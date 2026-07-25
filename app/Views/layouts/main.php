@@ -703,14 +703,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 <label>País</label>
                 <select id="selPais" class="form-control" required>
                     <option value="Perú">Perú</option>
-                    <option value="Colombia">Colombia</option>
-                    <option value="México">México</option>
-                    <option value="Chile">Chile</option>
-                    <option value="Argentina">Argentina</option>
-                    <option value="Ecuador">Ecuador</option>
-                    <option value="Bolivia">Bolivia</option>
-                    <option value="España">España</option>
-                    <option value="Otro">Otro</option>
                 </select>
 
                 <div id="container-peru">
@@ -731,8 +723,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
 
                 <div id="container-extranjero" style="display: none;">
-                    <label>Ciudad / Región</label>
-                    <input type="text" id="txtCiudadExtranjera" class="form-control" placeholder="Ej. Bogotá" style="border-radius: 8px; border: 1px solid #ccc; padding: 8px 12px; margin-bottom: 15px;">
+                    <label>Estado / Ciudad</label>
+                    <select id="selCiudadExtranjera" class="form-control" style="border-radius: 8px; border: 1px solid #ccc; padding: 8px 12px; margin-bottom: 15px;">
+                        <option value="">Selecciona</option>
+                    </select>
                 </div>
                 
                 <div class="text-center mt-3">
@@ -765,8 +759,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         let isDataLoaded = false;
+        let isPaisesLoaded = false;
+        let globalPaisesData = {};
         
         function initUbigeo() {
+            if (isDataLoaded && isPaisesLoaded) return;
+            
+            // Cargar datos internacionales
+            if (!isPaisesLoaded) {
+                fetch('<?= BASE_URL ?>assets/js/paises_estados.json')
+                .then(res => res.json())
+                .then(data => {
+                    isPaisesLoaded = true;
+                    globalPaisesData = data;
+                    let paisSelect = document.getElementById('selPais');
+                    Object.keys(data).sort().forEach(pais => {
+                        paisSelect.innerHTML += `<option value="${pais}">${pais}</option>`;
+                    });
+                }).catch(e => console.error('Error loading paises', e));
+            }
+
             if (isDataLoaded) return;
             // Cargar datos de ubigeo local
             fetch('<?= BASE_URL ?>assets/js/ubigeo.json')
@@ -787,7 +799,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 let paisSelect = document.getElementById('selPais');
                 let contPeru = document.getElementById('container-peru');
                 let contExt = document.getElementById('container-extranjero');
-                let txtCiudad = document.getElementById('txtCiudadExtranjera');
+                let selCiudad = document.getElementById('selCiudadExtranjera');
                 
                 Object.keys(departamentos).sort().forEach(dep => {
                     depSelect.innerHTML += `<option value="${dep}">${dep}</option>`;
@@ -800,14 +812,21 @@ document.addEventListener("DOMContentLoaded", function() {
                         depSelect.required = true;
                         provSelect.required = true;
                         distSelect.required = true;
-                        txtCiudad.required = false;
+                        selCiudad.required = false;
                     } else {
                         contPeru.style.display = 'none';
                         contExt.style.display = 'block';
                         depSelect.required = false;
                         provSelect.required = false;
                         distSelect.required = false;
-                        txtCiudad.required = true;
+                        selCiudad.required = true;
+                        
+                        selCiudad.innerHTML = '<option value="">Selecciona</option>';
+                        if (globalPaisesData[this.value]) {
+                            globalPaisesData[this.value].sort().forEach(estado => {
+                                selCiudad.innerHTML += `<option value="${estado}">${estado}</option>`;
+                            });
+                        }
                     }
                 });
 
@@ -866,7 +885,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         payload.provincia = provSelect.value;
                         payload.distrito = distSelect.value;
                     } else {
-                        payload.ciudad = txtCiudad.value;
+                        payload.ciudad = selCiudad.value;
                     }
                     
                     fetch('<?= BASE_URL ?>visitor/saveLocation', {

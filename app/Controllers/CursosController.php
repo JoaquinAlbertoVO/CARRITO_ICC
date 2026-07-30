@@ -6,7 +6,10 @@ use App\Core\Controller;
 class CursosController extends Controller {
     public function index() {
         $cursoModel = new \App\Models\Curso();
-        $cursos = $cursoModel->getCursos(1); // 1 = estado activo
+        $cursos_db = $cursoModel->getCursos(1); // 1 = estado activo
+        $cursos = array_filter($cursos_db, function($c) {
+            return mb_stripos($c['nombre_curso'], 'canalizaci', 0, 'UTF-8') === false;
+        });
 
         $data = [
             'title' => 'Cursos - Instituto de Capacitación Continua',
@@ -18,7 +21,10 @@ class CursosController extends Controller {
 
     public function ingenieria() {
         $cursoModel = new \App\Models\Curso();
-        $cursos_db = $cursoModel->getCursos(1);
+        $cursos_raw = $cursoModel->getCursos(1);
+        $cursos_db = array_filter($cursos_raw, function($c) {
+            return mb_stripos($c['nombre_curso'], 'canalizaci', 0, 'UTF-8') === false;
+        });
 
         $ingenieria_courses = [];
         foreach ($cursos_db as $c) {

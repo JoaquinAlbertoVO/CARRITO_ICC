@@ -16,7 +16,8 @@ class HomeController extends Controller {
             'p.l.c',
             'plc',
             'electricidad basica',
-            'electricidad básica'
+            'electricidad básica',
+            'canalizaci'
         ];
 
         foreach ($cursos_db as $c) {

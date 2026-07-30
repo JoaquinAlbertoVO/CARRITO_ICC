@@ -135,7 +135,9 @@
                 <?php if (!empty($cursos)): ?>
                     <?php foreach ($cursos as $curso): ?>
                         <?php 
-                            $slug = strtolower(str_replace(' ', '_', $curso['nombre_curso']));
+                            $slug_tmp = mb_strtolower($curso['nombre_curso'], 'UTF-8');
+                            $slug_tmp = str_replace(['á','é','í','ó','ú','ñ'], ['a','e','i','o','u','n'], $slug_tmp);
+                            $slug = str_replace(' ', '_', $slug_tmp);
                             $slug = preg_replace('/[^a-z0-9_]/', '', $slug);
                             $slug = str_replace('_', '-', $slug);
                             $foto = !empty($curso['foto']) ? $curso['foto'] : 'default.png';

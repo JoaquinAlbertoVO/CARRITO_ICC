@@ -33,7 +33,9 @@ class HomeController extends Controller {
 
             $cat = mb_strtolower($c['categoria'] ?? '', 'UTF-8');
             if ($cat === 'ingeniería' || $cat === 'ingenieria' || $cat === '') {
-                $slug = strtolower(str_replace(' ', '_', $c['nombre_curso']));
+                $slug_tmp = mb_strtolower($c['nombre_curso'], 'UTF-8');
+                $slug_tmp = str_replace(['á','é','í','ó','ú','ñ'], ['a','e','i','o','u','n'], $slug_tmp);
+                $slug = str_replace(' ', '_', $slug_tmp);
                 $slug = preg_replace('/[^a-z0-9_]/', '', $slug);
                 $slug = str_replace('_', '-', $slug);
 

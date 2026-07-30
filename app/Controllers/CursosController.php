@@ -24,7 +24,9 @@ class CursosController extends Controller {
         foreach ($cursos_db as $c) {
             $cat = strtolower($c['categoria'] ?? '');
             if ($cat == 'ingeniería' || $cat == 'ingenieria' || $cat == '') {
-                $slug = strtolower(str_replace(' ', '_', $c['nombre_curso']));
+                $slug_tmp = mb_strtolower($c['nombre_curso'], 'UTF-8');
+                $slug_tmp = str_replace(['á','é','í','ó','ú','ñ'], ['a','e','i','o','u','n'], $slug_tmp);
+                $slug = str_replace(' ', '_', $slug_tmp);
                 $slug = preg_replace('/[^a-z0-9_]/', '', $slug);
                 $slug = str_replace('_', '-', $slug); // use hyphens for pretty URLs
 
@@ -117,7 +119,9 @@ class CursosController extends Controller {
         $curso_encontrado = null;
 
         foreach ($cursos as $c) {
-            $c_slug = strtolower(str_replace(' ', '_', $c['nombre_curso']));
+            $slug_tmp = mb_strtolower($c['nombre_curso'], 'UTF-8');
+            $slug_tmp = str_replace(['á','é','í','ó','ú','ñ'], ['a','e','i','o','u','n'], $slug_tmp);
+            $c_slug = str_replace(' ', '_', $slug_tmp);
             $c_slug = preg_replace('/[^a-z0-9_]/', '', $c_slug);
             // El slug de entrada puede tener guiones en lugar de subguiones, así que normalizamos
             $normalized_slug = str_replace('-', '_', $slug);

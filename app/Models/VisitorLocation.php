@@ -48,6 +48,7 @@ class VisitorLocation {
             error_log("Error guardando ubicacion: " . $e->getMessage());
             return false;
         }
+    }
 
     public function getAllLocations() {
         try {

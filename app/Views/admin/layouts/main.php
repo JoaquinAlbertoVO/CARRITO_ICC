@@ -211,30 +211,7 @@ if (empty($_SESSION['active'])) {
                             </a>
                         </div>
 
-                        <ul class="nav navbar-nav d-none d-lg-flex pl-2">
-                            <li class="nav-item dropdown">
-                                <a href="./" class="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
-                                    <span class="mr-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
-                                            <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
-                                                <?php  
-                                                if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)) {
-                                                    ?>
-                                                    <img width="150" src="<?= BASE_URL ?>assets/admin/images/favicons/icc-logo-electrica.png" alt="ICC-electrica">
-                                                    <?php 
-                                                }
-                                                ?>
-                                                <?php  
-                                                if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3)) {
-                                                    ?>
-                                                    <img width="150" src="<?= BASE_URL ?>assets/admin/images/favicons/icc-logo-derecho.png" alt="ICC-electrica">
-                                                    <?php 
-                                                }
-                                                ?>
-                                            </g>
-                                        </svg></span>
-                                </a>
-                            </li>
-                        </ul>
+
 
                         <ul class="ml-auto nav navbar-nav mr-2 d-none d-lg-flex">
                             <li class="nav-item"><a href="#" class="nav-link"></a></li>

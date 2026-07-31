@@ -7,6 +7,9 @@ $db = new \App\Core\Database();
 try {
     $pdo = $db->connect();
     
+    // IMPORTANTE: Aumentar el tamaño de la columna para que soporte el hash de 60 caracteres
+    $pdo->exec("ALTER TABLE plataforma MODIFY COLUMN pass VARCHAR(255)");
+    
     // Check if there's any admin that needs migration
     $stmt = $pdo->query("SELECT * FROM plataforma");
     $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);

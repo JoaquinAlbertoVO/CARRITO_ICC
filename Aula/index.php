@@ -41,6 +41,7 @@ if (!empty($_POST)) {
             $alert = '<div class="mo-toast mo-toast-error">
                         <span>❌</span> Usuario o contraseña incorrectos.
                       </div>';
+        }
         } catch (\PDOException $e) {
             $alert = '<div class="mo-toast mo-toast-error">
                         <span>❌</span> Error de conexión a la base de datos.

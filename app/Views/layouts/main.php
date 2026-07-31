@@ -178,7 +178,7 @@
                     <div class="main-header--one__top-inner clearfix">
                         <div class="main-header--one__top-left">
                             <div class="main-header--one__top-logo" style="display: flex; align-items: center; gap: 20px;">
-        <a href="./" aria-label="Inicio"><img width="190" alt="Logo de ICC" src="<?= BASE_URL ?>assets/images/logo_icc.png" /></a>
+        <a href="<?= BASE_URL ?>" aria-label="Inicio"><img width="190" alt="Logo de ICC" src="<?= BASE_URL ?>assets/images/logo_icc.png" /></a>
         <button id="btn-tiktok-promo" class="tiktok-btn">TIKTOK</button>
     </div>
                         </div>
@@ -230,7 +230,7 @@
                                 <div class="left">
                                     <ul class="main-menu__list">
                                         <li class="current">
-                                            <a class="current" href="./">Inicio</a>
+                                            <a class="current" href="<?= BASE_URL ?>">Inicio</a>
                                             <!--<ul>
                                                 <li><a href="index.html">Home One</a></li>
                                                 <li><a href="index-2.html">Home Two</a></li>
@@ -505,7 +505,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="col-xl-2 col-lg-4 col-md-4 wow animated fadeInUp" data-wow-delay="0.1s">
                             <div class="footer-widget__column footer-widget__about">
                                 <div class="footer-widget__about-logo">
-                                    <a href="./" aria-label="Inicio"><img width="160" height="60" src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="Imagen decorativa"></a>
+                                    <a href="<?= BASE_URL ?>" aria-label="Inicio"><img width="160" height="60" src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="Imagen decorativa"></a>
                                 </div>
                             </div>
                         </div>
@@ -527,7 +527,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <div class="footer-widget__column footer-widget__links">
                                 <h3 class="footer-widget__title">Enlaces</h3>
                                 <ul class="footer-widget__links-list list-unstyled">
-                                    <li><a href="./">Inicio</a></li>
+                                    <li><a href="<?= BASE_URL ?>">Inicio</a></li>
                                     <li><a href="<?= BASE_URL ?>nosotros">Nosotros</a></li>
                                     <li><a href="<?= BASE_URL ?>cursos/ingenieria">Ingeniería</a></li>
                                     <li><a href="<?= BASE_URL ?>contacto">Contáctanos</a></li>
@@ -591,7 +591,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <span class="mobile-nav__close mobile-nav__toggler" style="color: #ffffff !important;"><i class="fa fa-times"></i></span>
 
                 <div class="logo-box">
-                    <a href="./" aria-label="logo image"><img src="<?= BASE_URL ?>assets/images/logo_icc.png" width="230" alt="Imagen decorativa" /></a>
+                    <a href="<?= BASE_URL ?>" aria-label="logo image"><img src="<?= BASE_URL ?>assets/images/logo_icc.png" width="230" alt="Imagen decorativa" /></a>
                 </div>
                 <!-- /.logo-box -->
                 <div class="mobile-nav__container"></div>

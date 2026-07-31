@@ -531,6 +531,8 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <li><a href="<?= BASE_URL ?>nosotros">Nosotros</a></li>
                                     <li><a href="<?= BASE_URL ?>cursos/ingenieria">Ingeniería</a></li>
                                     <li><a href="<?= BASE_URL ?>contacto">Contáctanos</a></li>
+                                    <li><a href="<?= BASE_URL ?>legal/privacidad">Política de Privacidad</a></li>
+                                    <li><a href="<?= BASE_URL ?>legal/terminos">Términos de Servicio</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -998,6 +1000,29 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     observer.observe(document.body, { childList: true, subtree: true });
 
+    });
+    </script>
+
+    <!-- Cookie Banner -->
+    <div id="cookieBanner" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background-color: #0b1126; color: #fff; padding: 15px 20px; z-index: 9999; box-shadow: 0 -2px 10px rgba(0,0,0,0.2); font-family: var(--mo-font-body); align-items: center; justify-content: space-between; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 250px; margin-bottom: 10px;">
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #ccc;">
+                Utilizamos cookies para personalizar tu experiencia, analizar nuestro tráfico y recordar tus preferencias (como tu país). Al continuar navegando, aceptas nuestra <a href="<?= BASE_URL ?>legal/privacidad" style="color: var(--mo-accent); text-decoration: underline;">Política de Privacidad</a>.
+            </p>
+        </div>
+        <div style="margin-left: 20px;">
+            <button id="acceptCookiesBtn" class="thm-btn" style="padding: 10px 20px; font-size: 14px; cursor: pointer;">Aceptar Cookies</button>
+        </div>
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        if (!localStorage.getItem('cookies_accepted')) {
+            document.getElementById('cookieBanner').style.display = 'flex';
+        }
+        document.getElementById('acceptCookiesBtn').addEventListener('click', function() {
+            localStorage.setItem('cookies_accepted', 'true');
+            document.getElementById('cookieBanner').style.display = 'none';
+        });
     });
     </script>
 </body>

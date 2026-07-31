@@ -11,13 +11,25 @@ class Database {
     private $pdo;
 
     public function __construct() {
-        // Lógica súper sencilla para leer archivo .env local sin dependencias (Composer)
+        // Lector de .env robusto nativo (Fase 2)
         if (file_exists(__DIR__ . '/../../.env')) {
             $lines = file(__DIR__ . '/../../.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
             foreach ($lines as $line) {
-                if (strpos(trim($line), '#') === 0) continue;
-                list($name, $value) = explode('=', $line, 2);
-                $_ENV[trim($name)] = trim($value);
+                $line = trim($line);
+                if (empty($line) || strpos($line, '#') === 0) continue;
+                
+                // Parse: KEY=VALUE (soporta comillas)
+                if (preg_match('/^([a-zA-Z0-9_]+)\s*=\s*(.*)$/', $line, $matches)) {
+                    $name = $matches[1];
+                    $value = trim($matches[2]);
+                    
+                    // Remover comillas envolventes si las hay
+                    if (preg_match('/^([\'"])(.*)\1$/', $value, $quoteMatches)) {
+                        $value = $quoteMatches[2];
+                    }
+                    
+                    $_ENV[$name] = $value;
+                }
             }
         }
 

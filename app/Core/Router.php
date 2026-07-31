@@ -21,6 +21,12 @@ class Router {
                     $this->method = 'logout';
                     unset($url[1]);
                 } else {
+                    // Middleware: Verificar si el admin está logueado
+                    if (!isset($_SESSION['active']) || $_SESSION['active'] !== true) {
+                        header("Location: " . BASE_URL . "admin/login");
+                        exit;
+                    }
+                    
                     $controllerName = 'AdminCursosController'; // Por defecto dashboard
                     if (isset($url[1])) {
                         $this->method = $url[1];

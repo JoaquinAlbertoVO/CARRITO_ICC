@@ -7,6 +7,10 @@ $db = new \App\Core\Database();
 try {
     $pdo = $db->connect();
     
+    // Crear las columnas primero por si la auto-migración de Curso.php falló
+    try { $pdo->exec("ALTER TABLE cursos ADD COLUMN precio_usd DECIMAL(10,2) DEFAULT '30.00'"); } catch(Exception $e) {}
+    try { $pdo->exec("ALTER TABLE cursos ADD COLUMN fecha_prox VARCHAR(50) DEFAULT 'PRÓXIMAMENTE'"); } catch(Exception $e) {}
+    
     // Obtener todos los cursos
     $stmt = $pdo->query("SELECT id_curso, nombre_curso FROM cursos");
     $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);

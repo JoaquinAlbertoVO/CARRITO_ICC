@@ -53,7 +53,14 @@
         <div class="card card-body">
 
             <form action="" novalidate method="POST">
-                <div><?= $alert ?></div>
+                <?php if (!empty($alert) && is_array($alert)): ?>
+                    <div class="alert alert-dismissible bg-<?= $alert['tipo'] ?> text-white border-0 fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Aviso - </strong> <?= $alert['mensaje'] ?>
+                    </div>
+                <?php endif; ?>
                 <div class="form-group">
                     <label class="text-label" for="select01">Rol:</label>
                     <select id="select01" name="rol" data-toggle="select" class="form-control">

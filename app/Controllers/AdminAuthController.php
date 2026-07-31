@@ -17,13 +17,7 @@ class AdminAuthController extends Controller {
         // Lockout Check
         if (isset($_SESSION['lockout_time'])) {
             if (time() < $_SESSION['lockout_time']) {
-                $alert = '
-                <div class="alert alert-dismissible bg-danger text-white border-0 fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong>Aviso - </strong> Demasiados intentos fallidos. Por seguridad, intente de nuevo en 15 minutos.
-                </div>';
+                $alert = ['tipo' => 'danger', 'mensaje' => 'Demasiados intentos fallidos. Por seguridad, intente de nuevo en 15 minutos.'];
                 $this->view('admin/login', ['alert' => $alert], false);
                 return;
             } else {
@@ -35,13 +29,7 @@ class AdminAuthController extends Controller {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (empty($_POST['rol']) || empty($_POST['usuario']) || empty($_POST['clave'])) {
-                $alert = '
-                <div class="alert alert-dismissible bg-danger text-white border-0 fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong>Aviso - </strong> Ingrese su usuario, clave y rol al que pertenece.
-                </div>';
+                $alert = ['tipo' => 'danger', 'mensaje' => 'Ingrese su usuario, clave y rol al que pertenece.'];
             } else {
                 $userModel = new User();
                 $data = $userModel->authenticate($_POST['usuario'], $_POST['clave'], $_POST['rol']);
@@ -65,19 +53,10 @@ class AdminAuthController extends Controller {
 
                     if ($_SESSION['login_attempts'] >= 5) {
                         $_SESSION['lockout_time'] = time() + (15 * 60); // 15 minutos
-                        $alert = '
-                        <div class="alert alert-dismissible bg-danger text-white border-0 fade show" role="alert">
-                            <strong>Aviso - </strong> Demasiados intentos fallidos. Por seguridad, intente de nuevo en 15 minutos.
-                        </div>';
+                        $alert = ['tipo' => 'danger', 'mensaje' => 'Demasiados intentos fallidos. Por seguridad, intente de nuevo en 15 minutos.'];
                     } else {
                         $restantes = 5 - $_SESSION['login_attempts'];
-                        $alert = '
-                        <div class="alert alert-dismissible bg-danger text-white border-0 fade show" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <strong>Aviso - </strong> El usuario, clave o rol son incorrectos! (Intentos restantes: ' . $restantes . ')
-                        </div>';
+                        $alert = ['tipo' => 'danger', 'mensaje' => 'El usuario, clave o rol son incorrectos! (Intentos restantes: ' . $restantes . ')'];
                     }
                 }
             }

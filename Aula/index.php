@@ -13,17 +13,21 @@ if (!empty($_POST)) {
                     <span>⚠️</span> Ingrese su usuario y contraseña.
                   </div>';
     } else {
-        // Conexin a la BD de ingeniera
-        require_once "aula_ingenieria/conexion.php";
-
-        $user = mysqli_real_escape_string($conection, $_POST['usuario']);
-        $pass = mysqli_real_escape_string($conection, $_POST['clave']);
-
-        $query = mysqli_query($conection, "SELECT * FROM usuario WHERE usuario = '$user' AND password = '$pass' ");
-        mysqli_close($conection);
+        require_once "../app/Core/Database.php";
+        $db = new \App\Core\Database();
         
-        if ($query && mysqli_num_rows($query) > 0) {
-            $data = mysqli_fetch_array($query);
+        try {
+            $pdo = $db->connect();
+            $user = trim($_POST['usuario']);
+            $pass = trim($_POST['clave']);
+
+            // Use prepared statements to prevent SQL Injection
+            $stmt = $pdo->prepare("SELECT * FROM usuario WHERE usuario = :user AND password = :pass");
+            $stmt->execute([':user' => $user, ':pass' => $pass]);
+            
+            $data = $stmt->fetch(\PDO::FETCH_ASSOC);
+            
+            if ($data) {
 
             $_SESSION['active'] = true;
             $_SESSION['idUser'] = $data['iduser'];
@@ -37,7 +41,10 @@ if (!empty($_POST)) {
             $alert = '<div class="mo-toast mo-toast-error">
                         <span>❌</span> Usuario o contraseña incorrectos.
                       </div>';
-            session_destroy();
+        } catch (\PDOException $e) {
+            $alert = '<div class="mo-toast mo-toast-error">
+                        <span>❌</span> Error de conexión a la base de datos.
+                      </div>';
         }
     }
 }

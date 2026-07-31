@@ -14,6 +14,8 @@ class Curso {
         try {
             $this->db->exec("ALTER TABLE cursos 
               ADD COLUMN precio DECIMAL(10,2) DEFAULT '89.90',
+              ADD COLUMN precio_usd DECIMAL(10,2) DEFAULT '30.00',
+              ADD COLUMN fecha_prox VARCHAR(50) DEFAULT 'PRÓXIMAMENTE',
               ADD COLUMN docente VARCHAR(150) DEFAULT 'Docente',
               ADD COLUMN docente_foto VARCHAR(255) DEFAULT '50x50',
               ADD COLUMN lecciones INT(11) DEFAULT 1;");

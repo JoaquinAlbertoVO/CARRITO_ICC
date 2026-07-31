@@ -533,7 +533,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <li><a href="<?= BASE_URL ?>contacto">Contáctanos</a></li>
                                     <li><a href="<?= BASE_URL ?>legal/privacidad">Política de Privacidad</a></li>
                                     <li><a href="<?= BASE_URL ?>legal/terminos">Términos de Servicio</a></li>
-                                    <li><a href="<?= BASE_URL ?>legal/reembolsos">Políticas de Reembolso</a></li>
+                                    <!-- <li><a href="<?= BASE_URL ?>legal/reembolsos">Políticas de Reembolso</a></li> -->
                                     <li><a href="<?= BASE_URL ?>legal/reclamaciones" style="font-weight: bold; color: var(--mo-accent);">Libro de Reclamaciones</a></li>
                                 </ul>
                             </div>

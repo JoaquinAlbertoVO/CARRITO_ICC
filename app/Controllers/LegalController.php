@@ -4,6 +4,11 @@ namespace App\Controllers;
 use App\Core\Controller;
 
 class LegalController extends Controller {
+    public function index() {
+        header('Location: ' . BASE_URL . 'legal/privacidad');
+        exit;
+    }
+
     public function privacidad() {
         $data = [
             'title' => 'Política de Privacidad - ICC',

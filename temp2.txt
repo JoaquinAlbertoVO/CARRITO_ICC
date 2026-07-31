@@ -1,0 +1,13 @@
+al digital exclusivo</li>
+                    <li>Grupo de WhatsApp del curso</li>
+                    <li>Entregables técnicos y formatos</li>
+                    <li>Clases teóricas grabadas y/o en vivo</li>
+                    <li>Acceso al aula virtual por tiempo limitado</li>
+                    
+                    <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                        <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                        <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li style="margin-bottom: 5px;">Megómetro digital de 5000V</li>
+                                                <li style="margin-bottom: 5px;">Kit extractor de aceite dieléctrico</li>
+                                                <li style="margin-bottom: 5px;">Pértigas de maniobra</li>
+                                                <li style="ma

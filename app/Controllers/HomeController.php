@@ -116,5 +116,45 @@ class HomeController extends Controller {
         // Llama a la vista app/Views/home/index.php
         $this->view('home/index', $data);
     }
+
+    public function enviar_contacto() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Anti-spam Honeypot (campo oculto, si está lleno = bot)
+            if (!empty($_POST['telefono_falso'])) {
+                // Es un bot, simulamos éxito
+                echo "<div class='inner success'><p class='success'>Mensaje enviado (simulado).</p></div>";
+                exit;
+            }
+
+            $name = isset($_POST['name']) ? htmlspecialchars(trim($_POST['name'])) : "";
+            $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL) : "";
+            $phone = isset($_POST['phone']) ? htmlspecialchars(trim($_POST['phone'])) : "";
+            $services = isset($_POST['services']) ? htmlspecialchars(trim($_POST['services'])) : "";
+            $subject = isset($_POST['subject']) ? htmlspecialchars(trim($_POST['subject'])) : "";
+            $message = isset($_POST['message']) ? htmlspecialchars(trim($_POST['message'])) : "";
+
+            if ($name && $email && $message) {
+                $to = "informes@icc.com.pe";
+                $mail_subject = "Nuevo Contacto Web: " . ($subject ?: 'Sin asunto');
+                
+                $body = "Nombre: $name\r\n";
+                $body .= "Email: $email\r\n";
+                if ($phone) $body .= "Teléfono: $phone\r\n";
+                if ($services) $body .= "Servicio de interés: $services\r\n";
+                $body .= "\r\nMensaje:\r\n$message\r\n";
+
+                $headers = "From: $name <$email>\r\n";
+                
+                if (mail($to, $mail_subject, $body, $headers)) {
+                    echo "<div class='inner success'><p class='success'>Gracias por contactarnos. ¡Te responderemos lo antes posible!</p></div>";
+                } else {
+                    echo "<div class='inner error'><p class='error'>Ocurrió un error al enviar el correo. Por favor, intenta de nuevo.</p></div>";
+                }
+            } else {
+                echo "<div class='inner error'><p class='error'>Por favor, completa todos los campos requeridos.</p></div>";
+            }
+            exit;
+        }
+    }
 }
 

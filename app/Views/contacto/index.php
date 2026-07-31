@@ -107,7 +107,7 @@
                 </div>
                 <div class="col-xl-8 col-lg-8">
                     <div class="contact-page__right">
-                        <form action="assets/inc/sendemail.php" class="comment-one__form contact-form-validated" novalidate="novalidate">
+                        <form action="<?= BASE_URL ?>home/enviar_contacto" method="POST" class="comment-one__form contact-form-validated" novalidate="novalidate">
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6">
                                     <div class="comment-form__input-box">

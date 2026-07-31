@@ -407,7 +407,7 @@
                             </div>
                             <div class="course-details__add-review">
                                 <div class="course-details__add-review-form">
-                                    <form action="assets/inc/sendemail.php" class="comment-one__form contact-form-validated" novalidate="novalidate">
+                                    <form action="<?= BASE_URL ?>home/enviar_contacto" method="POST" class="comment-one__form contact-form-validated" novalidate="novalidate">
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-12">
                                                 <a href="https://wa.link/zw6o1w" target="_black" class="thm-btn comment-form__btn">COMPRA YA</a>

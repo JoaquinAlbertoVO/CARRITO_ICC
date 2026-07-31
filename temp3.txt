@@ -1,0 +1,60 @@
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                    <li>Certificado de participacion con QR</li>
+                    <li>Material digital exclusivo</li>
+                    <li>Grupo de WhatsApp del curso</li>
+                    <li>Entregables técnicos y formatos</li>
+                    <li>Clases teóricas grabadas y/o en vivo</li>
+                    <li>Acceso al aula virtual por tiempo limitado</li>
+                    
+                    <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                        <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                        <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li style="margin-bottom: 5px;">Megómetro digital de 5000V</li>
+                                                <li style="margin-bottom: 5px;">Kit extractor de aceite dieléctrico</li>
+                                                <li style="margin-bottom: 5px;">Pértigas de maniobra</li>
+                                                <li style="margin-bottom: 5px;">Revelador de tensión</li>
+                                                <li style="margin-bottom: 5px;">Pinza amperimétrica</li>
+                                                <li style="margin-bottom: 5px;">Traje ignífugo</li>
+                                                <li style="margin-bottom: 5px;">Careta contra arco eléctrico</li>
+                                                <li style="margin-bottom: 5px;">Guantes dieléctricos</li>
+                                                <li style="margin-bottom: 5px;">Equipos de seguridad y señalización</li>
+                                                <li style="margin-bottom: 5px;">Herramientas manuales</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+
+                                    <div class="schedule-box" style="margin-bottom: 15px;">
+                                        <h5>🌎 VIRTUAL Perú, Ecuador y otros países</h5>
+                                        <ul style="margin-bottom: 0;">
+                                            <li><strong>18/08:</strong> Online - Zoom de 6:00 p.m. a 9:00 p.m.</li>
+                                            <li><strong>19/08:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>20/08:</strong> Online - Zoom de 6:00 p.m. a 9:00 p.m.</li>
+                                            <li><strong>21/08:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>22/08:</strong> Online - Zoom de 2:00 p.m. a 7:00 p.m.</li>
+                                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'condensadores') !== false): ?>
+<div class="course-cards-grid">
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso

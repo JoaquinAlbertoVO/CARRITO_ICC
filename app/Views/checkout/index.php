@@ -203,6 +203,9 @@
                     </div>
                 </div>
             </div>
+            <!-- Cierre de div (línea 51) y course-column (línea 50) -->
+            </div>
+            </div>
 
             <!-- Columna Derecha: Opciones de Pago -->
             <div class="payment-column">

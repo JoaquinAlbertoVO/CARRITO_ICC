@@ -79,8 +79,12 @@
                             .schedule-box ul li::before { content: '📅'; }
                         </style>
 
-                        <!-- Accordion Subestaciones -->
-                        <div class="course-accordion" x-show="courseName.toLowerCase().includes('subestaciones')" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
+                        <!-- Dynamic Accordion based on DB data -->
+                        <?php if (isset($data['cursoDB']) && $data['cursoDB']): 
+                            $curso = $data['cursoDB'];
+                        ?>
+                        <div class="course-accordion" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
+                            <?php if (!empty($curso['resumen'])): ?>
                             <!-- Item 1: Resumen -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
@@ -88,12 +92,12 @@
                                     <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
-                                    <p style="line-height: 1.5;">Curso orientado a planificar, ejecutar y documentar mantenimientos de subestaciones eléctricas, combinando contenido teórico y práctica en campo.</p>
+                                    <div style="line-height: 1.5;"><?= $curso['resumen'] ?></div>
                                 </div>
                             </div>
+                            <?php endif; ?>
 
+                            <?php if (!empty($curso['temas'])): ?>
                             <!-- Item 2: Temas Principales -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
@@ -101,21 +105,12 @@
                                     <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Mantenimiento correctivo, preventivo y predictivo</li>
-                                        <li>Tipos y partes de subestaciones eléctricas</li>
-                                        <li>Transformadores, seccionadores y fusibles</li>
-                                        <li>Equipos de protección personal y trajes ignífugos</li>
-                                        <li>Equipos de maniobra y reglas de seguridad</li>
-                                        <li>Medición de aislamiento y relación de transformación</li>
-                                        <li>Análisis de aceite dieléctrico</li>
-                                        <li>Visitas técnicas, informes y protocolos</li>
-                                        <li>Certificado de operatividad</li>
-                                        <li>Procedimientos de corte y puesta en marcha</li>
-                                    </ul>
+                                    <?= $curso['temas'] ?>
                                 </div>
                             </div>
+                            <?php endif; ?>
 
+                            <?php if (!empty($curso['beneficios'])): ?>
                             <!-- Item 3: Beneficios -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
@@ -123,678 +118,39 @@
                                     <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Certificado de participacion con QR</li>
-                                        <li>Material digital</li>
-                                        <li>Grupo de WhatsApp del curso</li>
-                                        <li>Entregables técnicos de mantenimiento y protocolos</li>
-                                        <li>Clases teóricas mediante Zoom</li>
-                                        <li>Acceso al aula virtual por un mes</li>
-                                    </ul>
+                                    <?= $curso['beneficios'] ?>
                                 </div>
                             </div>
+                            <?php endif; ?>
 
-                            <!-- Item 4: Herramientas y Materiales -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-tools" style="color: #f97316; font-size: 1.1rem;"></i> Herramientas y Materiales</span>
-                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Megómetro digital de 5000V</li>
-                                        <li>Kit extractor de aceite dieléctrico</li>
-                                        <li>Pértigas de maniobra</li>
-                                        <li>Revelador de tensión</li>
-                                        <li>Pinza amperimétrica</li>
-                                        <li>Traje ignífugo</li>
-                                        <li>Careta contra arco eléctrico</li>
-                                        <li>Guantes dieléctricos</li>
-                                        <li>Equipos de seguridad y señalización</li>
-                                        <li>Herramientas manuales</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 5: Programación -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 5 }" @click="activeAccordion = activeAccordion === 5 ? null : 5">
-                                    <span>📅 Programación y Horarios</span>
-                                    <span x-text="activeAccordion === 5 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 5" x-transition style="display: none;">
-                                    <div class="schedule-box" x-show="currency === 'PEN'">
-                                        <h5>🇵🇪 Virtual Perú</h5>
-                                        <ul style="margin-bottom: 5px;">
-                                            <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>21/07:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>23/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>24/07:</strong> Sesión virtual asíncrona</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
-                                        <h5>🇪🇨 Virtual Ecuador y otros países</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>20/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>21/07:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>23/07:</strong> Zoom de 6:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>24/07:</strong> Sesión virtual asíncrona</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Accordion Condensadores -->
-                        <div class="course-accordion" x-show="courseName.toLowerCase().includes('condensadores')" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
-                            <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
-                                    <p style="line-height: 1.5;">Curso orientado a la compensación de energía reactiva y a la mejora del factor de potencia en sistemas eléctricos industriales.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Energía reactiva y triángulo de potencia</li>
-                                        <li>Sistemas inductivos y capacitivos</li>
-                                        <li>Determinación y corrección del factor de potencia</li>
-                                        <li>Cálculo de KVAR con compensación fija y automática</li>
-                                        <li>Análisis de KVAR.h en facturación eléctrica</li>
-                                        <li>Bancos de condensadores fijos y automáticos</li>
-                                        <li>Diseño bajo normativa IEC</li>
-                                        <li>Reducción de pérdidas y caídas de tensión</li>
-                                        <li>Selección de contactores, fusibles, conductores y reguladores</li>
-                                        <li>Instalación práctica de condensadores</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Certificado de participacion con QR</li>
-                                        <li>Material digital</li>
-                                        <li>Grupo de WhatsApp del curso</li>
-                                        <li>Entregables técnicos de mantenimiento y protocolos</li>
-                                        <li>Clases teóricas mediante Zoom</li>
-                                        <li>Acceso al aula virtual por un mes</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 4: Herramientas y Materiales -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
-                                    <span>🛠️ Equipos y herramientas</span>
-                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Condensadores cilíndricos de 25 KVAR</li>
-                                        <li>Kit de contactores para condensadores</li>
-                                        <li>Interruptores termomagnéticos</li>
-                                        <li>Controlador de factor de potencia</li>
-                                        <li>Transformadores de corriente</li>
-                                        <li>Herramientas manuales</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 5: Programación -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 5 }" @click="activeAccordion = activeAccordion === 5 ? null : 5">
-                                    <span>📅 Programación y Horarios</span>
-                                    <span x-text="activeAccordion === 5 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 5" x-transition style="display: none;">
-                                    <div class="schedule-box" x-show="currency === 'PEN'">
-                                        <h5>🇵🇪 Virtual Perú</h5>
-                                        <ul style="margin-bottom: 5px;">
-                                            <li><strong>01/09:</strong> Zoom en VIVO de 7:00 pm a 9:00 pm</li>
-                                            <li><strong>02/09:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>03/09:</strong> Zoom en VIVO de 7:00 pm a 9:00 pm</li>
-                                            <li><strong>04/09:</strong> Sesión virtual asíncrona</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
-                                        <h5>🇪🇨 Virtual Ecuador y otros países</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>01/09:</strong> Zoom en VIVO de 7:00 pm a 9:00 pm</li>
-                                            <li><strong>02/09:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>03/09:</strong> Zoom en VIVO de 7:00 pm a 9:00 pm</li>
-                                            <li><strong>04/09:</strong> Sesión virtual asíncrona</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Accordion Electricidad Industrial -->
-                        <div class="course-accordion" x-show="courseName.toLowerCase().includes('industrial')" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
-                            <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 40 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación</p>
-                                    <p style="line-height: 1.5;">Curso de especialización en electricidad industrial, cubriendo desde los fundamentos hasta el mantenimiento y automatización.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
-                                    <ul>
-                                        <li>MÓDULO 1: FUNDAMENTOS DE ELECTROTECNIA</li>
-                                        <li>MÓDULO 2: INSTRUMENTOS ELÉCTRICOS</li>
-                                        <li>MÓDULO 3: PROTECCIONES ELÉCTRICAS</li>
-                                        <li>MÓDULO 4: INTERPRETACIÓN DE PLANOS ELÉCTRICOS</li>
-                                        <li>MÓDULO 5: TRANSFORMADORES ELÉCTRICOS</li>
-                                        <li>MÓDULO 6: MOTORES ELÉCTRICOS INDUSTRIALES</li>
-                                        <li>MÓDULO 7: EQUIPOS DE AUTOMATIZACIÓN</li>
-                                        <li>MÓDULO 8: AUTOMATIZACIÓN INDUSTRIAL</li>
-                                        <li>MÓDULO 9: MANTENIMIENTO ELÉCTRICO INDUSTRIAL</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Certificado de participacion con QR</li>
-                                        <li>Material digital</li>
-                                        <li>Grupo de WhatsApp del curso</li>
-                                        <li>Entregables técnicos de mantenimiento y protocolos</li>
-                                        <li>Clases teóricas mediante Zoom</li>
-                                        <li>Acceso al aula virtual por un mes</li>
-                                    </ul>
-                                </div>
-                            </div>
-
+                            <?php if (!empty($curso['programacion'])): ?>
                             <!-- Item 4: Programación -->
                             <div>
                                 <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
-                                    <span>📅 Programación y Horarios</span>
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-calendar-alt" style="color: #10b981; font-size: 1.1rem;"></i> Programación y Horarios</span>
                                     <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
                                 </button>
                                 <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
-                                    <div class="schedule-box" x-show="currency === 'PEN'">
-                                        <h5>🇵🇪 Virtual Perú</h5>
-                                        <ul style="margin-bottom: 5px;">
-                                            <li><strong>03/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>05/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>07/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>10/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>12/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>14/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>17/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>19/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>21/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>24/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
-                                        <h5>🇪🇨 Virtual Ecuador y otros países</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>03/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>05/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>07/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>10/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>12/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>14/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>17/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>19/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>21/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>24/08:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                        </ul>
-                                    </div>
+                                    <?= $curso['programacion'] ?>
                                 </div>
                             </div>
+                            <?php endif; ?>
                         </div>
-
-                        <!-- Accordion Terminaciones -->
-                        <div class="course-accordion" x-show="courseName.toLowerCase().includes('terminaciones')" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
-                            <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación.</p>
-                                    <p style="line-height: 1.5;">Curso orientado a aprender la correcta instalación de terminaciones en cables de media tensión, aplicando procedimientos técnicos, criterios de seguridad y buenas prácticas del sector.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Tipos de cables y niveles de tensión</li>
-                                        <li>Conductor, aislamiento, semiconductoras y pantalla metálica</li>
-                                        <li>Aislamientos XLPE, HEPR y EPR</li>
-                                        <li>Terminaciones rectas, interiores, exteriores y tripolares hasta 36 kV</li>
-                                        <li>Componentes de una terminación</li>
-                                        <li>Medición de aislamiento con megómetro</li>
-                                        <li>Herramientas aisladas y equipos de protección personal</li>
-                                        <li>Práctica de terminaciones interior y exterior hasta 25 kV</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Certificado de participacion con QR</li>
-                                        <li>Material digital</li>
-                                        <li>Grupo de WhatsApp del curso</li>
-                                        <li>Entregables técnicos de mantenimiento y protocolos</li>
-                                        <li>Clases teóricas mediante Zoom</li>
-                                        <li>Acceso al aula virtual por un mes</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 4: Programación -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
-                                    <span>📅 Programación y Horarios</span>
-                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
-                                    <div class="schedule-box" x-show="currency === 'PEN'">
-                                        <h5>🇵🇪 Virtual Perú</h5>
-                                        <ul style="margin-bottom: 5px;">
-                                            <li><strong>15/07:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>16/07:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>18/07:</strong> Zoom en VIVO PRACTICA de 9:00 a. m. a 1:00 p. m.</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
-                                        <h5>🇪🇨 Virtual Ecuador y otros países</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>15/07:</strong> Zoom en VIVO de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>16/07:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>18/07:</strong> Zoom en VIVO PRACTICA de 9:00 a. m. a 1:00 p. m.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                        <?php else: ?>
+                        <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border: 1px solid #ffeeba; border-radius: 8px; color: #856404;">
+                            No se encontraron detalles adicionales para este curso en la base de datos. Asegúrate de pasar el parámetro ?curso=NombreDelCurso
                         </div>
+                        <?php endif; ?>
 
-                        <!-- Accordion Analizador -->
-                        <div class="course-accordion" x-show="courseName.toLowerCase().includes('analizador')" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
-                            <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación</p>
-                                    <p style="line-height: 1.5;">Curso dirigido a quienes desean evaluar, registrar y analizar parámetros eléctricos y perturbaciones en redes de baja y media tensión.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Tipos de analizadores y normativa vigente</li>
-                                        <li>Parámetros eléctricos y perturbaciones</li>
-                                        <li>Selección e instalación de analizadores</li>
-                                        <li>Conexionado en tablero y campo</li>
-                                        <li>Configuración de eventos y parámetros</li>
-                                        <li>Tipos de conexión e intervalos de medición</li>
-                                        <li>Extracción y modelación de datos</li>
-                                        <li>Elaboración de informes técnicos</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Certificado de participacion con QR</li>
-                                        <li>Material digital</li>
-                                        <li>Grupo de WhatsApp del curso</li>
-                                        <li>Entregables técnicos de mantenimiento y protocolos</li>
-                                        <li>Clases teóricas mediante Zoom</li>
-                                        <li>Acceso al aula virtual por un mes</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 4: Programación -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
-                                    <span>📅 Programación y Horarios</span>
-                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
-                                    <div class="schedule-box" x-show="currency === 'PEN'">
-                                        <h5>🇵🇪 Virtual Perú</h5>
-                                        <ul style="margin-bottom: 5px;">
-                                            <li><strong>17/08:</strong> Zoom en Vivo de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>18/08:</strong> Sesión virtual asíncrona (Grabada)</li>
-                                            <li><strong>20/08:</strong> Zoom en Vivo de 7:00 p. m. a 9:00 p. m.</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
-                                        <h5>🇪🇨 Virtual Ecuador y otros países</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>17/08:</strong> Zoom en Vivo de 7:00 p. m. a 9:00 p. m.</li>
-                                            <li><strong>18/08:</strong> Sesión virtual asíncrona (Grabada)</li>
-                                            <li><strong>20/08:</strong> Zoom en Vivo de 7:00 p. m. a 9:00 p. m.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Accordion Variadores -->
-                        <div class="course-accordion" x-show="courseName.toLowerCase().includes('variadores')" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
-                            <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 30 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
-                                    <p style="line-height: 1.5;">Curso orientado al conexionado, programación y puesta en marcha de variadores de velocidad utilizados en procesos industriales.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Interpretación de planos y manuales</li>
-                                        <li>Conexionado de variadores de velocidad</li>
-                                        <li>Configuración y operación en modo local y remoto</li>
-                                        <li>Programación y puesta en marcha de variadores Schneider, Danfoss, ABB, Delta, Siemens, Allen Bradley</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Certificado de participacion con QR</li>
-                                        <li>Material digital</li>
-                                        <li>Grupo de WhatsApp del curso</li>
-                                        <li>Entregables técnicos de mantenimiento y protocolos</li>
-                                        <li>Clases teóricas mediante Zoom</li>
-                                        <li>Acceso al aula virtual por un mes</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 4: Programación -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
-                                    <span>📅 Programación y Horarios</span>
-                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
-                                    <div class="schedule-box" x-show="currency === 'PEN'">
-                                        <h5>🇵🇪 Virtual Perú</h5>
-                                        <ul style="margin-bottom: 5px;">
-                                            <li><strong>20/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>21/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>22/08:</strong> Zoom en VIVO de 9:00 a.m. a 1:00 p.m.</li>
-                                            <li><strong>29/08:</strong> Zoom en VIVO de 9:00 a.m. a 1:00 p.m.</li>
-                                            <li><strong>05/09:</strong> Zoom en VIVO de 9:00 a.m. a 1:00 p.m.</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
-                                        <h5>🇪🇨 Virtual Ecuador y otros países</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>20/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>21/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>22/08:</strong> Zoom en VIVO de 9:00 a.m. a 1:00 p.m.</li>
-                                            <li><strong>29/08:</strong> Zoom en VIVO de 9:00 a.m. a 1:00 p.m.</li>
-                                            <li><strong>05/09:</strong> Zoom en VIVO de 9:00 a.m. a 1:00 p.m.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Accordion Empalmes -->
-                        <div class="course-accordion" x-show="courseName.toLowerCase().includes('empalmes')" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
-                            <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
-                                    <p style="line-height: 1.5;">Curso orientado a aprender la correcta instalación de empalmes en cables de media tensión, aplicando procedimientos técnicos y criterios de seguridad.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Tipos de cables y niveles de tensión</li>
-                                        <li>Conductor, aislamiento, semiconductoras y pantalla metálica</li>
-                                        <li>Aislamientos XLPE, HEPR y EPR</li>
-                                        <li>Empalmes termocontraíbles unipolares hasta 36 kV</li>
-                                        <li>Componentes y preparación del empalme</li>
-                                        <li>Práctica de empalmes termocontraíbles hasta 25 kV</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Certificado de participacion con QR</li>
-                                        <li>Material digital</li>
-                                        <li>Grupo de WhatsApp del curso</li>
-                                        <li>Clases teóricas mediante Zoom</li>
-                                        <li>Acceso al aula virtual por un mes</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 4: Programación -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
-                                    <span>📅 Programación y Horarios</span>
-                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
-                                    <div class="schedule-box" x-show="currency === 'PEN'">
-                                        <h5>🇵🇪 Virtual Perú</h5>
-                                        <ul style="margin-bottom: 5px;">
-                                            <li><strong>26/08:</strong> Zoom en VIVO de 6:00 p.m. a 8:00 p.m.</li>
-                                            <li><strong>27/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>29/08:</strong> Zoom en VIVO de 1:00 p.m. a 5:00 p.m.</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
-                                        <h5>🇪🇨 Virtual Ecuador y otros países</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>26/08:</strong> Zoom en VIVO de 6:00 p.m. a 8:00 p.m.</li>
-                                            <li><strong>27/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>29/08:</strong> Zoom en VIVO de 1:00 p.m. a 5:00 p.m.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Accordion Canalizaciones -->
-                        <div class="course-accordion" x-show="courseName.toLowerCase().includes('canalizaciones')" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
-                            <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 16 horas académicas</p>
-                                    <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
-                                    <p style="line-height: 1.5;">Curso enfocado en la ejecución de canalizaciones eléctricas con tuberías Conduit para instalaciones residenciales, comerciales e industriales.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Fundamentos de canalización eléctrica</li>
-                                        <li>Tuberías EMT, IMC y Conduit flexible</li>
-                                        <li>Accesorios, conectores, cajas de paso y condulet</li>
-                                        <li>Interpretación de planos eléctricos</li>
-                                        <li>Trazado de rutas y metrado de materiales</li>
-                                        <li>Herramientas de corte, perforación y doblado</li>
-                                        <li>Curvas de 90°, offset y bayoneta</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
-                                    <ul>
-                                        <li>Certificado de participacion con QR</li>
-                                        <li>Material digital</li>
-                                        <li>Grupo de WhatsApp del curso</li>
-                                        <li>Clases teóricas mediante Zoom</li>
-                                        <li>Acceso al aula virtual por un mes</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Item 4: Programación -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
-                                    <span>📅 Programación y Horarios</span>
-                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
-                                    <div class="schedule-box" x-show="currency === 'PEN'">
-                                        <h5>🇵🇪 Virtual Perú</h5>
-                                        <ul style="margin-bottom: 5px;">
-                                            <li><strong>04/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>05/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>06/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>07/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>09/08:</strong> Zoom en VIVO de 8:00 a.m. a 5:00 p.m.</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="schedule-box" x-show="currency !== 'PEN'" style="margin-bottom: 0;">
-                                        <h5>🇪🇨 Virtual Ecuador y otros países</h5>
-                                        <ul style="margin-bottom: 0;">
-                                            <li><strong>04/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>05/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>06/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
-                                            <li><strong>07/08:</strong> Sesión virtual asíncrona</li>
-                                            <li><strong>09/08:</strong> Zoom en VIVO de 8:00 a.m. a 5:00 p.m.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="promo-price-container" style="position: relative; margin-top: 30px; margin-bottom: 20px; background: #0f172a; border: 2px solid #3730a3; border-radius: 12px; padding: 35px 20px 25px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); transform: skew(-3deg);">
+<div class="promo-price-container" style="position: relative; margin-top: 30px; margin-bottom: 20px; background: #0f172a; border: 2px solid #3730a3; border-radius: 12px; padding: 35px 20px 25px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); transform: skew(-3deg);">
                     <!-- Etiqueta amarilla flotante -->
                     <div style="position: absolute; top: -15px; right: -10px; background: #facc15; color: #0f172a; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: skew(3deg) rotate(5deg); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid #0f172a; z-index: 10;">
                         <span style="display: block; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase;">Precio Regular</span>
-                        <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? (courseName.toLowerCase().includes('analizador') ? 'S/ 200.00' : 'S/ 250.00') : (courseName.toLowerCase().includes('condensadores') ? 'US$ 50.00' : (courseName.toLowerCase().includes('industrial') || courseName.toLowerCase().includes('terminaciones') || courseName.toLowerCase().includes('analizador') ? 'US$ 55.00' : 'US$ 45.00'))"></span>
+                        <?php if (isset($data['cursoDB']) && $data['cursoDB']): ?>
+                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ ' + (coursePrice * 1.5).toFixed(2) : 'US$ ' + (coursePrice * 1.5).toFixed(2)"></span>
+                        <?php else: ?>
+                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 135.00' : 'US$ 45.00'"></span>
+                        <?php endif; ?>
                     </div>
 
                     <div style="transform: skew(3deg); text-align: center; width: 100%;">
@@ -1120,7 +476,17 @@
                     // 1. Cargar parámetros desde la URL
                     const urlParams = new URLSearchParams(window.location.search);
                     this.courseName = urlParams.get('curso') || 'Curso Completo de Marketing y Ventas';
-                    this.coursePrice = parseFloat(urlParams.get('precio')) || 30.00;
+                    this.currency = (urlParams.get('moneda') || 'USD').toUpperCase();
+                    
+                    <?php if (isset($data['cursoDB']) && $data['cursoDB']): ?>
+                        if (this.currency === 'PEN') {
+                            this.coursePrice = <?= $data['cursoDB']['precio'] ?: 'parseFloat(urlParams.get("precio")) || 89.90' ?>;
+                        } else {
+                            this.coursePrice = <?= $data['cursoDB']['precio_usd'] ?: 'parseFloat(urlParams.get("precio")) || 30.00' ?>;
+                        }
+                    <?php else: ?>
+                        this.coursePrice = parseFloat(urlParams.get('precio')) || 30.00;
+                    <?php endif; ?>
                     this.currency = (urlParams.get('moneda') || 'USD').toUpperCase();
 
                     // Si la moneda es USD, abrimos PayPal por defecto, si es PEN abrimos Yape/Plin por defecto

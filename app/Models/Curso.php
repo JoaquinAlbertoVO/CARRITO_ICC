@@ -23,6 +23,13 @@ class Curso {
         try {
             $this->db->exec("ALTER TABLE cursos ADD COLUMN requisitos TEXT;");
         } catch (\PDOException $e) {}
+        try {
+            $this->db->exec("ALTER TABLE cursos 
+              ADD COLUMN resumen TEXT,
+              ADD COLUMN temas TEXT,
+              ADD COLUMN beneficios TEXT,
+              ADD COLUMN programacion TEXT;");
+        } catch (\PDOException $e) {}
     }
 
     public function getCursos($estado = 1) {
@@ -75,17 +82,23 @@ class Curso {
     public function actualizarCurso($data) {
         try {
             // Construir SQL dinámicamente porque las fotos pueden o no enviarse
-            $sql = "UPDATE cursos SET nombre_curso = ?, categoria = ?, fecha_emision = ?, horas_academicas = ?, precio = ?, docente = ?, lecciones = ?, descripcion = ?, requisitos = ?";
+            $sql = "UPDATE cursos SET nombre_curso = ?, categoria = ?, fecha_emision = ?, horas_academicas = ?, precio = ?, precio_usd = ?, fecha_prox = ?, docente = ?, lecciones = ?, descripcion = ?, requisitos = ?, resumen = ?, temas = ?, beneficios = ?, programacion = ?";
             $params = [
                 $data['nombre_curso'],
                 $data['categoria'],
                 $data['fecha_emision'],
                 $data['horas_academicas'],
                 $data['precio'],
+                $data['precio_usd'] ?? 30.00,
+                $data['fecha_prox'] ?? 'PRÓXIMAMENTE',
                 $data['docente'],
                 $data['lecciones'],
                 $data['descripcion'] ?? '',
-                $data['requisitos'] ?? ''
+                $data['requisitos'] ?? '',
+                $data['resumen'] ?? '',
+                $data['temas'] ?? '',
+                $data['beneficios'] ?? '',
+                $data['programacion'] ?? ''
             ];
 
             if (!empty($data['foto'])) {
@@ -113,9 +126,21 @@ class Curso {
         try {
             $sql = "UPDATE cursos SET estado = 0 WHERE id_curso = ?";
             $stmt = $this->db->prepare($sql);
-            return $stmt->execute([$id]);
+            $stmt->execute([$id]);
+            return ['status' => true, 'msg' => 'Curso eliminado correctamente'];
         } catch (\PDOException $e) {
-            error_log("Error eliminando curso: " . $e->getMessage());
+            return ['status' => false, 'msg' => 'Error al eliminar: ' . $e->getMessage()];
+        }
+    }
+
+    public function getCursoByNombre($nombre) {
+        try {
+            // Buscamos coincidencia parcial por si la URL trae un nombre ligeramente distinto
+            $sql = "SELECT * FROM cursos WHERE nombre_curso LIKE ? AND estado = 1 LIMIT 1";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(['%' . $nombre . '%']);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
             return false;
         }
     }

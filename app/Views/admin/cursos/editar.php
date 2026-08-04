@@ -49,17 +49,43 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-12 col-md-3 mb-3">
+                                <div class="col-12 col-md-2 mb-3">
                                     <label>Precio (S/)</label>
                                     <input type="number" step="0.01" name="precio" class="form-control" value="<?php echo $data['precio'] ?? '89.90'; ?>">
                                 </div>
+                                <div class="col-12 col-md-2 mb-3">
+                                    <label>Precio (USD)</label>
+                                    <input type="number" step="0.01" name="precio_usd" class="form-control" value="<?php echo $data['precio_usd'] ?? '30.00'; ?>">
+                                </div>
                                 <div class="col-12 col-md-3 mb-3">
+                                    <label>Fecha Prox. (ej. PRÓXIMAMENTE)</label>
+                                    <input type="text" name="fecha_prox" class="form-control" value="<?php echo $data['fecha_prox'] ?? 'PRÓXIMAMENTE'; ?>">
+                                </div>
+                                <div class="col-12 col-md-2 mb-3">
                                     <label>Lecciones</label>
                                     <input type="number" name="lecciones" class="form-control" value="<?php echo $data['lecciones'] ?? '1'; ?>">
                                 </div>
-                                <div class="col-12 col-md-6 mb-3">
+                                <div class="col-12 col-md-3 mb-3">
                                     <label>Nombre del Docente</label>
                                     <input type="text" name="docente" class="form-control" value="<?php echo $data['docente'] ?? ''; ?>" placeholder="Ej. Ricardo Cárdenas">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label>Resumen del Curso (HTML permitido)</label>
+                                    <textarea name="resumen" class="form-control" rows="4"><?php echo $data['resumen'] ?? ''; ?></textarea>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label>Temas Principales (HTML permitido)</label>
+                                    <textarea name="temas" class="form-control" rows="4"><?php echo $data['temas'] ?? ''; ?></textarea>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label>Beneficios (HTML permitido)</label>
+                                    <textarea name="beneficios" class="form-control" rows="4"><?php echo $data['beneficios'] ?? ''; ?></textarea>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label>Programación y Horarios (HTML permitido)</label>
+                                    <textarea name="programacion" class="form-control" rows="4"><?php echo $data['programacion'] ?? ''; ?></textarea>
                                 </div>
                             </div>
                             <div class="form-row">

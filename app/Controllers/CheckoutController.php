@@ -6,9 +6,13 @@ use App\Core\Controller;
 class CheckoutController extends Controller {
 
     public function index() {
-        // Obtenemos los parametros de GET si queremos pasarlos directamente a la vista,
-        // aunque el Alpine.js en el frontend ya los lee de la URL.
-        $this->view('checkout/index', [], false);
+        $nombreCurso = isset($_GET['curso']) ? trim($_GET['curso']) : '';
+        
+        require_once __DIR__ . '/../Models/Curso.php';
+        $cursoModel = new \App\Models\Curso();
+        $cursoDB = $cursoModel->getCursoByNombre($nombreCurso);
+        
+        $this->view('checkout/index', ['cursoDB' => $cursoDB], false);
     }
 
     public function voucher() {

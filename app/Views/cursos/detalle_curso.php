@@ -51,7 +51,7 @@
                             }
                             ?>
                             <div class="course-video-container" style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px;">
-                                <iframe width="100%" height="450" src="<?= $video_url ?>" title="Video de introducciÃƒÆ’Ã‚Â³n" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block;"></iframe>
+                                <iframe width="100%" height="450" src="<?= $video_url ?>" title="Video de introducción" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block;"></iframe>
                             </div>
                             <div class="courses-one__single-content" style="padding-top: 0; border: none; box-shadow: none;">
                                 <div class="course-details__content-list">
@@ -70,7 +70,7 @@
                                                 <span class="icon-confirmation"></span>
                                             </div>
                                             <div class="text">
-                                                <p>Una laptop o cualquier dispositivo con conexiÃƒÆ’Ã‚Â³n a internet.</p>
+                                                <p>Una laptop o cualquier dispositivo con conexión a internet.</p>
                                             </div>
                                         </li>
                                     </ul>
@@ -79,72 +79,875 @@
                         </div>
                         <!--End Single Courses One-->
 
+                        <!--Start Dynamic Course Curriculum Accordions-->
+
+<style>
+    .course-cards-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 20px !important;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        width: 100%;
+    }
+    @media (max-width: 768px) {
+        .course-cards-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+    .info-card {
+        text-align: left !important;
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        border: 1px solid #f1f5f9;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+    .info-card:hover { 
+        transform: translateY(-4px); 
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+    }
+    .info-card-title {
+        font-size: 1.15rem; 
+        margin-bottom: 18px; 
+        display: flex; 
+        align-items: center; 
+        gap: 12px; 
+        font-weight: 700; 
+        color: #0f172a;
+    }
+    .info-card-content {
+        font-size: 0.95rem; 
+        color: #475569; 
+        line-height: 1.6;
+        flex-grow: 1;
+    }
+    .info-card-content ul { 
+        padding-left: 0; 
+        margin-bottom: 10px; 
+        list-style-type: none;
+    }
+    .info-card-content ul li { 
+        margin-bottom: 10px; 
+        position: relative; 
+        padding-left: 28px;
+    }
+    .info-card-content ul li::before { 
+        content: '\f00c'; 
+        font-family: 'Font Awesome 5 Free'; 
+        font-weight: 900; 
+        position: absolute; 
+        left: 0; 
+        font-size: 1rem; 
+        top: 2px; 
+        color: #10b981;
+    }
+    .info-card-content ul li[style*="list-style: none"]::before {
+        display: none !important;
+    }
+    .info-card-content ul li[style*="list-style: none"] {
+        padding-left: 0 !important;
+    }
+    .schedule-box { 
+        background: #f8fafc; 
+        border: 1px dashed #cbd5e1; 
+        padding: 15px; 
+        border-radius: 8px; 
+        margin-bottom: 15px; 
+    }
+    .schedule-box h5 { margin-top: 0; margin-bottom: 10px; color: #0f172a; font-weight: 700; font-size: 1rem; }
+    .schedule-box ul li::before { content: '📅'; }
+</style>
 <!--Start Dynamic Course Curriculum Accordions-->
-<?php if (isset($curso) && $curso): ?>
+
+
+<?php if (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'subestaciones') !== false): ?>
 <div class="course-cards-grid">
-    <?php if (!empty($curso['resumen'])): ?>
     <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
             </h4>
             <div class="info-card-content">
-                <?= $curso['resumen'] ?>
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
+                <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
+                <p style="line-height: 1.5;">Curso orientado a planificar, ejecutar y documentar mantenimientos de subestaciones eléctricas, combinando contenido teórico y práctica en campo.</p>
             </div>
         </div>
     </div>
-    <?php endif; ?>
 
-    <?php if (!empty($curso['temas'])): ?>
     <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
             </h4>
             <div class="info-card-content">
-                <?= $curso['temas'] ?>
+                <ul>
+                                        <li>Mantenimiento correctivo, preventivo y predictivo</li>
+                                        <li>Tipos y partes de subestaciones eléctricas</li>
+                                        <li>Transformadores, seccionadores y fusibles</li>
+                                        <li>Equipos de protección personal y trajes ignífugos</li>
+                                        <li>Equipos de maniobra y reglas de seguridad</li>
+                                        <li>Medición de aislamiento y relación de transformación</li>
+                                        <li>Análisis de aceite dieléctrico</li>
+                                        <li>Visitas técnicas, informes y protocolos</li>
+                                        <li>Certificado de operatividad</li>
+                                        <li>Procedimientos de corte y puesta en marcha</li>
+                </ul>
             </div>
         </div>
     </div>
-    <?php endif; ?>
 
-    <?php if (!empty($curso['beneficios'])): ?>
     <div>
         <div class="info-card">
             <h4 class="info-card-title">
                 <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
             </h4>
             <div class="info-card-content">
-                <?= $curso['beneficios'] ?>
+                <ul>
+                    <li>Certificado de participacion con QR</li>
+                    <li>Material digital exclusivo</li>
+                    <li>Grupo de WhatsApp del curso</li>
+                    <li>Entregables técnicos y formatos</li>
+                    <li>Clases teóricas grabadas y/o en vivo</li>
+                    <li>Acceso al aula virtual por tiempo limitado</li>
+                    
+                    <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                        <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                        <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li style="margin-bottom: 5px;">Megómetro digital de 5000V</li>
+                                                <li style="margin-bottom: 5px;">Kit extractor de aceite dieléctrico</li>
+                                                <li style="margin-bottom: 5px;">Pértigas de maniobra</li>
+                                                <li style="margin-bottom: 5px;">Revelador de tensión</li>
+                                                <li style="margin-bottom: 5px;">Pinza amperimétrica</li>
+                                                <li style="margin-bottom: 5px;">Traje ignífugo</li>
+                                                <li style="margin-bottom: 5px;">Careta contra arco eléctrico</li>
+                                                <li style="margin-bottom: 5px;">Guantes dieléctricos</li>
+                                                <li style="margin-bottom: 5px;">Equipos de seguridad y señalización</li>
+                                                <li style="margin-bottom: 5px;">Herramientas manuales</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-    <?php endif; ?>
-    
-    <?php if (!empty($curso['programacion'])): ?>
+
     <div>
         <div class="info-card">
             <h4 class="info-card-title">
-                <i class="fas fa-calendar-alt" style="color: #10b981; font-size: 1.3rem;"></i> Programación y Horarios
+                📅 Programación y Horarios
             </h4>
             <div class="info-card-content">
-                <?= $curso['programacion'] ?>
+
+                                    <div class="schedule-box" style="margin-bottom: 15px;">
+                                        <h5>🌎 VIRTUAL Perú, Ecuador y otros países</h5>
+                                        <ul style="margin-bottom: 0;">
+                                            <li><strong>18/08:</strong> Online - Zoom de 6:00 p.m. a 9:00 p.m.</li>
+                                            <li><strong>19/08:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>20/08:</strong> Online - Zoom de 6:00 p.m. a 9:00 p.m.</li>
+                                            <li><strong>21/08:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>22/08:</strong> Online - Zoom de 2:00 p.m. a 7:00 p.m.</li>
+                                        </ul>
+                                    </div>
             </div>
         </div>
     </div>
-    <?php endif; ?>
 </div>
+
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'condensadores') !== false): ?>
+<div class="course-cards-grid">
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
+                <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
+                <p style="line-height: 1.5;">Curso orientado a la compensación de energía reactiva y a la mejora del factor de potencia en sistemas eléctricos industriales.</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                                        <li>Energía reactiva y triángulo de potencia</li>
+                                        <li>Sistemas inductivos y capacitivos</li>
+                                        <li>Determinación y corrección del factor de potencia</li>
+                                        <li>Cálculo de KVAR con compensación fija</li>
+                                        <li>Cálculo de KVAR con compensación automática</li>
+                                        <li>Análisis de KVAR.h en facturación eléctrica</li>
+                                        <li>Bancos de condensadores fijos y automáticos</li>
+                                        <li>Diseño bajo normativa IEC</li>
+                                        <li>Reducción de pérdidas y caídas de tensión</li>
+                                        <li>Selección de contactores, fusibles, conductores y reguladores</li>
+                                        <li>Instalación práctica de condensadores</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                    <li>Certificado de participacion con QR</li>
+                    <li>Material digital exclusivo</li>
+                    <li>Grupo de WhatsApp del curso</li>
+                    <li>Entregables técnicos y formatos</li>
+                    <li>Clases teóricas grabadas y/o en vivo</li>
+                    <li>Acceso al aula virtual por tiempo limitado</li>
+                    
+                    <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                        <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                        <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li style="margin-bottom: 5px;">Condensadores cilíndricos de 25 KVAR</li>
+                                                <li style="margin-bottom: 5px;">Kit de contactores para condensadores</li>
+                                                <li style="margin-bottom: 5px;">Interruptores termomagnéticos</li>
+                                                <li style="margin-bottom: 5px;">Controlador de factor de potencia</li>
+                                                <li style="margin-bottom: 5px;">Transformadores de corriente</li>
+                                                <li style="margin-bottom: 5px;">Herramientas manuales</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+
+                                    <div class="schedule-box" style="margin-bottom: 15px;">
+                                        <h5>🌎 VIRTUAL Perú, Ecuador y otros países</h5>
+                                        <ul style="margin-bottom: 0;">
+                                            <li><strong>01/09:</strong> En VIVO Zoom de 7:00 p.m. a 9:00 p.m.</li>
+                                            <li><strong>02/09:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>03/09:</strong> En VIVO Zoom de 7:00 p.m. a 9:00 p.m.</li>
+                                            <li><strong>04/09:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>05/09:</strong> En VIVO Zoom de 9:00 a. m. a 1:00 p. m.</li>
+                                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'analizador') !== false): ?>
+<div class="course-cards-grid">
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 25 horas académicas</p>
+                <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
+                <p style="line-height: 1.5;">Curso dirigido a quienes desean evaluar, registrar y analizar parámetros eléctricos y perturbaciones en redes de baja y media tensión.</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                                        <li>Tipos de analizadores y normativa vigente</li>
+                                        <li>Parámetros eléctricos y perturbaciones</li>
+                                        <li>Selección e instalación de analizadores</li>
+                                        <li>Conexionado en tablero y campo</li>
+                                        <li>Configuración de eventos y parámetros</li>
+                                        <li>Tipos de conexión e intervalos de medición</li>
+                                        <li>Extracción y modelación de datos</li>
+                                        <li>Elaboración de informes técnicos</li>
+                                        <li>Taller con analizador My Ebox 1500 – Circutor</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                    <li>Certificado de participacion con QR</li>
+                    <li>Material digital exclusivo</li>
+                    <li>Grupo de WhatsApp del curso</li>
+                    <li>Entregables técnicos y formatos</li>
+                    <li>Clases teóricas grabadas y/o en vivo</li>
+                    <li>Acceso al aula virtual por tiempo limitado</li>
+                    
+                    <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                        <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                        <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li style="margin-bottom: 5px;">Analizador de redes Circutor</li>
+                                                <li style="margin-bottom: 5px;">Analizador de redes Fluke o Metrel</li>
+                                                <li style="margin-bottom: 5px;">Traje ignífugo y careta contra arco eléctrico</li>
+                                                <li style="margin-bottom: 5px;">Interruptor y transformador de prueba</li>
+                                                <li style="margin-bottom: 5px;">Laptop, recomendable para el alumno</li>
+                                                <li style="margin-bottom: 5px;">Equipos de seguridad y señalización</li>
+                                                <li style="margin-bottom: 5px;">Herramientas manuales</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+
+                                    <div class="schedule-box" style="margin-bottom: 15px;">
+                                        <h5>🌎 VIRTUAL Perú, Ecuador y otros países</h5>
+                                        <ul style="margin-bottom: 0;">
+                                            <li><strong>17/08:</strong> Zoom de 6:00 p.m. a 8:00 p.m.</li>
+                                            <li><strong>18/08:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>20/08:</strong> Zoom de 6:00 p.m. a 8:00 p.m.</li>
+                                            <li><strong>22/08:</strong> Zoom de 9:00 a.m. a 1:00 p.m.</li>
+                                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'canalizacion') !== false): ?>
+<div class="course-cards-grid">
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 16 horas académicas</p>
+                <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
+                <p style="line-height: 1.5;">Curso enfocado en la ejecución de canalizaciones eléctricas con tuberías Conduit para instalaciones residenciales, comerciales e industriales.</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                                        <li>Fundamentos de canalización eléctrica</li>
+                                        <li>Tuberías EMT, IMC y Conduit flexible</li>
+                                        <li>Accesorios, conectores, cajas de paso y condulet</li>
+                                        <li>Interpretación de planos eléctricos</li>
+                                        <li>Trazado de rutas y metrado de materiales</li>
+                                        <li>Herramientas de corte, perforación y doblado</li>
+                                        <li>Anclajes, soportes, riel Unistrut y abrazaderas</li>
+                                        <li>Curvas de 90°, offset y bayoneta</li>
+                                        <li>Roscado de tubería IMC</li>
+                                        <li>Montaje de canalizaciones</li>
+                                        <li>Inspección, pruebas y mantenimiento</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                    <li>Certificado de participacion con QR</li>
+                    <li>Material digital exclusivo</li>
+                    <li>Grupo de WhatsApp del curso</li>
+                    <li>Entregables técnicos y formatos</li>
+                    <li>Clases teóricas grabadas y/o en vivo</li>
+                    <li>Acceso al aula virtual por tiempo limitado</li>
+                    
+                    <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                        <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                        <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li style="margin-bottom: 5px;">Tuberías Conduit IMC de ¾”</li>
+                                                <li style="margin-bottom: 5px;">Tuberías Conduit IMC de 1”</li>
+                                                <li style="margin-bottom: 5px;">Tuberías Conduit EMT de ¾”</li>
+                                                <li style="margin-bottom: 5px;">Doblador manual y doblador hidráulico</li>
+                                                <li style="margin-bottom: 5px;">Cortador manual</li>
+                                                <li style="margin-bottom: 5px;">Bandeja metálica y cajas de pase</li>
+                                                <li style="margin-bottom: 5px;">Accesorios para anclaje</li>
+                                                <li style="margin-bottom: 5px;">Uniones, conectores, curvas y adaptadores</li>
+                                                <li style="margin-bottom: 5px;">Herramientas manuales</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+
+                                    <div class="schedule-box" style="margin-bottom: 15px;">
+                                        <h5>🌎 VIRTUAL Perú, Ecuador y otros países (NO HAY POR EL MOMENTO)</h5>
+                                        <ul style="margin-bottom: 0;">
+                                            <li><strong>04/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                                            <li><strong>05/08:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>06/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                                            <li><strong>07/08:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>09/08:</strong> Zoom en VIVO de 8:00 a.m. a 12:00 p.m.</li>
+                                            <li><strong>09/08:</strong> Zoom en VIVO de 1:00 p.m. a 5:00 p.m.</li>
+                                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'terminaciones') !== false): ?>
+<div class="course-cards-grid">
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
+                <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
+                <p style="line-height: 1.5;">Curso orientado a aprender la correcta instalación de terminaciones en cables de media tensión, aplicando procedimientos técnicos, criterios de seguridad y buenas prácticas del sector.</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                                        <li>Tipos de cables y niveles de tensión</li>
+                                        <li>Conductor, aislamiento, semiconductoras y pantalla metálica</li>
+                                        <li>Aislamientos XLPE, HEPR y EPR</li>
+                                        <li>Terminaciones rectas, interiores, exteriores y tripolares hasta 36 kV</li>
+                                        <li>Componentes de una terminación</li>
+                                        <li>Medición de aislamiento con megómetro</li>
+                                        <li>Herramientas aisladas y equipos de protección personal</li>
+                                        <li>Práctica de terminaciones interior y exterior hasta 25 kV</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                    <li>Certificado de participacion con QR</li>
+                    <li>Material digital exclusivo</li>
+                    <li>Grupo de WhatsApp del curso</li>
+                    <li>Entregables técnicos y formatos</li>
+                    <li>Clases teóricas grabadas y/o en vivo</li>
+                    <li>Acceso al aula virtual por tiempo limitado</li>
+                    
+                    <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                        <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                        <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li style="margin-bottom: 5px;">Cilindro de gas GLP y boquilla de 2”</li>
+                                                <li style="margin-bottom: 5px;">Kit de terminación termocontraíble de uso exterior</li>
+                                                <li style="margin-bottom: 5px;">Cable de media tensión de 10 kV y/o 25 kV</li>
+                                                <li style="margin-bottom: 5px;">Herramientas manuales</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+
+                                    <div class="schedule-box" style="margin-bottom: 15px;">
+                                        <h5>🌎 VIRTUAL Perú, Ecuador y otros países</h5>
+                                        <ul style="margin-bottom: 0;">
+                                            <li><strong>26/08:</strong> Zoom en VIVO de 6:00 p.m. a 8:00 p.m.</li>
+                                            <li><strong>27/08:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>29/08:</strong> Zoom en VIVO de 8:00 a.m. a 12:00 p.m.</li>
+                                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'empalmes') !== false): ?>
+<div class="course-cards-grid">
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 15 horas académicas</p>
+                <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
+                <p style="line-height: 1.5;">Curso orientado a aprender la correcta instalación de empalmes en cables de media tensión, aplicando procedimientos técnicos, criterios de seguridad y buenas prácticas del sector.</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                                        <li>Tipos de cables y niveles de tensión</li>
+                                        <li>Conductor, aislamiento, semiconductoras y pantalla metálica</li>
+                                        <li>Aislamientos XLPE, HEPR y EPR</li>
+                                        <li>Empalmes termocontraíbles unipolares hasta 36 kV</li>
+                                        <li>Componentes y preparación del empalme</li>
+                                        <li>Medición de aislamiento con megómetro</li>
+                                        <li>Herramientas aisladas y equipos de protección personal</li>
+                                        <li>Práctica de empalmes termocontraíbles hasta 25 kV</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                    <li>Certificado de participacion con QR</li>
+                    <li>Material digital exclusivo</li>
+                    <li>Grupo de WhatsApp del curso</li>
+                    <li>Entregables técnicos y formatos</li>
+                    <li>Clases teóricas grabadas y/o en vivo</li>
+                    <li>Acceso al aula virtual por tiempo limitado</li>
+                    
+                    <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                        <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                        <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li style="margin-bottom: 5px;">Cilindro de gas GLP y boquilla de 2”</li>
+                                                <li style="margin-bottom: 5px;">Kit de terminación termocontraíble de uso exterior</li>
+                                                <li style="margin-bottom: 5px;">Cable de media tensión de 10 kV y/o 25 kV</li>
+                                                <li style="margin-bottom: 5px;">Herramientas manuales</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+
+                                    <div class="schedule-box" style="margin-bottom: 15px;">
+                                        <h5>🌎 VIRTUAL Perú, Ecuador y otros países</h5>
+                                        <ul style="margin-bottom: 0;">
+                                            <li><strong>26/08:</strong> Zoom en VIVO de 6:00 p.m. a 8:00 p.m.</li>
+                                            <li><strong>27/08:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>29/08:</strong> Zoom en VIVO de 1:00 p.m. a 5:00 p.m.</li>
+                                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'variadores') !== false): ?>
+<div class="course-cards-grid">
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> 30 horas académicas</p>
+                <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
+                <p style="line-height: 1.5;">Curso orientado al conexionado, programación y puesta en marcha de variadores de velocidad utilizados en procesos industriales.</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                                        <li>Interpretación de planos y manuales</li>
+                                        <li>Conexionado de variadores de velocidad</li>
+                                        <li>Configuración y operación en modo local y remoto</li>
+                                        <li>Programación y puesta en marcha de variadores Schneider</li>
+                                        <li>Programación y puesta en marcha de variadores Danfoss</li>
+                                        <li>Programación y puesta en marcha de variadores ABB</li>
+                                        <li>Programación y puesta en marcha de variadores Delta</li>
+                                        <li>Programación y puesta en marcha de variadores Siemens</li>
+                                        <li>Programación y puesta en marcha de variadores Allen Bradley</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                    <li>Certificado de participacion con QR</li>
+                    <li>Material digital exclusivo</li>
+                    <li>Grupo de WhatsApp del curso</li>
+                    <li>Entregables técnicos y formatos</li>
+                    <li>Clases teóricas grabadas y/o en vivo</li>
+                    <li>Acceso al aula virtual por tiempo limitado</li>
+                    
+                    <li style="margin-top: 15px; list-style: none; padding-left: 0;">
+                        <h5 style="font-size: 1rem; color: #0f172a; font-weight: 700; margin-bottom: 10px;">🛠️ Equipos y herramientas</h5>
+                        <ul style="padding-left: 0; margin-bottom: 0;">
+                                                <li style="margin-bottom: 5px;">6 motores eléctricos trifásicos de ¼ HP</li>
+                                                <li style="margin-bottom: 5px;">Módulo externo de controles</li>
+                                                <li style="margin-bottom: 5px;">Variador Schneider</li>
+                                                <li style="margin-bottom: 5px;">Variador Danfoss</li>
+                                                <li style="margin-bottom: 5px;">Variador ABB</li>
+                                                <li style="margin-bottom: 5px;">Variador Delta</li>
+                                                <li style="margin-bottom: 5px;">Variador Siemens</li>
+                                                <li style="margin-bottom: 5px;">Variador Allen Bradley</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+
+                                    <div class="schedule-box" style="margin-bottom: 15px;">
+                                        <h5>🌎 VIRTUAL Perú, Ecuador y otros países AGOSTO</h5>
+                                        <ul style="margin-bottom: 0;">
+                                            <li><strong>20/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p. m.</li>
+                                            <li><strong>21/08:</strong> Sesión virtual asíncrona</li>
+                                            <li><strong>22/08:</strong> Zoom en VIVO de 9:00 a.m. a 11:00 a.m. (BLOQUE 1)</li>
+                                            <li><strong>22/08:</strong> Zoom en VIVO de 11:00 a.m. a 1:00 p.m. (BLOQUE 2)</li>
+                                            <li><strong>29/08:</strong> Zoom en VIVO de 9:00 a.m. a 11:00 a.m.(BLOQUE 1)</li>
+                                            <li><strong>29/08:</strong> Zoom en VIVO de 11:00 a.m. a 1:00 p.m. (BLOQUE 2)</li>
+                                            <li><strong>05/09:</strong> Zoom en VIVO de 9:00 a.m. a 11:00 a.m. (BLOQUE 1)</li>
+                                            <li><strong>05/09:</strong> Zoom en VIVO de 11:00 a.m. a 1:00 p.m. (BLOQUE 2)</li>
+                                        </ul>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php elseif (strpos(mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8'), 'electricidad industrial') !== false): ?>
+<div class="course-cards-grid">
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 20px;"></i>
+                Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p><strong>Duración:</strong> 40 horas académicas</p>
+                <p><strong>Modalidad:</strong> 100% Virtual (En vivo y Asíncrono)</p>
+                <p><strong>Incluye:</strong> Certificado de participación.</p>
+                <p style="margin-top: 10px;">Curso enfocado en brindar los conocimientos y habilidades necesarios para el trabajo en el sector eléctrico industrial, abarcando desde los fundamentos hasta el mantenimiento de sistemas y automatización.</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-list-ul" style="color: #3b82f6; font-size: 20px;"></i>
+                Temas a tratar
+            </h4>
+            <div class="info-card-content">
+                <ul class="list-unstyled" style="padding-left: 10px; margin-bottom: 0;">
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 1: FUNDAMENTOS DE ELECTROTECNIA</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 2: INSTRUMENTOS ELÉCTRICOS</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 3: PROTECCIONES ELÉCTRICAS</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 4: INTERPRETACIÓN DE PLANOS ELÉCTRICOS</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 5: TRANSFORMADORES ELÉCTRICOS</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 6: MOTORES ELÉCTRICOS INDUSTRIALES</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 7: EQUIPOS DE AUTOMATIZACIÓN</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 8: AUTOMATIZACIÓN INDUSTRIAL</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>MÓDULO 9: MANTENIMIENTO ELÉCTRICO INDUSTRIAL</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-star" style="color: #f59e0b; font-size: 20px;"></i>
+                Beneficios del Curso
+            </h4>
+            <div class="info-card-content">
+                <ul class="list-unstyled" style="padding-left: 10px; margin-bottom: 0;">
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>Acceso de por vida al material.</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>Soporte directo del docente.</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>Material de estudio descargable.</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #10b981; margin-right: 8px;"></i>Certificado de participación.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="far fa-calendar-alt" style="color: #ec4899; font-size: 20px;"></i>
+                Programación
+            </h4>
+            <div class="info-card-content">
+                <div class="schedule-box" style="margin-bottom: 15px;">
+                    <h5>🌎 VIRTUAL Perú, Ecuador, Colombia y otros</h5>
+                    <ul style="margin-bottom: 0;">
+                        <li><strong>17/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>19/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>24/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>26/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>31/08:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>02/09:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>07/09:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>09/09:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>14/09:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                        <li><strong>16/09:</strong> Zoom en VIVO de 7:00 p.m. a 9:00 p.m.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php else: ?>
 <div class="course-cards-grid">
-    <div style="padding: 15px; background: #fff3cd; border: 1px solid #ffeeba; border-radius: 8px; color: #856404; margin-bottom: 20px; width: 100%;">
-        No se encontraron detalles adicionales para este curso.
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-bolt" style="color: #eab308; font-size: 1.3rem;"></i> Resumen del Curso
+            </h4>
+            <div class="info-card-content">
+                <p style="margin-bottom: 8px;"><strong><i class="fas fa-stopwatch" style="color: #3b82f6; margin-right: 5px;"></i> Duración:</strong> Evaluado por horas académicas</p>
+                <p style="margin-bottom: 12px;"><strong><i class="fas fa-certificate" style="color: #10b981; margin-right: 5px;"></i> Incluye:</strong> Certificado de participación con QR</p>
+                <p style="line-height: 1.5;">Curso orientado a desarrollar competencias prácticas y teóricas en la especialidad elegida, brindando herramientas actualizadas y útiles para el sector industrial.</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.3rem;"></i> Temas Principales
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                    <li>Fundamentos teóricos y normativos</li>
+                    <li>Equipos de protección y maniobra</li>
+                    <li>Procedimientos de trabajo seguro (5 reglas de oro)</li>
+                    <li>Mantenimiento preventivo y correctivo</li>
+                    <li>Protocolos de pruebas y elaboración de informes técnicos</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                <i class="fas fa-award" style="color: #f59e0b; font-size: 1.3rem;"></i> Beneficios
+            </h4>
+            <div class="info-card-content">
+                <ul>
+                    <li>Certificado de participacion con QR</li>
+                    <li>Material digital exclusivo</li>
+                    <li>Grupo de WhatsApp del curso</li>
+                    <li>Entregables técnicos y formatos</li>
+                    <li>Clases teóricas grabadas y/o en vivo</li>
+                    <li>Acceso al aula virtual por tiempo limitado</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div>
+        <div class="info-card">
+            <h4 class="info-card-title">
+                📅 Programación y Horarios
+            </h4>
+            <div class="info-card-content">
+                <div class="schedule-box" >
+                    <h5>🇵🇪 Virtual Perú</h5>
+                    <ul style="margin-bottom: 5px;">
+                        <li><strong>Horario:</strong> Por definir</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <?php endif; ?>
-<br>
+
+
+
+
+
+
                         <!--Start Course Details Reviews-->
                         <div class="course-details__reviews">
-                            <h3 class="course-details__reviews-title">ReseÃƒÆ’Ã‚Â±as</h3>
+                            <h3 class="course-details__reviews-title">Reseñas</h3>
                             <div class="course-details__progress-review">
                                 <div class="row">
                                     <div class="col-xl-7 col-lg-7 col-md-7">
@@ -201,7 +1004,7 @@
                                                 <i class="fas fa-star"></i><!-- /.fas fa-star -->
                                                 <i class="fas fa-star"></i><!-- /.fas fa-star -->
                                             </div>
-                                            <p class="course-details__review-text">30 RESEÃƒÆ’Ã¢â‚¬ËœAS</p>
+                                            <p class="course-details__review-text">30 RESEÑAS</p>
                                         </div>
                                     </div>
                                 </div>
@@ -211,7 +1014,7 @@
                                     <form action="<?= BASE_URL ?>home/enviar_contacto" method="POST" class="comment-one__form contact-form-validated" novalidate="novalidate">
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-12">
-                                                <a href="https://wa.link/zkj9jo" target="_black" class="thm-btn comment-form__btn">InscrÃƒÆ’Ã‚Â­bete AquÃƒÆ’Ã‚Â­</a>
+                                                <a href="https://wa.link/zkj9jo" target="_black" class="thm-btn comment-form__btn">Inscríbete Aquí</a>
                                             </div>
                                         </div>
                                     </form>
@@ -255,10 +1058,54 @@
                                 <hr style="margin: 25px 0 20px 0; border-top: 1px solid #eaeaea;">
                                 
                                 <?php
-                                $precioPreventa = $curso['precio'] ?? 89.90;
-                                $precioPreventaUSD = $curso['precio_usd'] ?? 30.00;
-                                $precioRegular = $precioPreventa * 1.5;
-                                $precioRegularUSD = $precioPreventaUSD * 1.5; ?>
+                                $precioPreventa = 89.90;
+                                $precioRegular = 99.90;
+                                $precioPreventaUSD = 30.00;
+                                $precioRegularUSD = 60.00;
+                                $nombreCursoSafe = mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8');
+
+                                if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
+                                    $precioPreventa = 150.00;
+                                    $precioRegular = 450.00;
+                                    $precioPreventaUSD = 45.00;
+                                    $precioRegularUSD = 120.00;
+                                } elseif (strpos($nombreCursoSafe, 'condensadores') !== false) {
+                                    $precioPreventa = 150.00;
+                                    $precioRegular = 200.00;
+                                    $precioPreventaUSD = 30.00;
+                                    $precioRegularUSD = 60.00;
+                                } elseif (strpos($nombreCursoSafe, 'analizador') !== false) {
+                                    $precioPreventa = 150.00;
+                                    $precioRegular = 150.00;
+                                    $precioPreventaUSD = 30.00;
+                                    $precioRegularUSD = 60.00;
+                                } elseif (strpos($nombreCursoSafe, 'canalizacion') !== false) {
+                                    $precioPreventa = 100.00;
+                                    $precioRegular = 450.00;
+                                    $precioPreventaUSD = 30.00;
+                                    $precioRegularUSD = 60.00;
+                                } elseif (strpos($nombreCursoSafe, 'terminaciones') !== false) {
+                                    $precioPreventa = 150.00;
+                                    $precioRegular = 200.00;
+                                    $precioPreventaUSD = 30.00;
+                                    $precioRegularUSD = 60.00;
+                                } elseif (strpos($nombreCursoSafe, 'empalmes') !== false) {
+                                    $precioPreventa = 150.00;
+                                    $precioRegular = 200.00;
+                                    $precioPreventaUSD = 30.00;
+                                    $precioRegularUSD = 60.00;
+                                } elseif (strpos($nombreCursoSafe, 'variadores') !== false) {
+                                    $precioPreventa = 150.00;
+                                    $precioRegular = 200.00;
+                                    $precioPreventaUSD = 35.00;
+                                    $precioRegularUSD = 60.00;
+                                } elseif (strpos($nombreCursoSafe, 'electricidad industrial') !== false) {
+                                    $precioPreventa = 150.00;
+                                    $precioRegular = 200.00;
+                                    $precioPreventaUSD = 30.00;
+                                    $precioRegularUSD = 60.00;
+                                }
+                                ?>
                                 <div class="course-details__price-united" style="text-align: center; padding-bottom: 10px;">
                                     
                                     

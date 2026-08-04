@@ -545,6 +545,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         <!-- Accordion Variadores -->
                         <div class="course-accordion" x-show="courseName.toLowerCase().includes('variadores')" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
                             <!-- Item 1: Resumen -->

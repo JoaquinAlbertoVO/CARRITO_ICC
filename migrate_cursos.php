@@ -27,21 +27,21 @@ try {
         $horas = 20;
         
         if (strpos($nombre, 'subestaciones') !== false) {
-            $precioPEN = 99.00; $precioUSD = 45.00; $fecha = '18/08'; $horas = 25;
+            $precioPEN = 150.00; $precioUSD = 45.00; $fecha = '18/08'; $horas = 25;
         } elseif (strpos($nombre, 'condensadores') !== false) {
-            $precioPEN = 99.00; $precioUSD = 30.00; $fecha = '01/09'; $horas = 25;
+            $precioPEN = 150.00; $precioUSD = 30.00; $fecha = '01/09'; $horas = 25;
         } elseif (strpos($nombre, 'analizador') !== false) {
-            $precioPEN = 99.00; $precioUSD = 30.00; $fecha = '17/08'; $horas = 25;
+            $precioPEN = 150.00; $precioUSD = 30.00; $fecha = '17/08'; $horas = 25;
         } elseif (strpos($nombre, 'canalizacion') !== false || strpos($nombre, 'canalización') !== false) {
             $precioPEN = 100.00; $precioUSD = 30.00; $fecha = '04/08'; $horas = 16;
         } elseif (strpos($nombre, 'terminaciones') !== false) {
-            $precioPEN = 99.00; $precioUSD = 30.00; $fecha = '26/08'; $horas = 15;
+            $precioPEN = 150.00; $precioUSD = 30.00; $fecha = '26/08'; $horas = 15;
         } elseif (strpos($nombre, 'empalmes') !== false) {
-            $precioPEN = 99.00; $precioUSD = 30.00; $fecha = '26/08'; $horas = 15;
+            $precioPEN = 150.00; $precioUSD = 30.00; $fecha = '26/08'; $horas = 15;
         } elseif (strpos($nombre, 'variadores') !== false) {
-            $precioPEN = 99.00; $precioUSD = 35.00; $fecha = '20/08'; $horas = 30;
+            $precioPEN = 150.00; $precioUSD = 35.00; $fecha = '20/08'; $horas = 30;
         } elseif (strpos($nombre, 'electricidad industrial') !== false) {
-            $precioPEN = 100.00; $precioUSD = 30.00; $fecha = '17/08'; $horas = 40;
+            $precioPEN = 150.00; $precioUSD = 30.00; $fecha = '17/08'; $horas = 40;
         }
 
         // Update DB (siempre actualizamos precio y horas, incluso si la fecha es proximamente)

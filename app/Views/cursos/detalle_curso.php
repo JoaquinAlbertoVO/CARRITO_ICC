@@ -1065,17 +1065,17 @@
                                 $nombreCursoSafe = mb_strtolower($curso['nombre_curso'] ?? '', 'UTF-8');
 
                                 if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
-                                    $precioPreventa = 99.00;
+                                    $precioPreventa = 150.00;
                                     $precioRegular = 450.00;
                                     $precioPreventaUSD = 45.00;
                                     $precioRegularUSD = 120.00;
                                 } elseif (strpos($nombreCursoSafe, 'condensadores') !== false) {
-                                    $precioPreventa = 99.00;
+                                    $precioPreventa = 150.00;
                                     $precioRegular = 200.00;
                                     $precioPreventaUSD = 30.00;
                                     $precioRegularUSD = 60.00;
                                 } elseif (strpos($nombreCursoSafe, 'analizador') !== false) {
-                                    $precioPreventa = 99.00;
+                                    $precioPreventa = 150.00;
                                     $precioRegular = 150.00;
                                     $precioPreventaUSD = 30.00;
                                     $precioRegularUSD = 60.00;
@@ -1085,22 +1085,22 @@
                                     $precioPreventaUSD = 30.00;
                                     $precioRegularUSD = 60.00;
                                 } elseif (strpos($nombreCursoSafe, 'terminaciones') !== false) {
-                                    $precioPreventa = 99.00;
+                                    $precioPreventa = 150.00;
                                     $precioRegular = 200.00;
                                     $precioPreventaUSD = 30.00;
                                     $precioRegularUSD = 60.00;
                                 } elseif (strpos($nombreCursoSafe, 'empalmes') !== false) {
-                                    $precioPreventa = 99.00;
+                                    $precioPreventa = 150.00;
                                     $precioRegular = 200.00;
                                     $precioPreventaUSD = 30.00;
                                     $precioRegularUSD = 60.00;
                                 } elseif (strpos($nombreCursoSafe, 'variadores') !== false) {
-                                    $precioPreventa = 99.00;
+                                    $precioPreventa = 150.00;
                                     $precioRegular = 200.00;
                                     $precioPreventaUSD = 35.00;
                                     $precioRegularUSD = 60.00;
                                 } elseif (strpos($nombreCursoSafe, 'electricidad industrial') !== false) {
-                                    $precioPreventa = 100.00;
+                                    $precioPreventa = 150.00;
                                     $precioRegular = 200.00;
                                     $precioPreventaUSD = 30.00;
                                     $precioRegularUSD = 60.00;

@@ -36,6 +36,10 @@ class Router {
                     }
                 }
                 unset($url[0]);
+            } elseif ($url[0] === 'aula' && isset($url[1]) && ($url[1] === 'login' || $url[1] === 'logout')) {
+                $controllerName = 'AulaAuthController';
+                $this->method = $url[1];
+                unset($url[0], $url[1]);
             } else {
                 $controllerName = ucfirst($url[0]) . 'Controller';
                 unset($url[0]);

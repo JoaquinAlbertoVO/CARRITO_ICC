@@ -144,4 +144,93 @@ class Curso {
             return false;
         }
     }
+
+    public function getUltimoCursoEstudiante($iduser) {
+        try {
+            $sql = "SELECT c.id_curso, c.nombre_curso FROM usuario_cursos uc INNER JOIN cursos c ON uc.id_curso = c.id_curso WHERE uc.id_usuario = ? AND c.estado = 1 LIMIT 1";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$iduser]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            return null;
+        }
+    }
+
+    public function getCursosByEstudiante($iduser) {
+        try {
+            $sql = "SELECT c.id_curso, c.nombre_curso, c.foto, c.horas_academicas, c.lecciones, c.categoria 
+                    FROM usuario_cursos uc 
+                    INNER JOIN cursos c ON uc.id_curso = c.id_curso 
+                    WHERE uc.id_usuario = ? AND c.estado = 1";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$iduser]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            return [];
+        }
+    }
+
+    public function checkAccesoEstudiante($iduser, $id_curso) {
+        try {
+            $sql = "SELECT id_curso FROM usuario_cursos WHERE id_usuario = ? AND id_curso = ?";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$iduser, $id_curso]);
+            return $stmt->rowCount() > 0;
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getVideosByCurso($id_curso) {
+        try {
+            $sql = "SELECT * FROM curso_videos WHERE id_curso = ? AND estado = 1 ORDER BY orden ASC, modulo ASC, id_video ASC";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$id_curso]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            return [];
+        }
+    }
+
+    public function getProgresoVideos($iduser, $id_curso) {
+        try {
+            $sql = "SELECT id_video FROM progreso_videos WHERE id_usuario = ? AND id_curso = ?";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$iduser, $id_curso]);
+            return $stmt->fetchAll(PDO::FETCH_COLUMN); // Devuelve array de IDs de video
+        } catch (\PDOException $e) {
+            return [];
+        }
+    }
+
+    public function getEstadoCertificado($iduser, $id_curso) {
+        try {
+            $sql = "SELECT estado_certificado FROM usuario_cursos WHERE id_usuario = ? AND id_curso = ?";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$iduser, $id_curso]);
+            $res = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $res ? $res['estado_certificado'] : 0;
+        } catch (\PDOException $e) {
+            return 0;
+        }
+    }
+
+    public function marcarVideoCompletado($iduser, $id_curso, $id_video) {
+        try {
+            // Verificar si ya existe
+            $sql_check = "SELECT id FROM progreso_videos WHERE id_usuario = ? AND id_curso = ? AND id_video = ?";
+            $stmt_check = $this->db->prepare($sql_check);
+            $stmt_check->execute([$iduser, $id_curso, $id_video]);
+            
+            if ($stmt_check->rowCount() == 0) {
+                $sql = "INSERT INTO progreso_videos (id_usuario, id_curso, id_video, fecha_completado) VALUES (?, ?, ?, NOW())";
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute([$iduser, $id_curso, $id_video]);
+            }
+            return true;
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
 }
+

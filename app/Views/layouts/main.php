@@ -315,7 +315,7 @@
                                                 </div>
                                             </div>
                                             <div class="main-menu__right-search-box">
-                                                <a href="https://icc.com.pe/Aula/" target="_black" class="thm-btn comment-form__btn">Aula Virtual</a>
+                                                <a href="<?= BASE_URL ?>aula" class="thm-btn comment-form__btn">Aula Virtual</a>
                                             </div>
                                         </div>
                                     </div>
@@ -618,7 +618,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     </div><!-- /.mobile-nav__social -->
                 </div><!-- /.mobile-nav__top -->
                 <div class="">
-                    <a href="https://icc.com.pe/aula/login.php" target="_black" class="thm-btn comment-form__btn">Aula Virtual</a>
+                    <a href="<?= BASE_URL ?>aula" class="thm-btn comment-form__btn">Aula Virtual</a>
                 </div>
             </div>
             <!-- /.mobile-nav__content -->

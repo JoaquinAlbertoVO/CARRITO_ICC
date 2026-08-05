@@ -19,11 +19,13 @@ class AulaController extends Controller {
         $cursoModel = new \App\Models\Curso();
         $resume_curso = $cursoModel->getUltimoCursoEstudiante($iduser);
         $cursos = $cursoModel->getCursosByEstudiante($iduser);
+        $certificados = $cursoModel->getCertificadosUsuario($iduser);
 
         $data = [
             'title' => 'Mi Aula Virtual - ICC',
             'resume_curso' => $resume_curso,
-            'cursos' => $cursos
+            'cursos' => $cursos,
+            'certificados' => $certificados
         ];
         $this->view('aula/index', $data, 'layouts/aula');
     }

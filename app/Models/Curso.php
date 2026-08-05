@@ -232,5 +232,18 @@ class Curso {
             return false;
         }
     }
+    public function getCertificadosUsuario($iduser) {
+        try {
+            $sql = "SELECT uc.archivo_pdf, c.nombre_curso, c.foto, uc.fecha_subida 
+                    FROM usuario_certificados uc 
+                    INNER JOIN cursos c ON uc.id_curso = c.id_curso 
+                    WHERE uc.id_usuario = ?";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$iduser]);
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            return [];
+        }
+    }
 }
 

@@ -306,6 +306,55 @@ if(!empty($cursos)) {
 }
 ?>
                     </div>
+
+                    <!-- SECCION CERTIFICADOS -->
+                    <div class="col-12 mt-5">
+                        <div class="mb-5 pb-2 border-bottom" style="border-color: rgba(255,255,255,0.05) !important;" data-aos="fade-in">
+                            <h2 class="bold mb-2 text-center" style="color: #fff; font-size: 2.2rem;">Tus Certificados</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <?php
+                    if (!empty($certificados)) {
+                        foreach($certificados as $cert) {
+                            $img_curso = ($cert['foto'] == 'default.png') ? 'https://www.file-extension.info/images/resource/formats/img.png' : BASE_URL . 'assets/images/cursos/' . $cert['foto'];
+                            ?>
+                            <div class='col-md-6 col-lg-4 mb-4' data-aos="fade-up">
+                                <div class='course-card-premium h-100 d-flex flex-column' style='flex-direction: column !important;'>
+                                    <div class='card-img-top text-center' style='height:200px; overflow:hidden; width: 100%;'>
+                                        <img src='<?= $img_curso ?>' style='width:100%; height:100%; object-fit: cover;' alt='Curso'>
+                                    </div>
+                                    <div class='p-4 text-center border-bottom flex-grow-1' style="border-color: rgba(255,255,255,0.05) !important;">
+                                        <div class='bold mb-3'>
+                                            <h5 class='text-white' style="font-weight: 600; line-height: 1.4;"><?= htmlspecialchars($cert['nombre_curso']) ?></h5>
+                                        </div>
+                                        <div class='text-muted'>
+                                            <small style="font-size: 0.9rem;">Subido el: <?= date('d/m/Y', strtotime($cert['fecha_subida'])) ?></small>
+                                        </div>
+                                    </div>
+                                    <div class='p-4 text-center mt-auto w-100'>
+                                        <a target="_blank" href='<?= BASE_URL ?>assets/certificados/<?= $cert['archivo_pdf'] ?>' class='btn-premium w-100' style='display: block;'>
+                                            <i class="material-icons mr-2">file_download</i> Descargar
+                                        </a>
+                                    </div>         
+                                </div>
+                            </div> 
+                            <?php
+                        }
+                    } else {
+                        echo "
+                        <div class='col-12 text-center py-5' data-aos='fade-up'>
+                            <div style='background: var(--card-bg); border: 1px dashed rgba(255,255,255,0.1); border-radius: 20px; padding: 50px 20px; max-width: 500px; margin: 0 auto;'>
+                                <div style='width: 80px; height: 80px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;'>
+                                    <i class='material-icons' style='font-size: 40px; color: var(--text-muted);'>workspace_premium</i>
+                                </div>
+                                <h4 class='text-white mb-2' style='font-weight: 600;'>Sin certificados disponibles</h4>
+                                <p style='color: var(--text-muted); font-size: 1rem;'>Tus certificados aparecerán aquí una vez que culmines satisfactoriamente un curso.</p>
+                            </div>
+                        </div>";
+                    }
+                    ?>
+                    </div>
                 </div>
             </div>
         </div>

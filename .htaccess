@@ -18,7 +18,6 @@ RewriteRule ^ee\/new\/css\/u5fdvo\/\/\/\/c3N0ZXZlbnNvbkBhcmNoZXJwb2ludC5jb20\=$ 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} !/assets/ [NC]
 RewriteCond %{REQUEST_URI} !/administrador/ [NC]
-RewriteCond %{REQUEST_URI} !/Aula/ [NC]
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 
 # Security Headers (Best Practices)

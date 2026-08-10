@@ -21,6 +21,63 @@
     </section>-->
     <!--Page Header End-->
 
+    <style>
+    .course-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .info-card {
+        background: #ffffff;
+        border: 1px solid #e0e6ed;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        height: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .info-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+    .info-card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1a1e68;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        border-bottom: 2px solid #f3f4f6;
+        padding-bottom: 10px;
+    }
+    .info-card-title i {
+        margin-right: 10px;
+    }
+    .info-card-content {
+        font-size: 0.95rem;
+        color: #555;
+        line-height: 1.6;
+        text-align: left !important;
+    }
+    .info-card-content ul {
+        padding-left: 20px;
+        margin-bottom: 0;
+        text-align: left !important;
+        list-style-type: disc !important;
+    }
+    .info-card-content li {
+        margin-bottom: 8px;
+        text-align: left !important;
+    }
+    @media (max-width: 768px) {
+        .course-cards-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    </style>
+
     <!--Start Course Details-->
     <section class="course-details">
         <div class="container">

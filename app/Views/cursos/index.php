@@ -131,7 +131,7 @@
             </div>
 
 
-            <div class="row filter-layout masonary-layout">
+            <div class="row">
                 <?php if (!empty($cursos)): ?>
                     <?php foreach ($cursos as $curso): ?>
                         <?php 

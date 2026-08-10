@@ -234,7 +234,7 @@
     <div class="login-container">
         <div class="login-header">
             <a href="<?= BASE_URL ?>">
-                <img src="<?= BASE_URL ?>assets/images/logo-dark.png" alt="ICC Ingeniería" class="login-logo" style="width: 200px; filter: brightness(0) invert(1);">
+                <img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC Ingeniería" class="login-logo" style="width: 200px; filter: brightness(0) invert(1);">
             </a>
             <h1 class="login-title">Bienvenido</h1>
             <p class="login-subtitle">Ingresa tus credenciales para acceder al aula</p>

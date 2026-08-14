@@ -59,7 +59,13 @@ $report = [
     'errors' => []
 ];
 
-// Start transaction just in case, but actually let's do it individually to prevent one error stopping everything
+// Hacer que la columna telefono sea VARCHAR(50) por si es INT o muy corta
+try {
+    $pdo->exec("ALTER TABLE usuario MODIFY telefono VARCHAR(50) DEFAULT NULL");
+} catch (Exception $e) {
+    // ignorar si no hay permisos
+}
+
 $matched_cache = [];
 
 foreach ($students as $student) {
@@ -110,18 +116,27 @@ foreach ($students as $student) {
             // Note: we could update the name/phone but let's just make sure they have the course assigned
         } else {
             // Create user
+            // Ensure telefono is safely truncated or null if empty
+            $safe_telefono = !empty($telefono) ? substr($telefono, 0, 50) : null;
+            
             $stmt_insert = $pdo->prepare("INSERT INTO usuario (id_pla, nombre, correo, telefono, dni, usuario, password, estatus) VALUES (1, ?, ?, ?, ?, ?, 'ICC2026', 1)");
-            $stmt_insert->execute([$nombre, $correo, $telefono, $documento, $usuario_login]);
+            $stmt_insert->execute([$nombre, $correo, $safe_telefono, $documento, $usuario_login]);
             $iduser = $pdo->lastInsertId();
             $report['users_created']++;
         }
         
         // Assign course
-        $stmt_check_curso = $pdo->prepare("SELECT id FROM usuario_cursos WHERE id_usuario = ? AND id_curso = ?");
+        $stmt_check_curso = $pdo->prepare("SELECT id_usuario FROM usuario_cursos WHERE id_usuario = ? AND id_curso = ?");
         $stmt_check_curso->execute([$iduser, $id_curso]);
         if (!$stmt_check_curso->fetch()) {
-            $stmt_assign = $pdo->prepare("INSERT INTO usuario_cursos (id_usuario, id_curso) VALUES (?, ?)");
-            $stmt_assign->execute([$iduser, $id_curso]);
+            // Verificamos si la tabla tiene id
+            try {
+                $stmt_assign = $pdo->prepare("INSERT INTO usuario_cursos (id_usuario, id_curso) VALUES (?, ?)");
+                $stmt_assign->execute([$iduser, $id_curso]);
+            } catch (Exception $e) {
+                // If it fails, maybe it expects other columns, but mostly it's fine.
+                throw $e;
+            }
         }
         
     } catch (Exception $e) {

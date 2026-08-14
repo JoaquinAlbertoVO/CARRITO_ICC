@@ -102,10 +102,14 @@ foreach ($students as $student) {
     
     $id_curso = $matched_course['id_curso'];
     
+    // Ensure safe values for integers
+    $safe_documento = !empty($documento) ? $documento : null;
+    $safe_correo = !empty($correo) ? $correo : null;
+
     try {
         // Check if user exists by DNI or Correo
-        $stmt_check = $pdo->prepare("SELECT iduser FROM usuario WHERE usuario = ? OR (dni != '' AND dni = ?) OR (correo != '' AND correo = ?)");
-        $stmt_check->execute([$usuario_login, $documento, $correo]);
+        $stmt_check = $pdo->prepare("SELECT iduser FROM usuario WHERE usuario = ? OR (dni IS NOT NULL AND dni = ?) OR (correo IS NOT NULL AND correo = ?)");
+        $stmt_check->execute([$usuario_login, $safe_documento, $safe_correo]);
         $existing_user = $stmt_check->fetch(PDO::FETCH_ASSOC);
         
         if ($existing_user) {
@@ -120,7 +124,7 @@ foreach ($students as $student) {
             $safe_telefono = !empty($telefono) ? substr($telefono, 0, 50) : null;
             
             $stmt_insert = $pdo->prepare("INSERT INTO usuario (id_pla, nombre, correo, telefono, dni, usuario, password, estatus) VALUES (1, ?, ?, ?, ?, ?, 'ICC2026', 1)");
-            $stmt_insert->execute([$nombre, $correo, $safe_telefono, $documento, $usuario_login]);
+            $stmt_insert->execute([$nombre, $safe_correo, $safe_telefono, $safe_documento, $usuario_login]);
             $iduser = $pdo->lastInsertId();
             $report['users_created']++;
         }

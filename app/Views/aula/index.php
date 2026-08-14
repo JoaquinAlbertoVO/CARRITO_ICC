@@ -273,16 +273,15 @@ if(!empty($cursos)) {
                         </div>
                         
                         <?php 
-                        // En el futuro calcular progreso real.
-                        $progreso_demo = rand(15, 95); 
+                        $progreso_real = $curso['progreso_real'] ?? 0; 
                         ?>
                         <div class="mt-4 pt-3 border-top" style="border-color: var(--card-border) !important;">
                             <div class="d-flex justify-content-between mb-2">
                                 <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">Progreso del curso</span>
-                                <span style="color: var(--accent); font-size: 0.85rem; font-weight: 800;"><?= $progreso_demo ?>%</span>
+                                <span style="color: var(--accent); font-size: 0.85rem; font-weight: 800;"><?= $progreso_real ?>%</span>
                             </div>
                             <div class="progress-container">
-                                <div class="progress-bar-fill" style="width: <?= $progreso_demo ?>%;"></div>
+                                <div class="progress-bar-fill" style="width: <?= $progreso_real ?>%;"></div>
                             </div>
                         </div>
                     </div>

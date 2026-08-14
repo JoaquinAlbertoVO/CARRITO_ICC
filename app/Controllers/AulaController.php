@@ -19,6 +19,19 @@ class AulaController extends Controller {
         $cursoModel = new \App\Models\Curso();
         $resume_curso = $cursoModel->getUltimoCursoEstudiante($iduser);
         $cursos = $cursoModel->getCursosByEstudiante($iduser);
+        
+        // Calcular progreso real para cada curso
+        if (!empty($cursos)) {
+            foreach ($cursos as &$c) {
+                $vid = $cursoModel->getVideosByCurso($c['id_curso']);
+                $vid_comp = $cursoModel->getProgresoVideos($iduser, $c['id_curso']);
+                $total_v = count($vid);
+                $comp_v = count($vid_comp);
+                $c['progreso_real'] = $total_v > 0 ? round(($comp_v / $total_v) * 100) : 0;
+            }
+            unset($c);
+        }
+
         $certificados = $cursoModel->getCertificadosUsuario($iduser);
 
         $data = [

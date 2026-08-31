@@ -100,8 +100,4 @@ RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
     Order allow,deny
     Deny from all
 </FilesMatch>
-
-<DirectoryMatch "^\.|\/\.">
-    Order allow,deny
-    Deny from all
-</DirectoryMatch>
+

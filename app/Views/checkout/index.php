@@ -482,7 +482,10 @@
                     this.currency = (urlParams.get('moneda') || 'USD').toUpperCase();
                     
                     <?php if (isset($data['cursoDB']) && $data['cursoDB']): ?>
-                        if (this.currency === 'PEN') {
+                        // Si hay un precio explícito en la URL, usarlo (para links promocionales)
+                        if (urlParams.get('precio')) {
+                            this.coursePrice = parseFloat(urlParams.get('precio'));
+                        } else if (this.currency === 'PEN') {
                             this.coursePrice = <?= $data['cursoDB']['precio'] ?: 'parseFloat(urlParams.get("precio")) || 89.90' ?>;
                         } else {
                             this.coursePrice = <?= $data['cursoDB']['precio_usd'] ?: 'parseFloat(urlParams.get("precio")) || 30.00' ?>;

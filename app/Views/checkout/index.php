@@ -517,7 +517,8 @@
                             precio: 69.90,
                             moneda: 'PEN',
                             ocultar: ['03/10'],
-                            renombrar: [['Equipos y herramientas', 'Herramientas que vamos a usar en el curso']]
+                            renombrar: [['Equipos y herramientas', 'Herramientas que vamos a ver en el curso']],
+                            horas: 20
                         }
                     };
 
@@ -550,13 +551,18 @@
                             }
                             if (promo.renombrar) {
                                 promo.renombrar.forEach(([viejo, nuevo]) => {
-                                    // Buscar cualquier elemento cuyo texto contenga el viejo y reemplazar solo el texto
-                                    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-                                    while (walker.nextNode()) {
-                                        if (walker.currentNode.textContent.includes(viejo)) {
-                                            walker.currentNode.textContent = walker.currentNode.textContent.replace(viejo, nuevo);
+                                    // Buscar encabezados/elementos que contengan el texto y reemplazar TODO su contenido (elimina iconos)
+                                    document.querySelectorAll('.accordion-content h3, .accordion-content h4, .accordion-content h5, .accordion-content strong, .accordion-content b, .accordion-content p').forEach(el => {
+                                        if (el.textContent.includes(viejo)) {
+                                            el.innerHTML = nuevo;
                                         }
-                                    }
+                                    });
+                                });
+                            }
+                            if (promo.horas) {
+                                // Reemplazar "XX horas académicas" por el nuevo valor
+                                document.querySelectorAll('.accordion-content').forEach(el => {
+                                    el.innerHTML = el.innerHTML.replace(/\d+\s*horas?\s*acad[ée]micas/gi, promo.horas + ' horas académicas');
                                 });
                             }
                         }, 50);

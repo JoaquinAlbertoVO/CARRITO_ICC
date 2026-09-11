@@ -524,6 +524,10 @@
                     const promoCode = urlParams.get('p');
                     if (promoCode && promoCodes[promoCode]) {
                         const promo = promoCodes[promoCode];
+                        // Setear moneda ANTES de leer precios de la DB
+                        if (promo.moneda) this.currency = promo.moneda.toUpperCase();
+                        this.activeTab = this.currency === 'USD' ? 'paypal' : 'manual';
+
                         if (promo.precio) {
                             // Guardar precio original de la DB para mostrar como "Precio Regular"
                             <?php if (isset($data['cursoDB']) && $data['cursoDB']): ?>
@@ -535,8 +539,6 @@
                             <?php endif; ?>
                             this.coursePrice = promo.precio;
                         }
-                        if (promo.moneda) this.currency = promo.moneda.toUpperCase();
-                        this.activeTab = this.currency === 'USD' ? 'paypal' : 'manual';
 
                         setTimeout(() => {
                             if (promo.ocultar) {
@@ -548,11 +550,13 @@
                             }
                             if (promo.renombrar) {
                                 promo.renombrar.forEach(([viejo, nuevo]) => {
-                                    document.querySelectorAll('.accordion-content').forEach(el => {
-                                        // Reemplazar el texto junto con cualquier emoji adyacente
-                                        const regex = new RegExp('[\\u{1F300}-\\u{1F9FF}\\u{2600}-\\u{2B55}\\u{FE00}-\\u{FE0F}\\u{200D}\\u{20E3}]*\\s*' + viejo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gu');
-                                        el.innerHTML = el.innerHTML.replace(regex, nuevo);
-                                    });
+                                    // Buscar cualquier elemento cuyo texto contenga el viejo y reemplazar solo el texto
+                                    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+                                    while (walker.nextNode()) {
+                                        if (walker.currentNode.textContent.includes(viejo)) {
+                                            walker.currentNode.textContent = walker.currentNode.textContent.replace(viejo, nuevo);
+                                        }
+                                    }
                                 });
                             }
                         }, 50);

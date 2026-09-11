@@ -147,7 +147,7 @@
                     <div style="position: absolute; top: -15px; right: -10px; background: #facc15; color: #0f172a; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: skew(3deg) rotate(5deg); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid #0f172a; z-index: 10;">
                         <span style="display: block; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase;">Precio Regular</span>
                         <?php if (isset($data['cursoDB']) && $data['cursoDB']): ?>
-                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ ' + (coursePrice * 1.5).toFixed(2) : 'US$ ' + (coursePrice * 1.5).toFixed(2)"></span>
+                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ ' + (originalPrice || coursePrice * 1.5).toFixed(2) : 'US$ ' + (originalPrice || coursePrice * 1.5).toFixed(2)"></span>
                         <?php else: ?>
                             <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 135.00' : 'US$ 45.00'"></span>
                         <?php endif; ?>
@@ -427,6 +427,7 @@
                 // Estado dinámico cargado desde la URL
                 courseName: '',
                 coursePrice: 30.00,
+                originalPrice: null, // Precio original de la DB (para mostrar como "Precio Regular")
                 currency: 'USD',
 
                 // Tipo de cambio para conversiones USD <-> PEN
@@ -485,6 +486,12 @@
                         // Si hay un precio explícito en la URL, usarlo (para links promocionales)
                         if (urlParams.get('precio')) {
                             this.coursePrice = parseFloat(urlParams.get('precio'));
+                            // Guardar el precio original de la DB para mostrar como "Precio Regular"
+                            if (this.currency === 'PEN') {
+                                this.originalPrice = <?= $data['cursoDB']['precio'] ?: 'null' ?>;
+                            } else {
+                                this.originalPrice = <?= $data['cursoDB']['precio_usd'] ?: 'null' ?>;
+                            }
                         } else if (this.currency === 'PEN') {
                             this.coursePrice = <?= $data['cursoDB']['precio'] ?: 'parseFloat(urlParams.get("precio")) || 89.90' ?>;
                         } else {

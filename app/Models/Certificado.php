@@ -3,7 +3,7 @@ namespace App\Models;
 
 class Certificado {
     
-    public function generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha_emision, $categoria) {
+    public function generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha_emision, $categoria, $texto_realizado = null) {
         $font_path = __DIR__ . '/../Views/admin/cursos/arial.ttf';
         $font_bold = __DIR__ . '/../Views/admin/cursos/arialbd.ttf';
         $font_serif = __DIR__ . '/../Views/admin/cursos/georgia.ttf';
@@ -51,7 +51,7 @@ class Certificado {
         imagettftext($imagen, 20, 0, $x_dni, 540, $color_dni, $font_path, $dni_text);
 
         // 3. Párrafo central
-        $parrafo1 = "Certificado por haber culminado las $horas horas lectivas del";
+        $parrafo1 = "Certificado por haber culminado las $horas horas académicas del";
         
         // -- Línea 2 --
         $txt2_1 = "CURSO DE \"";
@@ -96,8 +96,8 @@ class Certificado {
         imagettftext($imagen, 22, 0, $start_x3 + $w3_1, 790, $color_texto, $font_bold, $txt3_2);
         imagettftext($imagen, 22, 0, $start_x3 + $w3_1 + $w3_2, 790, $color_texto, $font_path, $txt3_3);
 
-        // 4. Fechas (quemadas por ahora como ejemplo, deberían venir de bd)
-        $texto_fecha = "Realizado del 20 de Julio al 25 de Julio del 2026.";
+        // 4. Fechas
+        $texto_fecha = $texto_realizado !== null ? $texto_realizado : "Realizado del 20 de Julio al 25 de Julio del 2026.";
         $b_fecha = imagettfbbox(20, 0, $font_path, $texto_fecha);
         imagettftext($imagen, 20, 0, (int)($center_x - ($b_fecha[2]/2)), 890, $color_texto, $font_path, $texto_fecha);
 

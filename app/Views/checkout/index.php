@@ -510,26 +510,58 @@
                         setTimeout(() => this.renderPayPalButtons(), 100);
                     }
 
-                    // Overrides de contenido para links promocionales (sin tocar la DB)
-                    // ?ocultar=texto  → oculta cualquier <li> que contenga ese texto
-                    // ?retitular=viejo~nuevo → reemplaza texto en encabezados/secciones
-                    setTimeout(() => {
-                        const ocultar = urlParams.get('ocultar');
-                        if (ocultar) {
-                            document.querySelectorAll('.accordion-content li').forEach(li => {
-                                if (li.textContent.includes(ocultar)) {
-                                    li.remove();
-                                }
-                            });
+                    // Sistema de códigos promocionales: ?p=CODIGO
+                    // Cada código define: precio, elementos a ocultar, textos a renombrar
+                    const promoCodes = {
+                        'peru69': {
+                            precio: 69.90,
+                            moneda: 'PEN',
+                            ocultar: ['03/10'],
+                            renombrar: [['Equipos y herramientas', 'Herramientas que vamos a usar en el curso']]
                         }
-                        const retitular = urlParams.get('retitular');
-                        if (retitular && retitular.includes('~')) {
-                            const [viejo, nuevo] = retitular.split('~');
-                            document.querySelectorAll('.accordion-content').forEach(el => {
-                                el.innerHTML = el.innerHTML.replace(viejo, nuevo);
-                            });
-                        }
-                    }, 50);
+                    };
+
+                    const promoCode = urlParams.get('p');
+                    if (promoCode && promoCodes[promoCode]) {
+                        const promo = promoCodes[promoCode];
+                        if (promo.precio) this.coursePrice = promo.precio;
+                        if (promo.moneda) this.currency = promo.moneda.toUpperCase();
+                        this.activeTab = this.currency === 'USD' ? 'paypal' : 'manual';
+
+                        setTimeout(() => {
+                            if (promo.ocultar) {
+                                promo.ocultar.forEach(texto => {
+                                    document.querySelectorAll('.accordion-content li').forEach(li => {
+                                        if (li.textContent.includes(texto)) li.remove();
+                                    });
+                                });
+                            }
+                            if (promo.renombrar) {
+                                promo.renombrar.forEach(([viejo, nuevo]) => {
+                                    document.querySelectorAll('.accordion-content').forEach(el => {
+                                        el.innerHTML = el.innerHTML.replace(viejo, nuevo);
+                                    });
+                                });
+                            }
+                        }, 50);
+                    } else {
+                        // Overrides manuales por URL: ?ocultar=texto&retitular=viejo~nuevo
+                        setTimeout(() => {
+                            const ocultar = urlParams.get('ocultar');
+                            if (ocultar) {
+                                document.querySelectorAll('.accordion-content li').forEach(li => {
+                                    if (li.textContent.includes(ocultar)) li.remove();
+                                });
+                            }
+                            const retitular = urlParams.get('retitular');
+                            if (retitular && retitular.includes('~')) {
+                                const [viejo, nuevo] = retitular.split('~');
+                                document.querySelectorAll('.accordion-content').forEach(el => {
+                                    el.innerHTML = el.innerHTML.replace(viejo, nuevo);
+                                });
+                            }
+                        }, 50);
+                    }
                 },
 
                 setTab(tab) {

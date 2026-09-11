@@ -509,6 +509,27 @@
                     if (this.activeTab === 'paypal') {
                         setTimeout(() => this.renderPayPalButtons(), 100);
                     }
+
+                    // Overrides de contenido para links promocionales (sin tocar la DB)
+                    // ?ocultar=texto  → oculta cualquier <li> que contenga ese texto
+                    // ?retitular=viejo~nuevo → reemplaza texto en encabezados/secciones
+                    setTimeout(() => {
+                        const ocultar = urlParams.get('ocultar');
+                        if (ocultar) {
+                            document.querySelectorAll('.accordion-content li').forEach(li => {
+                                if (li.textContent.includes(ocultar)) {
+                                    li.remove();
+                                }
+                            });
+                        }
+                        const retitular = urlParams.get('retitular');
+                        if (retitular && retitular.includes('~')) {
+                            const [viejo, nuevo] = retitular.split('~');
+                            document.querySelectorAll('.accordion-content').forEach(el => {
+                                el.innerHTML = el.innerHTML.replace(viejo, nuevo);
+                            });
+                        }
+                    }, 50);
                 },
 
                 setTab(tab) {

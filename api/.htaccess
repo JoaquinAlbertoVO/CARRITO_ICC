@@ -1,0 +1,7 @@
+# Esta carpeta solo sirve endpoints PHP (webhooks). Los logs .txt que generan
+# (hotmart_log.txt, paypal_log.txt) tienen datos de compradores (correo, DNI,
+# telefono) y NO deben poder leerse directo desde el navegador.
+<FilesMatch "\.(txt|log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

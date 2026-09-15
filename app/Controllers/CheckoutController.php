@@ -122,9 +122,12 @@ class CheckoutController extends Controller {
 
         $input = json_decode(file_get_contents('php://input'), true) ?: [];
 
-        $orderId  = isset($input['orderID']) ? trim($input['orderID']) : '';
+        // n_operacion y dni son varchar(100)/varchar(20) en la tabla usuario: recortamos
+        // aqui para que un ID de orden o un documento fuera de rango nunca tumbe el insert
+        // completo (esto es justo lo que le paso al webhook de Hotmart con su dato de prueba).
+        $orderId  = isset($input['orderID']) ? substr(trim($input['orderID']), 0, 100) : '';
         $curso    = isset($input['curso']) ? trim($input['curso']) : 'Curso no identificado';
-        $dni      = isset($input['dni']) ? strip_tags(trim($input['dni'])) : '';
+        $dni      = isset($input['dni']) ? substr(strip_tags(trim($input['dni'])), 0, 20) : '';
         $nombre   = isset($input['nombre']) ? strip_tags(trim($input['nombre'])) : '';
         $apellido = isset($input['apellido']) ? strip_tags(trim($input['apellido'])) : '';
         $celular  = isset($input['celular']) ? strip_tags(trim($input['celular'])) : '';

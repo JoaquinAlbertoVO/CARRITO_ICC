@@ -40,7 +40,9 @@ function hotmart_log($msg) {
 }
 
 $evento = $datos['event'] ?? '';
-$transaccion = $datos['data']['purchase']['transaction'] ?? '';
+// substr defensivo: n_operacion es varchar(100) en la tabla usuario, nunca debe poder
+// tumbar el insert por mas larga/rara que venga la transaccion desde Hotmart.
+$transaccion = substr(trim($datos['data']['purchase']['transaction'] ?? ''), 0, 100);
 
 // Eventos que dan acceso al curso
 $eventosAprobados = ['PURCHASE_APPROVED', 'PURCHASE_COMPLETE'];
@@ -78,7 +80,9 @@ if (empty($transaccion)) {
         if (in_array($evento, $eventosAprobados, true)) {
             $nombre  = $datos['data']['buyer']['name'] ?? 'Desconocido';
             $email   = $datos['data']['buyer']['email'] ?? '';
-            $dni     = $datos['data']['buyer']['document'] ?? '';
+            // dni es varchar(20): recortamos por si acaso, para que un documento de
+            // prueba/extranjero fuera de rango no tumbe el insert completo del alumno.
+            $dni     = substr(trim($datos['data']['buyer']['document'] ?? ''), 0, 20);
             $celular = $datos['data']['buyer']['checkout_phone'] ?? ($datos['data']['buyer']['phone'] ?? '');
             $curso   = $datos['data']['product']['name'] ?? 'Curso no identificado';
             $monto   = $datos['data']['purchase']['price']['value'] ?? 0;

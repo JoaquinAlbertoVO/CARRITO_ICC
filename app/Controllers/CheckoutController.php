@@ -181,6 +181,8 @@ class CheckoutController extends Controller {
             $stmtDup->execute([$orderId]);
             $existente = $stmtDup->fetch();
 
+            $esCuentaNueva = false;
+
             if ($existente) {
                 $id_usuario = $existente['iduser'];
             } else {
@@ -191,6 +193,7 @@ class CheckoutController extends Controller {
                 if ($user) {
                     $id_usuario = $user['iduser'];
                 } else {
+                    $esCuentaNueva = true;
                     $password = substr(md5(uniqid()), 0, 8);
                     $sql = "INSERT INTO usuario (id_pla, nombre, correo, usuario, password, dni, telefono, n_operacion, m_pagado, banco, fecha_deposito, estatus)
                             VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, 'PAYPAL', NOW(), 1)";
@@ -218,6 +221,13 @@ class CheckoutController extends Controller {
             }
 
             file_put_contents($logFile, date('Y-m-d H:i:s') . " | VENTA PAYPAL OK: $nombreFinal ($emailFinal) - Orden $orderId - $monto $monedaPagada - Curso: $curso\n", FILE_APPEND);
+
+            // Solo a cuentas nuevas: mandar las credenciales por correo
+            if ($esCuentaNueva) {
+                require_once __DIR__ . '/../Helpers/Mailer.php';
+                $enviado = \App\Helpers\Mailer::enviarBienvenida($emailFinal, $nombreFinal, $emailFinal, $password, $curso);
+                file_put_contents($logFile, date('Y-m-d H:i:s') . ' | ' . ($enviado ? 'Correo de bienvenida enviado a ' : 'FALLO al enviar correo de bienvenida a ') . "$emailFinal\n", FILE_APPEND);
+            }
 
             echo json_encode(['success' => true]);
         } catch (\Exception $e) {

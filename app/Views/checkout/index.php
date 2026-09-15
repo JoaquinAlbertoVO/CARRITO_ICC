@@ -216,10 +216,10 @@
 
                 <!-- Tabs para alternar entre métodos de pago -->
                 <div class="payment-tabs">
-                    <button class="tab-btn" x-show="currency === 'PEN'" :class="{ 'active': activeTab === 'manual' }" @click="setTab('manual')">
+                    <button class="tab-btn" x-show="metodosDisponibles.includes('manual')" :class="{ 'active': activeTab === 'manual' }" @click="setTab('manual')">
                         📱 Yape / Plin
                     </button>
-                    <button class="tab-btn" :class="{ 'active': activeTab === 'paypal' }" @click="setTab('paypal')">
+                    <button class="tab-btn" x-show="metodosDisponibles.includes('paypal')" :class="{ 'active': activeTab === 'paypal' }" @click="setTab('paypal')">
                         💳 PayPal / Tarjeta
                     </button>
                 </div>
@@ -303,6 +303,14 @@
                                     x-text="tipoCambio"></span>)
                             </p>
                         </template>
+
+                        <div class="user-info-section" style="margin-top: 5px; margin-bottom: 15px; text-align: left;">
+                            <h4 style="font-size: 0.95rem; margin-bottom: 10px; color: var(--text-color);">Tus datos (Para el certificado):</h4>
+                            <input type="text" x-model="dni" placeholder="DNI o Documento de Identidad" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
+                            <input type="text" x-model="nombre" placeholder="Nombres completos" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
+                            <input type="text" x-model="apellido" placeholder="Apellidos completos" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
+                            <input type="text" x-model="celular" placeholder="Número de celular / WhatsApp" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
+                        </div>
 
                         <!-- Contenedor del Botón Inteligente de PayPal -->
                         <div id="paypal-button-container"></div>
@@ -420,6 +428,11 @@
 
     <!-- Script de Configuración de la Pasarela -->
     <script>
+        // Moneda sugerida por el servidor segun el pais detectado por IP (ver CheckoutController::index()
+        // y App\Helpers\GeoHelper). Es solo el valor por defecto: ?moneda=PEN|USD en la URL sigue
+        // pudiendo forzarlo manualmente (para links promocionales existentes).
+        const MONEDA_SUGERIDA = <?= json_encode($data['monedaSugerida'] ?? 'USD') ?>;
+
         function checkoutApp() {
             return {
                 paymentSuccess: false,
@@ -429,6 +442,13 @@
                 coursePrice: 30.00,
                 originalPrice: null, // Precio original de la DB (para mostrar como "Precio Regular")
                 currency: 'USD',
+
+                // Medios de pago disponibles para este visitante, segun el pais detectado
+                // por el servidor (ver App\Helpers\GeoHelper). Ej: ['manual','paypal'] en Peru,
+                // ['paypal'] en el resto del mundo. Cuando se sume una pasarela nueva para otro
+                // pais, este array es lo que hay que ampliar (y agregar su pestaña/vista abajo).
+                metodosDisponibles: <?= json_encode($data['metodosDisponibles'] ?? ['manual', 'paypal']) ?>,
+                paisDetectado: <?= json_encode($data['paisDetectado'] ?? 'PE') ?>,
 
                 // Tipo de cambio para conversiones USD <-> PEN
                 tipoCambio: 3.80,
@@ -480,8 +500,8 @@
                     // 1. Cargar parámetros desde la URL
                     const urlParams = new URLSearchParams(window.location.search);
                     this.courseName = urlParams.get('curso') || 'Curso Completo de Marketing y Ventas';
-                    this.currency = (urlParams.get('moneda') || 'USD').toUpperCase();
-                    
+                    this.currency = (urlParams.get('moneda') || MONEDA_SUGERIDA).toUpperCase();
+
                     <?php if (isset($data['cursoDB']) && $data['cursoDB']): ?>
                         // Si hay un precio explícito en la URL, usarlo (para links promocionales)
                         if (urlParams.get('precio')) {
@@ -500,10 +520,13 @@
                     <?php else: ?>
                         this.coursePrice = parseFloat(urlParams.get('precio')) || 30.00;
                     <?php endif; ?>
-                    this.currency = (urlParams.get('moneda') || 'USD').toUpperCase();
+                    this.currency = (urlParams.get('moneda') || MONEDA_SUGERIDA).toUpperCase();
 
-                    // Si la moneda es USD, abrimos PayPal por defecto, si es PEN abrimos Yape/Plin por defecto
-                    this.activeTab = this.currency === 'USD' ? 'paypal' : 'manual';
+                    // Pestaña inicial: Yape/Plin solo si esta disponible para este visitante
+                    // (hoy, solo Peru) y ademas la moneda activa es soles; si no, PayPal.
+                    this.activeTab = (this.currency === 'PEN' && this.metodosDisponibles.includes('manual'))
+                        ? 'manual'
+                        : 'paypal';
 
                     // Renderizamos los botones si la pestaña inicial es PayPal
                     if (this.activeTab === 'paypal') {
@@ -527,7 +550,9 @@
                         const promo = promoCodes[promoCode];
                         // Setear moneda ANTES de leer precios de la DB
                         if (promo.moneda) this.currency = promo.moneda.toUpperCase();
-                        this.activeTab = this.currency === 'USD' ? 'paypal' : 'manual';
+                        this.activeTab = (this.currency === 'PEN' && this.metodosDisponibles.includes('manual'))
+                            ? 'manual'
+                            : 'paypal';
 
                         if (promo.precio) {
                             // Guardar precio original de la DB para mostrar como "Precio Regular"
@@ -670,7 +695,16 @@
                     }
 
                     const self = this;
+
                     paypal.Buttons({
+                        onClick: function (data, actions) {
+                            // No dejamos abrir el popup de pago si aun no tenemos los datos del alumno
+                            if (!self.dni || !self.nombre || !self.apellido || !self.celular) {
+                                alert('Por favor, completa tus datos (DNI, Nombres, Apellidos y Celular) antes de pagar.');
+                                return actions.reject();
+                            }
+                            return actions.resolve();
+                        },
                         createOrder: function (data, actions) {
                             return actions.order.create({
                                 purchase_units: [{
@@ -684,9 +718,13 @@
                         },
                         onApprove: function (data, actions) {
                             return actions.order.capture().then(function (details) {
+                                console.log('PayPal details:', details);
+
+                                // El dinero ya se movio de verdad en PayPal: mostramos éxito de inmediato,
+                                // sin hacer esperar (ni arriesgar) al comprador por si el backend falla.
                                 self.paymentSuccess = true;
                                 self.paymentMethodUsed = 'paypal';
-                                
+
                                 // META PIXEL: Rastrear Compra
                                 if (typeof fbq === 'function') {
                                     fbq('track', 'Purchase', {
@@ -695,13 +733,40 @@
                                         content_name: self.courseName
                                     });
                                 }
-                                
+
                                 if (typeof $crisp !== 'undefined') {
                                     $crisp.push(["do", "chat:show"]);
                                     setTimeout(() => $crisp.push(["do", "chat:open"]), 500);
                                 }
                                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                                console.log('PayPal details:', details);
+
+                                // Registrar la venta: le pedimos al backend que vuelva a preguntarle a
+                                // PayPal (servidor a servidor) si la orden esta COMPLETED y recien ahi la
+                                // guarda y matricula al alumno. Es "best-effort": si esto falla (ej. el
+                                // Secret de PayPal aun no esta configurado en el servidor), el comprador
+                                // YA vio su pantalla de éxito -- el mensaje de esa pantalla ya le pide
+                                // escribirnos por el chat como respaldo, así ninguna venta se pierde.
+                                fetch('<?= BASE_URL ?>checkout/paypal_confirm', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        orderID: data.orderID,
+                                        curso: self.courseName,
+                                        dni: self.dni,
+                                        nombre: self.nombre,
+                                        apellido: self.apellido,
+                                        celular: self.celular
+                                    })
+                                })
+                                .then(res => res.json())
+                                .then(resp => {
+                                    if (!resp.success) {
+                                        console.error('No se pudo registrar la venta de PayPal automaticamente:', resp.error, '- Orden:', data.orderID);
+                                    }
+                                })
+                                .catch(err => {
+                                    console.error('Error de conexión confirmando PayPal en backend (orden ' + data.orderID + '):', err);
+                                });
                             });
                         },
                         onError: function (err) {

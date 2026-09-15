@@ -119,7 +119,10 @@ if (empty($transaccion)) {
 
                 if ($cursoData) {
                     $id_curso = $cursoData['id_curso'];
-                    $stmtCheck = $pdo->prepare("SELECT id FROM usuario_cursos WHERE id_usuario = ? AND id_curso = ?");
+                    // OJO: la PK real de usuario_cursos es id_matricula, no "id" (bug heredado
+                    // del webhook original, nunca se habia notado porque nunca antes un evento
+                    // de prueba habia llegado a matricular un curso real).
+                    $stmtCheck = $pdo->prepare("SELECT id_matricula FROM usuario_cursos WHERE id_usuario = ? AND id_curso = ?");
                     $stmtCheck->execute([$id_usuario, $id_curso]);
                     if (!$stmtCheck->fetch()) {
                         $stmtLink = $pdo->prepare("INSERT INTO usuario_cursos (id_usuario, id_curso) VALUES (?, ?)");

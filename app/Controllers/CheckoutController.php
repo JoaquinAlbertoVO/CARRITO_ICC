@@ -207,7 +207,9 @@ class CheckoutController extends Controller {
 
             if ($cursoData) {
                 $id_curso = $cursoData['id_curso'];
-                $stmtCheck = $pdo->prepare("SELECT id FROM usuario_cursos WHERE id_usuario = ? AND id_curso = ?");
+                // La PK real de usuario_cursos es id_matricula, no "id" (mismo bug que tenia
+                // el webhook de Hotmart original, heredado antes de que lo descubrieramos).
+                $stmtCheck = $pdo->prepare("SELECT id_matricula FROM usuario_cursos WHERE id_usuario = ? AND id_curso = ?");
                 $stmtCheck->execute([$id_usuario, $id_curso]);
                 if (!$stmtCheck->fetch()) {
                     $stmtLink = $pdo->prepare("INSERT INTO usuario_cursos (id_usuario, id_curso) VALUES (?, ?)");

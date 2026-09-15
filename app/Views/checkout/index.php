@@ -146,7 +146,7 @@
                         <?php if (isset($data['cursoDB']) && $data['cursoDB']): ?>
                             <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ ' + (originalPrice || coursePrice * 1.5).toFixed(2) : 'US$ ' + (originalPrice || coursePrice * 1.5).toFixed(2)"></span>
                         <?php else: ?>
-                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ 135.00' : 'US$ 45.00'"></span>
+                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ ' + (coursePrice * 1.5).toFixed(2) : 'US$ ' + (coursePrice * 1.5).toFixed(2)"></span>
                         <?php endif; ?>
                     </div>
 

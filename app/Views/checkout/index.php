@@ -137,9 +137,6 @@
                             <?php endif; ?>
                         </div>
                         <?php else: ?>
-                        <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border: 1px solid #ffeeba; border-radius: 8px; color: #856404;">
-                            No se encontraron detalles adicionales para este curso en la base de datos. Asegúrate de pasar el parámetro ?curso=NombreDelCurso
-                        </div>
                         <?php endif; ?>
 
 <div class="promo-price-container" style="position: relative; margin-top: 30px; margin-bottom: 20px; background: #0f172a; border: 2px solid #3730a3; border-radius: 12px; padding: 35px 20px 25px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); transform: skew(-3deg);">

@@ -172,6 +172,8 @@
                 renderPayPalButtons() {
                     const container = document.getElementById('paypal-button-container');
                     if (!container || typeof paypal === 'undefined') return;
+                    // No duplicar botones (el mismo guard que ya usa el checkout de ICC)
+                    if (container.children.length > 0) return;
                     const self = this;
 
                     paypal.Buttons({

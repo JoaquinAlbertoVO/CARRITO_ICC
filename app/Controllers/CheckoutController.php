@@ -236,4 +236,101 @@ class CheckoutController extends Controller {
             echo json_encode(['success' => false, 'error' => 'Tu pago en PayPal fue exitoso pero hubo un error al registrarlo. Escribenos por el chat con tu numero de orden: ' . $orderId]);
         }
     }
+
+    // ============================================================
+    // CHECKOUT DE ST ENERGY (marca aparte, matricula en WordPress
+    // via la API del sistema react-cours, no toca la BD de ICC)
+    // ============================================================
+
+    public function stenergy() {
+        $this->view('checkout/stenergy', [], false);
+    }
+
+    public function stenergy_confirm() {
+        header('Content-Type: application/json');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            echo json_encode(['success' => false, 'error' => 'Metodo no permitido']);
+            return;
+        }
+
+        $input = json_decode(file_get_contents('php://input'), true) ?: [];
+
+        $orderId  = isset($input['orderID']) ? substr(trim($input['orderID']), 0, 100) : '';
+        $dni      = isset($input['dni']) ? substr(strip_tags(trim($input['dni'])), 0, 20) : '';
+        $nombre   = isset($input['nombre']) ? strip_tags(trim($input['nombre'])) : '';
+        $apellido = isset($input['apellido']) ? strip_tags(trim($input['apellido'])) : '';
+        $celular  = isset($input['celular']) ? substr(strip_tags(trim($input['celular'])), 0, 50) : '';
+        $email    = isset($input['email']) ? strip_tags(trim($input['email'])) : '';
+
+        if (empty($orderId)) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Falta el orderID de PayPal']);
+            return;
+        }
+
+        require_once __DIR__ . '/../Libraries/PayPalClient.php';
+        require_once __DIR__ . '/../Libraries/StEnergyClient.php';
+
+        $logFile = __DIR__ . '/../../api/stenergy_log.txt';
+
+        // 1. Verificar la orden contra PayPal (misma cuenta que ICC, servidor a servidor)
+        try {
+            $paypal = new \App\Libraries\PayPalClient();
+            $order = $paypal->verifyOrder($orderId);
+        } catch (\Exception $e) {
+            file_put_contents($logFile, date('Y-m-d H:i:s') . ' | ERROR VERIFICACION: ' . $e->getMessage() . " (Orden $orderId)\n", FILE_APPEND);
+            http_response_code(502);
+            echo json_encode(['success' => false, 'error' => 'No se pudo verificar el pago con PayPal.']);
+            return;
+        }
+
+        if (empty($order['status']) || $order['status'] !== 'COMPLETED') {
+            file_put_contents($logFile, date('Y-m-d H:i:s') . ' | RECHAZADO (estado ' . ($order['status'] ?? 'desconocido') . "): Orden $orderId\n", FILE_APPEND);
+            http_response_code(402);
+            echo json_encode(['success' => false, 'error' => 'PayPal no confirma este pago como completado.']);
+            return;
+        }
+
+        $purchaseUnit = $order['purchase_units'][0] ?? [];
+        $monto        = $purchaseUnit['amount']['value'] ?? 0;
+        $monedaPagada = $purchaseUnit['amount']['currency_code'] ?? 'USD';
+        $payer        = $order['payer'] ?? [];
+        $emailPaypal  = $payer['email_address'] ?? '';
+
+        $emailFinal  = $email ?: $emailPaypal;
+        $nombrePaypal = trim(($payer['name']['given_name'] ?? '') . ' ' . ($payer['name']['surname'] ?? ''));
+        $nombreFinal = $nombre !== '' ? trim($nombre . ' ' . $apellido) : ($nombrePaypal ?: 'Alumno ST Energy');
+
+        if (empty($emailFinal)) {
+            file_put_contents($logFile, date('Y-m-d H:i:s') . " | ERROR: pago confirmado pero sin correo del comprador (Orden $orderId)\n", FILE_APPEND);
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Tu pago fue exitoso pero nos falta tu correo para matricularte. Escribenos por WhatsApp con tu numero de orden: ' . $orderId]);
+            return;
+        }
+
+        // 2. Matricular en WordPress via enroll-wp.
+        // Curso 1: "Terminaciones Termocontraibles - 29/09/2026" (course_id confirmado: 4043)
+        $resultadoTerminaciones = null;
+        try {
+            $stEnergy = new \App\Libraries\StEnergyClient();
+            $res = $stEnergy->enrollCourse(4043, $emailFinal, $nombreFinal, $dni);
+            $resultadoTerminaciones = $res['data'];
+            file_put_contents($logFile, date('Y-m-d H:i:s') . " | ENROLL Terminaciones Termocontraibles (course_id 4043): HTTP {$res['code']} - {$res['raw']} ($nombreFinal / $emailFinal)\n", FILE_APPEND);
+        } catch (\Exception $e) {
+            file_put_contents($logFile, date('Y-m-d H:i:s') . ' | ERROR ENROLL Terminaciones: ' . $e->getMessage() . " ($nombreFinal / $emailFinal)\n", FILE_APPEND);
+        }
+
+        // Curso 2: "Empalmes Termocontraibles - 29/09/2026" - TODAVIA NO EXISTE EN WORDPRESS
+        // (confirmado con el equipo). En cuanto lo creen alla, reemplazar este bloque por
+        // otra llamada a enrollCourse() con el course_id real, igual que arriba.
+        file_put_contents($logFile, date('Y-m-d H:i:s') . " | PENDIENTE MANUAL: falta matricular tambien en 'Empalmes Termocontraibles - 29/09/2026' (el curso aun no existe en WordPress) - $nombreFinal ($emailFinal) - Orden $orderId\n", FILE_APPEND);
+
+        file_put_contents($logFile, date('Y-m-d H:i:s') . " | VENTA ST ENERGY OK: $nombreFinal ($emailFinal) - Orden $orderId - $monto $monedaPagada - DNI $dni - Cel $celular\n", FILE_APPEND);
+
+        echo json_encode([
+            'success' => true,
+            'enrollTerminaciones' => $resultadoTerminaciones,
+        ]);
+    }
 }

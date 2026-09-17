@@ -211,8 +211,10 @@
                     <h2>Método de Pago</h2>
                 </div>
 
-                <!-- Tabs para alternar entre métodos de pago -->
-                <div class="payment-tabs">
+                <!-- Tabs para alternar entre métodos de pago. Si Hotmart es la unica opcion
+                     relevante (compradores internacionales, y Hotmart ya incluye PayPal
+                     adentro), nos saltamos las pestañas y mostramos Hotmart directo. -->
+                <div class="payment-tabs" x-show="!soloHotmart">
                     <button class="tab-btn" x-show="metodosDisponibles.includes('manual')" :class="{ 'active': activeTab === 'manual' }" @click="setTab('manual')">
                         📱 Yape / Plin
                     </button>
@@ -516,6 +518,14 @@
                     return parseFloat((this.coursePrice * this.tipoCambio).toFixed(2));
                 },
 
+                // Hotmart ya incluye PayPal (y mas metodos locales) adentro de su propio
+                // checkout, asi que si esta disponible para este pais y este curso, no tiene
+                // sentido hacer elegir entre "PayPal" y "Hotmart" por separado: mostramos
+                // Hotmart directo, sin pestañas.
+                get soloHotmart() {
+                    return this.metodosDisponibles.includes('hotmart') && !!HOTMART_LINK;
+                },
+
                 init() {
                     // 1. Cargar parámetros desde la URL
                     const urlParams = new URLSearchParams(window.location.search);
@@ -543,10 +553,16 @@
                     this.currency = (urlParams.get('moneda') || MONEDA_SUGERIDA).toUpperCase();
 
                     // Pestaña inicial: Yape/Plin solo si esta disponible para este visitante
-                    // (hoy, solo Peru) y ademas la moneda activa es soles; si no, PayPal.
-                    this.activeTab = (this.currency === 'PEN' && this.metodosDisponibles.includes('manual'))
-                        ? 'manual'
-                        : 'paypal';
+                    // (hoy, solo Peru) y ademas la moneda activa es soles; si Hotmart es la
+                    // unica opcion relevante para este pais/curso, vamos directo a esa (ya
+                    // incluye PayPal adentro, no hace falta elegir entre pestañas); si no, PayPal.
+                    if (this.soloHotmart) {
+                        this.activeTab = 'hotmart';
+                    } else {
+                        this.activeTab = (this.currency === 'PEN' && this.metodosDisponibles.includes('manual'))
+                            ? 'manual'
+                            : 'paypal';
+                    }
 
                     // Renderizamos los botones si la pestaña inicial es PayPal
                     if (this.activeTab === 'paypal') {

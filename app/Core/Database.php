@@ -3,11 +3,12 @@ namespace App\Core;
 use PDO;
 use PDOException;
 class Database {
-    // Valores por defecto (credenciales de PRODUCCIÓN en cPanel)
+    // Sin valores por defecto reales: las credenciales SIEMPRE deben venir del .env
+    // del servidor (nunca hardcodeadas aqui - este repo es publico en GitHub).
     private $host = 'localhost';
-    private $user = 'icccom_icc';
-    private $password = 'pWhOD~@e{DZ5ie%x';
-    private $db = 'icccom_icc';
+    private $user = '';
+    private $password = '';
+    private $db = '';
     private $pdo;
 
     public function __construct() {
@@ -38,6 +39,10 @@ class Database {
         $this->user     = $_ENV['DB_USER']     ?? $this->user;
         $this->password = $_ENV['DB_PASS']     ?? $this->password;
         $this->db       = $_ENV['DB_NAME']     ?? $this->db;
+
+        if (empty($this->user) || empty($this->db)) {
+            die('Error de configuración: faltan DB_USER/DB_NAME en el .env del servidor.');
+        }
     }
 
     public function connect() {

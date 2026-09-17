@@ -15,7 +15,11 @@ class CheckoutController extends Controller {
         // Detecta el pais del visitante por IP para sugerir moneda y medios de pago
         // por defecto (?moneda= en la URL sigue pudiendo forzarlo manualmente).
         require_once __DIR__ . '/../Helpers/GeoHelper.php';
-        $paisDetectado = \App\Helpers\GeoHelper::detectarPais();
+        // ?pais=XX es solo para pruebas (forzar "como si" fueramos de otro pais sin
+        // depender de la IP real) - nunca lo use un link promocional real.
+        $paisDetectado = isset($_GET['pais'])
+            ? strtoupper(trim($_GET['pais']))
+            : \App\Helpers\GeoHelper::detectarPais();
         $reglasPais = \App\Helpers\GeoHelper::reglasParaPais($paisDetectado);
 
         // Link de pago de Hotmart para este curso (si existe), para ofrecerlo como

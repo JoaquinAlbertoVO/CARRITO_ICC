@@ -18,11 +18,17 @@ class CheckoutController extends Controller {
         $paisDetectado = \App\Helpers\GeoHelper::detectarPais();
         $reglasPais = \App\Helpers\GeoHelper::reglasParaPais($paisDetectado);
 
+        // Link de pago de Hotmart para este curso (si existe), para ofrecerlo como
+        // alternativa con mas metodos locales a compradores fuera de Peru.
+        require_once __DIR__ . '/../Helpers/HotmartLinks.php';
+        $hotmartLink = \App\Helpers\HotmartLinks::buscarPorNombre($nombreCurso);
+
         $this->view('checkout/index', [
             'cursoDB' => $cursoDB,
             'paisDetectado' => $paisDetectado,
             'monedaSugerida' => $reglasPais['moneda'],
             'metodosDisponibles' => $reglasPais['metodos'],
+            'hotmartLink' => $hotmartLink,
         ], false);
     }
 

@@ -17,15 +17,15 @@ class GeoHelper {
     const PAIS_POR_DEFECTO = 'PE';
 
     // Reglas por pais: moneda sugerida y que pestañas de pago mostrar.
-    // Hoy solo hay 2 rieles: "manual" (Yape/Plin, solo tiene sentido en Peru) y "paypal"
-    // (funciona en cualquier pais). Cuando se sume una pasarela nueva para otro pais
-    // (ej. Mercado Pago para Mexico/Colombia/Argentina), solo hay que agregar su fila aqui.
+    // "manual" = Yape/Plin (solo Peru). "paypal" = funciona en cualquier pais.
+    // "hotmart" = link a Hotmart, con mas metodos locales segun el pais del comprador
+    // (OXXO, Mercado Pago, PSE, Nequi, etc. - se activan dentro del panel de Hotmart).
     const REGLAS_POR_PAIS = [
         'PE' => ['moneda' => 'PEN', 'metodos' => ['manual', 'paypal']],
     ];
 
     // Cualquier pais que no esté explícitamente en REGLAS_POR_PAIS cae aquí
-    const REGLA_INTERNACIONAL = ['moneda' => 'USD', 'metodos' => ['paypal']];
+    const REGLA_INTERNACIONAL = ['moneda' => 'USD', 'metodos' => ['paypal', 'hotmart']];
 
     public static function detectarPais() {
         // Cache en sesion: si el visitante recarga el checkout varias veces, no volvemos

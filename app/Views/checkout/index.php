@@ -219,6 +219,9 @@
                     <button class="tab-btn" x-show="metodosDisponibles.includes('paypal')" :class="{ 'active': activeTab === 'paypal' }" @click="setTab('paypal')">
                         💳 PayPal / Tarjeta
                     </button>
+                    <button class="tab-btn" x-show="metodosDisponibles.includes('hotmart') && HOTMART_LINK" :class="{ 'active': activeTab === 'hotmart' }" @click="setTab('hotmart')">
+                        🌎 Otros métodos
+                    </button>
                 </div>
 
                 <div class="tab-content">
@@ -311,6 +314,23 @@
 
                         <!-- Contenedor del Botón Inteligente de PayPal -->
                         <div id="paypal-button-container"></div>
+                    </div>
+
+                    <!-- Vista Hotmart: mas metodos locales segun el pais del comprador
+                         (OXXO, Mercado Pago, PSE, Nequi, etc.) - redirige a la pasarela de Hotmart -->
+                    <div class="hotmart-view" x-show="activeTab === 'hotmart'" x-transition>
+                        <p class="paypal-instructions">
+                            Paga con más métodos según tu país (tarjeta local en cuotas, transferencia bancaria,
+                            billeteras digitales y más) a través de nuestra pasarela internacional.
+                        </p>
+                        <a :href="HOTMART_LINK" target="_blank" rel="noopener" class="btn-submit"
+                           style="display: block; text-align: center; text-decoration: none; margin-top: 15px;">
+                            Continuar con Hotmart →
+                        </a>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); text-align: center; margin-top: 12px;">
+                            Se abre en una pestaña nueva. Tus accesos al Aula Virtual llegan automáticamente
+                            a tu correo tras confirmarse el pago.
+                        </p>
                     </div>
                 </div>
 
@@ -429,6 +449,9 @@
         // y App\Helpers\GeoHelper). Es solo el valor por defecto: ?moneda=PEN|USD en la URL sigue
         // pudiendo forzarlo manualmente (para links promocionales existentes).
         const MONEDA_SUGERIDA = <?= json_encode($data['monedaSugerida'] ?? 'USD') ?>;
+
+        // Link de pago de Hotmart para este curso (App\Helpers\HotmartLinks), si existe.
+        const HOTMART_LINK = <?= json_encode($data['hotmartLink'] ?? null) ?>;
 
         function checkoutApp() {
             return {

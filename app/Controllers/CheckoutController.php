@@ -39,8 +39,16 @@ class CheckoutController extends Controller {
         }
 
         // ?oferta=clave: reemplaza "Temas Principales" solo para este link (ver OfertasCheckout).
+        // Si la oferta tiene su propia oferta en Hotmart al precio promocional, se usa ese
+        // link (aunque el precio del link no sea el de lista).
+        $hotmartOferta = false;
         if ($cursoDB && !empty($_GET['oferta'])) {
             require_once __DIR__ . '/../Helpers/OfertasCheckout.php';
+            $linkOfertaHotmart = \App\Helpers\OfertasCheckout::hotmartLink($_GET['oferta']);
+            if ($linkOfertaHotmart !== null) {
+                $hotmartLink = $linkOfertaHotmart;
+                $hotmartOferta = true;
+            }
             $temasOferta = \App\Helpers\OfertasCheckout::temasHtml($_GET['oferta']);
             if ($temasOferta !== null) {
                 $cursoDB['temas'] = $temasOferta;
@@ -58,6 +66,7 @@ class CheckoutController extends Controller {
             'monedaSugerida' => $reglasPais['moneda'],
             'metodosDisponibles' => $reglasPais['metodos'],
             'hotmartLink' => $hotmartLink,
+            'hotmartOferta' => $hotmartOferta,
         ], false);
     }
 

@@ -341,6 +341,9 @@
                             Paga con más métodos según tu país (tarjeta local en cuotas, transferencia bancaria,
                             billeteras digitales y más).
                         </p>
+                        <p x-show="HOTMART_OFERTA" style="font-size: 0.85rem; color: var(--text-secondary); text-align: center; margin-top: 6px;">
+                            El precio final se muestra en tu moneda local dentro del formulario de pago.
+                        </p>
                         <!-- Alto grande a propósito: si el cuadro alcanza a mostrar todo el
                              formulario de Hotmart, no aparece su propia barra de scroll interna
                              y el comprador solo tiene que hacer scroll de la página normal
@@ -473,6 +476,9 @@
 
         // Link de pago de Hotmart para este curso (App\Helpers\HotmartLinks), si existe.
         const HOTMART_LINK = <?= json_encode($data['hotmartLink'] ?? null) ?>;
+        // true si ese link es una oferta promocional de Hotmart: Hotmart convierte su precio
+        // a la moneda del comprador, asi que puede diferir en centavos del monto de arriba.
+        const HOTMART_OFERTA = <?= json_encode(!empty($data['hotmartOferta'])) ?>;
 
         function checkoutApp() {
             return {

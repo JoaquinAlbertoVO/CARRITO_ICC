@@ -11,6 +11,10 @@ namespace App\Helpers;
 class OfertasCheckout {
     const OFERTAS = [
         'sistema-ia' => [
+            // Oferta de Hotmart (S/ 69.90, "Especializacion en Electricidad Industrial con IA")
+            // del mismo producto: es lo que ven los compradores fuera de Peru en vez del
+            // link normal de S/ 180. El webhook sigue matriculando por el nombre del producto.
+            'hotmart' => 'https://pay.hotmart.com/G107652272C?off=ius4rna9',
             // 'etiqueta corta' => 'nombre completo del tema' (la etiqueta se ve; el nombre completo
             // queda como tooltip). Las etiquetas quitan lo que el titulo de la seccion ya dice.
             'temas' => [
@@ -94,6 +98,13 @@ class OfertasCheckout {
             $html .= implode(' <span style="color:#3b82f6; font-weight:700;">·</span> ', $partes) . '</p></div>';
         }
         return $html;
+    }
+
+    /**
+     * Link de la oferta de Hotmart con el precio promocional, o null si no tiene.
+     */
+    public static function hotmartLink($clave) {
+        return self::OFERTAS[$clave]['hotmart'] ?? null;
     }
 
     /**

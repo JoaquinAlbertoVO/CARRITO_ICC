@@ -69,29 +69,29 @@ class OfertasCheckout {
 
     /**
      * HTML de "Temas Principales" de la oferta (o null si la clave no existe): cada seccion
-     * es un titulo con numero y sus temas como etiquetas, para que el temario completo
-     * ocupe la mitad de alto que una lista vertical.
+     * es un titulo con numero y sus temas en un solo parrafo separado por puntos, para que
+     * el temario completo ocupe mucho menos alto que una lista vertical.
      */
     public static function temasHtml($clave) {
         if (!isset(self::OFERTAS[$clave])) {
             return null;
         }
-        $pill = 'display:inline-block; background:#eff6ff; border:1px solid #dbeafe; color:#1e3a5f; '
-              . 'border-radius:999px; padding:2px 9px; margin:2px 3px 2px 0; font-size:0.78rem; line-height:1.35;';
         $badge = 'display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; '
                . 'border-radius:50%; background:#2563eb; color:#fff; font-size:0.75rem; font-weight:700; flex:none;';
         $html = '';
         $n = 0;
         foreach (self::OFERTAS[$clave]['temas'] as $seccion => $items) {
             $n++;
-            $html .= '<div style="margin:0 0 12px;">'
-                   . '<div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">'
+            $html .= '<div style="margin:0 0 10px;">'
+                   . '<div style="display:flex; align-items:center; gap:8px; margin-bottom:2px;">'
                    . '<span style="' . $badge . '">' . $n . '</span>'
-                   . '<strong style="color:#0f172a;">' . htmlspecialchars($seccion) . '</strong></div><div>';
+                   . '<strong style="color:#0f172a;">' . htmlspecialchars($seccion) . '</strong></div>'
+                   . '<p style="margin:0 0 0 30px; line-height:1.55; font-size:0.85rem; color:#334155;">';
+            $partes = [];
             foreach ($items as $corto => $completo) {
-                $html .= '<span style="' . $pill . '" title="' . htmlspecialchars($completo) . '">' . htmlspecialchars($corto) . '</span>';
+                $partes[] = '<span title="' . htmlspecialchars($completo) . '">' . htmlspecialchars($corto) . '</span>';
             }
-            $html .= '</div></div>';
+            $html .= implode(' <span style="color:#3b82f6; font-weight:700;">·</span> ', $partes) . '</p></div>';
         }
         return $html;
     }

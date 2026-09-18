@@ -343,4 +343,65 @@ class CheckoutController extends Controller {
             'enrollTerminaciones' => $resultadoTerminaciones,
         ]);
     }
+
+    /**
+     * Comprobante de Yape/Plin subido desde el checkout de ST Energy. Mismo patron
+     * que CheckoutController::voucher() (ICC), pero en su propia carpeta -- el
+     * equipo de ST Energy lo revisa a mano y registra la venta en su propio
+     * sistema (react-cours), como ya hacen hoy con sus comprobantes.
+     */
+    public function stenergy_voucher() {
+        header('Content-Type: application/json');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            echo json_encode(['success' => false, 'error' => 'Metodo no permitido']);
+            return;
+        }
+
+        if (!isset($_FILES['voucher']) || $_FILES['voucher']['error'] !== UPLOAD_ERR_OK) {
+            echo json_encode(['success' => false, 'error' => 'No se subio el archivo o hubo un error en la subida']);
+            return;
+        }
+
+        $curso = isset($_POST['curso']) ? preg_replace('/[^a-zA-Z0-9_-]/', '_', $_POST['curso']) : 'curso_desconocido';
+        $uploadDir = __DIR__ . '/../../assets/img/vouchers_stenergy/';
+
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        $fileExt = strtolower(pathinfo($_FILES['voucher']['name'], PATHINFO_EXTENSION));
+        $allowedExts = ['jpg', 'jpeg', 'png', 'pdf'];
+
+        if (!in_array($fileExt, $allowedExts)) {
+            echo json_encode(['success' => false, 'error' => 'Formato no permitido (solo JPG, PNG, PDF)']);
+            return;
+        }
+
+        $fileName = 'voucher_' . date('Ymd_His') . '_' . $curso . '.' . $fileExt;
+        $destination = $uploadDir . $fileName;
+
+        if (!move_uploaded_file($_FILES['voucher']['tmp_name'], $destination)) {
+            echo json_encode(['success' => false, 'error' => 'Error al mover el archivo']);
+            return;
+        }
+
+        $studentData = [
+            'email'    => isset($_POST['email']) ? strip_tags(trim($_POST['email'])) : '',
+            'dni'      => isset($_POST['dni']) ? strip_tags(trim($_POST['dni'])) : '',
+            'nombre'   => isset($_POST['nombre']) ? strip_tags(trim($_POST['nombre'])) : '',
+            'apellido' => isset($_POST['apellido']) ? strip_tags(trim($_POST['apellido'])) : '',
+            'celular'  => isset($_POST['celular']) ? strip_tags(trim($_POST['celular'])) : '',
+            'curso'    => $curso,
+            'precio'   => isset($_POST['precio']) ? strip_tags(trim($_POST['precio'])) : '',
+            'moneda'   => isset($_POST['moneda']) ? strip_tags(trim($_POST['moneda'])) : '',
+            'metodo'   => isset($_POST['metodo']) ? strip_tags(trim($_POST['metodo'])) : '',
+            'fecha'    => date('Y-m-d H:i:s'),
+        ];
+
+        $jsonFileName = 'voucher_' . date('Ymd_His') . '_' . $curso . '.json';
+        file_put_contents($uploadDir . $jsonFileName, json_encode($studentData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+        echo json_encode(['success' => true, 'file' => $fileName]);
+    }
 }

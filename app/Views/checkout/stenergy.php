@@ -76,6 +76,22 @@
         .meta-row { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.85rem; color: var(--st-text-muted); margin-bottom: 14px; }
         .meta-row strong { color: var(--st-text); }
 
+        .tab-row { display: flex; gap: 8px; margin-bottom: 16px; }
+        .tab-btn {
+            flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--st-border);
+            background: #0f0f0f; color: var(--st-text-muted); font-weight: 700; font-size: 0.9rem; cursor: pointer;
+        }
+        .tab-btn.active { background: var(--st-yellow); color: #0a0a0a; border-color: var(--st-yellow); }
+
+        .wallet-row { display: flex; gap: 8px; }
+        .wallet-btn {
+            flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--st-border);
+            background: #0f0f0f; color: var(--st-text-muted); font-weight: 700; cursor: pointer;
+        }
+        .wallet-btn.active { border-color: var(--st-yellow); color: var(--st-yellow); }
+
+        .btn-wa[disabled] { opacity: 0.5; cursor: not-allowed; }
+
         .section-title { font-family: 'League Spartan', sans-serif; font-weight: 700; font-size: 1rem; color: var(--st-yellow); margin: 20px 0 10px; }
         .item-list { list-style: none; padding: 0; margin: 0; }
         .item-list li { padding: 6px 0; font-size: 0.9rem; color: var(--st-text); line-height: 1.4; }
@@ -145,23 +161,76 @@
             <!-- Columna derecha: pago -->
             <div class="card">
                 <div x-show="!paymentSuccess">
-                    <label class="section-label">Tus datos (para tu matrícula)</label>
-                    <input type="email" x-model="email" placeholder="Correo electrónico" class="form-control" required>
-                    <input type="text" x-model="dni" placeholder="DNI o Documento de Identidad" class="form-control" required>
-                    <input type="text" x-model="nombre" placeholder="Nombres completos" class="form-control" required>
-                    <input type="text" x-model="apellido" placeholder="Apellidos completos" class="form-control" required>
-                    <input type="text" x-model="celular" placeholder="Número de celular / WhatsApp" class="form-control" required>
+                    <div class="tab-row">
+                        <button type="button" class="tab-btn" :class="{ active: activeTab === 'manual' }" @click="activeTab = 'manual'">📱 Yape / Plin</button>
+                        <button type="button" class="tab-btn" :class="{ active: activeTab === 'paypal' }" @click="activeTab = 'paypal'">💳 PayPal / Tarjeta</button>
+                    </div>
 
-                    <div id="paypal-button-container"></div>
+                    <!-- Vista Yape / Plin (manual) -->
+                    <div x-show="activeTab === 'manual'">
+                        <div class="wallet-row">
+                            <button type="button" class="wallet-btn" :class="{ active: manualMethod === 'yape' }" @click="manualMethod = 'yape'">Yape</button>
+                            <button type="button" class="wallet-btn" :class="{ active: manualMethod === 'plin' }" @click="manualMethod = 'plin'">Plin</button>
+                        </div>
+
+                        <div style="text-align:center; margin: 14px 0;">
+                            <img :src="manualMethod === 'yape' ? '<?= BASE_URL ?>assets/images/Yape.jpg' : '<?= BASE_URL ?>assets/images/plin.jpg'"
+                                 alt="QR de pago" style="max-width: 200px; border-radius: 10px;">
+                        </div>
+                        <div class="meta-row" style="justify-content: center;">
+                            <span>Titular: <strong x-text="manualMethod === 'yape' ? 'Mariela Ma.' : 'Ricardo Cardenas'"></strong></span>
+                        </div>
+                        <div class="meta-row" style="justify-content: center; margin-bottom: 16px;">
+                            <span>Monto a transferir: <strong x-text="currencySymbol + ' ' + coursePrice.toFixed(2)"></strong></span>
+                        </div>
+
+                        <label class="section-label">Tus datos (para tu matrícula)</label>
+                        <input type="email" x-model="email" placeholder="Correo electrónico" class="form-control" required>
+                        <input type="text" x-model="dni" placeholder="DNI o Documento de Identidad" class="form-control" required>
+                        <input type="text" x-model="nombre" placeholder="Nombres completos" class="form-control" required>
+                        <input type="text" x-model="apellido" placeholder="Apellidos completos" class="form-control" required>
+                        <input type="text" x-model="celular" placeholder="Número de celular / WhatsApp" class="form-control" required>
+
+                        <input type="file" id="voucher_input" accept="image/*,application/pdf" @change="voucherFile = $event.target.files[0]" class="form-control">
+
+                        <button type="button" id="btn_manual_submit" class="btn-wa" style="width:100%; justify-content:center; border:0; cursor:pointer;" :disabled="!voucherFile" @click="submitManualPayment()">
+                            Confirmar mi inscripción
+                        </button>
+                    </div>
+
+                    <!-- Vista PayPal -->
+                    <div x-show="activeTab === 'paypal'">
+                        <label class="section-label">Tus datos (para tu matrícula)</label>
+                        <input type="email" x-model="email" placeholder="Correo electrónico" class="form-control" required>
+                        <input type="text" x-model="dni" placeholder="DNI o Documento de Identidad" class="form-control" required>
+                        <input type="text" x-model="nombre" placeholder="Nombres completos" class="form-control" required>
+                        <input type="text" x-model="apellido" placeholder="Apellidos completos" class="form-control" required>
+                        <input type="text" x-model="celular" placeholder="Número de celular / WhatsApp" class="form-control" required>
+
+                        <div id="paypal-button-container"></div>
+                    </div>
                 </div>
 
                 <div class="success-view" x-show="paymentSuccess" x-transition style="display:none;">
                     <div class="check">✅</div>
-                    <h2>¡Pago confirmado!</h2>
-                    <p style="color: var(--st-text-muted); line-height: 1.6;">
-                        Estamos matriculando tu acceso en la plataforma de ST Energy.
-                        En unos minutos recibirás un correo con tus credenciales — revisa también tu carpeta de Spam.
-                    </p>
+                    <template x-if="paymentMethodUsed === 'paypal'">
+                        <div>
+                            <h2>¡Pago confirmado!</h2>
+                            <p style="color: var(--st-text-muted); line-height: 1.6;">
+                                Estamos matriculando tu acceso en la plataforma de ST Energy.
+                                En unos minutos recibirás un correo con tus credenciales — revisa también tu carpeta de Spam.
+                            </p>
+                        </div>
+                    </template>
+                    <template x-if="paymentMethodUsed === 'manual'">
+                        <div>
+                            <h2>¡Comprobante recibido!</h2>
+                            <p style="color: var(--st-text-muted); line-height: 1.6;">
+                                Nuestro equipo va a revisar tu pago y activar tu acceso a la brevedad.
+                                Para agilizarlo, escríbenos por WhatsApp confirmando tus datos.
+                            </p>
+                        </div>
+                    </template>
                     <a class="btn-wa" href="https://wa.me/51986884219?text=Hola%2C%20acabo%20de%20pagar%20mi%20curso%20en%20ST%20Energy." target="_blank">
                         💬 Escribir por WhatsApp
                     </a>
@@ -212,6 +281,10 @@
         function stEnergyCheckout() {
             return {
                 paymentSuccess: false,
+                paymentMethodUsed: null,
+                activeTab: 'manual',
+                manualMethod: 'yape',
+                voucherFile: null,
                 courseName: 'Cargando curso...',
                 coursePrice: 900.00,
                 currency: 'PEN',
@@ -284,6 +357,7 @@
                             return actions.order.capture().then(function (details) {
                                 // El pago ya se completo de verdad en PayPal: mostramos exito de inmediato.
                                 self.paymentSuccess = true;
+                                self.paymentMethodUsed = 'paypal';
                                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
                                 // Matricula en WordPress (best-effort, no bloquea la pantalla de exito).
@@ -313,6 +387,56 @@
                             alert('Hubo un inconveniente con el pago. Por favor, intenta de nuevo.');
                         }
                     }).render('#paypal-button-container');
+                },
+
+                submitManualPayment() {
+                    if (!this.email || !this.dni || !this.nombre || !this.apellido || !this.celular) {
+                        alert('Por favor, completa tu correo, DNI, Nombres, Apellidos y Celular.');
+                        return;
+                    }
+                    if (!this.voucherFile) {
+                        alert('Por favor, adjunta tu ticket o voucher de pago para continuar.');
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    formData.append('voucher', this.voucherFile);
+                    formData.append('curso', this.courseName);
+                    formData.append('precio', this.coursePrice);
+                    formData.append('moneda', this.currency);
+                    formData.append('email', this.email);
+                    formData.append('dni', this.dni);
+                    formData.append('nombre', this.nombre);
+                    formData.append('apellido', this.apellido);
+                    formData.append('celular', this.celular);
+                    formData.append('metodo', this.manualMethod);
+
+                    const btn = document.getElementById('btn_manual_submit');
+                    btn.disabled = true;
+                    btn.innerText = 'Subiendo voucher...';
+
+                    fetch('<?= BASE_URL ?>checkout/stenergy_voucher', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(res => res.json())
+                    .then(resp => {
+                        if (resp.success) {
+                            this.paymentSuccess = true;
+                            this.paymentMethodUsed = 'manual';
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        } else {
+                            alert('Ocurrió un error: ' + (resp.error || 'Error desconocido'));
+                            btn.disabled = false;
+                            btn.innerText = 'Confirmar mi inscripción';
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error subiendo voucher ST Energy:', err);
+                        alert('Error de conexión al subir el voucher. Intenta nuevamente.');
+                        btn.disabled = false;
+                        btn.innerText = 'Confirmar mi inscripción';
+                    });
                 }
             }
         }

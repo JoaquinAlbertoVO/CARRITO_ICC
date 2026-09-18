@@ -1,0 +1,7 @@
+# Los .json de esta carpeta tienen datos del comprador (correo, DNI, celular).
+# Las imagenes/PDF de los comprobantes en si se dejan accesibles (las usa el
+# equipo para revisarlas), pero el .json no tiene por que verse desde el navegador.
+<FilesMatch "\.json$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

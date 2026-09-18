@@ -357,12 +357,20 @@ if (empty($_SESSION['active'])) {
 
                                 <div class="sidebar-heading">Ventas</div>
                                 <ul class="sidebar-menu mt-0">
-                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/ventas') !== false) ? 'active' : '' ?>">
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/ventas') !== false && strpos($current_path, 'stenergy') === false) ? 'active' : '' ?>">
                                         <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/ventas">
                                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                                 <i class="material-icons text-muted">receipt_long</i>
                                             </span>
                                             <span class="sidebar-menu-text">Comprobantes</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'ventas_stenergy') !== false) ? 'active' : '' ?>">
+                                        <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/ventas_stenergy">
+                                            <span class="sidebar-menu-icon sidebar-menu-icon--left">
+                                                <i class="material-icons text-muted">receipt_long</i>
+                                            </span>
+                                            <span class="sidebar-menu-text">Comprobantes ST Energy</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/boleta_rapida') !== false) ? 'active' : '' ?>">

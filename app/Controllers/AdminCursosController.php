@@ -529,12 +529,97 @@ class AdminCursosController extends Controller {
         if (isset($_GET['file'])) {
             $file = basename($_GET['file']); // basename to prevent directory traversal
             $path = __DIR__ . '/../../assets/img/vouchers/' . $file;
-            
+
             if (file_exists($path) && is_file($path)) {
                 unlink($path);
             }
         }
         header("Location: " . BASE_URL . "admin/ventas");
+        exit();
+    }
+
+    /**
+     * Comprobantes de Yape/Plin subidos desde el checkout de ST Energy
+     * (checkout/stenergy_voucher). Solo para revisarlos aqui -- la venta en si
+     * se registra a mano en el propio sistema de ST Energy (react-cours),
+     * este panel no toca esa base de datos.
+     */
+    public function ventas_stenergy() {
+        $dir = __DIR__ . '/../../assets/img/vouchers_stenergy/';
+        $vouchers = [];
+
+        if (is_dir($dir)) {
+            $files = scandir($dir);
+            foreach ($files as $file) {
+                if ($file === '.' || $file === '..' || !is_file($dir . $file)) {
+                    continue;
+                }
+                // El .json de datos y el .htaccess de proteccion no son comprobantes
+                $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                if ($ext === 'json' || $file === '.htaccess') {
+                    continue;
+                }
+
+                $dateFormatted = 'Desconocida';
+                $courseName = 'Desconocido';
+                $meta = [];
+
+                if (preg_match('/^voucher_(\d{8})_(\d{6})_(.+)\.([a-zA-Z0-9]+)$/', $file, $matches)) {
+                    $dateStr = $matches[1] . ' ' . $matches[2];
+                    $datetime = \DateTime::createFromFormat('Ymd His', $dateStr);
+                    if ($datetime) {
+                        $dateFormatted = $datetime->format('d/m/Y h:i A');
+                    }
+                    $courseName = str_replace('_', ' ', $matches[3]);
+
+                    // El .json hermano tiene los datos del comprador (email, dni, etc.)
+                    $jsonFile = $dir . 'voucher_' . $matches[1] . '_' . $matches[2] . '_' . $matches[3] . '.json';
+                    if (file_exists($jsonFile)) {
+                        $meta = json_decode(file_get_contents($jsonFile), true) ?: [];
+                    }
+                }
+
+                $vouchers[] = [
+                    'filename' => $file,
+                    'url' => BASE_URL . 'assets/img/vouchers_stenergy/' . $file,
+                    'date' => $dateFormatted,
+                    'course' => $courseName,
+                    'meta' => $meta,
+                    'timestamp' => filectime($dir . $file)
+                ];
+            }
+
+            usort($vouchers, function($a, $b) {
+                return $b['timestamp'] - $a['timestamp'];
+            });
+        }
+
+        $data = [
+            'vouchers' => $vouchers,
+            'titulo' => 'Ventas y Comprobantes - ST Energy'
+        ];
+
+        $this->view('admin/ventas/lista_stenergy', $data, 'admin/layouts/main');
+    }
+
+    public function ventas_stenergy_delete() {
+        if (isset($_GET['file'])) {
+            $file = basename($_GET['file']);
+            $dir = __DIR__ . '/../../assets/img/vouchers_stenergy/';
+            $path = $dir . $file;
+
+            if (file_exists($path) && is_file($path)) {
+                unlink($path);
+            }
+            // Borrar tambien el .json hermano, si existe
+            if (preg_match('/^(voucher_\d{8}_\d{6}_.+)\.[a-zA-Z0-9]+$/', $file, $m)) {
+                $jsonPath = $dir . $m[1] . '.json';
+                if (file_exists($jsonPath)) {
+                    unlink($jsonPath);
+                }
+            }
+        }
+        header("Location: " . BASE_URL . "admin/ventas_stenergy");
         exit();
     }
 

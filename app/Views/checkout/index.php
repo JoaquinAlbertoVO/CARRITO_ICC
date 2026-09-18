@@ -146,7 +146,7 @@
                         <?php if (isset($data['cursoDB']) && $data['cursoDB']): ?>
                             <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ ' + (originalPrice || coursePrice * 1.5).toFixed(2) : 'US$ ' + (originalPrice || coursePrice * 1.5).toFixed(2)"></span>
                         <?php else: ?>
-                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ ' + (coursePrice * 1.5).toFixed(2) : 'US$ ' + (coursePrice * 1.5).toFixed(2)"></span>
+                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ ' + (originalPrice || coursePrice * 1.5).toFixed(2) : 'US$ ' + (originalPrice || coursePrice * 1.5).toFixed(2)"></span>
                         <?php endif; ?>
                     </div>
 
@@ -557,6 +557,10 @@
                         this.coursePrice = parseFloat(urlParams.get('precio')) || 30.00;
                     <?php endif; ?>
                     this.currency = (urlParams.get('moneda') || MONEDA_SUGERIDA).toUpperCase();
+
+                    // ?regular=55 fija el "Precio Regular" tachado (si no, sale el de la BD)
+                    const regularUrl = parseFloat(urlParams.get('regular'));
+                    if (regularUrl > 0) this.originalPrice = regularUrl;
 
                     // Pestaña inicial: Yape/Plin solo si esta disponible para este visitante
                     // (hoy, solo Peru) y ademas la moneda activa es soles; si Hotmart es la

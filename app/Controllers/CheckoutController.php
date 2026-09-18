@@ -27,6 +27,26 @@ class CheckoutController extends Controller {
         require_once __DIR__ . '/../Helpers/HotmartLinks.php';
         $hotmartLink = \App\Helpers\HotmartLinks::buscarPorNombre($nombreCurso);
 
+        // Hotmart cobra el precio fijo que se configuro en su producto, asi que si el link
+        // trae un precio promocional (?precio= distinto al de lista, o un codigo ?p=) no
+        // podemos mandar al comprador ahi: pagaria un monto distinto al del link.
+        $precioUrl = isset($_GET['precio']) ? (float)$_GET['precio'] : null;
+        $esPrecioLista = $cursoDB && $precioUrl !== null
+            && (abs($precioUrl - (float)$cursoDB['precio']) < 0.01
+                || abs($precioUrl - (float)$cursoDB['precio_usd']) < 0.01);
+        if (!empty($_GET['p']) || ($precioUrl !== null && !$esPrecioLista)) {
+            $hotmartLink = null;
+        }
+
+        // ?oferta=clave: reemplaza "Temas Principales" solo para este link (ver OfertasCheckout).
+        if ($cursoDB && !empty($_GET['oferta'])) {
+            require_once __DIR__ . '/../Helpers/OfertasCheckout.php';
+            $temasOferta = \App\Helpers\OfertasCheckout::temasHtml($_GET['oferta']);
+            if ($temasOferta !== null) {
+                $cursoDB['temas'] = $temasOferta;
+            }
+        }
+
         $this->view('checkout/index', [
             'cursoDB' => $cursoDB,
             'paisDetectado' => $paisDetectado,

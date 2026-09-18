@@ -19,6 +19,11 @@ class OfertasCheckout {
                 'PEN' => 'https://pay.hotmart.com/G107652272C?off=ius4rna9',
                 'USD' => 'https://pay.hotmart.com/G107652272C?off=ndvqfw67',
             ],
+            // Titulo visible (la parte en amarillo va aparte). El nombre real del curso sigue
+            // siendo el de la URL (?curso=), que es el que usan el pago y la matricula.
+            'titulo' => ['Especializacion en Electricidad Industrial', 'más IA'],
+            'duracion' => '30 horas académicas',
+            'quitar_beneficios' => ['Acceso al aula virtual por tiempo limitado'],
             // 'etiqueta corta' => 'nombre completo del tema' (la etiqueta se ve; el nombre completo
             // queda como tooltip). Las etiquetas quitan lo que el titulo de la seccion ya dice.
             'temas' => [
@@ -102,6 +107,39 @@ class OfertasCheckout {
             $html .= implode(' <span style="color:#3b82f6; font-weight:700;">·</span> ', $partes) . '</p></div>';
         }
         return $html;
+    }
+
+    /**
+     * Ajustes del curso para esta oferta sobre lo que viene de la BD: duracion en el resumen,
+     * beneficios que se quitan y titulo con la parte destacada en amarillo (`titulo_html`).
+     * Devuelve $curso (array de la tabla cursos) modificado; la BD no se toca.
+     */
+    public static function ajustarCurso($clave, array $curso) {
+        $o = self::OFERTAS[$clave] ?? null;
+        if (!$o) {
+            return $curso;
+        }
+        if (!empty($o['duracion']) && !empty($curso['resumen'])) {
+            $curso['resumen'] = preg_replace(
+                '/(Duración:<\/strong>\s*)[^<]*/u',
+                '${1}' . $o['duracion'],
+                $curso['resumen']
+            );
+        }
+        if (!empty($o['quitar_beneficios']) && !empty($curso['beneficios'])) {
+            foreach ($o['quitar_beneficios'] as $texto) {
+                $curso['beneficios'] = preg_replace(
+                    '/<li>\s*' . preg_quote($texto, '/') . '\s*<\/li>\s*/iu',
+                    '',
+                    $curso['beneficios']
+                );
+            }
+        }
+        if (!empty($o['titulo'])) {
+            $curso['titulo_html'] = htmlspecialchars($o['titulo'][0])
+                . ' <span style="color:#facc15;">' . htmlspecialchars($o['titulo'][1]) . '</span>';
+        }
+        return $curso;
     }
 
     /**

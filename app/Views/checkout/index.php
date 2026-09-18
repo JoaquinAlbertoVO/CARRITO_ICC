@@ -60,7 +60,11 @@
                     </div>
 
                     <div class="course-info">
+                        <?php if (!empty($data['cursoDB']['titulo_html'])): ?>
+                        <h1 style="font-size: 1.8rem; margin-bottom: 15px; font-weight: 700; color: var(--text-color);"><?= $data['cursoDB']['titulo_html'] ?></h1>
+                        <?php else: ?>
                         <h1 x-text="courseName" style="font-size: 1.8rem; margin-bottom: 15px; font-weight: 700; color: var(--text-color);">Cargando curso...</h1>
+                        <?php endif; ?>
                         
                         <style>
                             .accordion-btn {

@@ -55,6 +55,7 @@ class CheckoutController extends Controller {
                     $reglasPais['metodos'] = ['hotmart'];
                 }
             }
+            $cursoDB = \App\Helpers\OfertasCheckout::ajustarCurso($_GET['oferta'], $cursoDB);
             $temasOferta = \App\Helpers\OfertasCheckout::temasHtml($_GET['oferta']);
             if ($temasOferta !== null) {
                 $cursoDB['temas'] = $temasOferta;

@@ -11,41 +11,43 @@ namespace App\Helpers;
 class OfertasCheckout {
     const OFERTAS = [
         'sistema-ia' => [
+            // 'etiqueta corta' => 'nombre completo del tema' (la etiqueta se ve; el nombre completo
+            // queda como tooltip). Las etiquetas quitan lo que el titulo de la seccion ya dice.
             'temas' => [
                 'Bases y memoria del proyecto' => [
-                    'Memoria descriptiva del proyecto eléctrico',
-                    'Bases y criterios de diseño eléctrico',
-                    'Descripción del sistema de utilización',
+                    'Memoria descriptiva' => 'Memoria descriptiva del proyecto eléctrico',
+                    'Bases y criterios de diseño' => 'Bases y criterios de diseño eléctrico',
+                    'Sistema de utilización' => 'Descripción del sistema de utilización',
                 ],
                 'Cálculos eléctricos' => [
-                    'Cálculo de máxima demanda y cuadro de cargas',
-                    'Cálculo de caída de tensión',
-                    'Selección y cálculo de conductores',
-                    'Cálculo y selección de protecciones',
-                    'Cálculo del sistema de puesta a tierra',
-                    'Cálculo luminotécnico (nivel de lux)',
-                    'Distribución de tableros (general y de distribución)',
-                    'Cálculo de canalizaciones (tuberías/bandejas)',
+                    'Máxima demanda y cuadro de cargas' => 'Cálculo de máxima demanda y cuadro de cargas',
+                    'Caída de tensión' => 'Cálculo de caída de tensión',
+                    'Conductores' => 'Selección y cálculo de conductores',
+                    'Protecciones' => 'Cálculo y selección de protecciones',
+                    'Puesta a tierra' => 'Cálculo del sistema de puesta a tierra',
+                    'Luminotécnico (lux)' => 'Cálculo luminotécnico (nivel de lux)',
+                    'Tableros (general y distribución)' => 'Distribución de tableros (general y de distribución)',
+                    'Canalizaciones (tuberías/bandejas)' => 'Cálculo de canalizaciones (tuberías/bandejas)',
                 ],
                 'Planos y esquemas' => [
-                    'Estructura del diagrama unifilar',
-                    'Cuadro de cargas (tabla lista)',
-                    'Leyenda y simbología del plano',
+                    'Diagrama unifilar' => 'Estructura del diagrama unifilar',
+                    'Cuadro de cargas' => 'Cuadro de cargas (tabla lista)',
+                    'Leyenda y simbología' => 'Leyenda y simbología del plano',
                 ],
                 'Especificaciones y presupuesto' => [
-                    'Especificaciones técnicas de materiales y equipos',
-                    'Metrado de materiales eléctricos',
-                    'Análisis de precios unitarios y presupuesto',
-                    'Cronograma de ejecución',
+                    'Especificaciones técnicas' => 'Especificaciones técnicas de materiales y equipos',
+                    'Metrado de materiales' => 'Metrado de materiales eléctricos',
+                    'Precios unitarios y presupuesto' => 'Análisis de precios unitarios y presupuesto',
+                    'Cronograma de ejecución' => 'Cronograma de ejecución',
                 ],
                 'Cierre y conformidad' => [
-                    'Protocolo de pruebas y puesta en servicio',
-                    'Panel fotográfico e informe de conformidad',
-                    'Requisitos y solicitud del trámite',
-                    'Índice y checklist del expediente eléctrico',
+                    'Pruebas y puesta en servicio' => 'Protocolo de pruebas y puesta en servicio',
+                    'Panel fotográfico e informe de conformidad' => 'Panel fotográfico e informe de conformidad',
+                    'Requisitos y solicitud del trámite' => 'Requisitos y solicitud del trámite',
+                    'Índice y checklist del expediente' => 'Índice y checklist del expediente eléctrico',
                 ],
                 'Revisión de documentos' => [
-                    'Revisión de documentos del proyecto',
+                    'Revisión de documentos del proyecto' => 'Revisión de documentos del proyecto',
                 ],
             ],
             // Acordeon propio, debajo de "Temas Principales"
@@ -75,7 +77,7 @@ class OfertasCheckout {
             return null;
         }
         $pill = 'display:inline-block; background:#eff6ff; border:1px solid #dbeafe; color:#1e3a5f; '
-              . 'border-radius:999px; padding:3px 10px; margin:3px 4px 3px 0; font-size:0.8rem; line-height:1.35;';
+              . 'border-radius:999px; padding:2px 9px; margin:2px 3px 2px 0; font-size:0.78rem; line-height:1.35;';
         $badge = 'display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; '
                . 'border-radius:50%; background:#2563eb; color:#fff; font-size:0.75rem; font-weight:700; flex:none;';
         $html = '';
@@ -86,8 +88,8 @@ class OfertasCheckout {
                    . '<div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">'
                    . '<span style="' . $badge . '">' . $n . '</span>'
                    . '<strong style="color:#0f172a;">' . htmlspecialchars($seccion) . '</strong></div><div>';
-            foreach ($items as $item) {
-                $html .= '<span style="' . $pill . '">' . htmlspecialchars($item) . '</span>';
+            foreach ($items as $corto => $completo) {
+                $html .= '<span style="' . $pill . '" title="' . htmlspecialchars($completo) . '">' . htmlspecialchars($corto) . '</span>';
             }
             $html .= '</div></div>';
         }

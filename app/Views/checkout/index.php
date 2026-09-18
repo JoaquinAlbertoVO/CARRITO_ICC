@@ -328,8 +328,12 @@
                             Paga con más métodos según tu país (tarjeta local en cuotas, transferencia bancaria,
                             billeteras digitales y más).
                         </p>
+                        <!-- Alto grande a propósito: si el cuadro alcanza a mostrar todo el
+                             formulario de Hotmart, no aparece su propia barra de scroll interna
+                             y el comprador solo tiene que hacer scroll de la página normal
+                             (mucho menos confuso para alguien que no es muy técnico). -->
                         <iframe :src="HOTMART_LINK" loading="lazy"
-                                style="width: 100%; min-height: 780px; border: 1px solid var(--surface-border); border-radius: 8px; margin-top: 10px;">
+                                style="width: 100%; height: 1900px; border: 1px solid var(--surface-border); border-radius: 8px; margin-top: 10px;">
                         </iframe>
                         <p style="font-size: 0.8rem; color: var(--text-secondary); text-align: center; margin-top: 12px;">
                             ¿No carga bien aquí? <a :href="HOTMART_LINK" target="_blank" rel="noopener">Ábrelo en una pestaña nueva</a>.

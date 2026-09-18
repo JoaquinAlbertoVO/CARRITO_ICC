@@ -11,10 +11,14 @@ namespace App\Helpers;
 class OfertasCheckout {
     const OFERTAS = [
         'sistema-ia' => [
-            // Oferta de Hotmart (S/ 69.90, "Especializacion en Electricidad Industrial con IA")
-            // del mismo producto: es lo que ven los compradores fuera de Peru en vez del
-            // link normal de S/ 180. El webhook sigue matriculando por el nombre del producto.
-            'hotmart' => 'https://pay.hotmart.com/G107652272C?off=ius4rna9',
+            // Ofertas de Hotmart del mismo producto ("Especializacion en Electricidad Industrial
+            // con IA") segun la moneda del link: PEN = S/ 69.90, USD = US$ 19.90 exacto. El link
+            // en dolares muestra SOLO el recuadro de Hotmart, en cualquier pais (incluido Peru).
+            // El webhook sigue matriculando por el nombre del producto.
+            'hotmart' => [
+                'PEN' => 'https://pay.hotmart.com/G107652272C?off=ius4rna9',
+                'USD' => 'https://pay.hotmart.com/G107652272C?off=ndvqfw67',
+            ],
             // 'etiqueta corta' => 'nombre completo del tema' (la etiqueta se ve; el nombre completo
             // queda como tooltip). Las etiquetas quitan lo que el titulo de la seccion ya dice.
             'temas' => [
@@ -101,10 +105,10 @@ class OfertasCheckout {
     }
 
     /**
-     * Link de la oferta de Hotmart con el precio promocional, o null si no tiene.
+     * Link de la oferta de Hotmart con el precio promocional en esa moneda, o null si no tiene.
      */
-    public static function hotmartLink($clave) {
-        return self::OFERTAS[$clave]['hotmart'] ?? null;
+    public static function hotmartLink($clave, $moneda) {
+        return self::OFERTAS[$clave]['hotmart'][strtoupper($moneda)] ?? null;
     }
 
     /**

@@ -110,6 +110,19 @@
                             </div>
                             <?php endif; ?>
 
+                            <?php if (!empty($curso['extra_html'])): ?>
+                            <!-- Acordeon extra de una oferta (?oferta=, ver OfertasCheckout) -->
+                            <div>
+                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 5 }" @click="activeAccordion = activeAccordion === 5 ? null : 5">
+                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-robot" style="color: #8b5cf6; font-size: 1.1rem;"></i> <?= htmlspecialchars($curso['extra_titulo']) ?></span>
+                                    <span x-text="activeAccordion === 5 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
+                                </button>
+                                <div class="accordion-content" x-show="activeAccordion === 5" x-transition style="display: none;">
+                                    <?= $curso['extra_html'] ?>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+
                             <?php if (!empty($curso['beneficios'])): ?>
                             <!-- Item 3: Beneficios -->
                             <div>

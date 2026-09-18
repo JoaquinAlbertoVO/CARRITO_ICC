@@ -45,6 +45,11 @@ class CheckoutController extends Controller {
             if ($temasOferta !== null) {
                 $cursoDB['temas'] = $temasOferta;
             }
+            $extra = \App\Helpers\OfertasCheckout::extraAcordeon($_GET['oferta']);
+            if ($extra !== null) {
+                $cursoDB['extra_titulo'] = $extra['titulo'];
+                $cursoDB['extra_html'] = $extra['html'];
+            }
         }
 
         $this->view('checkout/index', [

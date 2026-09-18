@@ -73,6 +73,13 @@
         .trust-row span { display: flex; align-items: center; gap: 6px; }
         .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--st-yellow); display: inline-block; }
 
+        .meta-row { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.85rem; color: var(--st-text-muted); margin-bottom: 14px; }
+        .meta-row strong { color: var(--st-text); }
+
+        .section-title { font-family: 'League Spartan', sans-serif; font-weight: 700; font-size: 1rem; color: var(--st-yellow); margin: 20px 0 10px; }
+        .item-list { list-style: none; padding: 0; margin: 0; }
+        .item-list li { padding: 6px 0; font-size: 0.9rem; color: var(--st-text); line-height: 1.4; }
+
         .success-view { text-align: center; padding: 40px 20px; }
         .success-view .check { font-size: 3.2rem; margin-bottom: 10px; }
         .success-view h2 { color: var(--st-yellow); font-family: 'League Spartan', sans-serif; }
@@ -94,7 +101,11 @@
             <!-- Columna izquierda: info del curso -->
             <div class="card">
                 <h1 x-text="courseName">Cargando curso...</h1>
-                <p class="subtitle">Curso práctico presencial. Al confirmar tu pago, matricularemos tu acceso directamente en la plataforma de ST Energy.</p>
+                <div class="meta-row">
+                    <span>⏳ <strong x-text="duracion"></strong></span>
+                    <span>🎓 <strong x-text="incluye"></strong></span>
+                </div>
+                <p class="subtitle" x-text="descripcion"></p>
                 <div class="accent-line"></div>
                 <div class="price-box">
                     <span class="currency" x-text="currencySymbol"></span>
@@ -105,6 +116,24 @@
                     <p style="font-size: 0.82rem; color: var(--st-text-muted);">
                         (Se cobra en dólares vía PayPal: <strong style="color: var(--st-text);" x-text="'$' + amountInUSD.toFixed(2) + ' USD'"></strong> al cambio de <span x-text="tipoCambio"></span>)
                     </p>
+                </template>
+
+                <template x-if="temas.length > 0">
+                    <div>
+                        <div class="section-title">Temas principales</div>
+                        <ul class="item-list">
+                            <template x-for="t in temas" :key="t"><li x-text="'✅ ' + t"></li></template>
+                        </ul>
+                    </div>
+                </template>
+
+                <template x-if="equipos.length > 0">
+                    <div>
+                        <div class="section-title">Equipos y herramientas</div>
+                        <ul class="item-list">
+                            <template x-for="e in equipos" :key="e"><li x-text="'✅ ' + e"></li></template>
+                        </ul>
+                    </div>
                 </template>
 
                 <div class="trust-row">
@@ -142,13 +171,56 @@
     </div>
 
     <script>
+        // Perfiles de curso. ?tipo=solo o ?tipo=duo elige cual mostrar (default: duo).
+        // Ambos matriculan hoy en el mismo curso de WordPress (Terminaciones, course_id 4043)
+        // del lado del backend -- "Empalmes" todavia no existe como curso aparte en WP.
+        const CURSOS_STENERGY = {
+            solo: {
+                nombre: 'Terminaciones Termocontraíbles en Media Tensión',
+                duracion: '15 horas académicas',
+                incluye: 'Certificado de participación con QR',
+                descripcion: 'Curso orientado a aprender la correcta instalación de terminaciones en cables de media tensión, aplicando procedimientos técnicos, criterios de seguridad y buenas prácticas del sector.',
+                temas: [
+                    'Tipos de cables y niveles de tensión',
+                    'Conductor, aislamiento, semiconductoras y pantalla metálica',
+                    'Aislamientos XLPE, HEPR y EPR',
+                    'Terminaciones rectas, interiores, exteriores y tripolares hasta 36 kV',
+                    'Componentes de una terminación',
+                    'Medición de aislamiento con megómetro',
+                    'Herramientas aisladas y equipos de protección personal',
+                    'Práctica de terminaciones interior y exterior hasta 25 kV'
+                ],
+                equipos: [
+                    'Cilindro de gas GLP y boquilla de 2”',
+                    'Kit de terminación termocontraíble de uso exterior',
+                    'Cable de media tensión de 10 kV y/o 25 kV',
+                    'Herramientas manuales'
+                ],
+                precioDefault: 600
+            },
+            duo: {
+                nombre: 'Terminaciones y Empalmes Termocontraíbles en Media Tensión',
+                duracion: '20 horas académicas',
+                incluye: 'Doble Certificado de participación con QR, materiales, manuales y clases grabadas',
+                descripcion: 'Curso doble: instalación de terminaciones y de empalmes termocontraíbles en cables de media tensión, con certificación independiente para cada especialidad.',
+                temas: [],
+                equipos: [],
+                precioDefault: 900
+            }
+        };
+
         function stEnergyCheckout() {
             return {
                 paymentSuccess: false,
-                courseName: 'Terminaciones y Empalmes Termocontraibles - Inicio 29/09/2026',
+                courseName: 'Cargando curso...',
                 coursePrice: 900.00,
                 currency: 'PEN',
                 tipoCambio: 3.80,
+                duracion: '',
+                incluye: '',
+                descripcion: '',
+                temas: [],
+                equipos: [],
 
                 email: '', dni: '', nombre: '', apellido: '', celular: '',
 
@@ -162,6 +234,19 @@
 
                 init() {
                     const urlParams = new URLSearchParams(window.location.search);
+
+                    const tipo = (urlParams.get('tipo') || 'duo').toLowerCase();
+                    const perfil = CURSOS_STENERGY[tipo] || CURSOS_STENERGY.duo;
+
+                    this.courseName = perfil.nombre;
+                    this.duracion = perfil.duracion;
+                    this.incluye = perfil.incluye;
+                    this.descripcion = perfil.descripcion;
+                    this.temas = perfil.temas;
+                    this.equipos = perfil.equipos;
+                    this.coursePrice = perfil.precioDefault;
+
+                    // Overrides manuales (para links promocionales con precio especial)
                     if (urlParams.get('curso')) this.courseName = urlParams.get('curso');
                     if (urlParams.get('precio')) this.coursePrice = parseFloat(urlParams.get('precio'));
                     if (urlParams.get('moneda')) this.currency = urlParams.get('moneda').toUpperCase();

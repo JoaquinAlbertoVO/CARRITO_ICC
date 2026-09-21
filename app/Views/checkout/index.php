@@ -347,8 +347,9 @@
                             Paga con más métodos según tu país (tarjeta local en cuotas, transferencia bancaria,
                             billeteras digitales y más).
                         </p>
-                        <p x-show="HOTMART_OFERTA" style="font-size: 0.85rem; color: var(--text-secondary); text-align: center; margin-top: 6px;">
-                            El precio final se muestra en tu moneda local dentro del formulario de pago.
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); text-align: center; margin-top: 6px;">
+                            El precio final se muestra en tu moneda local dentro del formulario de pago y puede
+                            incluir impuestos locales (por ejemplo, IVA), que se suman al precio del curso.
                         </p>
                         <!-- Alto grande a propósito: si el cuadro alcanza a mostrar todo el
                              formulario de Hotmart, no aparece su propia barra de scroll interna

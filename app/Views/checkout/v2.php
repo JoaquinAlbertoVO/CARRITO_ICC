@@ -29,8 +29,8 @@ $iconoBeneficio = function ($t) {
     return 'fas fa-check-circle';
 };
 // Colores por tarjeta (clases completas para que Tailwind las compile)
-$coloresTile = ['bg-brand text-white', 'bg-amber-500 text-white', 'bg-emerald-500 text-white', 'bg-orange-500 text-white', 'bg-rose-500 text-white', 'bg-teal-500 text-white'];
-$bordesModulo = ['border-brand', 'border-amber-500', 'border-emerald-500', 'border-orange-500', 'border-rose-500', 'border-teal-500'];
+$coloresTile = ['bg-brand text-white', 'bg-amber-600 text-white', 'bg-emerald-600 text-white', 'bg-orange-600 text-white', 'bg-rose-600 text-white', 'bg-teal-600 text-white'];
+$bordesModulo = ['border-brand', 'border-amber-600', 'border-emerald-600', 'border-orange-600', 'border-rose-600', 'border-teal-600'];
 $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram', 'fas fa-file-invoice-dollar', 'fas fa-clipboard-check', 'fas fa-search'];
 ?>
 <!DOCTYPE html>
@@ -44,7 +44,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=2">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=3">
     <script>document.documentElement.classList.add('js');</script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>
@@ -67,21 +67,23 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
 </head>
 
 <body class="bg-surface text-ink antialiased pb-24 md:pb-0" x-data="checkoutV2()" x-init="init()">
+<a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:font-bold focus:text-brand-dark">Saltar al contenido</a>
 
 <!-- Cabecera + barra amarilla de precio -->
-<header class="sticky top-0 z-40 shadow-lg">
+<header class="shadow-lg">
     <div class="bg-deep text-white">
         <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
             <img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC - Instituto de Capacitación Continua" class="h-9 w-auto">
             <div class="flex items-center gap-4 text-sm">
                 <span class="hidden sm:flex items-center gap-1.5 text-sky-100"><i class="fas fa-lock text-emerald-400"></i> Pago seguro</span>
-                <a href="<?= $wa ?>" target="_blank" rel="noopener" class="flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 px-3 py-1.5 font-semibold text-white shadow">
+                <a href="<?= $wa ?>" target="_blank" rel="noopener" class="flex min-h-[44px] items-center gap-2 rounded-full bg-emerald-700 hover:bg-emerald-600 px-4 font-semibold text-white shadow">
                     <i class="fab fa-whatsapp"></i><span class="hidden sm:inline">+51 941 208 020</span><span class="sm:hidden">WhatsApp</span>
                 </a>
             </div>
         </div>
     </div>
-    <div class="bg-accent text-deep text-sm">
+</header>
+<div class="sticky top-0 z-40 bg-accent text-deep text-sm shadow-md">
         <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-3">
             <p class="flex items-center gap-2 min-w-0">
                 <i class="fas fa-bolt"></i>
@@ -91,10 +93,9 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
             <span class="shrink-0 rounded-full bg-deep px-3 py-0.5 font-mono text-xs font-bold text-accent" title="Tiempo restante de este precio"><i class="far fa-clock mr-1"></i><span x-text="cuenta">--:--:--</span></span>
             <?php endif; ?>
         </div>
-    </div>
-</header>
+</div>
 
-<main>
+<main id="contenido">
 <!-- Hero -->
 <section class="relative overflow-hidden bg-brand-dark bg-cover bg-center text-white" style="background-image: url('<?= $e($fondo) ?>');">
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-deep/70 via-brand-dark/40 to-brand/30"></div>
@@ -128,7 +129,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
             <div class="relative rounded-3xl bg-white p-6 pt-8 text-ink shadow-2xl ring-4 ring-accent/60">
                 <?php if ($d['descuento'] > 0): ?>
                 <div class="absolute -right-3 -top-5 flex h-20 w-20 rotate-12 flex-col items-center justify-center rounded-full bg-accent font-display font-extrabold leading-none text-deep shadow-lg ring-4 ring-white">
-                    <span class="text-2xl">-<?= (int)$d['descuento'] ?>%</span><span class="text-[10px] uppercase">dscto.</span>
+                    <span class="text-2xl">-<?= (int)$d['descuento'] ?>%</span><span class="text-xs uppercase">dscto.</span>
                 </div>
                 <?php endif; ?>
                 <span class="rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase tracking-wide text-white"><?= $e($d['etapaNombre']) ?></span>
@@ -200,11 +201,12 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
         <div class="mt-8 grid gap-4 md:grid-cols-2">
             <?php $n = 0; foreach ($d['temas'] as $titulo => $items): $c = $n % count($coloresTile); $n++; ?>
             <div class="reveal rounded-2xl border-t-4 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg <?= $bordesModulo[$c] ?>" x-data="{ open: window.innerWidth >= 768 }">
-                <button type="button" @click="open = !open" class="flex w-full items-center gap-3 text-left">
+                <button type="button" @click="open = !open" :aria-expanded="open.toString()" class="flex w-full items-center gap-3 text-left">
                     <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-lg shadow <?= $coloresTile[$c] ?>"><i class="<?= $iconosModulo[$c] ?>"></i></span>
                     <span class="flex-1">
                         <span class="block text-xs font-bold uppercase tracking-wider text-muted">Módulo <?= $n ?></span>
                         <span class="block font-display font-bold text-brand-dark"><?= $e($titulo) ?></span>
+                        <span class="block text-xs text-muted"><?= count($items) ?> <?= count($items) === 1 ? 'tema' : 'temas' ?></span>
                     </span>
                     <i class="fas fa-chevron-down text-muted transition-transform" :class="open ? 'rotate-180' : ''"></i>
                 </button>
@@ -267,6 +269,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
                 <p class="text-sm font-bold uppercase tracking-wide text-sky-100"><?= $e($et['nombre']) ?></p>
                 <p class="mt-2 font-display text-5xl font-extrabold text-accent"><?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></p>
                 <p class="mt-2 text-sm text-sky-100"><?= $e($et['rango']) ?></p>
+                <a href="#inscripcion" class="mt-5 flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3 font-display font-extrabold text-deep shadow hover:brightness-95">Inscribirme por <?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></a>
             <?php elseif ($et['estado'] === 'pasada'): ?>
             <div class="reveal rounded-3xl bg-white p-6 opacity-60 shadow-sm">
                 <p class="text-sm font-bold uppercase tracking-wide text-muted"><?= $e($et['nombre']) ?></p>
@@ -329,22 +332,23 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
         <h2 class="mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold text-white">Completa tu inscripción</h2>
 
         <div x-show="!success" class="mt-8 space-y-6">
+            <div x-show="error" x-cloak id="error-pago" role="alert" tabindex="-1" class="rounded-2xl border-2 border-red-600 bg-red-50 p-4 text-sm font-semibold text-red-800"><i class="fas fa-exclamation-circle mr-2" aria-hidden="true"></i><span x-text="error"></span></div>
             <!-- Paso 1 -->
             <div class="rounded-3xl bg-white p-6 shadow-2xl">
                 <h3 class="flex items-center gap-3 font-display text-lg font-bold text-brand-dark"><span class="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-extrabold text-deep">1</span> Datos del participante</h3>
                 <p class="mt-1 text-sm text-muted">Con estos datos se emite tu certificado.</p>
                 <div class="mt-4 grid gap-4 sm:grid-cols-2">
                     <label class="sm:col-span-2 text-sm font-semibold">DNI o documento de identidad
-                        <input x-model="dni" type="text" inputmode="text" autocomplete="off" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30" placeholder="DNI, C.E. o pasaporte">
+                        <input x-model="dni" aria-required="true" type="text" inputmode="text" autocomplete="off" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand" placeholder="DNI, C.E. o pasaporte">
                     </label>
                     <label class="text-sm font-semibold">Nombres
-                        <input x-model="nombre" type="text" autocomplete="given-name" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30">
+                        <input x-model="nombre" aria-required="true" type="text" autocomplete="given-name" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand">
                     </label>
                     <label class="text-sm font-semibold">Apellidos
-                        <input x-model="apellido" type="text" autocomplete="family-name" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30">
+                        <input x-model="apellido" aria-required="true" type="text" autocomplete="family-name" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand">
                     </label>
                     <label class="sm:col-span-2 text-sm font-semibold">Celular / WhatsApp
-                        <input x-model="celular" type="tel" autocomplete="tel" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30" placeholder="+51 987 654 321">
+                        <input x-model="celular" aria-required="true" type="tel" autocomplete="tel" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand" placeholder="+51 987 654 321">
                     </label>
                 </div>
             </div>
@@ -354,19 +358,19 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                 <h3 class="flex items-center gap-3 font-display text-lg font-bold text-brand-dark"><span class="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-extrabold text-deep">2</span> Método de pago</h3>
                 <p class="mt-1 text-sm text-muted">Total a pagar: <strong class="text-brand"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <?= $e($d['moneda']) ?></strong></p>
 
-                <div class="mt-4 flex flex-wrap gap-2 rounded-xl bg-mist p-1.5">
+                <div class="mt-4 flex flex-wrap gap-2 rounded-xl bg-mist p-1.5" role="tablist" aria-label="Método de pago">
                     <?php if ($hayManual): ?>
-                    <button type="button" @click="setTab('manual')" :class="tab === 'manual' ? 'bg-brand text-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-qrcode mr-1"></i> Yape / Plin</button>
+                    <button type="button" role="tab" :aria-selected="(tab === 'manual').toString()" @click="setTab('manual')" :class="tab === 'manual' ? 'bg-brand text-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-qrcode mr-1"></i> Yape / Plin</button>
                     <?php endif; ?>
-                    <button type="button" @click="setTab('paypal')" :class="tab === 'paypal' ? 'bg-brand text-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-credit-card mr-1"></i> PayPal / Tarjeta</button>
+                    <button type="button" role="tab" :aria-selected="(tab === 'paypal').toString()" @click="setTab('paypal')" :class="tab === 'paypal' ? 'bg-brand text-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-credit-card mr-1"></i> PayPal / Tarjeta</button>
                     <?php if ($hayHotmart): ?>
-                    <button type="button" @click="setTab('hotmart')" :class="tab === 'hotmart' ? 'bg-brand text-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-globe-americas mr-1"></i> Otros métodos</button>
+                    <button type="button" role="tab" :aria-selected="(tab === 'hotmart').toString()" @click="setTab('hotmart')" :class="tab === 'hotmart' ? 'bg-brand text-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-globe-americas mr-1"></i> Otros métodos</button>
                     <?php endif; ?>
                 </div>
 
                 <?php if ($hayManual): ?>
                 <!-- Yape / Plin -->
-                <div x-show="tab === 'manual'" x-cloak class="mt-5">
+                <div x-show="tab === 'manual'" x-cloak role="tabpanel" class="mt-5">
                     <div class="grid grid-cols-2 gap-3">
                         <button type="button" @click="manualMethod = 'yape'" :class="manualMethod === 'yape' ? 'border-purple-500 bg-purple-50 font-bold' : 'border-line'" class="rounded-xl border-2 px-3 py-3 text-sm">Yape</button>
                         <button type="button" @click="manualMethod = 'plin'" :class="manualMethod === 'plin' ? 'border-teal-500 bg-teal-50 font-bold' : 'border-line'" class="rounded-xl border-2 px-3 py-3 text-sm">Plin</button>
@@ -376,14 +380,16 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                         <p class="mt-3 text-sm text-muted">Escanea con tu app y paga a nombre de</p>
                         <p class="font-display text-lg font-bold" x-text="manualDetails[manualMethod].titular"></p>
                         <p class="mt-2 text-sm">Monto exacto: <strong class="text-brand">S/ <?= $fmt($d['js']['precioPen']) ?></strong></p>
+                        <a :href="manualDetails[manualMethod].qr" :download="'QR-' + manualDetails[manualMethod].nombre + '.jpg'" class="mt-3 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-brand px-5 text-sm font-bold text-brand hover:bg-mist"><i class="fas fa-download" aria-hidden="true"></i> Guardar el QR en mi celular</a>
+                        <p class="mt-1 max-w-xs text-xs text-muted">Desde el celular no puedes escanear tu propia pantalla: guarda el QR y ábrelo desde tu app (si permite elegir de la galería) o escanéalo desde otra pantalla.</p>
                     </div>
                     <div class="mt-5">
                         <label class="text-sm font-semibold">Sube la captura de tu pago
-                            <span class="mt-1 flex cursor-pointer flex-col items-center rounded-xl border-2 border-dashed border-line bg-surface px-4 py-6 text-center hover:border-brand">
+                            <span class="mt-1 flex cursor-pointer flex-col items-center rounded-xl border-2 border-dashed border-line bg-surface px-4 py-6 text-center hover:border-brand focus-within:border-brand focus-within:ring-2 focus-within:ring-brand">
                                 <i class="fas fa-upload text-2xl text-brand"></i>
                                 <span class="mt-2 text-sm font-semibold" x-text="voucherFile ? '✓ ' + voucherFile.name : 'Toca para elegir la imagen o PDF'"></span>
                                 <span class="text-xs font-normal text-muted">JPG, PNG o PDF</span>
-                                <input type="file" class="hidden" accept="image/*,application/pdf" @change="voucherFile = $event.target.files[0]">
+                                <input type="file" class="sr-only" accept="image/*,application/pdf" @change="voucherFile = $event.target.files[0]">
                             </span>
                         </label>
                     </div>
@@ -394,14 +400,14 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                 <?php endif; ?>
 
                 <!-- PayPal -->
-                <div x-show="tab === 'paypal'" x-cloak class="mt-5">
+                <div x-show="tab === 'paypal'" x-cloak role="tabpanel" class="mt-5">
                     <p class="text-sm text-muted">Paga con tu cuenta PayPal o con tarjeta de crédito o débito. PayPal cobra en dólares: <strong class="text-ink">US$ <span x-text="amountInUSD.toFixed(2)"></span></strong>.</p>
                     <div id="paypal-button-container" class="mt-4"></div>
                 </div>
 
                 <?php if ($hayHotmart): ?>
                 <!-- Hotmart (solo Mexico y solo cuando hay oferta con el precio de esta etapa) -->
-                <div x-show="tab === 'hotmart'" x-cloak class="mt-5">
+                <div x-show="tab === 'hotmart'" x-cloak role="tabpanel" class="mt-5">
                     <p class="text-sm text-muted">Paga con métodos de tu país (transferencia SPEI, OXXO, tarjeta local y más). El precio final se muestra en tu moneda local y puede incluir impuestos locales (por ejemplo, IVA).</p>
                     <template x-if="tab === 'hotmart'">
                         <iframe :src="CFG.hotmart" loading="lazy" allow="payment *" title="Pago con Hotmart" class="mt-4 w-full rounded-xl border border-line/60" style="height: 1900px;"></iframe>
@@ -411,17 +417,20 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                 <?php endif; ?>
             </div>
 
-            <p class="text-center text-sm text-sky-100"><i class="fas fa-file-invoice mr-1"></i> ¿Necesitas boleta o factura? <a href="<?= $e($waComprobante) ?>" target="_blank" rel="noopener" class="font-bold text-accent underline">Pídela por WhatsApp</a>. Se emite con IGV (18 %) adicional.</p>
+            <div class="text-center text-sm text-sky-100">
+                <p><i class="fas fa-file-invoice mr-1" aria-hidden="true"></i> ¿Necesitas boleta o factura? Se emite con IGV (18 %) adicional.</p>
+                <a href="<?= $e($waComprobante) ?>" target="_blank" rel="noopener" class="mt-2 inline-flex min-h-[44px] items-center gap-2 rounded-full bg-white/10 px-5 font-bold text-accent ring-1 ring-white/30 hover:bg-white/20"><i class="fab fa-whatsapp" aria-hidden="true"></i> Pedirla por WhatsApp</a>
+            </div>
         </div>
 
         <!-- Exito -->
-        <div x-show="success" x-cloak class="mt-8 rounded-3xl bg-white p-8 text-center shadow-2xl">
-            <div class="text-5xl">✅</div>
+        <div x-show="success" x-cloak role="status" aria-live="polite" class="mt-8 rounded-3xl bg-white p-8 text-center shadow-2xl">
+            <div class="text-5xl" aria-hidden="true">✅</div>
             <template x-if="metodoUsado === 'manual'">
                 <div>
                     <h3 class="mt-3 font-display text-2xl font-bold text-brand-dark">¡Comprobante recibido!</h3>
                     <p class="mt-2 text-muted">Validaremos tu pago y te enviaremos tus accesos. Para agilizarlo, escríbenos por WhatsApp confirmando tus datos.</p>
-                    <a href="<?= $wa ?>?text=<?= rawurlencode('Hola, acabo de subir mi comprobante para el curso ' . $d['curso'] . '. Mis nombres son:') ?>" target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 rounded-full bg-emerald-500 px-6 py-3 font-bold text-white shadow-lg"><i class="fab fa-whatsapp text-xl"></i> Escribir por WhatsApp</a>
+                    <a href="<?= $wa ?>?text=<?= rawurlencode('Hola, acabo de subir mi comprobante para el curso ' . $d['curso'] . '. Mis nombres son:') ?>" target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 font-bold text-white shadow-lg"><i class="fab fa-whatsapp text-xl"></i> Escribir por WhatsApp</a>
                 </div>
             </template>
             <template x-if="metodoUsado === 'paypal'">
@@ -439,7 +448,7 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
     <div class="max-w-6xl mx-auto px-4">
         <img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC" class="mx-auto h-10 w-auto">
         <p class="mt-3">Medios de pago: Yape · Plin · PayPal · Tarjeta de crédito o débito</p>
-        <p class="mt-1">informes@icc.com.pe · <a href="<?= $wa ?>" class="underline" target="_blank" rel="noopener">+51 941 208 020</a></p>
+        <p class="mt-1">informes@icc.com.pe · <a href="<?= $wa ?>" class="inline-flex min-h-[44px] items-center underline" target="_blank" rel="noopener">+51 941 208 020</a></p>
     </div>
 </footer>
 
@@ -475,6 +484,7 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
             dni: '', nombre: '', apellido: '', celular: '',
             enviando: false,
             success: false,
+            error: '',
             metodoUsado: null,
             cuenta: '--:--:--',
             manualDetails: {
@@ -532,17 +542,25 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                 setInterval(tick, 1000);
             },
 
+            mostrarError(msg) {
+                this.error = msg;
+                this.$nextTick(() => {
+                    const el = document.getElementById('error-pago');
+                    if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.focus({ preventScroll: true }); }
+                });
+            },
+
             datosCompletos() {
                 return this.dni.trim() && this.nombre.trim() && this.apellido.trim() && this.celular.trim();
             },
 
             enviarVoucher() {
                 if (!this.datosCompletos()) {
-                    alert('Por favor, completa tu DNI, nombres, apellidos y celular.');
+                    this.mostrarError('Por favor, completa tu DNI, nombres, apellidos y celular.');
                     return;
                 }
                 if (!this.voucherFile) {
-                    alert('Por favor, adjunta la captura de tu pago para continuar.');
+                    this.mostrarError('Por favor, adjunta la captura de tu pago para continuar.');
                     return;
                 }
                 const fd = new FormData();
@@ -553,6 +571,7 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                 fd.append('apellido', this.apellido);
                 fd.append('celular', this.celular);
 
+                this.error = '';
                 this.enviando = true;
                 fetch(CFG.base + 'checkout/voucher', { method: 'POST', body: fd })
                     .then(r => r.json())
@@ -563,10 +582,10 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                             this.voucherFile = null;
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                         } else {
-                            alert('Ocurrió un error: ' + (data.error || 'Error desconocido'));
+                            this.mostrarError('Ocurrió un error: ' + (data.error || 'Error desconocido'));
                         }
                     })
-                    .catch(() => alert('Error de conexión al subir el comprobante. Intenta nuevamente.'))
+                    .catch(() => this.mostrarError('Error de conexión al subir el comprobante. Intenta nuevamente.'))
                     .finally(() => { this.enviando = false; });
             },
 
@@ -579,9 +598,10 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                     onClick: function (data, actions) {
                         // No se abre el pago de PayPal sin los datos del alumno
                         if (!self.datosCompletos()) {
-                            alert('Por favor, completa tus datos (DNI, nombres, apellidos y celular) antes de pagar.');
+                            self.mostrarError('Por favor, completa tus datos (DNI, nombres, apellidos y celular) antes de pagar.');
                             return actions.reject();
                         }
+                        self.error = '';
                         return actions.resolve();
                     },
                     createOrder: function (data, actions) {
@@ -618,7 +638,7 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                     },
                     onError: function (err) {
                         console.error('PayPal Error:', err);
-                        alert('Hubo un inconveniente con el pago en PayPal. Por favor, intenta de nuevo.');
+                        self.mostrarError('Hubo un inconveniente con el pago en PayPal. Por favor, intenta de nuevo.');
                     }
                 }).render('#paypal-button-container');
             }

@@ -13,3 +13,8 @@ body { font-family: Inter, system-ui, sans-serif; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
   .animate-float, .animate-ping2 { animation: none; }
 }
+
+/* Accesibilidad: foco visible (contorno azul con halo blanco, se ve sobre fondos claros y oscuros) */
+:focus-visible { outline: 3px solid #2559a2; outline-offset: 2px; box-shadow: 0 0 0 2px #ffffff; }
+/* Texto de ejemplo de los campos con contraste suficiente sobre el fondo del campo */
+input::placeholder, textarea::placeholder { color: #5b6878; opacity: 1; }

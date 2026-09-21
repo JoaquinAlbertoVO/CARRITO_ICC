@@ -1,30 +1,25 @@
-/** Paleta de la marca ICC (azul de la portada y del logo, amarillo del multimetro de la mascota). */
+/**
+ * Paleta tomada de la pieza "Horario de clases" de ICC: azul real, azul marino, verde lima y blanco.
+ * Compila solo lo que usa checkout/v2.php.
+ */
 module.exports = {
   content: ['../../app/Views/checkout/v2.php'],
   theme: {
     extend: {
       colors: {
-        brand: '#2559a2',
-        'brand-dark': '#153f89',
-        deep: '#0f2f68',
-        ink: '#0b1c30',
-        surface: '#f5f8fd',
-        mist: '#eaf1fb',
-        line: '#c5d0e2',
-        muted: '#4a5568',
-        accent: '#ffc21a',
+        brand: '#0050f4',       // azul electrico (botones, encabezados de ficha)
+        'brand-dark': '#0049b7', // azul de fondo
+        deep: '#061660',        // azul marino (texto fuerte, pie)
+        ink: '#0a1640',
+        surface: '#f5f7fb',
+        mist: '#e8eefb',
+        line: '#c9d3ea',
+        muted: '#4b5573',
+        accent: '#cddd32',      // verde lima
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
-      },
-      keyframes: {
-        float: { '0%,100%': { transform: 'translateY(0) rotate(0deg)' }, '50%': { transform: 'translateY(-14px) rotate(6deg)' } },
-        ping2: { '0%': { transform: 'scale(1)', opacity: '.55' }, '100%': { transform: 'scale(1.12)', opacity: '0' } },
-      },
-      animation: {
-        float: 'float 6s ease-in-out infinite',
-        ping2: 'ping2 1.8s ease-out infinite',
       },
     },
   },

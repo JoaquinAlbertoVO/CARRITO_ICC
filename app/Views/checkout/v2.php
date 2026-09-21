@@ -29,8 +29,8 @@ $iconoBeneficio = function ($t) {
     return 'fas fa-check-circle';
 };
 // Colores por tarjeta (clases completas para que Tailwind las compile)
-$coloresTile = ['bg-brand text-white', 'bg-amber-600 text-white', 'bg-emerald-600 text-white', 'bg-orange-600 text-white', 'bg-rose-600 text-white', 'bg-teal-600 text-white'];
-$bordesModulo = ['border-brand', 'border-amber-600', 'border-emerald-600', 'border-orange-600', 'border-rose-600', 'border-teal-600'];
+$coloresTile = ['bg-brand text-white'];
+$bordesModulo = ['border-brand'];
 $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram', 'fas fa-file-invoice-dollar', 'fas fa-clipboard-check', 'fas fa-search'];
 ?>
 <!DOCTYPE html>
@@ -44,7 +44,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=3">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=4">
     <script>document.documentElement.classList.add('js');</script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>
@@ -83,14 +83,14 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
         </div>
     </div>
 </header>
-<div class="sticky top-0 z-40 bg-accent text-deep text-sm shadow-md">
+<div class="sticky top-0 z-40 bg-brand-dark text-white text-sm shadow-md">
         <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-3">
             <p class="flex items-center gap-2 min-w-0">
-                <i class="fas fa-bolt"></i>
+                <i class="fas fa-bolt text-accent"></i>
                 <span class="truncate font-bold"><?= $e($d['etapaNombre']) ?>: <?= $d['simbolo'] ?><?= $fmt($d['precio']) ?><?php if ($d['aviso']): ?><span class="hidden sm:inline font-medium"> · <?= $e($d['aviso']) ?></span><?php endif; ?></span>
             </p>
             <?php if ($d['js']['hastaMs']): ?>
-            <span class="shrink-0 rounded-full bg-deep px-3 py-0.5 font-mono text-xs font-bold text-accent" title="Tiempo restante de este precio"><i class="far fa-clock mr-1"></i><span x-text="cuenta">--:--:--</span></span>
+            <span class="shrink-0 rounded-full bg-accent px-3 py-0.5 font-mono text-xs font-bold text-deep" title="Tiempo restante de este precio"><i class="far fa-clock mr-1"></i><span x-text="cuenta">--:--:--</span></span>
             <?php endif; ?>
         </div>
 </div>
@@ -98,11 +98,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
 <main id="contenido">
 <!-- Hero -->
 <section class="relative overflow-hidden bg-brand-dark bg-cover bg-center text-white" style="background-image: url('<?= $e($fondo) ?>');">
-    <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-deep/70 via-brand-dark/40 to-brand/30"></div>
-    <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/25 blur-3xl"></div>
-    <div class="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-sky-300/20 blur-3xl"></div>
-    <i class="fas fa-bolt pointer-events-none absolute right-[8%] top-16 hidden text-6xl text-accent/30 animate-float lg:block"></i>
-    <i class="fas fa-cog pointer-events-none absolute left-[46%] bottom-16 hidden text-5xl text-white/10 animate-float lg:block"></i>
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-deep/40 via-transparent to-deep/20"></div>
 
     <div class="relative max-w-6xl mx-auto px-4 pb-16 pt-10 lg:pt-14 grid lg:grid-cols-12 gap-10 items-start">
         <div class="lg:col-span-7">
@@ -111,7 +107,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
                 <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-dark"><i class="far fa-clock mr-1"></i><?= (int)$d['horas'] ?> horas académicas</span>
                 <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-dark"><i class="far fa-calendar-alt mr-1"></i>Inicio: <?= $e($d['inicioCorto']) ?></span>
             </div>
-            <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight drop-shadow">
+            <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
                 <?= $e($d['titulo'][0]) ?> <span class="text-accent"><?= $e($d['titulo'][1]) ?></span>
             </h1>
             <p class="mt-4 max-w-2xl text-base sm:text-lg text-sky-50"><?= $e($d['subtitulo']) ?></p>
@@ -126,24 +122,21 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
         </div>
 
         <div class="lg:col-span-5">
-            <div class="relative rounded-3xl bg-white p-6 pt-8 text-ink shadow-2xl ring-4 ring-accent/60">
+            <div class="relative rounded-2xl border-t-4 border-accent bg-white p-6 pt-8 text-ink shadow-xl">
                 <?php if ($d['descuento'] > 0): ?>
-                <div class="absolute -right-3 -top-5 flex h-20 w-20 rotate-12 flex-col items-center justify-center rounded-full bg-accent font-display font-extrabold leading-none text-deep shadow-lg ring-4 ring-white">
-                    <span class="text-2xl">-<?= (int)$d['descuento'] ?>%</span><span class="text-xs uppercase">dscto.</span>
-                </div>
+                <span class="absolute right-5 top-5 rounded-md bg-accent px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-deep">-<?= (int)$d['descuento'] ?> % dscto.</span>
                 <?php endif; ?>
                 <span class="rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase tracking-wide text-white"><?= $e($d['etapaNombre']) ?></span>
                 <div class="mt-4 flex items-end gap-2">
-                    <span class="font-display text-5xl font-extrabold text-brand-dark"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?></span>
+                    <span class="font-display text-5xl font-bold text-brand-dark"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?></span>
                     <span class="pb-2 text-sm font-bold text-muted"><?= $e($d['moneda']) ?></span>
                 </div>
                 <p class="mt-1 text-sm text-muted">Precio regular <span class="line-through"><?= $d['simbolo'] ?><?= $fmt($d['precioRegular']) ?></span></p>
                 <?php if ($d['aviso']): ?>
-                <p class="mt-4 rounded-xl bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-900 ring-1 ring-amber-200"><i class="fas fa-arrow-up mr-1"></i><?= $e($d['aviso']) ?></p>
+                <p class="mt-4 rounded-xl bg-mist px-3 py-2 text-sm font-semibold text-deep ring-1 ring-brand/20"><i class="fas fa-arrow-up mr-1"></i><?= $e($d['aviso']) ?></p>
                 <?php endif; ?>
                 <div class="relative mt-6">
-                    <span class="absolute inset-0 animate-ping2 rounded-xl bg-accent"></span>
-                    <a href="#inscripcion" class="relative flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-4 font-display text-base font-extrabold text-deep shadow-lg hover:brightness-95">
+                    <a href="#inscripcion" class="relative flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-4 font-display text-base font-bold text-deep shadow-lg hover:brightness-95">
                         Inscribirme por <?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <i class="fas fa-arrow-down"></i>
                     </a>
                 </div>
@@ -159,7 +152,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
 <!-- Que incluye -->
 <section class="bg-white pb-12 pt-4">
     <div class="max-w-6xl mx-auto px-4">
-        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Todo lo que incluye tu inscripción</h2>
+        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Todo lo que incluye tu inscripción</h2>
         <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <?php foreach ($d['beneficios'] as $i => $b): ?>
             <div class="reveal flex items-center gap-4 rounded-2xl bg-mist p-4 transition hover:-translate-y-1 hover:shadow-lg">
@@ -175,8 +168,8 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
 <!-- Video -->
 <section class="bg-gradient-to-b from-white to-mist px-4 py-12">
     <div class="max-w-4xl mx-auto">
-        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Conoce el curso</h2>
-        <div x-data="{ play: false }" class="reveal relative mt-6 aspect-video overflow-hidden rounded-3xl bg-deep shadow-2xl ring-4 ring-white">
+        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Conoce el curso</h2>
+        <div x-data="{ play: false }" class="reveal relative mt-6 aspect-video overflow-hidden rounded-2xl bg-deep shadow-2xl ring-4 ring-white">
             <template x-if="!play">
                 <button type="button" @click="play = true" class="group absolute inset-0 h-full w-full" aria-label="Reproducir video del curso">
                     <img src="https://i.ytimg.com/vi/<?= $e($d['video']) ?>/hqdefault.jpg" alt="" loading="lazy" class="h-full w-full object-cover opacity-90">
@@ -194,10 +187,10 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
 <?php endif; ?>
 
 <!-- Temario -->
-<section class="bg-mist py-12">
+<section id="temario" class="scroll-mt-28 bg-mist py-12">
     <div class="max-w-6xl mx-auto px-4">
         <p class="reveal text-center text-sm font-bold uppercase tracking-wider text-brand">Plan de estudios</p>
-        <h2 class="reveal mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Temario del curso</h2>
+        <h2 class="reveal mt-1 text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Temario del curso</h2>
         <div class="mt-8 grid gap-4 md:grid-cols-2">
             <?php $n = 0; foreach ($d['temas'] as $titulo => $items): $c = $n % count($coloresTile); $n++; ?>
             <div class="reveal rounded-2xl border-t-4 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg <?= $bordesModulo[$c] ?>" x-data="{ open: window.innerWidth >= 768 }">
@@ -212,7 +205,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
                 </button>
                 <ul x-show="open" x-cloak class="mt-3 space-y-1.5 text-sm text-muted">
                     <?php foreach ($items as $corto => $completo): ?>
-                    <li class="flex gap-2"><i class="fas fa-check-circle mt-1 text-xs text-emerald-500"></i><span><?= $e($completo) ?></span></li>
+                    <li class="flex gap-2"><i class="fas fa-check-circle mt-1 text-xs text-brand"></i><span><?= $e($completo) ?></span></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -220,10 +213,10 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
         </div>
 
         <?php if (!empty($d['extra'])): $x = $d['extra']; ?>
-        <div class="reveal relative mt-6 overflow-hidden rounded-3xl bg-brand-dark bg-cover p-6 text-white shadow-xl sm:p-8" style="background-image: url('<?= $e($fondo) ?>');">
+        <div class="reveal relative mt-6 overflow-hidden rounded-2xl bg-brand-dark bg-cover p-6 text-white shadow-xl sm:p-8" style="background-image: url('<?= $e($fondo) ?>');">
             <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-deep/80 to-brand/40"></div>
             <div class="relative">
-                <h3 class="flex items-center gap-3 font-display text-xl sm:text-2xl font-extrabold"><span class="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-deep shadow-lg"><i class="fas fa-lightbulb"></i></span> <?= $e($x['titulo']) ?></h3>
+                <h3 class="flex items-center gap-3 font-display text-xl sm:text-2xl font-bold"><span class="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-deep shadow-lg"><i class="fas fa-lightbulb"></i></span> <?= $e($x['titulo']) ?></h3>
                 <p class="mt-3 max-w-3xl text-sky-50"><?= $e($x['intro']) ?></p>
                 <ul class="mt-4 grid gap-2 sm:grid-cols-2 text-sm">
                     <?php foreach ($x['items'] as $it): ?>
@@ -238,17 +231,19 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
 </section>
 
 <!-- Cronograma -->
-<section class="bg-white py-12">
+<section id="cronograma" class="scroll-mt-28 bg-white py-12">
     <div class="max-w-6xl mx-auto px-4">
         <p class="reveal text-center text-sm font-bold uppercase tracking-wider text-brand">Cronograma</p>
-        <h2 class="reveal mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Empezamos el <?= $e($d['inicioLargo']) ?></h2>
-        <p class="reveal mx-auto mt-2 max-w-2xl text-center text-muted"><?= count($d['sesiones']) ?> clases en vivo por Zoom<?php if (!empty($d['hora'])): ?>, de <?= $e($d['hora']) ?><?php endif; ?>.</p>
+        <h2 class="reveal mt-1 text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Empezamos el <?= $e($d['inicioLargo']) ?></h2>
+        <p class="reveal mx-auto mt-2 max-w-2xl text-center text-muted"><?= count($d['sesiones']) ?> clases en vivo por Zoom<?php if (!empty($d['hora'])): ?>, de <?= $e($d['hora']) ?> (hora de Perú, Colombia, Ecuador y Panamá)<?php endif; ?>.</p>
         <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             <?php foreach ($d['sesiones'] as $i => $s): ?>
-            <div class="reveal overflow-hidden rounded-2xl bg-white text-center shadow-md ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-xl">
-                <div class="py-1.5 text-xs font-bold uppercase tracking-widest <?= $i === 0 ? 'bg-accent text-deep' : 'bg-brand text-white' ?>"><?= $e($s['mes']) ?></div>
-                <div class="pt-3 font-display text-5xl font-extrabold leading-none text-brand-dark"><?= (int)$s['dia'] ?></div>
-                <div class="pt-1 text-sm font-semibold capitalize text-muted"><?= $e($s['semana']) ?></div>
+            <div class="reveal overflow-hidden rounded-xl bg-white text-center shadow-md ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-lg">
+                <div class="py-1.5 text-xs font-bold uppercase tracking-widest <?= $i === 0 ? 'bg-accent text-deep' : 'bg-brand text-white' ?>"><?= $e($s['semana']) ?></div>
+                <div class="pt-3 font-display text-5xl font-bold leading-none text-deep"><?= (int)$s['dia'] ?></div>
+                <div class="pt-1 text-sm font-semibold uppercase tracking-wide text-muted"><?= $e($s['mes']) ?></div>
+                <div class="pt-3 text-xs font-semibold text-brand"><i class="fas fa-video mr-1" aria-hidden="true"></i>Online · Zoom</div>
+                <?php if (!empty($d['hora'])): ?><div class="pt-1 text-xs text-muted"><i class="far fa-clock mr-1" aria-hidden="true"></i><?= $e($d['hora']) ?></div><?php endif; ?>
                 <div class="py-3"><span class="rounded-full bg-mist px-3 py-1 text-xs font-bold text-brand"><?= $i === 0 ? 'Inicio · ' : '' ?>Clase <?= (int)$s['n'] ?></span></div>
             </div>
             <?php endforeach; ?>
@@ -257,28 +252,28 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
 </section>
 
 <!-- Escalera de precios -->
-<section class="bg-mist py-12">
+<section id="precios" class="scroll-mt-28 bg-mist py-12">
     <div class="max-w-5xl mx-auto px-4">
         <p class="reveal text-center text-sm font-bold uppercase tracking-wider text-brand">Precio por fechas</p>
-        <h2 class="reveal mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Mientras antes te inscribes, menos pagas</h2>
+        <h2 class="reveal mt-1 text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Mientras antes te inscribes, menos pagas</h2>
         <div class="mt-10 grid gap-5 md:grid-cols-3 md:items-end">
             <?php foreach ($d['etapas'] as $et): ?>
             <?php if ($et['estado'] === 'actual'): ?>
-            <div class="reveal relative rounded-3xl bg-brand-dark p-7 text-white shadow-2xl ring-4 ring-accent md:-translate-y-3">
-                <span class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-accent px-4 py-1 text-xs font-extrabold uppercase tracking-wide text-deep shadow"><i class="fas fa-bolt mr-1"></i>Precio de hoy</span>
+            <div class="reveal relative rounded-2xl bg-brand-dark p-7 text-white shadow-2xl ring-2 ring-accent md:-translate-y-2">
+                <span class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-accent px-4 py-1 text-xs font-bold uppercase tracking-wide text-deep shadow"><i class="fas fa-bolt mr-1"></i>Precio de hoy</span>
                 <p class="text-sm font-bold uppercase tracking-wide text-sky-100"><?= $e($et['nombre']) ?></p>
-                <p class="mt-2 font-display text-5xl font-extrabold text-accent"><?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></p>
+                <p class="mt-2 font-display text-5xl font-bold text-accent"><?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></p>
                 <p class="mt-2 text-sm text-sky-100"><?= $e($et['rango']) ?></p>
-                <a href="#inscripcion" class="mt-5 flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3 font-display font-extrabold text-deep shadow hover:brightness-95">Inscribirme por <?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></a>
+                <a href="#inscripcion" class="mt-5 flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3 font-display font-bold text-deep shadow hover:brightness-95">Inscribirme por <?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></a>
             <?php elseif ($et['estado'] === 'pasada'): ?>
-            <div class="reveal rounded-3xl bg-white p-6 opacity-60 shadow-sm">
+            <div class="reveal rounded-2xl bg-white p-6 opacity-60 shadow-sm">
                 <p class="text-sm font-bold uppercase tracking-wide text-muted"><?= $e($et['nombre']) ?></p>
-                <p class="mt-2 font-display text-4xl font-extrabold text-muted line-through"><?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></p>
+                <p class="mt-2 font-display text-4xl font-bold text-muted line-through"><?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></p>
                 <p class="mt-2 text-sm text-muted"><?= $e($et['rango']) ?> (finalizada)</p>
             <?php else: ?>
-            <div class="reveal rounded-3xl bg-white p-6 shadow-md">
+            <div class="reveal rounded-2xl bg-white p-6 shadow-md">
                 <p class="text-sm font-bold uppercase tracking-wide text-muted"><?= $e($et['nombre']) ?></p>
-                <p class="mt-2 font-display text-4xl font-extrabold text-brand-dark"><?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></p>
+                <p class="mt-2 font-display text-4xl font-bold text-brand-dark"><?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></p>
                 <p class="mt-2 text-sm text-muted"><?= $e($et['rango']) ?></p>
             <?php endif; ?>
             </div>
@@ -291,7 +286,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
 <!-- Galeria -->
 <section class="bg-white py-12">
     <div class="max-w-6xl mx-auto px-4">
-        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Así se trabaja en el curso</h2>
+        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Así se trabaja en el curso</h2>
         <div class="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
             <?php foreach ($d['galeria'] as $img): ?>
             <img src="<?= $e($img['url']) ?>" alt="" loading="lazy" class="reveal aspect-[4/3] w-full rounded-2xl object-cover shadow-md">
@@ -309,9 +304,9 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
 <!-- Testimonios (imagenes reales de alumnos) -->
 <section class="bg-mist py-12">
     <div class="max-w-6xl mx-auto px-4">
-        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Lo que dicen nuestros alumnos</h2>
+        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Lo que dicen nuestros alumnos</h2>
         <?php foreach ($testAnchas as $t): ?>
-        <img src="<?= $e($t['url']) ?>" alt="Opiniones de alumnos de ICC" loading="lazy" class="reveal mx-auto mt-8 w-full max-w-4xl rounded-3xl shadow-xl ring-4 ring-white">
+        <img src="<?= $e($t['url']) ?>" alt="Opiniones de alumnos de ICC" loading="lazy" class="reveal mx-auto mt-8 w-full max-w-4xl rounded-2xl shadow-xl ring-4 ring-white">
         <?php endforeach; ?>
         <?php if ($testVerticales): ?>
         <div class="mt-8 flex snap-x gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-4">
@@ -329,13 +324,13 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-deep/70 to-brand-dark/50"></div>
     <div class="relative max-w-3xl mx-auto px-4">
         <p class="text-center text-sm font-bold uppercase tracking-wider text-accent">Inscripción</p>
-        <h2 class="mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold text-white">Completa tu inscripción</h2>
+        <h2 class="mt-1 text-center font-display text-2xl sm:text-3xl font-bold text-white">Completa tu inscripción</h2>
 
         <div x-show="!success" class="mt-8 space-y-6">
             <div x-show="error" x-cloak id="error-pago" role="alert" tabindex="-1" class="rounded-2xl border-2 border-red-600 bg-red-50 p-4 text-sm font-semibold text-red-800"><i class="fas fa-exclamation-circle mr-2" aria-hidden="true"></i><span x-text="error"></span></div>
             <!-- Paso 1 -->
-            <div class="rounded-3xl bg-white p-6 shadow-2xl">
-                <h3 class="flex items-center gap-3 font-display text-lg font-bold text-brand-dark"><span class="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-extrabold text-deep">1</span> Datos del participante</h3>
+            <div class="rounded-2xl bg-white p-6 shadow-2xl">
+                <h3 class="flex items-center gap-3 font-display text-lg font-bold text-brand-dark"><span class="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-bold text-deep">1</span> Datos del participante</h3>
                 <p class="mt-1 text-sm text-muted">Con estos datos se emite tu certificado.</p>
                 <div class="mt-4 grid gap-4 sm:grid-cols-2">
                     <label class="sm:col-span-2 text-sm font-semibold">DNI o documento de identidad
@@ -354,8 +349,8 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
             </div>
 
             <!-- Paso 2 -->
-            <div class="rounded-3xl bg-white p-6 shadow-2xl">
-                <h3 class="flex items-center gap-3 font-display text-lg font-bold text-brand-dark"><span class="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-extrabold text-deep">2</span> Método de pago</h3>
+            <div class="rounded-2xl bg-white p-6 shadow-2xl">
+                <h3 class="flex items-center gap-3 font-display text-lg font-bold text-brand-dark"><span class="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-bold text-deep">2</span> Método de pago</h3>
                 <p class="mt-1 text-sm text-muted">Total a pagar: <strong class="text-brand"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <?= $e($d['moneda']) ?></strong></p>
 
                 <div class="mt-4 flex flex-wrap gap-2 rounded-xl bg-mist p-1.5" role="tablist" aria-label="Método de pago">
@@ -393,7 +388,7 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                             </span>
                         </label>
                     </div>
-                    <button type="button" @click="enviarVoucher()" :disabled="enviando" class="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-5 py-4 font-display font-extrabold text-deep shadow-lg hover:brightness-95 disabled:opacity-60">
+                    <button type="button" @click="enviarVoucher()" :disabled="enviando" class="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-5 py-4 font-display font-bold text-deep shadow-lg hover:brightness-95 disabled:opacity-60">
                         <i class="fas fa-check-circle"></i> <span x-text="enviando ? 'Enviando…' : 'Confirmar mi inscripción'"></span>
                     </button>
                 </div>
@@ -424,7 +419,7 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
         </div>
 
         <!-- Exito -->
-        <div x-show="success" x-cloak role="status" aria-live="polite" class="mt-8 rounded-3xl bg-white p-8 text-center shadow-2xl">
+        <div x-show="success" x-cloak role="status" aria-live="polite" class="mt-8 rounded-2xl bg-white p-8 text-center shadow-2xl">
             <div class="text-5xl" aria-hidden="true">✅</div>
             <template x-if="metodoUsado === 'manual'">
                 <div>
@@ -456,12 +451,160 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
 <div class="fixed inset-x-0 bottom-0 z-40 border-t border-line/60 bg-white p-3 shadow-[0_-4px_16px_rgba(0,0,0,0.12)] md:hidden">
     <div class="mx-auto flex max-w-md items-center justify-between gap-3">
         <div>
-            <p class="font-display text-xl font-extrabold leading-none text-brand-dark"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <span class="text-xs font-semibold text-muted line-through"><?= $d['simbolo'] ?><?= $fmt($d['precioRegular']) ?></span></p>
+            <p class="font-display text-xl font-bold leading-none text-brand-dark"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <span class="text-xs font-semibold text-muted line-through"><?= $d['simbolo'] ?><?= $fmt($d['precioRegular']) ?></span></p>
             <?php if ($d['js']['hastaMs']): ?><p class="mt-0.5 text-xs font-bold text-red-600"><i class="far fa-clock"></i> <span x-text="cuenta"></span></p><?php endif; ?>
         </div>
-        <a href="#inscripcion" class="rounded-xl bg-accent px-5 py-3 font-display text-sm font-extrabold text-deep shadow-md">Inscribirme</a>
+        <a href="#inscripcion" class="rounded-xl bg-accent px-5 py-3 font-display text-sm font-bold text-deep shadow-md">Inscribirme</a>
     </div>
 </div>
+
+<?php
+// Consejos que Bruno muestra al llegar a cada seccion (solo datos reales de la oferta)
+$tipsBruno = [];
+if (!empty($d['hora'])) {
+    $tipsBruno[] = ['sel' => '#cronograma', 'texto' => 'Todas las clases son de ' . $d['hora'] . ' por Zoom.'];
+}
+$tipsBruno[] = ['sel' => '#precios', 'texto' => 'Hoy el precio es ' . $d['simbolo'] . $fmt($d['precio']) . '.' . ($d['aviso'] ? ' ' . $d['aviso'] . '.' : '')];
+$tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige cómo pagar. Si tienes dudas, escríbenos.', 'wa' => true];
+?>
+<!-- Bruno, mascota de ICC: camina con el scroll, salta al dar un consejo y ayuda a navegar -->
+<div id="bruno" class="bruno" data-tips="<?= $e(json_encode($tipsBruno, JSON_UNESCAPED_UNICODE)) ?>" data-wa="<?= $e($wa) ?>">
+    <div id="bruno-burbuja" class="bruno-burbuja" role="status" aria-live="polite" hidden></div>
+    <button type="button" id="bruno-btn" class="bruno-btn" aria-label="Ingeniero Bruno, asistente de ICC. Abrir ayuda" aria-expanded="false">
+        <span class="bruno-flip"><img class="bruno-sprite" src="<?= BASE_URL ?>assets/images/mascota/bruno.webp" alt="" width="340" height="587" decoding="async"></span>
+    </button>
+</div>
+
+<script>
+(function () {
+    const el = document.getElementById('bruno');
+    if (!el) return;
+    try { if (localStorage.getItem('bruno_oculto') === '1') { el.remove(); return; } } catch (e) {}
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const btn = document.getElementById('bruno-btn');
+    const burbuja = document.getElementById('bruno-burbuja');
+    const tips = JSON.parse(el.dataset.tips || '[]');
+    const wa = el.dataset.wa;
+    let ultimo = window.scrollY, ticking = false, caminaT = null, ocultaT = null, x = 8;
+
+    function posicionarBurbuja() {
+        burbuja.classList.toggle('bruno-burbuja-der', x + 240 > window.innerWidth);
+    }
+
+    function actualizar() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const prog = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        const margen = 8, ancho = el.offsetWidth;
+        x = margen + prog * (window.innerWidth - ancho - margen * 2);
+        el.style.transform = 'translateX(' + x.toFixed(1) + 'px)';
+        const dif = window.scrollY - ultimo;
+        if (Math.abs(dif) > 2) {
+            el.classList.toggle('flip', dif < 0); // mira hacia donde camina
+            if (!reduce) {
+                el.classList.add('walking');
+                clearTimeout(caminaT);
+                caminaT = setTimeout(() => el.classList.remove('walking'), 200);
+            }
+        }
+        ultimo = window.scrollY;
+        ticking = false;
+        posicionarBurbuja();
+    }
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(actualizar); } }, { passive: true });
+    window.addEventListener('resize', actualizar);
+    actualizar();
+
+    function saltar() {
+        if (reduce) return;
+        el.classList.remove('jumping');
+        void el.offsetWidth;
+        el.classList.add('jumping');
+        setTimeout(() => el.classList.remove('jumping'), 900);
+    }
+
+    function cerrar() {
+        burbuja.hidden = true;
+        burbuja.textContent = '';
+        btn.setAttribute('aria-expanded', 'false');
+        clearTimeout(ocultaT);
+    }
+
+    function enlace(texto, href, ext) {
+        const a = document.createElement('a');
+        a.textContent = texto;
+        a.href = href;
+        a.className = 'bruno-accion';
+        if (ext) { a.target = '_blank'; a.rel = 'noopener'; }
+        a.addEventListener('click', cerrar);
+        return a;
+    }
+
+    function mostrar(texto, acciones, autocierre) {
+        burbuja.textContent = '';
+        const cerrarBtn = document.createElement('button');
+        cerrarBtn.type = 'button';
+        cerrarBtn.className = 'bruno-cerrar';
+        cerrarBtn.setAttribute('aria-label', 'Cerrar mensaje');
+        cerrarBtn.textContent = '×';
+        cerrarBtn.addEventListener('click', cerrar);
+        const p = document.createElement('p');
+        p.textContent = texto;
+        burbuja.append(cerrarBtn, p);
+        (acciones || []).forEach(a => burbuja.appendChild(a));
+        burbuja.hidden = false;
+        posicionarBurbuja();
+        saltar();
+        clearTimeout(ocultaT);
+        if (autocierre) ocultaT = setTimeout(cerrar, 9000);
+    }
+
+    function menu() {
+        const ocultar = document.createElement('button');
+        ocultar.type = 'button';
+        ocultar.className = 'bruno-accion bruno-accion-sec';
+        ocultar.textContent = 'Ocultar a Bruno';
+        ocultar.addEventListener('click', () => {
+            try { localStorage.setItem('bruno_oculto', '1'); } catch (e) {}
+            el.remove();
+        });
+        mostrar('Hola, soy Bruno, el ingeniero de ICC. ¿Te ayudo?', [
+            enlace('Ver el horario', '#cronograma'),
+            enlace('Inscribirme', '#inscripcion'),
+            enlace('Hablar por WhatsApp', wa, true),
+            ocultar
+        ], false);
+        btn.setAttribute('aria-expanded', 'true');
+    }
+
+    btn.addEventListener('click', () => { burbuja.hidden ? menu() : cerrar(); });
+
+    // Consejos automaticos: una sola vez por seccion y sin interrumpir mientras se escribe
+    const escribiendo = () => /^(INPUT|TEXTAREA)$/.test((document.activeElement || {}).tagName || '');
+    if ('IntersectionObserver' in window) {
+        tips.forEach(t => {
+            const sec = document.querySelector(t.sel);
+            if (!sec) return;
+            const io = new IntersectionObserver((entradas) => {
+                entradas.forEach(en => {
+                    if (!en.isIntersecting || escribiendo() || !burbuja.hidden) return;
+                    io.disconnect();
+                    mostrar(t.texto, t.wa ? [enlace('Escribir por WhatsApp', wa, true)] : [], true);
+                });
+            }, { threshold: 0.35 });
+            io.observe(sec);
+        });
+    }
+
+    // Saludo inicial (una vez por visita)
+    try {
+        if (!sessionStorage.getItem('bruno_saludo')) {
+            sessionStorage.setItem('bruno_saludo', '1');
+            setTimeout(() => { if (burbuja.hidden && !escribiendo()) mostrar('Hola, soy Bruno. Toca si necesitas ayuda.', [], true); }, 5000);
+        }
+    } catch (e) {}
+})();
+</script>
 
 <script>
     const CFG = <?= $js ?>;

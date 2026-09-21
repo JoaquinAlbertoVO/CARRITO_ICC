@@ -18,3 +18,31 @@ body { font-family: Inter, system-ui, sans-serif; }
 :focus-visible { outline: 3px solid #2559a2; outline-offset: 2px; box-shadow: 0 0 0 2px #ffffff; }
 /* Texto de ejemplo de los campos con contraste suficiente sobre el fondo del campo */
 input::placeholder, textarea::placeholder { color: #5b6878; opacity: 1; }
+
+/* Bruno, mascota de ICC */
+.bruno { position: fixed; left: 0; bottom: 62px; z-index: 30; width: 76px; pointer-events: none; will-change: transform; }
+@media (min-width: 768px) { .bruno { bottom: -10px; width: 128px; } }
+.bruno-btn { pointer-events: auto; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer;
+  filter: drop-shadow(0 6px 10px rgba(6, 22, 96, .35)); }
+.bruno-flip { display: block; transition: transform .25s ease; }
+.bruno.flip .bruno-flip { transform: scaleX(-1); }
+.bruno-sprite { display: block; width: 100%; height: auto; transform-origin: 50% 100%; animation: bruno-bob 3.2s ease-in-out infinite; }
+.bruno.walking .bruno-sprite { animation: bruno-walk .38s ease-in-out infinite; }
+.bruno.jumping .bruno-sprite { animation: bruno-jump .8s ease-out 1; }
+@keyframes bruno-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes bruno-walk { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-6px) rotate(3deg); } }
+@keyframes bruno-jump {
+  0% { transform: translateY(0) scale(1, 1); } 15% { transform: translateY(0) scale(1.06, .92); }
+  45% { transform: translateY(-26px) scale(.96, 1.06); } 75% { transform: translateY(0) scale(1.05, .94); } 100% { transform: translateY(0) scale(1, 1); }
+}
+.bruno-burbuja { position: absolute; left: 0; bottom: calc(100% + 6px); width: 230px; max-width: calc(100vw - 16px); pointer-events: auto;
+  padding: 12px 34px 12px 14px; border-radius: 12px; background: #fff; color: #0a1640; font-size: 14px; line-height: 1.35;
+  box-shadow: 0 8px 24px rgba(6, 22, 96, .25); border-top: 3px solid #cddd32; }
+.bruno-burbuja[hidden] { display: none; }
+.bruno-burbuja-der { left: auto; right: 0; }
+.bruno-cerrar { position: absolute; right: 4px; top: 2px; width: 32px; height: 32px; border: 0; background: none; font-size: 22px; line-height: 1; color: #4b5573; cursor: pointer; }
+.bruno-accion { display: flex; align-items: center; min-height: 44px; margin-top: 6px; padding: 0 12px; border-radius: 8px; border: 1px solid #0050f4;
+  background: #fff; color: #0050f4; font-weight: 700; font-size: 14px; text-decoration: none; cursor: pointer; width: 100%; }
+.bruno-accion:hover { background: #e8eefb; }
+.bruno-accion-sec { border-color: #c9d3ea; color: #4b5573; font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .bruno-sprite, .bruno.walking .bruno-sprite, .bruno.jumping .bruno-sprite { animation: none !important; } .bruno-flip { transition: none; } }

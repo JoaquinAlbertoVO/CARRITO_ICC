@@ -9,6 +9,16 @@ namespace App\Helpers;
  * solo cambia lo que ve quien entra con ese link.
  */
 class OfertasCheckout {
+    /**
+     * Ofertas de Hotmart de prueba (?hm=clave): fuerzan el recuadro de Hotmart con ese link
+     * para probar un pago real de punta a punta dentro del iframe con muy poca plata.
+     * Borrar la oferta en Hotmart (y esta fila) cuando termine la prueba: quien tenga el
+     * link podria comprar el curso a ese precio.
+     */
+    const HOTMART_PRUEBAS = [
+        's4' => 'https://pay.hotmart.com/G107652272C?off=m34xui0w', // Especializacion, S/ 4
+    ];
+
     const OFERTAS = [
         'sistema-ia' => [
             // Ofertas de Hotmart del mismo producto ("Especializacion en Electricidad Industrial

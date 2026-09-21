@@ -67,6 +67,18 @@ class CheckoutController extends Controller {
             }
         }
 
+        // ?hm=clave: link de prueba que fuerza el recuadro de Hotmart con una oferta de prueba
+        // (ver OfertasCheckout::HOTMART_PRUEBAS); solo acepta claves de esa lista.
+        if ($cursoDB && !empty($_GET['hm'])) {
+            require_once __DIR__ . '/../Helpers/OfertasCheckout.php';
+            $linkPrueba = \App\Helpers\OfertasCheckout::HOTMART_PRUEBAS[(string)$_GET['hm']] ?? null;
+            if ($linkPrueba !== null) {
+                $hotmartLink = $linkPrueba;
+                $hotmartOferta = true;
+                $reglasPais['metodos'] = ['hotmart'];
+            }
+        }
+
         $this->view('checkout/index', [
             'cursoDB' => $cursoDB,
             'paisDetectado' => $paisDetectado,

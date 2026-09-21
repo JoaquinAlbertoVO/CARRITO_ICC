@@ -1,0 +1,11 @@
+{
+  "name": "icc-tailwind",
+  "private": true,
+  "description": "Compila el CSS del checkout v2 (assets/css/checkout-v2.css). Uso: npm install && npm run build",
+  "scripts": {
+    "build": "tailwindcss -c tailwind.config.js -i input.css -o ../../assets/css/checkout-v2.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

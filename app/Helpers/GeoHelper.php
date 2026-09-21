@@ -20,12 +20,15 @@ class GeoHelper {
     // "manual" = Yape/Plin (solo Peru). "paypal" = funciona en cualquier pais.
     // "hotmart" = link a Hotmart, con mas metodos locales segun el pais del comprador
     // (OXXO, Mercado Pago, PSE, Nequi, etc. - se activan dentro del panel de Hotmart).
+    // Hotmart (mas caro en comisiones que PayPal directo) queda solo como opcion para Mexico,
+    // donde sus metodos locales (SPEI, OXXO) hacen la diferencia; no es el predeterminado.
     const REGLAS_POR_PAIS = [
         'PE' => ['moneda' => 'PEN', 'metodos' => ['manual', 'paypal']],
+        'MX' => ['moneda' => 'USD', 'metodos' => ['paypal', 'hotmart']],
     ];
 
     // Cualquier pais que no esté explícitamente en REGLAS_POR_PAIS cae aquí
-    const REGLA_INTERNACIONAL = ['moneda' => 'USD', 'metodos' => ['paypal', 'hotmart']];
+    const REGLA_INTERNACIONAL = ['moneda' => 'USD', 'metodos' => ['paypal']];
 
     public static function detectarPais() {
         // Cache en sesion: si el visitante recarga el checkout varias veces, no volvemos

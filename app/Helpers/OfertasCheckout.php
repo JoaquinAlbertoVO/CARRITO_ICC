@@ -30,6 +30,34 @@ class OfertasCheckout {
                 'PEN' => 'https://pay.hotmart.com/G107652272C?off=ius4rna9',
                 'USD' => 'https://pay.hotmart.com/G107652272C?off=ndvqfw67',
             ],
+            // ---- Pagina de checkout v2 (?diseno=2) ----
+            // Nombre real del curso en la BD (lo usan el pago y la matricula).
+            'curso' => 'Especializacion en Electricidad Industrial',
+            'horas' => 30,
+            'inicio' => '2026-10-20',
+            'video' => 'lvb5RYvgjL0', // video promocional actual del curso (YouTube)
+            // Texto de gancho armado a partir del temario: que lo revise el jefe.
+            'subtitulo' => 'Aprende a proyectar instalaciones eléctricas de principio a fin, con IA como asistente: cálculos, planos, especificaciones, presupuesto y expediente del proyecto.',
+            'docente' => [
+                'nombre' => 'Ricardo Cardenas',
+                'cargo' => 'Docente del curso', // pendiente: una linea de credenciales reales
+                'foto' => 'assets/images/docentes/ricardo-cardenas.jpg',
+            ],
+            // Clases en vivo (Zoom). Pendiente: hora ('19:00 a 21:00' por ejemplo); si queda vacia no se muestra.
+            'hora' => '',
+            'sesiones' => ['2026-10-20', '2026-10-22', '2026-10-27', '2026-10-29', '2026-11-03', '2026-11-05', '2026-11-11', '2026-11-13', '2026-11-18'],
+            // Precio por etapa (fechas en hora de Lima; 'hasta' inclusive). El precio REGULAR de
+            // referencia es el de la ultima etapa, que es el que de verdad se cobra despues.
+            // Los USD de las etapas 1 y 3 son propuestos (misma razon ~3.5 que 69.90 -> 19.90).
+            // 'hotmart' = oferta de Hotmart con ese mismo precio; sin oferta no se muestra Hotmart.
+            'etapas' => [
+                ['nombre' => 'Preventa 1', 'hasta' => '2026-09-30', 'pen' => 39.90, 'usd' => 11.90, 'hotmart' => []],
+                ['nombre' => 'Preventa 2', 'hasta' => '2026-10-15', 'pen' => 69.90, 'usd' => 19.90, 'hotmart' => [
+                    'PEN' => 'https://pay.hotmart.com/G107652272C?off=ius4rna9',
+                    'USD' => 'https://pay.hotmart.com/G107652272C?off=ndvqfw67',
+                ]],
+                ['nombre' => 'Precio regular', 'hasta' => null, 'pen' => 150.00, 'usd' => 42.90, 'hotmart' => []],
+            ],
             // Titulo visible (la parte en amarillo va aparte). El nombre real del curso sigue
             // siendo el de la URL (?curso=), que es el que usan el pago y la matricula.
             'titulo' => ['Especializacion en Electricidad Industrial', 'más IA'],
@@ -151,6 +179,42 @@ class OfertasCheckout {
                 . ' <span style="color:#facc15;">' . htmlspecialchars($o['titulo'][1]) . '</span>';
         }
         return $curso;
+    }
+
+    /**
+     * Configuracion completa de una oferta, o null si no existe.
+     */
+    public static function config($clave) {
+        return self::OFERTAS[$clave] ?? null;
+    }
+
+    /**
+     * Indice de la etapa de precio vigente hoy (hora de Lima). Una etapa sin 'hasta' no vence.
+     */
+    public static function etapaActual($clave, \DateTime $ahora = null) {
+        $tz = new \DateTimeZone('America/Lima');
+        $ahora = $ahora ?: new \DateTime('now', $tz);
+        $etapas = self::OFERTAS[$clave]['etapas'] ?? [];
+        foreach ($etapas as $i => $e) {
+            if (empty($e['hasta'])) {
+                return $i;
+            }
+            if ($ahora <= new \DateTime($e['hasta'] . ' 23:59:59', $tz)) {
+                return $i;
+            }
+        }
+        return max(0, count($etapas) - 1);
+    }
+
+    /**
+     * Fecha en espanol: "martes 20 de octubre" (o "20 de octubre" sin dia de la semana).
+     */
+    public static function fechaLarga($ymd, $conDia = true) {
+        $meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        $dias = [1 => 'lunes', 2 => 'martes', 3 => 'miércoles', 4 => 'jueves', 5 => 'viernes', 6 => 'sábado', 7 => 'domingo'];
+        $t = strtotime($ymd . ' 12:00:00');
+        $txt = (int)date('j', $t) . ' de ' . $meses[(int)date('n', $t) - 1];
+        return $conDia ? $dias[(int)date('N', $t)] . ' ' . $txt : $txt;
     }
 
     /**

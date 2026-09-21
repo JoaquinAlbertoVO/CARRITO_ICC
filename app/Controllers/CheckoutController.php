@@ -74,6 +74,16 @@ class CheckoutController extends Controller {
             }
         }
 
+        // ?diseno=2: pagina de checkout nueva (checkout/v2.php), solo para ofertas con etapas de
+        // precio (OfertasCheckout). El precio lo decide el servidor por fecha, no el link.
+        if (($_GET['diseno'] ?? '') === '2' && !empty($_GET['oferta'])) {
+            $vistaV2 = $this->datosV2((string)$_GET['oferta'], $cursoDB, $paisDetectado, $reglasPais);
+            if ($vistaV2 !== null) {
+                $this->view('checkout/v2', $vistaV2, false);
+                return;
+            }
+        }
+
         $this->view('checkout/index', [
             'cursoDB' => $cursoDB,
             'paisDetectado' => $paisDetectado,
@@ -82,6 +92,136 @@ class CheckoutController extends Controller {
             'hotmartLink' => $hotmartLink,
             'hotmartOferta' => $hotmartOferta,
         ], false);
+    }
+
+    /**
+     * Datos para checkout/v2.php: precio por etapa segun la fecha (hora de Lima), medios de
+     * pago segun el pais y contenido real de la oferta. Devuelve null si la oferta no tiene etapas.
+     */
+    private function datosV2($clave, $cursoDB, $pais, $reglasPais) {
+        require_once __DIR__ . '/../Helpers/OfertasCheckout.php';
+        $cfg = \App\Helpers\OfertasCheckout::config($clave);
+        if (!$cfg || empty($cfg['etapas'])) {
+            return null;
+        }
+
+        $moneda = strtoupper(trim($_GET['moneda'] ?? $reglasPais['moneda']));
+        if (!in_array($moneda, ['PEN', 'USD'], true)) {
+            $moneda = $reglasPais['moneda'];
+        }
+        $k = $moneda === 'USD' ? 'usd' : 'pen';
+
+        $tz = new \DateTimeZone('America/Lima');
+        $etapas = $cfg['etapas'];
+        $idx = \App\Helpers\OfertasCheckout::etapaActual($clave);
+        $actual = $etapas[$idx];
+        $regular = end($etapas);
+        $simbolo = $moneda === 'USD' ? 'US$ ' : 'S/ ';
+
+        // Tarjetas de la escalera de precios
+        $lista = [];
+        foreach ($etapas as $i => $e) {
+            if (!empty($e['hasta'])) {
+                $rango = 'Hasta el ' . \App\Helpers\OfertasCheckout::fechaLarga($e['hasta'], false);
+            } else {
+                $prev = $etapas[$i - 1]['hasta'] ?? null;
+                $rango = $prev ? 'Desde el ' . \App\Helpers\OfertasCheckout::fechaLarga(date('Y-m-d', strtotime($prev . ' +1 day')), false) : 'Precio de lista';
+            }
+            $lista[] = [
+                'nombre' => $e['nombre'],
+                'rango' => $rango,
+                'precio' => $e[$k],
+                'estado' => $i < $idx ? 'pasada' : ($i === $idx ? 'actual' : 'proxima'),
+            ];
+        }
+
+        // Aviso del proximo aumento y cuenta regresiva real hasta el fin de la etapa vigente
+        $aviso = null;
+        $hastaMs = null;
+        if (!empty($actual['hasta']) && isset($etapas[$idx + 1])) {
+            $sube = date('Y-m-d', strtotime($actual['hasta'] . ' +1 day'));
+            $aviso = 'Desde el ' . \App\Helpers\OfertasCheckout::fechaLarga($sube, false) . ' el precio sube a ' . $simbolo . number_format($etapas[$idx + 1][$k], 2);
+            $hastaMs = (new \DateTime($actual['hasta'] . ' 23:59:59', $tz))->getTimestamp() * 1000;
+        }
+        $descuento = $regular[$k] > 0 ? (int)round((1 - $actual[$k] / $regular[$k]) * 100) : 0;
+
+        // Hotmart solo si el pais lo permite (GeoHelper) Y hay una oferta con el precio de esta etapa
+        $metodos = $reglasPais['metodos'];
+        $linkHotmart = $actual['hotmart'][$moneda] ?? null;
+        if (!$linkHotmart) {
+            $metodos = array_values(array_diff($metodos, ['hotmart']));
+        }
+
+        // Beneficios reales de la BD (sin los que se quitan para esta oferta) + acceso de por vida
+        $beneficios = [];
+        if ($cursoDB) {
+            $cursoDB = \App\Helpers\OfertasCheckout::ajustarCurso($clave, $cursoDB);
+            if (preg_match_all('/<li>(.*?)<\/li>/is', $cursoDB['beneficios'] ?? '', $m)) {
+                foreach ($m[1] as $li) {
+                    $beneficios[] = trim(strip_tags($li));
+                }
+            }
+        }
+        array_unshift($beneficios, 'Acceso de por vida al aula virtual');
+
+        // Sesiones del cronograma
+        $sesiones = [];
+        foreach ($cfg['sesiones'] ?? [] as $n => $f) {
+            $sesiones[] = ['n' => $n + 1, 'fecha' => \App\Helpers\OfertasCheckout::fechaLarga($f)];
+        }
+
+        // Imagenes reales (testimonios, galeria): si la carpeta esta vacia, la seccion no se muestra
+        $imagenes = function ($carpeta) {
+            $dir = __DIR__ . '/../../assets/images/' . $carpeta . '/';
+            $out = [];
+            foreach (['jpg', 'jpeg', 'png', 'webp'] as $ext) {
+                foreach (glob($dir . '*.' . $ext) ?: [] as $f) {
+                    $out[] = BASE_URL . 'assets/images/' . $carpeta . '/' . basename($f);
+                }
+            }
+            sort($out);
+            return $out;
+        };
+
+        return [
+            'clave' => $clave,
+            'curso' => $cfg['curso'],
+            'titulo' => $cfg['titulo'],
+            'subtitulo' => $cfg['subtitulo'],
+            'horas' => $cfg['horas'],
+            'inicioLargo' => \App\Helpers\OfertasCheckout::fechaLarga($cfg['inicio']),
+            'inicioCorto' => \App\Helpers\OfertasCheckout::fechaLarga($cfg['inicio'], false),
+            'docente' => $cfg['docente'],
+            'video' => $cfg['video'] ?? null,
+            'hora' => $cfg['hora'] ?? '',
+            'sesiones' => $sesiones,
+            'temas' => $cfg['temas'],
+            'extra' => $cfg['extra'] ?? null,
+            'beneficios' => $beneficios,
+            'etapas' => $lista,
+            'etapaNombre' => $actual['nombre'],
+            'aviso' => $aviso,
+            'descuento' => $descuento,
+            'moneda' => $moneda,
+            'simbolo' => $simbolo,
+            'precio' => $actual[$k],
+            'precioRegular' => $regular[$k],
+            'testimonios' => $imagenes('testimonios'),
+            'galeria' => $imagenes('galeria'),
+            'paisDetectado' => $pais,
+            'metodos' => $metodos,
+            'js' => [
+                'curso' => $cfg['curso'],
+                'moneda' => $moneda,
+                'precioPen' => $actual['pen'],
+                'precioUsd' => $actual['usd'],
+                'tipoCambio' => 3.80,
+                'metodos' => $metodos,
+                'hotmart' => $linkHotmart,
+                'hastaMs' => $hastaMs,
+                'base' => BASE_URL,
+            ],
+        ];
     }
 
     public function voucher() {

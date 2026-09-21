@@ -44,7 +44,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=9">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=10">
     <script>document.documentElement.classList.add('js');</script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>
@@ -87,7 +87,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
         <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-3">
             <p class="flex items-center gap-2 min-w-0">
                 <i class="fas fa-bolt text-accent"></i>
-                <span class="truncate font-bold"><?= $e($d['etapaNombre']) ?>: <?= $d['simbolo'] ?><?= $fmt($d['precio']) ?><?php if ($d['aviso']): ?><span class="hidden sm:inline font-medium"> · <?= $e($d['aviso']) ?></span><?php endif; ?></span>
+                <span class="truncate font-bold"><?= $e($d['barraTexto']) ?></span>
             </p>
             <?php if ($d['js']['hastaMs']): ?>
             <span class="shrink-0 rounded-full bg-accent px-3 py-0.5 font-mono text-xs font-bold text-deep" title="Tiempo restante de este precio"><i class="far fa-clock mr-1"></i><span x-text="cuenta">--:--:--</span></span>
@@ -109,38 +109,17 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
              alt="<?= $e($tituloPlano) ?>: banner del curso" width="1600" height="666" fetchpriority="high"
              class="block w-full rounded-2xl shadow-2xl ring-1 ring-white/20">
 
-        <div class="mt-8 grid items-center gap-8 lg:grid-cols-12">
-        <div class="lg:col-span-7">
-            <div class="flex flex-wrap gap-2 mb-4">
+        <div class="mx-auto mt-8 max-w-3xl text-center">
+            <div class="mb-4 flex flex-wrap justify-center gap-2">
                 <span class="rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wide text-deep">Especialización</span>
                 <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-dark"><i class="far fa-clock mr-1"></i><?= (int)$d['horas'] ?> horas académicas</span>
                 <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-dark"><i class="far fa-calendar-alt mr-1"></i>Inicio: <?= $e($d['inicioCorto']) ?></span>
             </div>
-            <p class="max-w-2xl text-base sm:text-lg text-sky-50"><?= $e($d['subtitulo']) ?></p>
-        </div>
-
-        <div class="lg:col-span-5">
-            <div class="relative rounded-2xl border-t-4 border-accent bg-white p-6 pt-8 text-ink shadow-xl">
-                <?php if ($d['descuento'] > 0): ?>
-                <span class="absolute right-5 top-5 rounded-md bg-accent px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-deep">-<?= (int)$d['descuento'] ?> % dscto.</span>
-                <?php endif; ?>
-                <span class="rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase tracking-wide text-white"><?= $e($d['etapaNombre']) ?></span>
-                <div class="mt-4 flex items-end gap-2">
-                    <span class="font-display text-5xl font-bold text-brand-dark"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?></span>
-                    <span class="pb-2 text-sm font-bold text-muted"><?= $e($d['moneda']) ?></span>
-                </div>
-                <p class="mt-1 text-sm text-muted">Precio regular <span class="line-through"><?= $d['simbolo'] ?><?= $fmt($d['precioRegular']) ?></span></p>
-                <?php if ($d['aviso']): ?>
-                <p class="mt-4 rounded-xl bg-mist px-3 py-2 text-sm font-semibold text-deep ring-1 ring-brand/20"><i class="fas fa-arrow-up mr-1"></i><?= $e($d['aviso']) ?></p>
-                <?php endif; ?>
-                <div class="relative mt-6">
-                    <a href="#inscripcion" class="relative flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-4 font-display text-base font-bold text-deep shadow-lg hover:brightness-95">
-                        Inscribirme por <?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <i class="fas fa-arrow-down"></i>
-                    </a>
-                </div>
-                <p class="mt-3 text-center text-xs text-muted"><i class="fas fa-lock mr-1 text-emerald-600"></i>Pago seguro con Yape, Plin, PayPal o tarjeta</p>
+            <p class="text-base sm:text-lg text-sky-50"><?= $e($d['subtitulo']) ?></p>
+            <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <a href="#inscripcion" class="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-accent px-7 py-3 font-display text-base font-bold text-deep shadow-lg hover:brightness-95 sm:w-auto">Inscribirme ahora <i class="fas fa-arrow-down" aria-hidden="true"></i></a>
+                <a href="#cronograma" class="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl border border-white/50 px-7 py-3 font-display text-base font-semibold text-white hover:bg-white/10 sm:w-auto">Ver el horario</a>
             </div>
-        </div>
         </div>
     </div>
 
@@ -450,8 +429,8 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
 <div class="fixed inset-x-0 bottom-0 z-40 border-t border-line/60 bg-white p-3 shadow-[0_-4px_16px_rgba(0,0,0,0.12)] md:hidden">
     <div class="mx-auto flex max-w-md items-center justify-between gap-3">
         <div>
-            <p class="font-display text-xl font-bold leading-none text-brand-dark"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <span class="text-xs font-semibold text-muted line-through"><?= $d['simbolo'] ?><?= $fmt($d['precioRegular']) ?></span></p>
-            <?php if ($d['js']['hastaMs']): ?><p class="mt-0.5 text-xs font-bold text-red-600"><i class="far fa-clock"></i> <span x-text="cuenta"></span></p><?php endif; ?>
+            <p class="font-display text-base font-bold leading-tight text-brand-dark"><?= $e($d['etapaNombre']) ?></p>
+            <?php if ($d['js']['hastaMs']): ?><p class="mt-0.5 text-xs font-bold text-red-600"><i class="far fa-clock" aria-hidden="true"></i> <span x-text="cuenta"></span></p><?php else: ?><p class="mt-0.5 text-xs text-muted">Inicio: <?= $e($d['inicioCorto']) ?></p><?php endif; ?>
         </div>
         <a href="#inscripcion" class="rounded-xl bg-accent px-5 py-3 font-display text-sm font-bold text-deep shadow-md">Inscribirme</a>
     </div>
@@ -470,11 +449,72 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
 <div id="bruno" class="bruno" data-tips="<?= $e(json_encode($tipsBruno, JSON_UNESCAPED_UNICODE)) ?>" data-wa="<?= $e($wa) ?>">
     <div id="bruno-burbuja" class="bruno-burbuja" role="status" aria-live="polite" hidden></div>
     <button type="button" id="bruno-btn" class="bruno-btn" aria-label="Ingeniero Bruno, asistente de ICC. Abrir ayuda" aria-expanded="false">
-        <span class="bruno-cuerpo"><span class="bruno-grupo">
-            <img class="bruno-capa bruno-torso" src="<?= BASE_URL ?>assets/images/mascota/bruno-torso.webp" alt="" width="340" height="587" decoding="async">
-            <img class="bruno-capa bruno-brazo" src="<?= BASE_URL ?>assets/images/mascota/bruno-brazo.webp" alt="" width="340" height="587" decoding="async">
-            <img class="bruno-capa bruno-cabeza" src="<?= BASE_URL ?>assets/images/mascota/bruno-cabeza.webp" alt="" width="340" height="587" decoding="async">
-        </span></span>
+        <svg viewBox="0 0 180 280" xmlns="http://www.w3.org/2000/svg" class="bruno-svg" overflow="visible" aria-hidden="true" focusable="false">
+            <defs>
+                <linearGradient id="b-pelo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a5602c"/><stop offset="1" stop-color="#7c4020"/></linearGradient>
+                <linearGradient id="b-pelo2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8b4a24"/><stop offset="1" stop-color="#7a3f1e"/></linearGradient>
+                <linearGradient id="b-chaleco" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d3f9c"/><stop offset="1" stop-color="#132c74"/></linearGradient>
+                <linearGradient id="b-casco" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe6f5"/></linearGradient>
+                <clipPath id="b-rec"><path d="M56 110 C50 130 50 170 56 196 L124 196 C130 170 130 130 124 110 C110 104 70 104 56 110 Z"/></clipPath>
+            </defs>
+            <ellipse cx="90" cy="266" rx="38" ry="6" fill="#000" opacity=".22"/>
+            <g class="b-todo">
+                <g class="b-pierna b-pierna-i">
+                    <rect x="62" y="192" width="24" height="56" rx="10" fill="#10245f"/>
+                    <rect x="57" y="242" width="34" height="18" rx="8" fill="#1b1d2a"/><rect x="57" y="252" width="34" height="8" rx="4" fill="#0e0f18"/>
+                </g>
+                <g class="b-pierna b-pierna-d">
+                    <rect x="94" y="192" width="24" height="56" rx="10" fill="#10245f"/>
+                    <rect x="89" y="242" width="34" height="18" rx="8" fill="#1b1d2a"/><rect x="89" y="252" width="34" height="8" rx="4" fill="#0e0f18"/>
+                </g>
+                <g class="b-bob"><g class="b-torso">
+                    <g class="b-brazo b-brazo-i">
+                        <rect x="47" y="108" width="24" height="64" rx="12" fill="url(#b-pelo2)"/>
+                        <circle cx="59" cy="174" r="14" fill="#8b4a24"/><ellipse cx="59" cy="178" rx="7" ry="6" fill="#e3b98c" opacity=".55"/>
+                    </g>
+                    <g class="b-brazo b-brazo-d">
+                        <rect x="109" y="108" width="24" height="64" rx="12" fill="url(#b-pelo2)"/>
+                        <circle cx="121" cy="174" r="14" fill="#8b4a24"/><ellipse cx="121" cy="178" rx="7" ry="6" fill="#e3b98c" opacity=".55"/>
+                    </g>
+                    <ellipse cx="90" cy="112" rx="26" ry="14" fill="#8b4a24"/>
+                    <path d="M56 110 C50 130 50 170 56 196 L124 196 C130 170 130 130 124 110 C110 104 70 104 56 110 Z" fill="url(#b-chaleco)"/>
+                    <g clip-path="url(#b-rec)">
+                        <rect x="40" y="148" width="100" height="8" fill="#d5dcec"/><rect x="40" y="148" width="100" height="2" fill="#f3f6fc"/>
+                        <rect x="40" y="172" width="100" height="8" fill="#d5dcec"/><rect x="40" y="172" width="100" height="2" fill="#f3f6fc"/>
+                        <rect x="63" y="104" width="7" height="44" fill="#d5dcec" opacity=".9"/><rect x="110" y="104" width="7" height="44" fill="#d5dcec" opacity=".9"/>
+                    </g>
+                    <path d="M72 106 L90 130 L108 106 Z" fill="#8b4a24"/>
+                    <line x1="90" y1="130" x2="90" y2="196" stroke="#0c1f57" stroke-width="2"/>
+                    <text x="107" y="143" text-anchor="middle" font-family="'Plus Jakarta Sans','Arial Black',Arial,sans-serif" font-weight="800" font-size="11" fill="#fff">icc</text>
+                    <rect x="64" y="132" width="17" height="13" rx="2" fill="#fff" stroke="#b9c6e3" stroke-width=".8"/>
+                    <rect x="67" y="135" width="11" height="2" fill="#0050f4"/><rect x="67" y="139" width="8" height="1.6" fill="#94a3c9"/>
+                    <rect x="56" y="190" width="68" height="8" rx="2" fill="#12183d"/><rect x="84" y="191" width="12" height="6" rx="1.5" fill="#d5dcec"/>
+                    <g class="b-cabeza">
+                        <circle cx="54" cy="54" r="13" fill="#8b4a24"/><circle cx="54" cy="55" r="7" fill="#e3b98c"/>
+                        <circle cx="126" cy="54" r="13" fill="#8b4a24"/><circle cx="126" cy="55" r="7" fill="#e3b98c"/>
+                        <ellipse cx="90" cy="72" rx="42" ry="37" fill="url(#b-pelo)"/>
+                        <ellipse cx="90" cy="88" rx="22" ry="17" fill="#e3b98c"/>
+                        <ellipse cx="90" cy="79" rx="9" ry="6.2" fill="#2a1811"/><ellipse cx="87.5" cy="77" rx="2.8" ry="1.5" fill="#fff" opacity=".45"/>
+                        <path d="M90 84 V90" stroke="#2a1811" stroke-width="2.2" stroke-linecap="round"/>
+                        <path class="b-sonrisa" d="M79 91 Q90 101 101 91" stroke="#2a1811" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                        <g class="b-boca"><ellipse cx="90" cy="93" rx="8.5" ry="6.5" fill="#4a1512"/><ellipse cx="90" cy="96" rx="5" ry="2.6" fill="#d9576a"/></g>
+                        <circle cx="72" cy="66" r="5.2" fill="#22130d"/><circle cx="73.6" cy="64.4" r="1.7" fill="#fff"/>
+                        <circle cx="108" cy="66" r="5.2" fill="#22130d"/><circle cx="109.6" cy="64.4" r="1.7" fill="#fff"/>
+                        <g class="b-parpado b-parpado-i"><ellipse cx="72" cy="66" rx="6.6" ry="6.4" fill="#93502a"/></g>
+                        <g class="b-parpado b-parpado-d"><ellipse cx="108" cy="66" rx="6.6" ry="6.4" fill="#93502a"/></g>
+                        <path d="M63 58 Q72 52 80 56.5" stroke="#5e2f16" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                        <path d="M100 56.5 Q108 52 117 58" stroke="#5e2f16" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                        <path d="M49 52 C48 14 132 14 131 52 Z" fill="url(#b-casco)"/>
+                        <path d="M83 19 Q90 16.5 97 19 L97 50 L83 50 Z" fill="#e4ebf8"/>
+                        <path d="M113 24 Q127 34 129 51 L119 51 Q119 37 108 26 Z" fill="#cdd7ec" opacity=".85"/>
+                        <ellipse cx="66" cy="31" rx="9" ry="4" fill="#fff" opacity=".85" transform="rotate(-28 66 31)"/>
+                        <rect x="42" y="47" width="96" height="10" rx="5" fill="#eef2fb" stroke="#bcc8e4" stroke-width="1"/>
+                        <rect x="72" y="30" width="36" height="15" rx="3" fill="#fff" stroke="#c9d3ea" stroke-width=".8"/>
+                        <text x="90" y="41.5" text-anchor="middle" font-family="'Plus Jakarta Sans','Arial Black',Arial,sans-serif" font-weight="800" font-size="12.5" fill="#0050f4">icc</text>
+                    </g>
+                </g></g>
+            </g>
+        </svg>
     </button>
 </div>
 

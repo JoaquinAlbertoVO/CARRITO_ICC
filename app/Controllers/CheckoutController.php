@@ -215,6 +215,9 @@ class CheckoutController extends Controller {
             'beneficios' => $beneficios,
             'etapas' => $lista,
             'etapaNombre' => $actual['nombre'],
+            'barraTexto' => !empty($actual['hasta'])
+                ? $actual['nombre'] . ': termina el ' . \App\Helpers\OfertasCheckout::fechaLarga($actual['hasta'], false)
+                : 'Inicio del curso: ' . \App\Helpers\OfertasCheckout::fechaLarga($cfg['inicio'], false),
             'aviso' => $aviso,
             'descuento' => $descuento,
             'moneda' => $moneda,

@@ -1,9 +1,10 @@
 <?php
 /**
  * Checkout v2 (?diseno=2&oferta=clave): pagina de venta + pago en una sola vista adaptable.
- * Diseno basado en el boceto de Stitch, pero SOLO con contenido real (config en
- * App\Helpers\OfertasCheckout + BD). Sin testimonios/fotos/videos hasta que existan los archivos
- * reales: las secciones se ocultan solas. Estilos: assets/css/checkout-v2.css (ver tools/tailwind).
+ * Colores y fondo de la marca ICC (azul de la portada/logo, amarillo del multimetro de la mascota).
+ * SOLO contenido real (config en App\Helpers\OfertasCheckout + BD). Sin testimonios/fotos/videos
+ * hasta que existan los archivos reales: esas secciones se ocultan solas.
+ * Estilos: assets/css/checkout-v2.css (se compila con tools/tailwind: npm run build).
  */
 $d = $data;
 $js = json_encode($d['js'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
@@ -14,6 +15,23 @@ $waComprobante = $wa . '?text=' . rawurlencode('Hola ICC, necesito boleta o fact
 $hayManual = in_array('manual', $d['metodos'], true);
 $hayHotmart = in_array('hotmart', $d['metodos'], true);
 $tituloPlano = $d['titulo'][0] . ' ' . $d['titulo'][1];
+$fondo = BASE_URL . 'assets/images/fondo_icc_hero.jpg';
+
+// Icono del beneficio segun su texto (los textos vienen de la BD)
+$iconoBeneficio = function ($t) {
+    $t = mb_strtolower($t, 'UTF-8');
+    if (strpos($t, 'vida') !== false) return 'fas fa-infinity';
+    if (strpos($t, 'certific') !== false) return 'fas fa-award';
+    if (strpos($t, 'whatsapp') !== false) return 'fab fa-whatsapp';
+    if (strpos($t, 'clases') !== false) return 'fas fa-video';
+    if (strpos($t, 'material') !== false) return 'fas fa-folder-open';
+    if (strpos($t, 'entregables') !== false) return 'fas fa-tools';
+    return 'fas fa-check-circle';
+};
+// Colores por tarjeta (clases completas para que Tailwind las compile)
+$coloresTile = ['bg-brand text-white', 'bg-amber-500 text-white', 'bg-emerald-500 text-white', 'bg-orange-500 text-white', 'bg-rose-500 text-white', 'bg-teal-500 text-white'];
+$bordesModulo = ['border-brand', 'border-amber-500', 'border-emerald-500', 'border-orange-500', 'border-rose-500', 'border-teal-500'];
+$iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram', 'fas fa-file-invoice-dollar', 'fas fa-clipboard-check', 'fas fa-search'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,7 +44,8 @@ $tituloPlano = $d['titulo'][0] . ' ' . $d['titulo'][1];
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=1">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=2">
+    <script>document.documentElement.classList.add('js');</script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>
 
@@ -49,27 +68,27 @@ $tituloPlano = $d['titulo'][0] . ' ' . $d['titulo'][1];
 
 <body class="bg-surface text-ink antialiased pb-24 md:pb-0" x-data="checkoutV2()" x-init="init()">
 
-<!-- Cabecera + barra de precio -->
-<header class="sticky top-0 z-40 shadow-md">
-    <div class="bg-navy text-white">
+<!-- Cabecera + barra amarilla de precio -->
+<header class="sticky top-0 z-40 shadow-lg">
+    <div class="bg-deep text-white">
         <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
             <img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC - Instituto de Capacitación Continua" class="h-9 w-auto">
             <div class="flex items-center gap-4 text-sm">
-                <span class="hidden sm:flex items-center gap-1.5 text-slate-300"><i class="fas fa-lock text-emerald-400"></i> Pago seguro</span>
-                <a href="<?= $wa ?>" target="_blank" rel="noopener" class="flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 px-3 py-1.5 font-semibold">
-                    <i class="fab fa-whatsapp text-emerald-400"></i><span class="hidden sm:inline">+51 941 208 020</span><span class="sm:hidden">WhatsApp</span>
+                <span class="hidden sm:flex items-center gap-1.5 text-sky-100"><i class="fas fa-lock text-emerald-400"></i> Pago seguro</span>
+                <a href="<?= $wa ?>" target="_blank" rel="noopener" class="flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 px-3 py-1.5 font-semibold text-white shadow">
+                    <i class="fab fa-whatsapp"></i><span class="hidden sm:inline">+51 941 208 020</span><span class="sm:hidden">WhatsApp</span>
                 </a>
             </div>
         </div>
     </div>
-    <div class="bg-brand text-white text-sm">
+    <div class="bg-accent text-deep text-sm">
         <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-3">
             <p class="flex items-center gap-2 min-w-0">
-                <i class="fas fa-bolt text-accent"></i>
-                <span class="truncate font-semibold"><?= $e($d['etapaNombre']) ?>: <?= $d['simbolo'] ?><?= $fmt($d['precio']) ?><?php if ($d['aviso']): ?><span class="hidden sm:inline font-normal"> · <?= $e($d['aviso']) ?></span><?php endif; ?></span>
+                <i class="fas fa-bolt"></i>
+                <span class="truncate font-bold"><?= $e($d['etapaNombre']) ?>: <?= $d['simbolo'] ?><?= $fmt($d['precio']) ?><?php if ($d['aviso']): ?><span class="hidden sm:inline font-medium"> · <?= $e($d['aviso']) ?></span><?php endif; ?></span>
             </p>
             <?php if ($d['js']['hastaMs']): ?>
-            <span class="shrink-0 rounded-full bg-navy px-3 py-0.5 font-mono text-xs font-bold" title="Tiempo restante de este precio"><i class="far fa-clock mr-1"></i><span x-text="cuenta">--:--:--</span></span>
+            <span class="shrink-0 rounded-full bg-deep px-3 py-0.5 font-mono text-xs font-bold text-accent" title="Tiempo restante de este precio"><i class="far fa-clock mr-1"></i><span x-text="cuenta">--:--:--</span></span>
             <?php endif; ?>
         </div>
     </div>
@@ -77,91 +96,121 @@ $tituloPlano = $d['titulo'][0] . ' ' . $d['titulo'][1];
 
 <main>
 <!-- Hero -->
-<section class="bg-navy text-white">
-    <div class="max-w-6xl mx-auto px-4 py-10 lg:py-14 grid lg:grid-cols-12 gap-8 items-start">
+<section class="relative overflow-hidden bg-brand-dark bg-cover bg-center text-white" style="background-image: url('<?= $e($fondo) ?>');">
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-deep/70 via-brand-dark/40 to-brand/30"></div>
+    <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/25 blur-3xl"></div>
+    <div class="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-sky-300/20 blur-3xl"></div>
+    <i class="fas fa-bolt pointer-events-none absolute right-[8%] top-16 hidden text-6xl text-accent/30 animate-float lg:block"></i>
+    <i class="fas fa-cog pointer-events-none absolute left-[46%] bottom-16 hidden text-5xl text-white/10 animate-float lg:block"></i>
+
+    <div class="relative max-w-6xl mx-auto px-4 pb-16 pt-10 lg:pt-14 grid lg:grid-cols-12 gap-10 items-start">
         <div class="lg:col-span-7">
             <div class="flex flex-wrap gap-2 mb-4">
-                <span class="rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase tracking-wide">Especialización</span>
-                <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold"><i class="far fa-clock mr-1"></i><?= (int)$d['horas'] ?> horas académicas</span>
-                <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold"><i class="far fa-calendar-alt mr-1"></i>Inicio: <?= $e($d['inicioCorto']) ?></span>
+                <span class="rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wide text-deep">Especialización</span>
+                <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-dark"><i class="far fa-clock mr-1"></i><?= (int)$d['horas'] ?> horas académicas</span>
+                <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-dark"><i class="far fa-calendar-alt mr-1"></i>Inicio: <?= $e($d['inicioCorto']) ?></span>
             </div>
-            <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+            <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight drop-shadow">
                 <?= $e($d['titulo'][0]) ?> <span class="text-accent"><?= $e($d['titulo'][1]) ?></span>
             </h1>
-            <p class="mt-4 text-slate-300 text-base sm:text-lg max-w-2xl"><?= $e($d['subtitulo']) ?></p>
+            <p class="mt-4 max-w-2xl text-base sm:text-lg text-sky-50"><?= $e($d['subtitulo']) ?></p>
 
-            <div class="mt-6 inline-flex items-center gap-3 rounded-xl bg-white/10 p-3 pr-5">
-                <img src="<?= BASE_URL . $e($d['docente']['foto']) ?>" alt="<?= $e($d['docente']['nombre']) ?>" class="h-14 w-14 rounded-full object-cover object-top border-2 border-accent" width="56" height="56">
+            <div class="mt-6 inline-flex items-center gap-3 rounded-2xl bg-white p-3 pr-6 text-ink shadow-xl">
+                <img src="<?= BASE_URL . $e($d['docente']['foto']) ?>" alt="<?= $e($d['docente']['nombre']) ?>" class="h-14 w-14 rounded-full object-cover object-top ring-4 ring-accent" width="56" height="56">
                 <div>
                     <p class="font-display font-bold leading-tight"><?= $e($d['docente']['nombre']) ?></p>
-                    <p class="text-sm text-slate-300"><?= $e($d['docente']['cargo']) ?></p>
+                    <p class="text-sm text-muted"><?= $e($d['docente']['cargo']) ?></p>
                 </div>
             </div>
         </div>
 
         <div class="lg:col-span-5">
-            <div class="rounded-2xl bg-white text-ink p-6 shadow-2xl">
-                <div class="flex items-center justify-between gap-2">
-                    <span class="rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase tracking-wide text-white"><?= $e($d['etapaNombre']) ?></span>
-                    <?php if ($d['descuento'] > 0): ?><span class="rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white">-<?= (int)$d['descuento'] ?>%</span><?php endif; ?>
+            <div class="relative rounded-3xl bg-white p-6 pt-8 text-ink shadow-2xl ring-4 ring-accent/60">
+                <?php if ($d['descuento'] > 0): ?>
+                <div class="absolute -right-3 -top-5 flex h-20 w-20 rotate-12 flex-col items-center justify-center rounded-full bg-accent font-display font-extrabold leading-none text-deep shadow-lg ring-4 ring-white">
+                    <span class="text-2xl">-<?= (int)$d['descuento'] ?>%</span><span class="text-[10px] uppercase">dscto.</span>
                 </div>
+                <?php endif; ?>
+                <span class="rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase tracking-wide text-white"><?= $e($d['etapaNombre']) ?></span>
                 <div class="mt-4 flex items-end gap-2">
-                    <span class="font-display text-5xl font-extrabold"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?></span>
-                    <span class="pb-2 text-sm font-semibold text-muted"><?= $e($d['moneda']) ?></span>
+                    <span class="font-display text-5xl font-extrabold text-brand-dark"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?></span>
+                    <span class="pb-2 text-sm font-bold text-muted"><?= $e($d['moneda']) ?></span>
                 </div>
                 <p class="mt-1 text-sm text-muted">Precio regular <span class="line-through"><?= $d['simbolo'] ?><?= $fmt($d['precioRegular']) ?></span></p>
                 <?php if ($d['aviso']): ?>
-                <p class="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-sm font-medium text-amber-900"><i class="fas fa-arrow-up mr-1"></i><?= $e($d['aviso']) ?></p>
+                <p class="mt-4 rounded-xl bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-900 ring-1 ring-amber-200"><i class="fas fa-arrow-up mr-1"></i><?= $e($d['aviso']) ?></p>
                 <?php endif; ?>
-                <ul class="mt-5 space-y-2 text-sm">
-                    <?php foreach ($d['beneficios'] as $b): ?>
-                    <li class="flex gap-2"><i class="fas fa-check-circle mt-0.5 text-emerald-600"></i><span><?= $e($b) ?></span></li>
-                    <?php endforeach; ?>
-                </ul>
-                <a href="#inscripcion" class="mt-6 flex items-center justify-center gap-2 rounded-xl bg-brand px-5 py-4 font-display text-base font-bold text-white shadow-lg hover:bg-brand-soft">
-                    Inscribirme por <?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <i class="fas fa-arrow-down"></i>
-                </a>
+                <div class="relative mt-6">
+                    <span class="absolute inset-0 animate-ping2 rounded-xl bg-accent"></span>
+                    <a href="#inscripcion" class="relative flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-4 font-display text-base font-extrabold text-deep shadow-lg hover:brightness-95">
+                        Inscribirme por <?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <i class="fas fa-arrow-down"></i>
+                    </a>
+                </div>
+                <p class="mt-3 text-center text-xs text-muted"><i class="fas fa-lock mr-1 text-emerald-600"></i>Pago seguro con Yape, Plin, PayPal o tarjeta</p>
             </div>
+        </div>
+    </div>
+
+    <!-- Borde ondulado hacia la siguiente seccion -->
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" class="absolute bottom-0 left-0 block h-10 w-full sm:h-16" aria-hidden="true"><path d="M0,40 C240,80 480,0 720,30 C960,60 1200,80 1440,20 L1440,80 L0,80 Z" fill="#ffffff"></path></svg>
+</section>
+
+<!-- Que incluye -->
+<section class="bg-white pb-12 pt-4">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Todo lo que incluye tu inscripción</h2>
+        <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <?php foreach ($d['beneficios'] as $i => $b): ?>
+            <div class="reveal flex items-center gap-4 rounded-2xl bg-mist p-4 transition hover:-translate-y-1 hover:shadow-lg">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-xl shadow <?= $coloresTile[$i % count($coloresTile)] ?>"><i class="<?= $iconoBeneficio($b) ?>"></i></span>
+                <span class="font-semibold text-ink"><?= $e($b) ?></span>
+            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
 
 <?php if (!empty($d['video'])): ?>
 <!-- Video -->
-<section class="max-w-4xl mx-auto px-4 py-12">
-    <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-center">Conoce el curso</h2>
-    <div x-data="{ play: false }" class="relative mt-6 aspect-video overflow-hidden rounded-2xl bg-navy shadow-lg">
-        <template x-if="!play">
-            <button type="button" @click="play = true" class="group absolute inset-0 h-full w-full" aria-label="Reproducir video del curso">
-                <img src="https://i.ytimg.com/vi/<?= $e($d['video']) ?>/hqdefault.jpg" alt="" loading="lazy" class="h-full w-full object-cover opacity-80">
-                <span class="absolute inset-0 flex items-center justify-center">
-                    <span class="flex h-20 w-20 items-center justify-center rounded-full bg-brand text-3xl text-white shadow-2xl transition group-hover:scale-110"><i class="fas fa-play ml-1"></i></span>
-                </span>
-            </button>
-        </template>
-        <template x-if="play">
-            <iframe src="https://www.youtube.com/embed/<?= $e($d['video']) ?>?autoplay=1&rel=0" title="Video del curso" class="absolute inset-0 h-full w-full" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-        </template>
+<section class="bg-gradient-to-b from-white to-mist px-4 py-12">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Conoce el curso</h2>
+        <div x-data="{ play: false }" class="reveal relative mt-6 aspect-video overflow-hidden rounded-3xl bg-deep shadow-2xl ring-4 ring-white">
+            <template x-if="!play">
+                <button type="button" @click="play = true" class="group absolute inset-0 h-full w-full" aria-label="Reproducir video del curso">
+                    <img src="https://i.ytimg.com/vi/<?= $e($d['video']) ?>/hqdefault.jpg" alt="" loading="lazy" class="h-full w-full object-cover opacity-90">
+                    <span class="absolute inset-0 flex items-center justify-center bg-deep/20">
+                        <span class="flex h-20 w-20 items-center justify-center rounded-full bg-accent text-3xl text-deep shadow-2xl transition group-hover:scale-110"><i class="fas fa-play ml-1"></i></span>
+                    </span>
+                </button>
+            </template>
+            <template x-if="play">
+                <iframe src="https://www.youtube.com/embed/<?= $e($d['video']) ?>?autoplay=1&rel=0" title="Video del curso" class="absolute inset-0 h-full w-full" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            </template>
+        </div>
     </div>
 </section>
 <?php endif; ?>
 
 <!-- Temario -->
-<section class="bg-white py-12">
+<section class="bg-mist py-12">
     <div class="max-w-6xl mx-auto px-4">
-        <p class="text-center text-sm font-bold uppercase tracking-wider text-brand">Plan de estudios</p>
-        <h2 class="mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold">Temario del curso</h2>
+        <p class="reveal text-center text-sm font-bold uppercase tracking-wider text-brand">Plan de estudios</p>
+        <h2 class="reveal mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Temario del curso</h2>
         <div class="mt-8 grid gap-4 md:grid-cols-2">
-            <?php $n = 0; foreach ($d['temas'] as $titulo => $items): $n++; ?>
-            <div class="rounded-2xl border border-line/60 bg-surface p-5" x-data="{ open: window.innerWidth >= 768 }">
+            <?php $n = 0; foreach ($d['temas'] as $titulo => $items): $c = $n % count($coloresTile); $n++; ?>
+            <div class="reveal rounded-2xl border-t-4 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg <?= $bordesModulo[$c] ?>" x-data="{ open: window.innerWidth >= 768 }">
                 <button type="button" @click="open = !open" class="flex w-full items-center gap-3 text-left">
-                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-bold text-white"><?= $n ?></span>
-                    <span class="flex-1 font-display font-bold"><?= $e($titulo) ?></span>
+                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-lg shadow <?= $coloresTile[$c] ?>"><i class="<?= $iconosModulo[$c] ?>"></i></span>
+                    <span class="flex-1">
+                        <span class="block text-xs font-bold uppercase tracking-wider text-muted">Módulo <?= $n ?></span>
+                        <span class="block font-display font-bold text-brand-dark"><?= $e($titulo) ?></span>
+                    </span>
                     <i class="fas fa-chevron-down text-muted transition-transform" :class="open ? 'rotate-180' : ''"></i>
                 </button>
                 <ul x-show="open" x-cloak class="mt-3 space-y-1.5 text-sm text-muted">
                     <?php foreach ($items as $corto => $completo): ?>
-                    <li class="flex gap-2"><i class="fas fa-check mt-1 text-xs text-brand"></i><span><?= $e($completo) ?></span></li>
+                    <li class="flex gap-2"><i class="fas fa-check-circle mt-1 text-xs text-emerald-500"></i><span><?= $e($completo) ?></span></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -169,53 +218,66 @@ $tituloPlano = $d['titulo'][0] . ' ' . $d['titulo'][1];
         </div>
 
         <?php if (!empty($d['extra'])): $x = $d['extra']; ?>
-        <div class="mt-6 rounded-2xl bg-navy p-6 text-white sm:p-8">
-            <h3 class="flex items-center gap-2 font-display text-xl sm:text-2xl font-extrabold"><i class="fas fa-robot text-accent"></i> <?= $e($x['titulo']) ?></h3>
-            <p class="mt-2 max-w-3xl text-slate-300"><?= $e($x['intro']) ?></p>
-            <ul class="mt-4 grid gap-2 sm:grid-cols-2 text-sm">
-                <?php foreach ($x['items'] as $it): ?>
-                <li class="flex gap-2"><i class="fas fa-bolt mt-1 text-accent"></i><span><?= $e($it) ?></span></li>
-                <?php endforeach; ?>
-            </ul>
-            <p class="mt-5 rounded-xl bg-accent/15 px-4 py-3 text-sm font-semibold text-accent"><i class="fas fa-gift mr-2"></i>Bonus incluido: <?= $e($x['bonus']) ?></p>
+        <div class="reveal relative mt-6 overflow-hidden rounded-3xl bg-brand-dark bg-cover p-6 text-white shadow-xl sm:p-8" style="background-image: url('<?= $e($fondo) ?>');">
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-deep/80 to-brand/40"></div>
+            <div class="relative">
+                <h3 class="flex items-center gap-3 font-display text-xl sm:text-2xl font-extrabold"><span class="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-deep shadow-lg"><i class="fas fa-lightbulb"></i></span> <?= $e($x['titulo']) ?></h3>
+                <p class="mt-3 max-w-3xl text-sky-50"><?= $e($x['intro']) ?></p>
+                <ul class="mt-4 grid gap-2 sm:grid-cols-2 text-sm">
+                    <?php foreach ($x['items'] as $it): ?>
+                    <li class="flex gap-2 rounded-xl bg-white/10 px-3 py-2"><i class="fas fa-bolt mt-0.5 text-accent"></i><span><?= $e($it) ?></span></li>
+                    <?php endforeach; ?>
+                </ul>
+                <p class="mt-5 inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-3 text-sm font-bold text-deep shadow"><i class="fas fa-gift"></i>Bonus incluido: <?= $e($x['bonus']) ?></p>
+            </div>
         </div>
         <?php endif; ?>
     </div>
 </section>
 
 <!-- Cronograma -->
-<section class="max-w-6xl mx-auto px-4 py-12">
-    <p class="text-center text-sm font-bold uppercase tracking-wider text-brand">Cronograma</p>
-    <h2 class="mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold">Empezamos el <?= $e($d['inicioLargo']) ?></h2>
-    <p class="mx-auto mt-2 max-w-2xl text-center text-muted"><?= count($d['sesiones']) ?> clases en vivo por Zoom<?php if (!empty($d['hora'])): ?>, de <?= $e($d['hora']) ?><?php endif; ?>.</p>
-    <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-        <?php foreach ($d['sesiones'] as $s): ?>
-        <div class="rounded-xl border border-line/60 bg-white p-4 text-center shadow-sm">
-            <p class="text-xs font-bold uppercase tracking-wider text-brand">Clase <?= (int)$s['n'] ?></p>
-            <p class="mt-1 font-display font-bold leading-snug"><?= $e(ucfirst($s['fecha'])) ?></p>
+<section class="bg-white py-12">
+    <div class="max-w-6xl mx-auto px-4">
+        <p class="reveal text-center text-sm font-bold uppercase tracking-wider text-brand">Cronograma</p>
+        <h2 class="reveal mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Empezamos el <?= $e($d['inicioLargo']) ?></h2>
+        <p class="reveal mx-auto mt-2 max-w-2xl text-center text-muted"><?= count($d['sesiones']) ?> clases en vivo por Zoom<?php if (!empty($d['hora'])): ?>, de <?= $e($d['hora']) ?><?php endif; ?>.</p>
+        <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            <?php foreach ($d['sesiones'] as $i => $s): ?>
+            <div class="reveal overflow-hidden rounded-2xl bg-white text-center shadow-md ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-xl">
+                <div class="py-1.5 text-xs font-bold uppercase tracking-widest <?= $i === 0 ? 'bg-accent text-deep' : 'bg-brand text-white' ?>"><?= $e($s['mes']) ?></div>
+                <div class="pt-3 font-display text-5xl font-extrabold leading-none text-brand-dark"><?= (int)$s['dia'] ?></div>
+                <div class="pt-1 text-sm font-semibold capitalize text-muted"><?= $e($s['semana']) ?></div>
+                <div class="py-3"><span class="rounded-full bg-mist px-3 py-1 text-xs font-bold text-brand"><?= $i === 0 ? 'Inicio · ' : '' ?>Clase <?= (int)$s['n'] ?></span></div>
+            </div>
+            <?php endforeach; ?>
         </div>
-        <?php endforeach; ?>
     </div>
 </section>
 
 <!-- Escalera de precios -->
-<section class="bg-white py-12">
+<section class="bg-mist py-12">
     <div class="max-w-5xl mx-auto px-4">
-        <p class="text-center text-sm font-bold uppercase tracking-wider text-brand">Precio por fechas</p>
-        <h2 class="mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold">Mientras antes te inscribes, menos pagas</h2>
-        <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <p class="reveal text-center text-sm font-bold uppercase tracking-wider text-brand">Precio por fechas</p>
+        <h2 class="reveal mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Mientras antes te inscribes, menos pagas</h2>
+        <div class="mt-10 grid gap-5 md:grid-cols-3 md:items-end">
             <?php foreach ($d['etapas'] as $et): ?>
             <?php if ($et['estado'] === 'actual'): ?>
-            <div class="relative rounded-2xl border-2 border-brand bg-white p-6 shadow-xl">
-                <span class="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand px-4 py-1 text-xs font-bold uppercase tracking-wide text-white">Precio de hoy</span>
+            <div class="reveal relative rounded-3xl bg-brand-dark p-7 text-white shadow-2xl ring-4 ring-accent md:-translate-y-3">
+                <span class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-accent px-4 py-1 text-xs font-extrabold uppercase tracking-wide text-deep shadow"><i class="fas fa-bolt mr-1"></i>Precio de hoy</span>
+                <p class="text-sm font-bold uppercase tracking-wide text-sky-100"><?= $e($et['nombre']) ?></p>
+                <p class="mt-2 font-display text-5xl font-extrabold text-accent"><?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></p>
+                <p class="mt-2 text-sm text-sky-100"><?= $e($et['rango']) ?></p>
             <?php elseif ($et['estado'] === 'pasada'): ?>
-            <div class="rounded-2xl border border-line/60 bg-surface p-6 opacity-60">
-            <?php else: ?>
-            <div class="rounded-2xl border border-line/60 bg-surface p-6">
-            <?php endif; ?>
+            <div class="reveal rounded-3xl bg-white p-6 opacity-60 shadow-sm">
                 <p class="text-sm font-bold uppercase tracking-wide text-muted"><?= $e($et['nombre']) ?></p>
-                <p class="mt-2 font-display text-4xl font-extrabold <?= $et['estado'] === 'actual' ? 'text-brand' : '' ?> <?= $et['estado'] === 'pasada' ? 'line-through' : '' ?>"><?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></p>
-                <p class="mt-2 text-sm text-muted"><?= $e($et['rango']) ?><?= $et['estado'] === 'pasada' ? ' (finalizada)' : '' ?></p>
+                <p class="mt-2 font-display text-4xl font-extrabold text-muted line-through"><?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></p>
+                <p class="mt-2 text-sm text-muted"><?= $e($et['rango']) ?> (finalizada)</p>
+            <?php else: ?>
+            <div class="reveal rounded-3xl bg-white p-6 shadow-md">
+                <p class="text-sm font-bold uppercase tracking-wide text-muted"><?= $e($et['nombre']) ?></p>
+                <p class="mt-2 font-display text-4xl font-extrabold text-brand-dark"><?= $d['simbolo'] ?><?= $fmt($et['precio']) ?></p>
+                <p class="mt-2 text-sm text-muted"><?= $e($et['rango']) ?></p>
+            <?php endif; ?>
             </div>
             <?php endforeach; ?>
         </div>
@@ -224,24 +286,26 @@ $tituloPlano = $d['titulo'][0] . ' ' . $d['titulo'][1];
 
 <?php if (!empty($d['galeria'])): ?>
 <!-- Galeria -->
-<section class="max-w-6xl mx-auto px-4 py-12">
-    <h2 class="text-center font-display text-2xl sm:text-3xl font-extrabold">Así se trabaja en el curso</h2>
-    <div class="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <?php foreach ($d['galeria'] as $img): ?>
-        <img src="<?= $e($img) ?>" alt="" loading="lazy" class="aspect-[4/3] w-full rounded-xl object-cover shadow-sm">
-        <?php endforeach; ?>
+<section class="bg-white py-12">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Así se trabaja en el curso</h2>
+        <div class="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
+            <?php foreach ($d['galeria'] as $img): ?>
+            <img src="<?= $e($img) ?>" alt="" loading="lazy" class="reveal aspect-[4/3] w-full rounded-2xl object-cover shadow-md">
+            <?php endforeach; ?>
+        </div>
     </div>
 </section>
 <?php endif; ?>
 
 <?php if (!empty($d['testimonios'])): ?>
 <!-- Testimonios (capturas reales) -->
-<section class="bg-white py-12">
+<section class="bg-mist py-12">
     <div class="max-w-6xl mx-auto px-4">
-        <h2 class="text-center font-display text-2xl sm:text-3xl font-extrabold">Lo que dicen nuestros alumnos</h2>
+        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Lo que dicen nuestros alumnos</h2>
         <div class="mt-8 flex snap-x gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-4">
             <?php foreach ($d['testimonios'] as $img): ?>
-            <img src="<?= $e($img) ?>" alt="Testimonio de un alumno" loading="lazy" class="w-64 shrink-0 snap-center rounded-xl border border-line/60 shadow-sm md:w-full">
+            <img src="<?= $e($img) ?>" alt="Testimonio de un alumno" loading="lazy" class="w-64 shrink-0 snap-center rounded-2xl shadow-md ring-1 ring-black/5 md:w-full">
             <?php endforeach; ?>
         </div>
     </div>
@@ -249,15 +313,16 @@ $tituloPlano = $d['titulo'][0] . ' ' . $d['titulo'][1];
 <?php endif; ?>
 
 <!-- Inscripcion y pago -->
-<section id="inscripcion" class="bg-mist py-12 scroll-mt-28">
-    <div class="max-w-3xl mx-auto px-4">
-        <p class="text-center text-sm font-bold uppercase tracking-wider text-brand">Inscripción</p>
-        <h2 class="mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold">Completa tu inscripción</h2>
+<section id="inscripcion" class="relative scroll-mt-28 overflow-hidden bg-brand-dark bg-cover bg-center py-14" style="background-image: url('<?= $e($fondo) ?>');">
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-deep/70 to-brand-dark/50"></div>
+    <div class="relative max-w-3xl mx-auto px-4">
+        <p class="text-center text-sm font-bold uppercase tracking-wider text-accent">Inscripción</p>
+        <h2 class="mt-1 text-center font-display text-2xl sm:text-3xl font-extrabold text-white">Completa tu inscripción</h2>
 
         <div x-show="!success" class="mt-8 space-y-6">
             <!-- Paso 1 -->
-            <div class="rounded-2xl bg-white p-6 shadow-sm">
-                <h3 class="flex items-center gap-3 font-display text-lg font-bold"><span class="flex h-7 w-7 items-center justify-center rounded-full bg-brand text-sm text-white">1</span> Datos del participante</h3>
+            <div class="rounded-3xl bg-white p-6 shadow-2xl">
+                <h3 class="flex items-center gap-3 font-display text-lg font-bold text-brand-dark"><span class="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-extrabold text-deep">1</span> Datos del participante</h3>
                 <p class="mt-1 text-sm text-muted">Con estos datos se emite tu certificado.</p>
                 <div class="mt-4 grid gap-4 sm:grid-cols-2">
                     <label class="sm:col-span-2 text-sm font-semibold">DNI o documento de identidad
@@ -276,17 +341,17 @@ $tituloPlano = $d['titulo'][0] . ' ' . $d['titulo'][1];
             </div>
 
             <!-- Paso 2 -->
-            <div class="rounded-2xl bg-white p-6 shadow-sm">
-                <h3 class="flex items-center gap-3 font-display text-lg font-bold"><span class="flex h-7 w-7 items-center justify-center rounded-full bg-brand text-sm text-white">2</span> Método de pago</h3>
+            <div class="rounded-3xl bg-white p-6 shadow-2xl">
+                <h3 class="flex items-center gap-3 font-display text-lg font-bold text-brand-dark"><span class="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-extrabold text-deep">2</span> Método de pago</h3>
                 <p class="mt-1 text-sm text-muted">Total a pagar: <strong class="text-brand"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <?= $e($d['moneda']) ?></strong></p>
 
                 <div class="mt-4 flex flex-wrap gap-2 rounded-xl bg-mist p-1.5">
                     <?php if ($hayManual): ?>
-                    <button type="button" @click="setTab('manual')" :class="tab === 'manual' ? 'bg-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-qrcode mr-1"></i> Yape / Plin</button>
+                    <button type="button" @click="setTab('manual')" :class="tab === 'manual' ? 'bg-brand text-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-qrcode mr-1"></i> Yape / Plin</button>
                     <?php endif; ?>
-                    <button type="button" @click="setTab('paypal')" :class="tab === 'paypal' ? 'bg-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-credit-card mr-1"></i> PayPal / Tarjeta</button>
+                    <button type="button" @click="setTab('paypal')" :class="tab === 'paypal' ? 'bg-brand text-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-credit-card mr-1"></i> PayPal / Tarjeta</button>
                     <?php if ($hayHotmart): ?>
-                    <button type="button" @click="setTab('hotmart')" :class="tab === 'hotmart' ? 'bg-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-globe-americas mr-1"></i> Otros métodos</button>
+                    <button type="button" @click="setTab('hotmart')" :class="tab === 'hotmart' ? 'bg-brand text-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-globe-americas mr-1"></i> Otros métodos</button>
                     <?php endif; ?>
                 </div>
 
@@ -313,7 +378,7 @@ $tituloPlano = $d['titulo'][0] . ' ' . $d['titulo'][1];
                             </span>
                         </label>
                     </div>
-                    <button type="button" @click="enviarVoucher()" :disabled="enviando" class="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-5 py-4 font-display font-bold text-white shadow-lg hover:bg-brand-soft disabled:opacity-60">
+                    <button type="button" @click="enviarVoucher()" :disabled="enviando" class="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-5 py-4 font-display font-extrabold text-deep shadow-lg hover:brightness-95 disabled:opacity-60">
                         <i class="fas fa-check-circle"></i> <span x-text="enviando ? 'Enviando…' : 'Confirmar mi inscripción'"></span>
                     </button>
                 </div>
@@ -337,22 +402,22 @@ $tituloPlano = $d['titulo'][0] . ' ' . $d['titulo'][1];
                 <?php endif; ?>
             </div>
 
-            <p class="text-center text-sm text-muted"><i class="fas fa-file-invoice mr-1"></i> ¿Necesitas boleta o factura? <a href="<?= $e($waComprobante) ?>" target="_blank" rel="noopener" class="font-semibold text-brand underline">Pídela por WhatsApp</a>. Se emite con IGV (18 %) adicional.</p>
+            <p class="text-center text-sm text-sky-100"><i class="fas fa-file-invoice mr-1"></i> ¿Necesitas boleta o factura? <a href="<?= $e($waComprobante) ?>" target="_blank" rel="noopener" class="font-bold text-accent underline">Pídela por WhatsApp</a>. Se emite con IGV (18 %) adicional.</p>
         </div>
 
         <!-- Exito -->
-        <div x-show="success" x-cloak class="mt-8 rounded-2xl bg-white p-8 text-center shadow-sm">
+        <div x-show="success" x-cloak class="mt-8 rounded-3xl bg-white p-8 text-center shadow-2xl">
             <div class="text-5xl">✅</div>
             <template x-if="metodoUsado === 'manual'">
                 <div>
-                    <h3 class="mt-3 font-display text-2xl font-bold">¡Comprobante recibido!</h3>
+                    <h3 class="mt-3 font-display text-2xl font-bold text-brand-dark">¡Comprobante recibido!</h3>
                     <p class="mt-2 text-muted">Validaremos tu pago y te enviaremos tus accesos. Para agilizarlo, escríbenos por WhatsApp confirmando tus datos.</p>
                     <a href="<?= $wa ?>?text=<?= rawurlencode('Hola, acabo de subir mi comprobante para el curso ' . $d['curso'] . '. Mis nombres son:') ?>" target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 rounded-full bg-emerald-500 px-6 py-3 font-bold text-white shadow-lg"><i class="fab fa-whatsapp text-xl"></i> Escribir por WhatsApp</a>
                 </div>
             </template>
             <template x-if="metodoUsado === 'paypal'">
                 <div>
-                    <h3 class="mt-3 font-display text-2xl font-bold">¡Pago recibido!</h3>
+                    <h3 class="mt-3 font-display text-2xl font-bold text-brand-dark">¡Pago recibido!</h3>
                     <p class="mt-2 text-muted">En unos minutos recibirás tus credenciales por correo. Si necesitas ayuda, usa el chat de soporte de abajo a la derecha.</p>
                 </div>
             </template>
@@ -361,27 +426,37 @@ $tituloPlano = $d['titulo'][0] . ' ' . $d['titulo'][1];
 </section>
 </main>
 
-<footer class="bg-navy py-8 text-center text-sm text-slate-300">
+<footer class="bg-deep py-8 text-center text-sm text-sky-100">
     <div class="max-w-6xl mx-auto px-4">
-        <p class="font-semibold text-white">ICC · Instituto de Capacitación Continua</p>
-        <p class="mt-1">Medios de pago: Yape · Plin · PayPal · Tarjeta de crédito o débito</p>
+        <img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC" class="mx-auto h-10 w-auto">
+        <p class="mt-3">Medios de pago: Yape · Plin · PayPal · Tarjeta de crédito o débito</p>
         <p class="mt-1">informes@icc.com.pe · <a href="<?= $wa ?>" class="underline" target="_blank" rel="noopener">+51 941 208 020</a></p>
     </div>
 </footer>
 
 <!-- Barra fija en celular -->
-<div class="fixed inset-x-0 bottom-0 z-40 border-t border-line/60 bg-white p-3 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] md:hidden">
+<div class="fixed inset-x-0 bottom-0 z-40 border-t border-line/60 bg-white p-3 shadow-[0_-4px_16px_rgba(0,0,0,0.12)] md:hidden">
     <div class="mx-auto flex max-w-md items-center justify-between gap-3">
         <div>
-            <p class="font-display text-xl font-extrabold leading-none"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <span class="text-xs font-semibold text-muted line-through"><?= $d['simbolo'] ?><?= $fmt($d['precioRegular']) ?></span></p>
-            <?php if ($d['js']['hastaMs']): ?><p class="mt-0.5 text-xs font-semibold text-red-600"><i class="far fa-clock"></i> <span x-text="cuenta"></span></p><?php endif; ?>
+            <p class="font-display text-xl font-extrabold leading-none text-brand-dark"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <span class="text-xs font-semibold text-muted line-through"><?= $d['simbolo'] ?><?= $fmt($d['precioRegular']) ?></span></p>
+            <?php if ($d['js']['hastaMs']): ?><p class="mt-0.5 text-xs font-bold text-red-600"><i class="far fa-clock"></i> <span x-text="cuenta"></span></p><?php endif; ?>
         </div>
-        <a href="#inscripcion" class="rounded-xl bg-brand px-5 py-3 font-display text-sm font-bold text-white shadow-md">Inscribirme</a>
+        <a href="#inscripcion" class="rounded-xl bg-accent px-5 py-3 font-display text-sm font-extrabold text-deep shadow-md">Inscribirme</a>
     </div>
 </div>
 
 <script>
     const CFG = <?= $js ?>;
+
+    // Aparicion suave de las secciones al hacer scroll
+    (function () {
+        const els = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('is-visible')); return; }
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } });
+        }, { threshold: 0.12 });
+        els.forEach(el => io.observe(el));
+    })();
 
     function checkoutV2() {
         return {

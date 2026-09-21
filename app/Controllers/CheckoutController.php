@@ -166,8 +166,17 @@ class CheckoutController extends Controller {
 
         // Sesiones del cronograma
         $sesiones = [];
+        $mesesCortos = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SET', 'OCT', 'NOV', 'DIC'];
         foreach ($cfg['sesiones'] ?? [] as $n => $f) {
-            $sesiones[] = ['n' => $n + 1, 'fecha' => \App\Helpers\OfertasCheckout::fechaLarga($f)];
+            $t = strtotime($f . ' 12:00:00');
+            $larga = \App\Helpers\OfertasCheckout::fechaLarga($f);
+            $sesiones[] = [
+                'n' => $n + 1,
+                'fecha' => $larga,
+                'dia' => (int)date('j', $t),
+                'mes' => $mesesCortos[(int)date('n', $t) - 1],
+                'semana' => explode(' ', $larga)[0],
+            ];
         }
 
         // Imagenes reales (testimonios, galeria): si la carpeta esta vacia, la seccion no se muestra

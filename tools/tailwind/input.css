@@ -5,3 +5,11 @@
 [x-cloak] { display: none !important; }
 html { scroll-behavior: smooth; }
 body { font-family: Inter, system-ui, sans-serif; }
+
+/* Aparicion suave al hacer scroll (solo si hay JS: sin JS todo se ve normal) */
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.js .reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-float, .animate-ping2 { animation: none; }
+}

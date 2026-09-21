@@ -44,7 +44,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=7">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=8">
     <script>document.documentElement.classList.add('js');</script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>
@@ -485,7 +485,9 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
     if (!el) return;
     try { if (localStorage.getItem('bruno_oculto') === '1') { el.remove(); return; } } catch (e) {}
 
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduceSistema = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let reduce = reduceSistema; // se respeta, salvo que la persona active la animacion desde el menu de Bruno
+    try { if (reduceSistema && localStorage.getItem('bruno_anim') === '1') { reduce = false; el.classList.add('anim-on'); } } catch (e) {}
     const btn = document.getElementById('bruno-btn');
     const burbuja = document.getElementById('bruno-burbuja');
     const tips = JSON.parse(el.dataset.tips || '[]');
@@ -582,12 +584,28 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
             try { localStorage.setItem('bruno_oculto', '1'); } catch (e) {}
             el.remove();
         });
-        mostrar('Hola, soy Bruno, el ingeniero de ICC. ¿Te ayudo?', [
+        const acciones = [
             enlace('Ver el horario', '#cronograma'),
             enlace('Inscribirme', '#inscripcion'),
-            enlace('Hablar por WhatsApp', wa, true),
-            ocultar
-        ], false);
+            enlace('Hablar por WhatsApp', wa, true)
+        ];
+        // Si el dispositivo tiene las animaciones desactivadas, Bruno queda quieto: se ofrece activarlas (o desactivarlas de nuevo)
+        if (reduceSistema) {
+            const anim = document.createElement('button');
+            anim.type = 'button';
+            anim.className = 'bruno-accion bruno-accion-sec';
+            anim.textContent = reduce ? 'Activar animaciones de Bruno' : 'Desactivar animaciones';
+            anim.addEventListener('click', () => {
+                try { localStorage.setItem('bruno_anim', reduce ? '1' : '0'); } catch (e) {}
+                reduce = !reduce;
+                el.classList.toggle('anim-on', !reduce);
+                cerrar();
+                if (!reduce) animar('saluda', 1350);
+            });
+            acciones.push(anim);
+        }
+        acciones.push(ocultar);
+        mostrar('Hola, soy Bruno, el ingeniero de ICC. ¿Te ayudo?', acciones, false);
         btn.setAttribute('aria-expanded', 'true');
     }
 
@@ -609,6 +627,9 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
             io.observe(sec);
         });
     }
+
+    // De vez en cuando saluda solo (si no hay un mensaje abierto ni se esta escribiendo)
+    setInterval(() => { if (!reduce && burbuja.hidden && !document.hidden && !escribiendo()) animar('saluda', 1350); }, 9000);
 
     // Saludo inicial (una vez por visita)
     try {

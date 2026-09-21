@@ -35,9 +35,9 @@ input::placeholder, textarea::placeholder { color: #5b6878; opacity: 1; }
 .bruno-brazo { transform-origin: 77% 71.8%; animation: br-brazo 4.8s ease-in-out infinite; }
 
 /* Reposo */
-@keyframes br-respira { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.01, 1.02); } }
-@keyframes br-cabeza { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.8deg) translateY(-1px); } }
-@keyframes br-brazo { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
+@keyframes br-respira { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.022, 1.04); } }
+@keyframes br-cabeza { 0%, 100% { transform: rotate(-3.2deg); } 50% { transform: rotate(3.4deg) translateY(-2px); } }
+@keyframes br-brazo { 0%, 100% { transform: rotate(-3.5deg); } 50% { transform: rotate(3.5deg) translateY(-2px); } }
 
 /* Camina (mientras se hace scroll): balanceo del cuerpo, cabeza a contrapaso y brazo que se mueve */
 .bruno.camina .bruno-grupo { animation: br-camina .42s ease-in-out infinite; }
@@ -77,8 +77,8 @@ input::placeholder, textarea::placeholder { color: #5b6878; opacity: 1; }
   background: #fff; color: #0050f4; font-weight: 700; font-size: 14px; text-decoration: none; cursor: pointer; width: 100%; }
 .bruno-accion:hover { background: #e8eefb; }
 .bruno-accion-sec { border-color: #c9d3ea; color: #4b5573; font-weight: 600; }
+/* Movimiento reducido del sistema: se respeta, salvo que la persona active a Bruno desde su menu (clase anim-on) */
 @media (prefers-reduced-motion: reduce) {
-  .bruno-grupo, .bruno-capa, .bruno.camina .bruno-grupo, .bruno.camina .bruno-capa, .bruno.salta .bruno-grupo, .bruno.salta .bruno-capa,
-  .bruno.habla .bruno-capa, .bruno.saluda .bruno-capa { animation: none !important; }
-  .bruno-cuerpo { transition: none; }
+  .bruno:not(.anim-on) .bruno-grupo, .bruno:not(.anim-on) .bruno-capa { animation: none !important; }
+  .bruno:not(.anim-on) .bruno-cuerpo { transition: none; }
 }

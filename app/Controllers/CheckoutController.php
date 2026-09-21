@@ -185,10 +185,15 @@ class CheckoutController extends Controller {
             $out = [];
             foreach (['jpg', 'jpeg', 'png', 'webp'] as $ext) {
                 foreach (glob($dir . '*.' . $ext) ?: [] as $f) {
-                    $out[] = BASE_URL . 'assets/images/' . $carpeta . '/' . basename($f);
+                    $medidas = @getimagesize($f);
+                    $out[] = [
+                        'url' => BASE_URL . 'assets/images/' . $carpeta . '/' . basename($f),
+                        // Las imagenes anchas (diseños 16:9) se muestran a lo ancho; las verticales (capturas) en carrusel
+                        'ancha' => $medidas && $medidas[1] > 0 && ($medidas[0] / $medidas[1]) > 1.3,
+                    ];
                 }
             }
-            sort($out);
+            usort($out, function ($a, $b) { return strcmp($a['url'], $b['url']); });
             return $out;
         };
 

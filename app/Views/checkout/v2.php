@@ -291,7 +291,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
         <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Así se trabaja en el curso</h2>
         <div class="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
             <?php foreach ($d['galeria'] as $img): ?>
-            <img src="<?= $e($img) ?>" alt="" loading="lazy" class="reveal aspect-[4/3] w-full rounded-2xl object-cover shadow-md">
+            <img src="<?= $e($img['url']) ?>" alt="" loading="lazy" class="reveal aspect-[4/3] w-full rounded-2xl object-cover shadow-md">
             <?php endforeach; ?>
         </div>
     </div>
@@ -299,15 +299,24 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
 <?php endif; ?>
 
 <?php if (!empty($d['testimonios'])): ?>
-<!-- Testimonios (capturas reales) -->
+<?php
+$testAnchas = array_filter($d['testimonios'], function ($t) { return $t['ancha']; });
+$testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['ancha']; });
+?>
+<!-- Testimonios (imagenes reales de alumnos) -->
 <section class="bg-mist py-12">
     <div class="max-w-6xl mx-auto px-4">
         <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-extrabold text-brand-dark">Lo que dicen nuestros alumnos</h2>
+        <?php foreach ($testAnchas as $t): ?>
+        <img src="<?= $e($t['url']) ?>" alt="Opiniones de alumnos de ICC" loading="lazy" class="reveal mx-auto mt-8 w-full max-w-4xl rounded-3xl shadow-xl ring-4 ring-white">
+        <?php endforeach; ?>
+        <?php if ($testVerticales): ?>
         <div class="mt-8 flex snap-x gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-4">
-            <?php foreach ($d['testimonios'] as $img): ?>
-            <img src="<?= $e($img) ?>" alt="Testimonio de un alumno" loading="lazy" class="w-64 shrink-0 snap-center rounded-2xl shadow-md ring-1 ring-black/5 md:w-full">
+            <?php foreach ($testVerticales as $t): ?>
+            <img src="<?= $e($t['url']) ?>" alt="Testimonio de un alumno" loading="lazy" class="w-64 shrink-0 snap-center rounded-2xl shadow-md ring-1 ring-black/5 md:w-full">
             <?php endforeach; ?>
         </div>
+        <?php endif; ?>
     </div>
 </section>
 <?php endif; ?>

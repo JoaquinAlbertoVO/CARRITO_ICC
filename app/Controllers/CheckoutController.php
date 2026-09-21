@@ -362,6 +362,27 @@ class CheckoutController extends Controller {
         $purchaseUnit  = $order['purchase_units'][0] ?? [];
         $monto         = $purchaseUnit['amount']['value'] ?? 0;
         $monedaPagada  = $purchaseUnit['amount']['currency_code'] ?? 'USD';
+
+        // Piso de seguridad: el precio viaja en el navegador (?precio=), asi que no se matricula un
+        // pago MUY por debajo del precio de lista del curso (ej. alguien que edito el link a 0.10).
+        // El piso es solo el 20 % de la lista, para no afectar promociones reales (S/ 39.90 = 22 %).
+        // Nota: pruebas de centavos por este checkout ya no matriculan (usar Hotmart o una oferta real).
+        try {
+            require_once __DIR__ . '/../Models/Curso.php';
+            $cursoLista = (new \App\Models\Curso())->getCursoByNombre($curso);
+            if ($cursoLista && (float)($cursoLista['precio'] ?? 0) > 0 && $monedaPagada === 'USD') {
+                $pisoUsd = ((float)$cursoLista['precio'] / 3.80) * 0.20;
+                if ((float)$monto < $pisoUsd) {
+                    file_put_contents($logFile, date('Y-m-d H:i:s') . " | MONTO SOSPECHOSO (pago $monto $monedaPagada, piso " . round($pisoUsd, 2) . "): Orden $orderId - Curso: $curso - NO matriculado\n", FILE_APPEND);
+                    http_response_code(402);
+                    echo json_encode(['success' => false, 'error' => 'El monto pagado no coincide con el precio del curso. Escribenos por el chat con tu numero de orden: ' . $orderId]);
+                    return;
+                }
+            }
+        } catch (\Throwable $e) {
+            // Si no se puede validar el precio, no bloqueamos una venta que PayPal ya confirmo
+        }
+
         $payer         = $order['payer'] ?? [];
         $emailPaypal   = $payer['email_address'] ?? '';
         $nombrePaypal  = trim(($payer['name']['given_name'] ?? '') . ' ' . ($payer['name']['surname'] ?? ''));

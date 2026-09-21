@@ -570,12 +570,13 @@
                     return parseFloat((this.coursePrice * this.tipoCambio).toFixed(2));
                 },
 
-                // Hotmart ya incluye PayPal (y mas metodos locales) adentro de su propio
-                // checkout, asi que si esta disponible para este pais y este curso, no tiene
-                // sentido hacer elegir entre "PayPal" y "Hotmart" por separado: mostramos
-                // Hotmart directo, sin pestañas.
+                // Solo Hotmart, sin pestañas: unicamente cuando es el UNICO metodo disponible
+                // (hoy, el link de prueba ?hm=). En links internacionales normales se muestran
+                // PayPal directo (menos comision que Hotmart) y Hotmart en pestañas.
                 get soloHotmart() {
-                    return this.metodosDisponibles.includes('hotmart') && !!HOTMART_LINK;
+                    return this.metodosDisponibles.includes('hotmart') && !!HOTMART_LINK
+                        && !this.metodosDisponibles.includes('paypal')
+                        && !this.metodosDisponibles.includes('manual');
                 },
 
                 init() {

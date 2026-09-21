@@ -49,11 +49,6 @@ class CheckoutController extends Controller {
             if ($linkOfertaHotmart !== null) {
                 $hotmartLink = $linkOfertaHotmart;
                 $hotmartOferta = true;
-                // Link en dolares: solo el recuadro de Hotmart, sin Yape/Plin ni PayPal aparte
-                // (Hotmart ya trae PayPal, tarjeta y metodos locales de cada pais).
-                if ($monedaLink === 'USD') {
-                    $reglasPais['metodos'] = ['hotmart'];
-                }
             }
             $cursoDB = \App\Helpers\OfertasCheckout::ajustarCurso($_GET['oferta'], $cursoDB);
             $temasOferta = \App\Helpers\OfertasCheckout::temasHtml($_GET['oferta']);

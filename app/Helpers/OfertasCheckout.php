@@ -22,8 +22,9 @@ class OfertasCheckout {
     const OFERTAS = [
         'sistema-ia' => [
             // Ofertas de Hotmart del mismo producto ("Especializacion en Electricidad Industrial
-            // con IA") segun la moneda del link: PEN = S/ 69.90, USD = US$ 19.90 exacto. El link
-            // en dolares muestra SOLO el recuadro de Hotmart, en cualquier pais (incluido Peru).
+            // con IA") segun la moneda del link: PEN = S/ 69.90, USD = US$ 19.90 exacto. Solo los
+            // visitantes de fuera de Peru ven Hotmart (pestaña "Otros metodos", junto a PayPal
+            // directo); en Peru se sigue viendo Yape/Plin + PayPal.
             // El webhook sigue matriculando por el nombre del producto.
             'hotmart' => [
                 'PEN' => 'https://pay.hotmart.com/G107652272C?off=ius4rna9',

@@ -45,6 +45,7 @@ class OfertasCheckout {
             ],
             // Clases en vivo por Zoom: todas de 7 a 9 p. m. (hora de Peru/Colombia/Ecuador/Panama); si queda vacia no se muestra.
             'hora' => '7:00 p. m. a 9:00 p. m.',
+            'hora_corta' => '7:00 a 9:00 p. m.', // version corta para las fichas del calendario
             'sesiones' => ['2026-10-20', '2026-10-22', '2026-10-27', '2026-10-29', '2026-11-03', '2026-11-05', '2026-11-11', '2026-11-13', '2026-11-18'],
             // Precio por etapa (fechas en hora de Lima; 'hasta' inclusive). El precio REGULAR de
             // referencia es el de la ultima etapa, que es el que de verdad se cobra despues.

@@ -20,7 +20,7 @@ body { font-family: Inter, system-ui, sans-serif; }
 input::placeholder, textarea::placeholder { color: #5b6878; opacity: 1; }
 
 /* Bruno, mascota de ICC */
-.bruno { position: fixed; left: 0; bottom: 62px; z-index: 30; width: 76px; pointer-events: none; will-change: transform; }
+.bruno { position: fixed; left: 0; bottom: 46px; z-index: 30; width: 64px; pointer-events: none; will-change: transform; }
 @media (min-width: 768px) { .bruno { bottom: -10px; width: 128px; } }
 .bruno-btn { pointer-events: auto; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer;
   filter: drop-shadow(0 6px 10px rgba(6, 22, 96, .35)); }

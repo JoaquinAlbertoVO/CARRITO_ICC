@@ -208,6 +208,7 @@ class CheckoutController extends Controller {
             'docente' => $cfg['docente'],
             'video' => $cfg['video'] ?? null,
             'hora' => $cfg['hora'] ?? '',
+            'horaCorta' => $cfg['hora_corta'] ?? ($cfg['hora'] ?? ''),
             'sesiones' => $sesiones,
             'temas' => $cfg['temas'],
             'extra' => $cfg['extra'] ?? null,

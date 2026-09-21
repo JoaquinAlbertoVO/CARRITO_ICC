@@ -377,7 +377,7 @@
                         </script>
                         <?php endif; ?>
                         <p style="font-size: 0.8rem; color: var(--text-secondary); text-align: center; margin-top: 12px;">
-                            ¿No se abre? <button type="button" @click="window.open(HOTMART_LINK, '_blank', 'noopener')" style="background: none; border: none; padding: 0; color: var(--primary); text-decoration: underline; cursor: pointer; font: inherit;">Ábrelo en una pestaña nueva</button>.
+                            ¿No se abre? <button type="button" @click="trackHotmartClick('respaldo'); window.open(HOTMART_LINK, '_blank', 'noopener')" style="background: none; border: none; padding: 0; color: var(--primary); text-decoration: underline; cursor: pointer; font: inherit;">Ábrelo en una pestaña nueva</button>.
                             Tus accesos al Aula Virtual llegan automáticamente a tu correo tras confirmarse el pago.
                         </p>
                     </div>
@@ -504,6 +504,29 @@
         // true si ese link es una oferta promocional de Hotmart: Hotmart convierte su precio
         // a la moneda del comprador, asi que puede diferir en centavos del monto de arriba.
         const HOTMART_OFERTA = <?= json_encode(!empty($data['hotmartOferta'])) ?>;
+
+        // Google Analytics: evento begin_checkout cuando el comprador toca "Pagar ahora" de
+        // Hotmart (o el boton de respaldo). Junto con los page_view por utm_campaign, permite
+        // ver cuantos llegan del anuncio, cuantos van a pagar y cuantos terminan comprando.
+        function trackHotmartClick(origen) {
+            try {
+                var root = document.querySelector('.checkout-container');
+                var d = (window.Alpine && root) ? Alpine.$data(root) : null;
+                gtag('event', 'begin_checkout', {
+                    currency: d ? d.currency : undefined,
+                    value: d ? d.coursePrice : undefined,
+                    items: [{ item_name: d ? d.courseName : '' }],
+                    payment_provider: 'hotmart',
+                    origen_boton: origen,
+                    transport_type: 'beacon'
+                });
+            } catch (e) {}
+        }
+        // En captura: corre antes que el widget de Hotmart (que en celular cambia de pagina).
+        document.addEventListener('click', function (e) {
+            var a = e.target.closest ? e.target.closest('a.hotmart-fb') : null;
+            if (a) trackHotmartClick('widget');
+        }, true);
 
         function checkoutApp() {
             return {

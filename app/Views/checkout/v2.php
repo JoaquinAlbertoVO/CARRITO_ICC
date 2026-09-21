@@ -44,7 +44,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=8">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=9">
     <script>document.documentElement.classList.add('js');</script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>
@@ -100,25 +100,23 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
 <section class="relative overflow-hidden bg-brand-dark bg-cover bg-center text-white" style="background-image: url('<?= $e($fondo) ?>');">
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-deep/40 via-transparent to-deep/20"></div>
 
-    <div class="relative max-w-6xl mx-auto px-4 pb-16 pt-10 lg:pt-14 grid lg:grid-cols-12 gap-10 items-start">
+    <div class="relative max-w-6xl mx-auto px-4 pb-16 pt-5 lg:pt-8">
+        <h1 class="sr-only"><?= $e($tituloPlano) ?></h1>
+        <!-- Banner del curso al inicio de la pagina -->
+        <img src="<?= BASE_URL ?>assets/images/banner-icc-1600.webp"
+             srcset="<?= BASE_URL ?>assets/images/banner-icc-800.webp 800w, <?= BASE_URL ?>assets/images/banner-icc-1600.webp 1600w"
+             sizes="(min-width: 1152px) 1120px, calc(100vw - 32px)"
+             alt="<?= $e($tituloPlano) ?>: banner del curso" width="1600" height="666" fetchpriority="high"
+             class="block w-full rounded-2xl shadow-2xl ring-1 ring-white/20">
+
+        <div class="mt-8 grid items-center gap-8 lg:grid-cols-12">
         <div class="lg:col-span-7">
             <div class="flex flex-wrap gap-2 mb-4">
                 <span class="rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wide text-deep">Especialización</span>
                 <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-dark"><i class="far fa-clock mr-1"></i><?= (int)$d['horas'] ?> horas académicas</span>
                 <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-dark"><i class="far fa-calendar-alt mr-1"></i>Inicio: <?= $e($d['inicioCorto']) ?></span>
             </div>
-            <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-                <?= $e($d['titulo'][0]) ?> <span class="text-accent"><?= $e($d['titulo'][1]) ?></span>
-            </h1>
-            <p class="mt-4 max-w-2xl text-base sm:text-lg text-sky-50"><?= $e($d['subtitulo']) ?></p>
-
-            <div class="mt-6 inline-flex items-center gap-3 rounded-2xl bg-white p-3 pr-6 text-ink shadow-xl">
-                <img src="<?= BASE_URL . $e($d['docente']['foto']) ?>" alt="<?= $e($d['docente']['nombre']) ?>" class="h-14 w-14 rounded-full object-cover object-top ring-4 ring-accent" width="56" height="56">
-                <div>
-                    <p class="font-display font-bold leading-tight"><?= $e($d['docente']['nombre']) ?></p>
-                    <p class="text-sm text-muted"><?= $e($d['docente']['cargo']) ?></p>
-                </div>
-            </div>
+            <p class="max-w-2xl text-base sm:text-lg text-sky-50"><?= $e($d['subtitulo']) ?></p>
         </div>
 
         <div class="lg:col-span-5">
@@ -142,6 +140,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
                 </div>
                 <p class="mt-3 text-center text-xs text-muted"><i class="fas fa-lock mr-1 text-emerald-600"></i>Pago seguro con Yape, Plin, PayPal o tarjeta</p>
             </div>
+        </div>
         </div>
     </div>
 

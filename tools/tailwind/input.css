@@ -19,30 +19,66 @@ body { font-family: Inter, system-ui, sans-serif; }
 /* Texto de ejemplo de los campos con contraste suficiente sobre el fondo del campo */
 input::placeholder, textarea::placeholder { color: #5b6878; opacity: 1; }
 
-/* Bruno, mascota de ICC */
-.bruno { position: fixed; left: 0; bottom: 46px; z-index: 30; width: 64px; pointer-events: none; will-change: transform; }
-@media (min-width: 768px) { .bruno { bottom: -10px; width: 128px; } }
-.bruno-btn { pointer-events: auto; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer;
-  filter: drop-shadow(0 6px 10px rgba(6, 22, 96, .35)); }
-.bruno-flip { display: block; transition: transform .25s ease; }
-.bruno.flip .bruno-flip { transform: scaleX(-1); }
-.bruno-sprite { display: block; width: 100%; height: auto; transform-origin: 50% 100%; animation: bruno-bob 3.2s ease-in-out infinite; }
-.bruno.walking .bruno-sprite { animation: bruno-walk .38s ease-in-out infinite; }
-.bruno.jumping .bruno-sprite { animation: bruno-jump .8s ease-out 1; }
-@keyframes bruno-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-@keyframes bruno-walk { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-6px) rotate(3deg); } }
-@keyframes bruno-jump {
-  0% { transform: translateY(0) scale(1, 1); } 15% { transform: translateY(0) scale(1.06, .92); }
-  45% { transform: translateY(-26px) scale(.96, 1.06); } 75% { transform: translateY(0) scale(1.05, .94); } 100% { transform: translateY(0) scale(1, 1); }
+/* Bruno, mascota de ICC: capas separadas (torso, brazo, cabeza) para animarlas por partes */
+.bruno { position: fixed; left: 0; bottom: 46px; z-index: 30; width: 72px; pointer-events: none; will-change: transform; }
+@media (min-width: 768px) { .bruno { bottom: -10px; width: 132px; } }
+.bruno-btn { pointer-events: auto; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
+.bruno-btn:focus-visible { border-radius: 12px; }
+/* Por defecto "asoma" (solo cabeza y hombros); al hablar o saltar sube entero */
+.bruno-cuerpo { display: block; transform: translateY(var(--baja, 34px)); transition: transform .4s cubic-bezier(.3, 1.4, .5, 1);
+  filter: drop-shadow(0 5px 8px rgba(6, 22, 96, .35)); }
+@media (min-width: 768px) { .bruno-cuerpo { --baja: 84px; } }
+.bruno.arriba .bruno-cuerpo, .bruno-btn:hover .bruno-cuerpo, .bruno-btn:focus-visible .bruno-cuerpo { transform: translateY(0); }
+.bruno-grupo { position: relative; display: block; width: 100%; padding-bottom: 172.6%; transform-origin: 50% 100%; animation: br-respira 3.6s ease-in-out infinite; }
+.bruno-capa { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.bruno-cabeza { transform-origin: 51.3% 41%; animation: br-cabeza 4.2s ease-in-out infinite; }
+.bruno-brazo { transform-origin: 77% 71.8%; animation: br-brazo 4.8s ease-in-out infinite; }
+
+/* Reposo */
+@keyframes br-respira { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.01, 1.02); } }
+@keyframes br-cabeza { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.8deg) translateY(-1px); } }
+@keyframes br-brazo { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
+
+/* Camina (mientras se hace scroll): balanceo del cuerpo, cabeza a contrapaso y brazo que se mueve */
+.bruno.camina .bruno-grupo { animation: br-camina .42s ease-in-out infinite; }
+.bruno.camina .bruno-cabeza { animation: br-cabeza-camina .42s ease-in-out infinite; }
+.bruno.camina .bruno-brazo { animation: br-brazo-camina .42s ease-in-out infinite; }
+@keyframes br-camina { 0%, 100% { transform: translateY(0) rotate(-2.6deg); } 50% { transform: translateY(-5px) rotate(2.6deg); } }
+@keyframes br-cabeza-camina { 0%, 100% { transform: rotate(2deg); } 50% { transform: rotate(-2deg); } }
+@keyframes br-brazo-camina { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(7deg); } }
+
+/* Salta al dar un consejo (aplastar, estirar, aterrizar) con el brazo arriba */
+.bruno.salta .bruno-grupo { animation: br-salta .85s cubic-bezier(.3, .7, .4, 1) 1; }
+.bruno.salta .bruno-brazo { animation: br-brazo-salta .85s ease-out 1; }
+.bruno.salta .bruno-cabeza { animation: br-cabeza-salta .85s ease-out 1; }
+@keyframes br-salta {
+  0% { transform: translateY(0) scale(1, 1); } 15% { transform: translateY(3px) scale(1.07, .91); }
+  45% { transform: translateY(-30px) scale(.95, 1.08); } 72% { transform: translateY(0) scale(1.06, .93); } 100% { transform: translateY(0) scale(1, 1); }
 }
-.bruno-burbuja { position: absolute; left: 0; bottom: calc(100% + 6px); width: 230px; max-width: calc(100vw - 16px); pointer-events: auto;
-  padding: 12px 34px 12px 14px; border-radius: 12px; background: #fff; color: #0a1640; font-size: 14px; line-height: 1.35;
-  box-shadow: 0 8px 24px rgba(6, 22, 96, .25); border-top: 3px solid #cddd32; }
+@keyframes br-brazo-salta { 0% { transform: rotate(0); } 40% { transform: rotate(-16deg) translateY(-4px); } 100% { transform: rotate(0); } }
+@keyframes br-cabeza-salta { 0% { transform: rotate(0); } 40% { transform: rotate(-4deg); } 75% { transform: rotate(2deg); } 100% { transform: rotate(0); } }
+
+/* Habla: asiente con la cabeza mientras hay un mensaje */
+.bruno.habla .bruno-cabeza { animation: br-habla .5s ease-in-out infinite; }
+@keyframes br-habla { 0%, 100% { transform: rotate(0) translateY(0); } 50% { transform: rotate(-2.5deg) translateY(2px); } }
+
+/* Saluda: el brazo del pulgar sube y se sacude */
+.bruno.saluda .bruno-brazo { animation: br-saluda 1.3s ease-in-out 1; }
+@keyframes br-saluda { 0% { transform: rotate(0); } 18% { transform: rotate(-22deg) translateY(-5px); } 36% { transform: rotate(-8deg); } 54% { transform: rotate(-22deg) translateY(-5px); } 72% { transform: rotate(-8deg); } 100% { transform: rotate(0); } }
+
+/* Burbuja de mensajes */
+.bruno-burbuja { position: absolute; left: 0; bottom: calc(100% - 22px); width: 214px; max-width: calc(100vw - 16px); pointer-events: auto;
+  padding: 10px 32px 10px 12px; border-radius: 12px; background: #fff; color: #0a1640; font-size: 13.5px; line-height: 1.35;
+  box-shadow: 0 8px 24px rgba(6, 22, 96, .28); border-top: 3px solid #cddd32; }
 .bruno-burbuja[hidden] { display: none; }
 .bruno-burbuja-der { left: auto; right: 0; }
-.bruno-cerrar { position: absolute; right: 4px; top: 2px; width: 32px; height: 32px; border: 0; background: none; font-size: 22px; line-height: 1; color: #4b5573; cursor: pointer; }
+.bruno-cerrar { position: absolute; right: 2px; top: 0; width: 34px; height: 34px; border: 0; background: none; font-size: 22px; line-height: 1; color: #4b5573; cursor: pointer; }
 .bruno-accion { display: flex; align-items: center; min-height: 44px; margin-top: 6px; padding: 0 12px; border-radius: 8px; border: 1px solid #0050f4;
   background: #fff; color: #0050f4; font-weight: 700; font-size: 14px; text-decoration: none; cursor: pointer; width: 100%; }
 .bruno-accion:hover { background: #e8eefb; }
 .bruno-accion-sec { border-color: #c9d3ea; color: #4b5573; font-weight: 600; }
-@media (prefers-reduced-motion: reduce) { .bruno-sprite, .bruno.walking .bruno-sprite, .bruno.jumping .bruno-sprite { animation: none !important; } .bruno-flip { transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .bruno-grupo, .bruno-capa, .bruno.camina .bruno-grupo, .bruno.camina .bruno-capa, .bruno.salta .bruno-grupo, .bruno.salta .bruno-capa,
+  .bruno.habla .bruno-capa, .bruno.saluda .bruno-capa { animation: none !important; }
+  .bruno-cuerpo { transition: none; }
+}

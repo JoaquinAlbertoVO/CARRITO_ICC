@@ -44,7 +44,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=6">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=7">
     <script>document.documentElement.classList.add('js');</script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>
@@ -471,7 +471,11 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
 <div id="bruno" class="bruno" data-tips="<?= $e(json_encode($tipsBruno, JSON_UNESCAPED_UNICODE)) ?>" data-wa="<?= $e($wa) ?>">
     <div id="bruno-burbuja" class="bruno-burbuja" role="status" aria-live="polite" hidden></div>
     <button type="button" id="bruno-btn" class="bruno-btn" aria-label="Ingeniero Bruno, asistente de ICC. Abrir ayuda" aria-expanded="false">
-        <span class="bruno-flip"><img class="bruno-sprite" src="<?= BASE_URL ?>assets/images/mascota/bruno.webp" alt="" width="340" height="587" decoding="async"></span>
+        <span class="bruno-cuerpo"><span class="bruno-grupo">
+            <img class="bruno-capa bruno-torso" src="<?= BASE_URL ?>assets/images/mascota/bruno-torso.webp" alt="" width="340" height="587" decoding="async">
+            <img class="bruno-capa bruno-brazo" src="<?= BASE_URL ?>assets/images/mascota/bruno-brazo.webp" alt="" width="340" height="587" decoding="async">
+            <img class="bruno-capa bruno-cabeza" src="<?= BASE_URL ?>assets/images/mascota/bruno-cabeza.webp" alt="" width="340" height="587" decoding="async">
+        </span></span>
     </button>
 </div>
 
@@ -500,11 +504,10 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
         el.style.transform = 'translateX(' + x.toFixed(1) + 'px)';
         const dif = window.scrollY - ultimo;
         if (Math.abs(dif) > 2) {
-            el.classList.toggle('flip', dif < 0); // mira hacia donde camina
             if (!reduce) {
-                el.classList.add('walking');
+                el.classList.add('camina');
                 clearTimeout(caminaT);
-                caminaT = setTimeout(() => el.classList.remove('walking'), 200);
+                caminaT = setTimeout(() => el.classList.remove('camina'), 220);
             }
         }
         ultimo = window.scrollY;
@@ -515,15 +518,24 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
     window.addEventListener('resize', actualizar);
     actualizar();
 
-    function saltar() {
+    function animar(clase, ms) {
         if (reduce) return;
-        el.classList.remove('jumping');
+        el.classList.remove(clase);
         void el.offsetWidth;
-        el.classList.add('jumping');
-        setTimeout(() => el.classList.remove('jumping'), 900);
+        el.classList.add(clase);
+        setTimeout(() => el.classList.remove(clase), ms);
+    }
+    const saltar = () => animar('salta', 900);
+    let hablaT = null;
+    function hablar() {
+        if (reduce) return;
+        el.classList.add('habla');
+        clearTimeout(hablaT);
+        hablaT = setTimeout(() => el.classList.remove('habla'), 2600);
     }
 
     function cerrar() {
+        el.classList.remove('arriba', 'habla');
         burbuja.hidden = true;
         burbuja.textContent = '';
         btn.setAttribute('aria-expanded', 'false');
@@ -553,8 +565,10 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
         burbuja.append(cerrarBtn, p);
         (acciones || []).forEach(a => burbuja.appendChild(a));
         burbuja.hidden = false;
+        el.classList.add('arriba');
         posicionarBurbuja();
         saltar();
+        hablar();
         clearTimeout(ocultaT);
         if (autocierre) ocultaT = setTimeout(cerrar, 6500);
     }
@@ -577,7 +591,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
         btn.setAttribute('aria-expanded', 'true');
     }
 
-    btn.addEventListener('click', () => { burbuja.hidden ? menu() : cerrar(); });
+    btn.addEventListener('click', () => { if (burbuja.hidden) { animar('saluda', 1350); menu(); } else { cerrar(); } });
 
     // Consejos automaticos: una sola vez por seccion y sin interrumpir mientras se escribe
     const escribiendo = () => /^(INPUT|TEXTAREA)$/.test((document.activeElement || {}).tagName || '');
@@ -600,7 +614,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
     try {
         if (!sessionStorage.getItem('bruno_saludo')) {
             sessionStorage.setItem('bruno_saludo', '1');
-            setTimeout(() => { if (burbuja.hidden && !escribiendo()) mostrar('Hola, soy Bruno. Toca si necesitas ayuda.', [], true); }, 5000);
+            setTimeout(() => { if (burbuja.hidden && !escribiendo()) animar('saluda', 1350); mostrar('Hola, soy Bruno. Toca si necesitas ayuda.', [], true); }, 5000);
         }
     } catch (e) {}
 })();

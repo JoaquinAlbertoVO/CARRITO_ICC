@@ -336,13 +336,12 @@
                     </div>
 
                     <!-- Vista Hotmart: mas metodos locales segun el pais del comprador
-                         (OXXO, Mercado Pago, PSE, Nequi, etc.) con el widget oficial de Hotmart
-                         (checkoutMode=2): en computadora abre el pago en una ventana encima de esta
-                         pagina (con permisos de pago para 3D Secure/PayPal); en celular (incluido
-                         el navegador interno de Facebook/Instagram) abre la pagina de pago de
-                         Hotmart normal, que es donde menos fallan los bancos y PayPal.
-                         OJO: el script del widget borra todo <a href*="hotmart.com"> si su health
-                         check falla, por eso el respaldo es un <button>, no un link. -->
+                         (OXXO, Mercado Pago, PSE, Nequi, etc.) - incrustada directo aqui,
+                         confirmado que pay.hotmart.com no bloquea iframes (sin X-Frame-Options
+                         ni frame-ancestors en su CSP). Se deja un link de respaldo por si algun
+                         metodo dentro de Hotmart necesita abrir su propia ventana/popup.
+                         (Se probo el widget oficial de Hotmart, checkoutMode=2, y se volvio al
+                         iframe por decision del cliente.) -->
                     <div class="hotmart-view" x-show="activeTab === 'hotmart'" x-transition>
                         <p class="paypal-instructions">
                             Paga con más métodos según tu país (tarjeta local en cuotas, transferencia bancaria,
@@ -351,33 +350,16 @@
                         <p x-show="HOTMART_OFERTA" style="font-size: 0.85rem; color: var(--text-secondary); text-align: center; margin-top: 6px;">
                             El precio final se muestra en tu moneda local dentro del formulario de pago.
                         </p>
-                        <?php
-                        $hmLink = $data['hotmartLink'] ?? null;
-                        if ($hmLink && in_array('hotmart', $data['metodosDisponibles'] ?? [], true)):
-                            $hmHref = $hmLink . (strpos($hmLink, '?') === false ? '?' : '&') . 'checkoutMode=2';
-                        ?>
-                        <div style="text-align: center; margin: 24px 0 8px;">
-                            <a onclick="return false;" href="<?= htmlspecialchars($hmHref) ?>" class="hotmart-fb hotmart__button-checkout"
-                               style="display: block; width: 100%; font-family: inherit; font-size: 1.1rem; padding: 14px 20px; border-radius: 10px; background: #16a34a; border: none; box-shadow: 0 4px 12px rgba(22,163,74,0.3); text-shadow: none;">
-                                🔒 Pagar ahora
-                            </a>
-                        </div>
-                        <script type="text/javascript">
-                            function importHotmart() {
-                                var imported = document.createElement('script');
-                                imported.src = 'https://static.hotmart.com/checkout/widget.min.js';
-                                document.head.appendChild(imported);
-                                var link = document.createElement('link');
-                                link.rel = 'stylesheet';
-                                link.type = 'text/css';
-                                link.href = 'https://static.hotmart.com/css/hotmart-fb.min.css';
-                                document.head.appendChild(link);
-                            }
-                            importHotmart();
-                        </script>
-                        <?php endif; ?>
+                        <!-- Alto grande a propósito: si el cuadro alcanza a mostrar todo el
+                             formulario de Hotmart, no aparece su propia barra de scroll interna
+                             y el comprador solo tiene que hacer scroll de la página normal
+                             (mucho menos confuso para alguien que no es muy técnico).
+                             allow="payment": permisos de pago del navegador (Google/Apple Pay). -->
+                        <iframe :src="HOTMART_LINK" loading="lazy" allow="payment *" @load.once="trackHotmartClick('iframe')"
+                                style="width: 100%; height: 1900px; border: 1px solid var(--surface-border); border-radius: 8px; margin-top: 10px;">
+                        </iframe>
                         <p style="font-size: 0.8rem; color: var(--text-secondary); text-align: center; margin-top: 12px;">
-                            ¿No se abre? <button type="button" @click="trackHotmartClick('respaldo'); window.open(HOTMART_LINK, '_blank', 'noopener')" style="background: none; border: none; padding: 0; color: var(--primary); text-decoration: underline; cursor: pointer; font: inherit;">Ábrelo en una pestaña nueva</button>.
+                            ¿No carga bien aquí? <a :href="HOTMART_LINK" target="_blank" rel="noopener" @click="trackHotmartClick('respaldo')">Ábrelo en una pestaña nueva</a>.
                             Tus accesos al Aula Virtual llegan automáticamente a tu correo tras confirmarse el pago.
                         </p>
                     </div>
@@ -505,9 +487,10 @@
         // a la moneda del comprador, asi que puede diferir en centavos del monto de arriba.
         const HOTMART_OFERTA = <?= json_encode(!empty($data['hotmartOferta'])) ?>;
 
-        // Google Analytics: evento begin_checkout cuando el comprador toca "Pagar ahora" de
-        // Hotmart (o el boton de respaldo). Junto con los page_view por utm_campaign, permite
-        // ver cuantos llegan del anuncio, cuantos van a pagar y cuantos terminan comprando.
+        // Google Analytics: evento begin_checkout cuando el formulario de pago de Hotmart se
+        // muestra (carga del iframe) o el comprador usa el link de respaldo. Junto con los
+        // page_view por utm_campaign, permite ver cuantos llegan del anuncio, cuantos ven el
+        // pago y cuantos terminan comprando.
         function trackHotmartClick(origen) {
             try {
                 var root = document.querySelector('.checkout-container');
@@ -522,11 +505,6 @@
                 });
             } catch (e) {}
         }
-        // En captura: corre antes que el widget de Hotmart (que en celular cambia de pagina).
-        document.addEventListener('click', function (e) {
-            var a = e.target.closest ? e.target.closest('a.hotmart-fb') : null;
-            if (a) trackHotmartClick('widget');
-        }, true);
 
         function checkoutApp() {
             return {

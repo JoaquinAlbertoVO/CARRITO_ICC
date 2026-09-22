@@ -14,6 +14,9 @@ $wa = 'https://wa.me/51941208020';
 $waComprobante = $wa . '?text=' . rawurlencode('Hola ICC, necesito boleta o factura para mi inscripción a ' . $d['curso'] . '.');
 $hayManual = in_array('manual', $d['metodos'], true);
 $hayHotmart = in_array('hotmart', $d['metodos'], true);
+// PayPal siempre esta disponible; si es el unico metodo (ej. visitante internacional sin
+// oferta de Hotmart en esta etapa) no tiene sentido mostrar pestañas para elegir entre uno solo
+$totalMetodos = 1 + ($hayManual ? 1 : 0) + ($hayHotmart ? 1 : 0);
 $tituloPlano = $d['titulo'][0] . ' ' . $d['titulo'][1];
 $fondo = BASE_URL . 'assets/images/fondo_icc_hero.jpg';
 
@@ -328,6 +331,7 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                 <h3 class="flex items-center gap-3 font-display text-lg font-bold text-brand-dark"><span class="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-bold text-deep">2</span> Método de pago</h3>
                 <p class="mt-1 text-sm text-muted">Total a pagar: <strong class="text-brand"><?= $d['simbolo'] ?><?= $fmt($d['precio']) ?> <?= $e($d['moneda']) ?></strong></p>
 
+                <?php if ($totalMetodos > 1): ?>
                 <div class="mt-4 flex flex-wrap gap-2 rounded-xl bg-mist p-1.5" role="tablist" aria-label="Método de pago">
                     <?php if ($hayManual): ?>
                     <button type="button" role="tab" :aria-selected="(tab === 'manual').toString()" @click="setTab('manual')" :class="tab === 'manual' ? 'bg-brand text-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-qrcode mr-1"></i> Yape / Plin</button>
@@ -337,6 +341,9 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                     <button type="button" role="tab" :aria-selected="(tab === 'hotmart').toString()" @click="setTab('hotmart')" :class="tab === 'hotmart' ? 'bg-brand text-white shadow font-bold' : 'text-muted'" class="flex-1 rounded-lg px-3 py-2.5 text-sm"><i class="fas fa-globe-americas mr-1"></i> Otros métodos</button>
                     <?php endif; ?>
                 </div>
+                <?php else: ?>
+                <p class="mt-1 text-sm text-muted">Pagas con PayPal o con tarjeta de crédito o débito.</p>
+                <?php endif; ?>
 
                 <?php if ($hayManual): ?>
                 <!-- Yape / Plin -->

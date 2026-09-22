@@ -100,7 +100,7 @@ class OfertasCheckout {
                     'Mantenimiento' => 'Mantenimiento',
                 ],
                 'IA para sistemas eléctricos' => [
-                    'ChatGPT, Gemini y Claude' => 'ChatGPT, Gemini y Claude (el detalle completo de este módulo está justo debajo)',
+                    'ChatGPT, Gemini y Claude' => 'ChatGPT, Gemini y Claude',
                 ],
             ],
             // Acordeon propio, debajo de "Temas Principales": el detalle completo del Modulo 7

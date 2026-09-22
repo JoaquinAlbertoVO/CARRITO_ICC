@@ -447,7 +447,7 @@ if (!empty($d['hora'])) {
     $tipsBruno[] = ['sel' => '#cronograma', 'texto' => 'Todas las clases son de ' . $d['hora'] . ' por Zoom.'];
 }
 $tipsBruno[] = ['sel' => '#precios', 'texto' => 'Hoy el precio es ' . $d['simbolo'] . $fmt($d['precio']) . '.' . ($d['aviso'] ? ' ' . $d['aviso'] . '.' : '')];
-$tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige cómo pagar. Si tienes dudas, escríbenos.', 'wa' => true];
+$tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige cómo pagar.'];
 ?>
 <!-- Bruno, mascota de ICC: foto real animada con IA (fondo ya quitado), sigue el scroll y ayuda a navegar.
      La pose "explica" se carga recien la primera vez que se abre el mensaje (no antes, para no pesar de mas). -->
@@ -522,13 +522,24 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
         clearTimeout(ocultaT);
     }
 
-    function enlace(texto, href, ext) {
+    // Texto real (ya armado en PHP con los datos de la oferta) de cada seccion, para poder
+    // mostrarlo de una vez al tocar un boton del menu, sin depender de que el scroll lo detecte
+    // (eso solo pasa una vez por seccion, y si la persona ya paso por ahi antes, no vuelve a salir)
+    function textoTip(sel) {
+        const t = tips.find(x => x.sel === sel);
+        return t ? t.texto : '';
+    }
+
+    function enlace(texto, href, ext, tipTexto) {
         const a = document.createElement('a');
         a.textContent = texto;
         a.href = href;
         a.className = 'bruno-accion';
         if (ext) { a.target = '_blank'; a.rel = 'noopener'; }
-        a.addEventListener('click', cerrar);
+        a.addEventListener('click', () => {
+            cerrar();
+            if (tipTexto) setTimeout(() => mostrar(tipTexto, [], true), 350);
+        });
         return a;
     }
 
@@ -561,9 +572,10 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
             try { localStorage.setItem('bruno_oculto', '1'); } catch (e) {}
             el.remove();
         });
+        const textoInscribirme = [textoTip('#precios'), textoTip('#inscripcion')].filter(Boolean).join(' ');
         const acciones = [
-            enlace('Ver el horario', '#cronograma'),
-            enlace('Inscribirme', '#inscripcion')
+            enlace('Ver el horario', '#cronograma', false, textoTip('#cronograma')),
+            enlace('Inscribirme', '#inscripcion', false, textoInscribirme)
         ];
         // Si el dispositivo tiene las animaciones desactivadas, Bruno se ve quieto (foto fija): se ofrece activarlas (o desactivarlas de nuevo)
         if (reduceSistema) {

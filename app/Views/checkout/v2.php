@@ -44,7 +44,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=11">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=12">
     <script>document.documentElement.classList.add('js');</script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>
@@ -445,77 +445,87 @@ if (!empty($d['hora'])) {
 $tipsBruno[] = ['sel' => '#precios', 'texto' => 'Hoy el precio es ' . $d['simbolo'] . $fmt($d['precio']) . '.' . ($d['aviso'] ? ' ' . $d['aviso'] . '.' : '')];
 $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige cómo pagar. Si tienes dudas, escríbenos.', 'wa' => true];
 ?>
-<!-- Bruno, mascota de ICC: camina con el scroll, salta al dar un consejo y ayuda a navegar -->
+<!-- Bruno, mascota de ICC: personaje propio en SVG con volumen y profundidad (paralaje 3D), camina con el
+     scroll, salta al dar un consejo y ayuda a navegar -->
 <div id="bruno" class="bruno" data-tips="<?= $e(json_encode($tipsBruno, JSON_UNESCAPED_UNICODE)) ?>" data-wa="<?= $e($wa) ?>">
     <div id="bruno-burbuja" class="bruno-burbuja" role="status" aria-live="polite" hidden></div>
-    <button type="button" id="bruno-btn" class="bruno-btn" aria-label="Ingeniero Bruno, asistente de ICC. Abrir ayuda" aria-expanded="false">
-        <svg viewBox="0 0 180 280" xmlns="http://www.w3.org/2000/svg" class="bruno-svg" overflow="visible" aria-hidden="true" focusable="false">
-            <defs>
-                <linearGradient id="b-pelo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a5602c"/><stop offset="1" stop-color="#7c4020"/></linearGradient>
-                <linearGradient id="b-pelo2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8b4a24"/><stop offset="1" stop-color="#7a3f1e"/></linearGradient>
-                <linearGradient id="b-chaleco" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d3f9c"/><stop offset="1" stop-color="#132c74"/></linearGradient>
-                <linearGradient id="b-casco" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe6f5"/></linearGradient>
-                <clipPath id="b-rec"><path d="M56 110 C50 130 50 170 56 196 L124 196 C130 170 130 130 124 110 C110 104 70 104 56 110 Z"/></clipPath>
-            </defs>
-            <ellipse cx="90" cy="266" rx="38" ry="6" fill="#000" opacity=".22"/>
-            <g class="b-todo">
-                <g class="b-pierna b-pierna-i">
-                    <rect x="62" y="192" width="24" height="56" rx="10" fill="#10245f"/>
-                    <rect x="57" y="242" width="34" height="18" rx="8" fill="#1b1d2a"/><rect x="57" y="252" width="34" height="8" rx="4" fill="#0e0f18"/>
-                </g>
-                <g class="b-pierna b-pierna-d">
-                    <rect x="94" y="192" width="24" height="56" rx="10" fill="#10245f"/>
-                    <rect x="89" y="242" width="34" height="18" rx="8" fill="#1b1d2a"/><rect x="89" y="252" width="34" height="8" rx="4" fill="#0e0f18"/>
-                </g>
-                <g class="b-bob"><g class="b-torso">
-                    <g class="b-brazo b-brazo-i">
-                        <rect x="47" y="108" width="24" height="64" rx="12" fill="url(#b-pelo2)"/>
-                        <circle cx="59" cy="174" r="14" fill="#8b4a24"/><ellipse cx="59" cy="178" rx="7" ry="6" fill="#e3b98c" opacity=".55"/>
+    <div class="b-escena">
+        <div class="b-polvo b-polvo-1"></div>
+        <div class="b-polvo b-polvo-2"></div>
+        <div class="b-polvo b-polvo-3"></div>
+        <div class="b-sombra"></div>
+        <button type="button" id="bruno-btn" class="bruno-btn" aria-label="Ingeniero Bruno, asistente de ICC. Abrir ayuda" aria-expanded="false">
+            <div class="b-todo">
+                <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" class="bruno-svg" aria-hidden="true" focusable="false">
+                    <defs>
+                        <radialGradient id="b-piel" cx="38%" cy="30%" r="80%"><stop offset="0%" stop-color="#c9884f"/><stop offset="55%" stop-color="#a86a35"/><stop offset="100%" stop-color="#7f4d24"/></radialGradient>
+                        <radialGradient id="b-piel-clara" cx="40%" cy="30%" r="80%"><stop offset="0%" stop-color="#e8c397"/><stop offset="100%" stop-color="#c9884f"/></radialGradient>
+                        <linearGradient id="b-chaleco" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1f4fd6"/><stop offset="55%" stop-color="#0d3aa8"/><stop offset="100%" stop-color="#082566"/></linearGradient>
+                        <linearGradient id="b-casco" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#d7e3f7"/></linearGradient>
+                        <radialGradient id="b-mejilla" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff9d7a" stop-opacity=".75"/><stop offset="100%" stop-color="#ff9d7a" stop-opacity="0"/></radialGradient>
+                    </defs>
+
+                    <g class="b-pierna-d">
+                        <path d="M108 200 q26 6 24 42 q-2 20 -18 22 l-22 0 q-4 -14 4 -22 q10 -8 6 -24 q-2 -12 6 -18 z" fill="#0d3aa8"/>
+                        <ellipse cx="98" cy="266" rx="20" ry="9" fill="#061a4a"/>
                     </g>
-                    <g class="b-brazo b-brazo-d">
-                        <rect x="109" y="108" width="24" height="64" rx="12" fill="url(#b-pelo2)"/>
-                        <circle cx="121" cy="174" r="14" fill="#8b4a24"/><ellipse cx="121" cy="178" rx="7" ry="6" fill="#e3b98c" opacity=".55"/>
+                    <g class="b-pierna-i">
+                        <path d="M92 200 q-26 6 -24 42 q2 20 18 22 l22 0 q4 -14 -4 -22 q-10 -8 -6 -24 q2 -12 -6 -18 z" fill="#12459c"/>
+                        <ellipse cx="102" cy="266" rx="20" ry="9" fill="#061a4a"/>
                     </g>
-                    <ellipse cx="90" cy="112" rx="26" ry="14" fill="#8b4a24"/>
-                    <path d="M56 110 C50 130 50 170 56 196 L124 196 C130 170 130 130 124 110 C110 104 70 104 56 110 Z" fill="url(#b-chaleco)"/>
-                    <g clip-path="url(#b-rec)">
-                        <rect x="40" y="148" width="100" height="8" fill="#d5dcec"/><rect x="40" y="148" width="100" height="2" fill="#f3f6fc"/>
-                        <rect x="40" y="172" width="100" height="8" fill="#d5dcec"/><rect x="40" y="172" width="100" height="2" fill="#f3f6fc"/>
-                        <rect x="63" y="104" width="7" height="44" fill="#d5dcec" opacity=".9"/><rect x="110" y="104" width="7" height="44" fill="#d5dcec" opacity=".9"/>
+
+                    <g class="b-brazo-d">
+                        <path d="M138 122 q26 4 30 34 q3 24 -12 34 q-10 6 -18 -2 q10 -14 4 -30 q-6 -16 -14 -22 q-4 -8 10 -14 z" fill="url(#b-piel)"/>
+                        <ellipse cx="150" cy="184" rx="12" ry="11" fill="url(#b-piel-clara)"/>
                     </g>
-                    <path d="M72 106 L90 130 L108 106 Z" fill="#8b4a24"/>
-                    <line x1="90" y1="130" x2="90" y2="196" stroke="#0c1f57" stroke-width="2"/>
-                    <text x="107" y="143" text-anchor="middle" font-family="'Plus Jakarta Sans','Arial Black',Arial,sans-serif" font-weight="800" font-size="11" fill="#fff">icc</text>
-                    <rect x="64" y="132" width="17" height="13" rx="2" fill="#fff" stroke="#b9c6e3" stroke-width=".8"/>
-                    <rect x="67" y="135" width="11" height="2" fill="#0050f4"/><rect x="67" y="139" width="8" height="1.6" fill="#94a3c9"/>
-                    <rect x="56" y="190" width="68" height="8" rx="2" fill="#12183d"/><rect x="84" y="191" width="12" height="6" rx="1.5" fill="#d5dcec"/>
+
+                    <g class="b-torso">
+                        <path d="M100 128 q42 0 46 46 q4 40 -8 62 q-8 14 -38 14 q-30 0 -38 -14 q-12 -22 -8 -62 q4 -46 46 -46 z" fill="url(#b-chaleco)"/>
+                        <path d="M66 178 q34 12 68 0 l0 10 q-34 13 -68 0 z" fill="#cddd32" opacity=".92"/>
+                        <path d="M64 200 q36 13 72 0 l0 9 q-36 12 -72 0 z" fill="#cddd32" opacity=".92"/>
+                        <circle cx="100" cy="160" r="15" fill="#eef3ff"/>
+                        <circle cx="100" cy="160" r="15" fill="none" stroke="#9fb4e6" stroke-width="1.5"/>
+                        <text x="100" y="165" text-anchor="middle" font-family="'Plus Jakarta Sans','Arial Black',Arial,sans-serif" font-weight="800" font-size="11" fill="#0d3aa8">icc</text>
+                        <path d="M84 190 q16 10 32 0 q4 24 -16 34 q-20 -10 -16 -34 z" fill="url(#b-piel-clara)" opacity=".9"/>
+                    </g>
+
+                    <g class="b-brazo-i">
+                        <path d="M62 122 q-26 4 -30 34 q-3 24 12 34 q10 6 18 -2 q-10 -14 -4 -30 q6 -16 14 -22 q4 -8 -10 -14 z" fill="url(#b-piel)"/>
+                        <ellipse cx="50" cy="184" rx="12" ry="11" fill="url(#b-piel-clara)"/>
+                    </g>
+
                     <g class="b-cabeza">
-                        <circle cx="54" cy="54" r="13" fill="#8b4a24"/><circle cx="54" cy="55" r="7" fill="#e3b98c"/>
-                        <circle cx="126" cy="54" r="13" fill="#8b4a24"/><circle cx="126" cy="55" r="7" fill="#e3b98c"/>
-                        <ellipse cx="90" cy="72" rx="42" ry="37" fill="url(#b-pelo)"/>
-                        <ellipse cx="90" cy="88" rx="22" ry="17" fill="#e3b98c"/>
-                        <ellipse cx="90" cy="79" rx="9" ry="6.2" fill="#2a1811"/><ellipse cx="87.5" cy="77" rx="2.8" ry="1.5" fill="#fff" opacity=".45"/>
-                        <path d="M90 84 V90" stroke="#2a1811" stroke-width="2.2" stroke-linecap="round"/>
-                        <path class="b-sonrisa" d="M79 91 Q90 101 101 91" stroke="#2a1811" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-                        <g class="b-boca"><ellipse cx="90" cy="93" rx="8.5" ry="6.5" fill="#4a1512"/><ellipse cx="90" cy="96" rx="5" ry="2.6" fill="#d9576a"/></g>
-                        <circle cx="72" cy="66" r="5.2" fill="#22130d"/><circle cx="73.6" cy="64.4" r="1.7" fill="#fff"/>
-                        <circle cx="108" cy="66" r="5.2" fill="#22130d"/><circle cx="109.6" cy="64.4" r="1.7" fill="#fff"/>
-                        <g class="b-parpado b-parpado-i"><ellipse cx="72" cy="66" rx="6.6" ry="6.4" fill="#93502a"/></g>
-                        <g class="b-parpado b-parpado-d"><ellipse cx="108" cy="66" rx="6.6" ry="6.4" fill="#93502a"/></g>
-                        <path d="M63 58 Q72 52 80 56.5" stroke="#5e2f16" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-                        <path d="M100 56.5 Q108 52 117 58" stroke="#5e2f16" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-                        <path d="M49 52 C48 14 132 14 131 52 Z" fill="url(#b-casco)"/>
-                        <path d="M83 19 Q90 16.5 97 19 L97 50 L83 50 Z" fill="#e4ebf8"/>
-                        <path d="M113 24 Q127 34 129 51 L119 51 Q119 37 108 26 Z" fill="#cdd7ec" opacity=".85"/>
-                        <ellipse cx="66" cy="31" rx="9" ry="4" fill="#fff" opacity=".85" transform="rotate(-28 66 31)"/>
-                        <rect x="42" y="47" width="96" height="10" rx="5" fill="#eef2fb" stroke="#bcc8e4" stroke-width="1"/>
-                        <rect x="72" y="30" width="36" height="15" rx="3" fill="#fff" stroke="#c9d3ea" stroke-width=".8"/>
-                        <text x="90" y="41.5" text-anchor="middle" font-family="'Plus Jakarta Sans','Arial Black',Arial,sans-serif" font-weight="800" font-size="12.5" fill="#0050f4">icc</text>
+                        <circle cx="66" cy="58" r="16" fill="url(#b-piel)"/><circle cx="66" cy="58" r="8" fill="#7f4d24"/>
+                        <circle cx="134" cy="58" r="16" fill="url(#b-piel)"/><circle cx="134" cy="58" r="8" fill="#7f4d24"/>
+                        <ellipse cx="100" cy="98" rx="52" ry="48" fill="url(#b-piel)"/>
+                        <ellipse cx="66" cy="112" rx="14" ry="10" fill="url(#b-mejilla)"/>
+                        <ellipse cx="134" cy="112" rx="14" ry="10" fill="url(#b-mejilla)"/>
+                        <ellipse cx="100" cy="112" rx="30" ry="22" fill="url(#b-piel-clara)"/>
+                        <ellipse cx="100" cy="106" rx="9" ry="6.5" fill="#3a2415"/><ellipse cx="97" cy="104" rx="2.6" ry="1.6" fill="#fff" opacity=".8"/>
+                        <g class="b-boca">
+                            <path d="M100 112 q0 10 0 10" stroke="#5a3820" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <path d="M84 116 q16 14 32 0" stroke="#5a3820" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                        </g>
+                        <ellipse cx="80" cy="92" rx="7.5" ry="8.5" fill="#2a1a10"/><circle cx="77.5" cy="88.5" r="2.4" fill="#fff"/>
+                        <ellipse cx="120" cy="92" rx="7.5" ry="8.5" fill="#2a1a10"/><circle cx="117.5" cy="88.5" r="2.4" fill="#fff"/>
+                        <g class="b-parpados">
+                            <ellipse cx="80" cy="90" rx="9" ry="9" fill="url(#b-piel)"/>
+                            <ellipse cx="120" cy="90" rx="9" ry="9" fill="url(#b-piel)"/>
+                        </g>
+                        <path d="M70 76 q10 -6 20 -1" stroke="#5a3820" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                        <path d="M110 75 q10 -5 20 1" stroke="#5a3820" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                        <path d="M48 68 q52 -46 104 0 q6 5 -2 8 q-50 -22 -100 0 q-8 -3 -2 -8 z" fill="url(#b-casco)"/>
+                        <path d="M50 66 q50 -20 100 0 l0 8 q-50 -18 -100 0 z" fill="#eef3ff"/>
+                        <rect x="40" y="70" width="120" height="9" rx="4.5" fill="#ffffff"/>
+                        <rect x="40" y="70" width="120" height="4" rx="2" fill="#ffffff" opacity=".9"/>
+                        <circle cx="100" cy="56" r="12" fill="#eef3ff"/>
+                        <text x="100" y="60" text-anchor="middle" font-family="'Plus Jakarta Sans','Arial Black',Arial,sans-serif" font-weight="800" font-size="9" fill="#0d3aa8">icc</text>
+                        <ellipse cx="72" cy="46" rx="14" ry="7" fill="#fff" opacity=".55"/>
                     </g>
-                </g></g>
-            </g>
-        </svg>
-    </button>
+                </svg>
+            </div>
+        </button>
+    </div>
 </div>
 
 <script>

@@ -446,7 +446,12 @@ $tipsBruno = [];
 if (!empty($d['hora'])) {
     $tipsBruno[] = ['sel' => '#cronograma', 'texto' => 'Todas las clases son de ' . $d['hora'] . ' por Zoom.'];
 }
-$tipsBruno[] = ['sel' => '#precios', 'texto' => 'Hoy el precio es ' . $d['simbolo'] . $fmt($d['precio']) . '.' . ($d['aviso'] ? ' ' . $d['aviso'] . '.' : '')];
+$textoPrecio = 'Estás en ' . $d['etapaNombre'] . ': pagas ' . $d['simbolo'] . $fmt($d['precio']);
+if ($d['descuento'] > 0) {
+    $textoPrecio .= ' (' . $d['descuento'] . '% menos que el precio regular de ' . $d['simbolo'] . $fmt($d['precioRegular']) . ')';
+}
+$textoPrecio .= '.' . ($d['aviso'] ? ' ' . $d['aviso'] . '.' : '');
+$tipsBruno[] = ['sel' => '#precios', 'texto' => $textoPrecio];
 $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige cómo pagar.'];
 ?>
 <!-- Bruno, mascota de ICC: foto real animada con IA (fondo ya quitado), sigue el scroll y ayuda a navegar.

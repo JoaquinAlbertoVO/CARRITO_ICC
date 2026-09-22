@@ -48,6 +48,9 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=14">
+    <!-- El navegador descubre el <img> de Bruno recien al final del HTML (esta muy abajo en la pagina);
+         con esto empieza a bajarlo desde ya, para que ya este listo y animando cuando se vea -->
+    <link rel="preload" as="image" type="image/webp" href="<?= BASE_URL ?>assets/images/mascota/bruno-idle.webp">
     <script>document.documentElement.classList.add('js');</script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>
@@ -465,7 +468,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
                  src="<?= BASE_URL ?>assets/images/mascota/bruno-idle.webp"
                  data-anim="<?= BASE_URL ?>assets/images/mascota/bruno-idle.webp"
                  data-quieto="<?= BASE_URL ?>assets/images/mascota/bruno-idle.png"
-                 width="240" height="372" decoding="async" fetchpriority="low">
+                 width="240" height="372" decoding="async">
             <img class="bruno-img bruno-img-explica" alt=""
                  data-anim="<?= BASE_URL ?>assets/images/mascota/bruno-explica.webp"
                  data-quieto="<?= BASE_URL ?>assets/images/mascota/bruno-explica.png"

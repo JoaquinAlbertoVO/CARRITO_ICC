@@ -580,6 +580,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
         const textoInscribirme = [textoTip('#precios'), textoTip('#inscripcion')].filter(Boolean).join(' ');
         const acciones = [
             enlace('Ver el horario', '#cronograma', false, textoTip('#cronograma')),
+            enlace('Ver precios', '#precios', false, textoTip('#precios')),
             enlace('Inscribirme', '#inscripcion', false, textoInscribirme)
         ];
         // Si el dispositivo tiene las animaciones desactivadas, Bruno se ve quieto (foto fija): se ofrece activarlas (o desactivarlas de nuevo)

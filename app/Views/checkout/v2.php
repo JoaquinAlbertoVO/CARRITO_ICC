@@ -75,10 +75,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
         <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
             <img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC - Instituto de Capacitación Continua" class="h-9 w-auto">
             <div class="flex items-center gap-4 text-sm">
-                <span class="hidden sm:flex items-center gap-1.5 text-sky-100"><i class="fas fa-lock text-emerald-400"></i> Pago seguro</span>
-                <a href="<?= $wa ?>" target="_blank" rel="noopener" class="flex min-h-[44px] items-center gap-2 rounded-full bg-emerald-700 hover:bg-emerald-600 px-4 font-semibold text-white shadow">
-                    <i class="fab fa-whatsapp"></i><span class="hidden sm:inline">+51 941 208 020</span><span class="sm:hidden">WhatsApp</span>
-                </a>
+                <span class="flex items-center gap-1.5 text-sky-100"><i class="fas fa-lock text-emerald-400"></i> Pago seguro</span>
             </div>
         </div>
     </div>

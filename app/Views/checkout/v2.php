@@ -150,7 +150,9 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
 <section class="bg-gradient-to-b from-white to-mist px-4 py-12">
     <div class="max-w-4xl mx-auto">
         <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Conoce el curso</h2>
-        <div x-data="{ play: false }" class="reveal relative mt-6 aspect-video overflow-hidden rounded-2xl bg-deep shadow-2xl ring-4 ring-white">
+        <div x-data="{ play: false }"
+             x-init="new IntersectionObserver((es) => { es.forEach(en => { if (en.isIntersecting) play = true; }); }, { threshold: .4 }).observe($el)"
+             class="reveal relative mt-6 aspect-video overflow-hidden rounded-2xl bg-deep shadow-2xl ring-4 ring-white">
             <template x-if="!play">
                 <button type="button" @click="play = true" class="group absolute inset-0 h-full w-full" aria-label="Reproducir video del curso">
                     <img src="https://i.ytimg.com/vi/<?= $e($d['video']) ?>/hqdefault.jpg" alt="" loading="lazy" class="h-full w-full object-cover opacity-90">
@@ -160,7 +162,10 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
                 </button>
             </template>
             <template x-if="play">
-                <iframe src="https://www.youtube.com/embed/<?= $e($d['video']) ?>?autoplay=1&rel=0" title="Video del curso" class="absolute inset-0 h-full w-full" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                <!-- mute=1: es la unica forma de que un navegador deje reproducir un video solo, sin que la
+                     persona toque nada antes; el control de volumen del propio reproductor de YouTube queda
+                     visible por si alguien quiere subirle el audio -->
+                <iframe src="https://www.youtube.com/embed/<?= $e($d['video']) ?>?autoplay=1&mute=1&rel=0" title="Video del curso" class="absolute inset-0 h-full w-full" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
             </template>
         </div>
     </div>

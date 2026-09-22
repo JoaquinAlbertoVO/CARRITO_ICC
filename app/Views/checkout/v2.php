@@ -632,8 +632,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
         });
         const acciones = [
             enlace('Ver el horario', '#cronograma'),
-            enlace('Inscribirme', '#inscripcion'),
-            enlace('Hablar por WhatsApp', wa, true)
+            enlace('Inscribirme', '#inscripcion')
         ];
         // Si el dispositivo tiene las animaciones desactivadas, Bruno queda quieto: se ofrece activarlas (o desactivarlas de nuevo)
         if (reduceSistema) {

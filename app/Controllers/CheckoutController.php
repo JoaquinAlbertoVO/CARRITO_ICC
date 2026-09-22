@@ -162,7 +162,7 @@ class CheckoutController extends Controller {
                 }
             }
         }
-        array_unshift($beneficios, 'Acceso de por vida al aula virtual');
+        array_unshift($beneficios, 'Acceso al aula virtual');
 
         // Sesiones del cronograma
         $sesiones = [];

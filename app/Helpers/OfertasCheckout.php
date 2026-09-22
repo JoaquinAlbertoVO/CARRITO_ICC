@@ -37,7 +37,7 @@ class OfertasCheckout {
             'inicio' => '2026-10-20',
             'video' => 'lvb5RYvgjL0', // video promocional actual del curso (YouTube)
             // Texto de gancho armado a partir del temario: que lo revise el jefe.
-            'subtitulo' => 'Aprende a proyectar instalaciones eléctricas de principio a fin, con IA como asistente: cálculos, planos, especificaciones, presupuesto y expediente del proyecto.',
+            'subtitulo' => 'Conviertete en un especialista en instalaciones eléctricas de principio a fin, con IA como asistente: cálculos, planos, especificaciones, presupuesto y expediente del proyecto.',
             'docente' => [
                 'nombre' => 'Ricardo Cardenas',
                 'cargo' => 'Docente del curso', // pendiente: una linea de credenciales reales

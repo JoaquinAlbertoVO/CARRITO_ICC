@@ -44,7 +44,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=12">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=13">
     <script>document.documentElement.classList.add('js');</script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>

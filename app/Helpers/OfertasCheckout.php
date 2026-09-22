@@ -66,47 +66,48 @@ class OfertasCheckout {
             'quitar_beneficios' => ['Acceso al aula virtual por tiempo limitado'],
             // 'etiqueta corta' => 'nombre completo del tema' (la etiqueta se ve; el nombre completo
             // queda como tooltip). Las etiquetas quitan lo que el titulo de la seccion ya dice.
+            // Los 7 modulos reales del curso (flyer "Aprende Electricidad Industrial desde 0").
+            // El modulo 7 (IA) ademas tiene su propia seccion grande justo despues de este temario
+            // (ver 'extra' mas abajo), con el detalle completo de esa parte del flyer.
             'temas' => [
-                'Bases y memoria del proyecto' => [
-                    'Memoria descriptiva' => 'Memoria descriptiva del proyecto eléctrico',
-                    'Bases y criterios de diseño' => 'Bases y criterios de diseño eléctrico',
-                    'Sistema de utilización' => 'Descripción del sistema de utilización',
+                'Fundamentos de electricidad industrial' => [
+                    'Fundamentos y cálculos' => 'Fundamentos y cálculos',
                 ],
-                'Cálculos eléctricos' => [
-                    'Máxima demanda y cuadro de cargas' => 'Cálculo de máxima demanda y cuadro de cargas',
-                    'Caída de tensión' => 'Cálculo de caída de tensión',
-                    'Conductores' => 'Selección y cálculo de conductores',
-                    'Protecciones' => 'Cálculo y selección de protecciones',
-                    'Puesta a tierra' => 'Cálculo del sistema de puesta a tierra',
-                    'Luminotécnico (lux)' => 'Cálculo luminotécnico (nivel de lux)',
-                    'Tableros (general y distribución)' => 'Distribución de tableros (general y de distribución)',
-                    'Canalizaciones (tuberías/bandejas)' => 'Cálculo de canalizaciones (tuberías/bandejas)',
+                'Lectura de planos eléctricos' => [
+                    'Lectura de planos eléctricos' => 'Lectura de planos eléctricos',
                 ],
-                'Planos y esquemas' => [
-                    'Diagrama unifilar' => 'Estructura del diagrama unifilar',
-                    'Cuadro de cargas' => 'Cuadro de cargas (tabla lista)',
-                    'Leyenda y simbología' => 'Leyenda y simbología del plano',
+                'Equipos de medición' => [
+                    'Revelador de tensión' => 'Revelador de tensión',
+                    'Megóhmetro' => 'Megóhmetro',
+                    'Pinza amperimétrica' => 'Pinza amperimétrica',
+                    'Cámara termográfica' => 'Cámara termográfica',
+                    'Analizador de redes' => 'Analizador de redes',
                 ],
-                'Especificaciones y presupuesto' => [
-                    'Especificaciones técnicas' => 'Especificaciones técnicas de materiales y equipos',
-                    'Metrado de materiales' => 'Metrado de materiales eléctricos',
-                    'Precios unitarios y presupuesto' => 'Análisis de precios unitarios y presupuesto',
-                    'Cronograma de ejecución' => 'Cronograma de ejecución',
+                'Protecciones eléctricas' => [
+                    'Interruptor termomagnético' => 'Interruptor termomagnético',
+                    'Diferencial' => 'Diferencial',
+                    'Relé térmico' => 'Relé térmico',
+                    'Guardamotor' => 'Guardamotor',
                 ],
-                'Cierre y conformidad' => [
-                    'Pruebas y puesta en servicio' => 'Protocolo de pruebas y puesta en servicio',
-                    'Panel fotográfico e informe de conformidad' => 'Panel fotográfico e informe de conformidad',
-                    'Requisitos y solicitud del trámite' => 'Requisitos y solicitud del trámite',
-                    'Índice y checklist del expediente' => 'Índice y checklist del expediente eléctrico',
+                'Motores trifásicos' => [
+                    'Conexionado' => 'Conexionado',
+                    'Selección' => 'Selección',
+                    'Mantenimiento' => 'Mantenimiento',
                 ],
-                'Revisión de documentos' => [
-                    'Revisión de documentos del proyecto' => 'Revisión de documentos del proyecto',
+                'Transformadores eléctricos' => [
+                    'Conexionado' => 'Conexionado',
+                    'Selección' => 'Selección',
+                    'Mantenimiento' => 'Mantenimiento',
+                ],
+                'IA para sistemas eléctricos' => [
+                    'ChatGPT, Gemini y Claude' => 'ChatGPT, Gemini y Claude (el detalle completo de este módulo está justo debajo)',
                 ],
             ],
-            // Acordeon propio, debajo de "Temas Principales"
+            // Acordeon propio, debajo de "Temas Principales": el detalle completo del Modulo 7
+            // (flyer "Sistema IA para Proyectos e Instalaciones Electricas" de TodoLab)
             'extra' => [
-                'titulo' => 'Lo que aprenderemos con la IA',
-                'intro' => 'Además del temario, te llevas un asistente de IA listo para usar: el Prompt Maestro, que te acompaña en cada etapa de tu proyecto eléctrico.',
+                'titulo' => 'Módulo 07 · IA para sistemas eléctricos',
+                'intro' => 'El módulo 7 te da un asistente de IA listo para usar (funciona con ChatGPT, Gemini o Claude): el Prompt Maestro, que te acompaña en cada etapa de tu proyecto eléctrico.',
                 'items' => [
                     'Redactar la memoria descriptiva y las bases de diseño',
                     'Ordenar tus cálculos: máxima demanda, caída de tensión, conductores, protecciones y puesta a tierra',

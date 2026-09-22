@@ -34,7 +34,7 @@ $iconoBeneficio = function ($t) {
 // Colores por tarjeta (clases completas para que Tailwind las compile)
 $coloresTile = ['bg-brand text-white'];
 $bordesModulo = ['border-brand'];
-$iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram', 'fas fa-file-invoice-dollar', 'fas fa-clipboard-check', 'fas fa-search'];
+$iconosModulo = ['fas fa-bolt', 'fas fa-drafting-compass', 'fas fa-tachometer-alt', 'fas fa-shield-alt', 'fas fa-cogs', 'fas fa-plug', 'fas fa-robot'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -178,10 +178,10 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
         <p class="reveal text-center text-sm font-bold uppercase tracking-wider text-brand">Plan de estudios</p>
         <h2 class="reveal mt-1 text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Temario del curso</h2>
         <div class="mt-8 grid gap-4 md:grid-cols-2">
-            <?php $n = 0; foreach ($d['temas'] as $titulo => $items): $c = $n % count($coloresTile); $n++; ?>
-            <div class="reveal rounded-2xl border-t-4 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg <?= $bordesModulo[$c] ?>" x-data="{ open: window.innerWidth >= 768 }">
+            <?php $n = 0; foreach ($d['temas'] as $titulo => $items): $icono = $iconosModulo[$n % count($iconosModulo)]; $colorTile = $coloresTile[$n % count($coloresTile)]; $bordeModulo = $bordesModulo[$n % count($bordesModulo)]; $n++; ?>
+            <div class="reveal rounded-2xl border-t-4 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg <?= $bordeModulo ?>" x-data="{ open: window.innerWidth >= 768 }">
                 <button type="button" @click="open = !open" :aria-expanded="open.toString()" class="flex w-full items-center gap-3 text-left">
-                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-lg shadow <?= $coloresTile[$c] ?>"><i class="<?= $iconosModulo[$c] ?>"></i></span>
+                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-lg shadow <?= $colorTile ?>"><i class="<?= $icono ?>"></i></span>
                     <span class="flex-1">
                         <span class="block text-xs font-bold uppercase tracking-wider text-muted">Módulo <?= $n ?></span>
                         <span class="block font-display font-bold text-brand-dark"><?= $e($titulo) ?></span>
@@ -202,7 +202,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
         <div class="reveal relative mt-6 overflow-hidden rounded-2xl bg-brand-dark bg-cover p-6 text-white shadow-xl sm:p-8" style="background-image: url('<?= $e($fondo) ?>');">
             <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-deep/80 to-brand/40"></div>
             <div class="relative">
-                <h3 class="flex items-center gap-3 font-display text-xl sm:text-2xl font-bold"><span class="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-deep shadow-lg"><i class="fas fa-lightbulb"></i></span> <?= $e($x['titulo']) ?></h3>
+                <h3 class="flex items-center gap-3 font-display text-xl sm:text-2xl font-bold"><span class="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-deep shadow-lg"><i class="fas fa-robot"></i></span> <?= $e($x['titulo']) ?></h3>
                 <p class="mt-3 max-w-3xl text-sky-50"><?= $e($x['intro']) ?></p>
                 <ul class="mt-4 grid gap-2 sm:grid-cols-2 text-sm">
                     <?php foreach ($x['items'] as $it): ?>

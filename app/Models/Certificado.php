@@ -45,10 +45,12 @@ class Certificado {
         imagettftext($imagen, $font_size_nombre, 0, $x_nombre, 465, $color_nombre, $font_serif, $alumno_upper);
 
         // 2. DNI (Centrado debajo del nombre)
-        $dni_text = "N° DNI " . $dni;
-        $bbox2 = imagettfbbox(20, 0, $font_path, $dni_text);
-        $x_dni = (int)($center_x - ($bbox2[2] / 2));
-        imagettftext($imagen, 20, 0, $x_dni, 540, $color_dni, $font_path, $dni_text);
+        if (!empty($dni)) {
+            $dni_text = "N° DNI " . $dni;
+            $bbox2 = imagettfbbox(20, 0, $font_path, $dni_text);
+            $x_dni = (int)($center_x - ($bbox2[2] / 2));
+            imagettftext($imagen, 20, 0, $x_dni, 540, $color_dni, $font_path, $dni_text);
+        }
 
         // 3. Párrafo central
         $parrafo1 = "Certificado por haber culminado las $horas horas académicas del";

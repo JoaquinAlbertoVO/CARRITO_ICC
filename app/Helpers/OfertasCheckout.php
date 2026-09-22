@@ -99,9 +99,8 @@ class OfertasCheckout {
                     'Selección' => 'Selección',
                     'Mantenimiento' => 'Mantenimiento',
                 ],
-                'IA para sistemas eléctricos' => [
-                    'ChatGPT, Gemini y Claude' => 'ChatGPT, Gemini y Claude',
-                ],
+                // El modulo 7 (IA) no lleva tarjeta aqui: es innecesario repetirlo, ya que
+                // justo debajo esta su propia seccion grande con el detalle completo ('extra').
             ],
             // Acordeon propio, debajo de "Temas Principales": el detalle completo del Modulo 7
             // (flyer "Sistema IA para Proyectos e Instalaciones Electricas" de TodoLab)

@@ -47,7 +47,7 @@ $iconosModulo = ['fas fa-file-alt', 'fas fa-calculator', 'fas fa-project-diagram
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=13">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=14">
     <script>document.documentElement.classList.add('js');</script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>
@@ -449,85 +449,22 @@ if (!empty($d['hora'])) {
 $tipsBruno[] = ['sel' => '#precios', 'texto' => 'Hoy el precio es ' . $d['simbolo'] . $fmt($d['precio']) . '.' . ($d['aviso'] ? ' ' . $d['aviso'] . '.' : '')];
 $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige cómo pagar. Si tienes dudas, escríbenos.', 'wa' => true];
 ?>
-<!-- Bruno, mascota de ICC: personaje propio en SVG con volumen y profundidad (paralaje 3D), camina con el
-     scroll, salta al dar un consejo y ayuda a navegar -->
+<!-- Bruno, mascota de ICC: foto real animada con IA (fondo ya quitado), sigue el scroll y ayuda a navegar.
+     La pose "explica" se carga recien la primera vez que se abre el mensaje (no antes, para no pesar de mas). -->
 <div id="bruno" class="bruno" data-tips="<?= $e(json_encode($tipsBruno, JSON_UNESCAPED_UNICODE)) ?>" data-wa="<?= $e($wa) ?>">
     <div id="bruno-burbuja" class="bruno-burbuja" role="status" aria-live="polite" hidden></div>
     <div class="b-escena">
-        <div class="b-polvo b-polvo-1"></div>
-        <div class="b-polvo b-polvo-2"></div>
-        <div class="b-polvo b-polvo-3"></div>
         <div class="b-sombra"></div>
         <button type="button" id="bruno-btn" class="bruno-btn" aria-label="Ingeniero Bruno, asistente de ICC. Abrir ayuda" aria-expanded="false">
-            <div class="b-todo">
-                <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" class="bruno-svg" aria-hidden="true" focusable="false">
-                    <defs>
-                        <radialGradient id="b-piel" cx="38%" cy="30%" r="80%"><stop offset="0%" stop-color="#c9884f"/><stop offset="55%" stop-color="#a86a35"/><stop offset="100%" stop-color="#7f4d24"/></radialGradient>
-                        <radialGradient id="b-piel-clara" cx="40%" cy="30%" r="80%"><stop offset="0%" stop-color="#e8c397"/><stop offset="100%" stop-color="#c9884f"/></radialGradient>
-                        <linearGradient id="b-chaleco" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1f4fd6"/><stop offset="55%" stop-color="#0d3aa8"/><stop offset="100%" stop-color="#082566"/></linearGradient>
-                        <linearGradient id="b-casco" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#d7e3f7"/></linearGradient>
-                        <radialGradient id="b-mejilla" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff9d7a" stop-opacity=".75"/><stop offset="100%" stop-color="#ff9d7a" stop-opacity="0"/></radialGradient>
-                    </defs>
-
-                    <g class="b-pierna-d">
-                        <path d="M108 200 q26 6 24 42 q-2 20 -18 22 l-22 0 q-4 -14 4 -22 q10 -8 6 -24 q-2 -12 6 -18 z" fill="#0d3aa8"/>
-                        <ellipse cx="98" cy="266" rx="20" ry="9" fill="#061a4a"/>
-                    </g>
-                    <g class="b-pierna-i">
-                        <path d="M92 200 q-26 6 -24 42 q2 20 18 22 l22 0 q4 -14 -4 -22 q-10 -8 -6 -24 q2 -12 -6 -18 z" fill="#12459c"/>
-                        <ellipse cx="102" cy="266" rx="20" ry="9" fill="#061a4a"/>
-                    </g>
-
-                    <g class="b-brazo-d">
-                        <path d="M138 122 q26 4 30 34 q3 24 -12 34 q-10 6 -18 -2 q10 -14 4 -30 q-6 -16 -14 -22 q-4 -8 10 -14 z" fill="url(#b-piel)"/>
-                        <ellipse cx="150" cy="184" rx="12" ry="11" fill="url(#b-piel-clara)"/>
-                    </g>
-
-                    <g class="b-torso">
-                        <path d="M100 128 q42 0 46 46 q4 40 -8 62 q-8 14 -38 14 q-30 0 -38 -14 q-12 -22 -8 -62 q4 -46 46 -46 z" fill="url(#b-chaleco)"/>
-                        <path d="M66 178 q34 12 68 0 l0 10 q-34 13 -68 0 z" fill="#cddd32" opacity=".92"/>
-                        <path d="M64 200 q36 13 72 0 l0 9 q-36 12 -72 0 z" fill="#cddd32" opacity=".92"/>
-                        <circle cx="100" cy="160" r="15" fill="#eef3ff"/>
-                        <circle cx="100" cy="160" r="15" fill="none" stroke="#9fb4e6" stroke-width="1.5"/>
-                        <text x="100" y="165" text-anchor="middle" font-family="'Plus Jakarta Sans','Arial Black',Arial,sans-serif" font-weight="800" font-size="11" fill="#0d3aa8">icc</text>
-                        <path d="M84 190 q16 10 32 0 q4 24 -16 34 q-20 -10 -16 -34 z" fill="url(#b-piel-clara)" opacity=".9"/>
-                    </g>
-
-                    <g class="b-brazo-i">
-                        <path d="M62 122 q-26 4 -30 34 q-3 24 12 34 q10 6 18 -2 q-10 -14 -4 -30 q6 -16 14 -22 q4 -8 -10 -14 z" fill="url(#b-piel)"/>
-                        <ellipse cx="50" cy="184" rx="12" ry="11" fill="url(#b-piel-clara)"/>
-                    </g>
-
-                    <g class="b-cabeza">
-                        <circle cx="66" cy="58" r="16" fill="url(#b-piel)"/><circle cx="66" cy="58" r="8" fill="#7f4d24"/>
-                        <circle cx="134" cy="58" r="16" fill="url(#b-piel)"/><circle cx="134" cy="58" r="8" fill="#7f4d24"/>
-                        <ellipse cx="100" cy="98" rx="52" ry="48" fill="url(#b-piel)"/>
-                        <ellipse cx="66" cy="112" rx="14" ry="10" fill="url(#b-mejilla)"/>
-                        <ellipse cx="134" cy="112" rx="14" ry="10" fill="url(#b-mejilla)"/>
-                        <ellipse cx="100" cy="112" rx="30" ry="22" fill="url(#b-piel-clara)"/>
-                        <ellipse cx="100" cy="106" rx="9" ry="6.5" fill="#3a2415"/><ellipse cx="97" cy="104" rx="2.6" ry="1.6" fill="#fff" opacity=".8"/>
-                        <g class="b-boca">
-                            <path d="M100 112 q0 10 0 10" stroke="#5a3820" stroke-width="2" fill="none" stroke-linecap="round"/>
-                            <path d="M84 116 q16 14 32 0" stroke="#5a3820" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-                        </g>
-                        <ellipse cx="80" cy="92" rx="7.5" ry="8.5" fill="#2a1a10"/><circle cx="77.5" cy="88.5" r="2.4" fill="#fff"/>
-                        <ellipse cx="120" cy="92" rx="7.5" ry="8.5" fill="#2a1a10"/><circle cx="117.5" cy="88.5" r="2.4" fill="#fff"/>
-                        <g class="b-parpados">
-                            <ellipse cx="80" cy="90" rx="9" ry="9" fill="url(#b-piel)"/>
-                            <ellipse cx="120" cy="90" rx="9" ry="9" fill="url(#b-piel)"/>
-                        </g>
-                        <path d="M70 76 q10 -6 20 -1" stroke="#5a3820" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-                        <path d="M110 75 q10 -5 20 1" stroke="#5a3820" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-                        <path d="M48 68 q52 -46 104 0 q6 5 -2 8 q-50 -22 -100 0 q-8 -3 -2 -8 z" fill="url(#b-casco)"/>
-                        <path d="M50 66 q50 -20 100 0 l0 8 q-50 -18 -100 0 z" fill="#eef3ff"/>
-                        <rect x="40" y="70" width="120" height="9" rx="4.5" fill="#ffffff"/>
-                        <rect x="40" y="70" width="120" height="4" rx="2" fill="#ffffff" opacity=".9"/>
-                        <circle cx="100" cy="56" r="12" fill="#eef3ff"/>
-                        <text x="100" y="60" text-anchor="middle" font-family="'Plus Jakarta Sans','Arial Black',Arial,sans-serif" font-weight="800" font-size="9" fill="#0d3aa8">icc</text>
-                        <ellipse cx="72" cy="46" rx="14" ry="7" fill="#fff" opacity=".55"/>
-                    </g>
-                </svg>
-            </div>
+            <img class="bruno-img bruno-img-normal" alt=""
+                 src="<?= BASE_URL ?>assets/images/mascota/bruno-idle.webp"
+                 data-anim="<?= BASE_URL ?>assets/images/mascota/bruno-idle.webp"
+                 data-quieto="<?= BASE_URL ?>assets/images/mascota/bruno-idle.png"
+                 width="240" height="372" decoding="async" fetchpriority="low">
+            <img class="bruno-img bruno-img-explica" alt=""
+                 data-anim="<?= BASE_URL ?>assets/images/mascota/bruno-explica.webp"
+                 data-quieto="<?= BASE_URL ?>assets/images/mascota/bruno-explica.png"
+                 width="240" height="386" decoding="async" loading="lazy">
         </button>
     </div>
 </div>
@@ -540,12 +477,24 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
 
     const reduceSistema = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let reduce = reduceSistema; // se respeta, salvo que la persona active la animacion desde el menu de Bruno
-    try { if (reduceSistema && localStorage.getItem('bruno_anim') === '1') { reduce = false; el.classList.add('anim-on'); } } catch (e) {}
+    try { if (reduceSistema && localStorage.getItem('bruno_anim') === '1') { reduce = false; } } catch (e) {}
     const btn = document.getElementById('bruno-btn');
     const burbuja = document.getElementById('bruno-burbuja');
+    const imgNormal = el.querySelector('.bruno-img-normal');
+    const imgExplica = el.querySelector('.bruno-img-explica');
     const tips = JSON.parse(el.dataset.tips || '[]');
     const wa = el.dataset.wa;
-    let ultimo = window.scrollY, ticking = false, caminaT = null, ocultaT = null, x = 8;
+    let ultimo = window.scrollY, ticking = false, ocultaT = null, x = 8;
+
+    // Segun el modo (animado o fijo), usa el .webp con movimiento o el .png quieto de cada pose.
+    // La pose "explica" (tablero) recien carga su imagen la primera vez que hace falta, para no pesar
+    // desde el inicio si la persona nunca abre el mensaje de Bruno.
+    function aplicarImagen(img) {
+        if (!img) return;
+        const src = reduce ? img.dataset.quieto : img.dataset.anim;
+        if (img.src !== src) img.src = src;
+    }
+    aplicarImagen(imgNormal);
 
     function posicionarBurbuja() {
         burbuja.classList.toggle('bruno-burbuja-der', x + 240 > window.innerWidth);
@@ -557,14 +506,6 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
         const margen = 8, ancho = el.offsetWidth;
         x = margen + prog * (window.innerWidth - ancho - margen * 2);
         el.style.transform = 'translateX(' + x.toFixed(1) + 'px)';
-        const dif = window.scrollY - ultimo;
-        if (Math.abs(dif) > 2) {
-            if (!reduce) {
-                el.classList.add('camina');
-                clearTimeout(caminaT);
-                caminaT = setTimeout(() => el.classList.remove('camina'), 220);
-            }
-        }
         ultimo = window.scrollY;
         ticking = false;
         posicionarBurbuja();
@@ -573,24 +514,8 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
     window.addEventListener('resize', actualizar);
     actualizar();
 
-    function animar(clase, ms) {
-        if (reduce) return;
-        el.classList.remove(clase);
-        void el.offsetWidth;
-        el.classList.add(clase);
-        setTimeout(() => el.classList.remove(clase), ms);
-    }
-    const saltar = () => animar('salta', 900);
-    let hablaT = null;
-    function hablar() {
-        if (reduce) return;
-        el.classList.add('habla');
-        clearTimeout(hablaT);
-        hablaT = setTimeout(() => el.classList.remove('habla'), 2600);
-    }
-
     function cerrar() {
-        el.classList.remove('arriba', 'habla');
+        el.classList.remove('arriba');
         burbuja.hidden = true;
         burbuja.textContent = '';
         btn.setAttribute('aria-expanded', 'false');
@@ -621,9 +546,8 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
         (acciones || []).forEach(a => burbuja.appendChild(a));
         burbuja.hidden = false;
         el.classList.add('arriba');
+        aplicarImagen(imgExplica);
         posicionarBurbuja();
-        saltar();
-        hablar();
         clearTimeout(ocultaT);
         if (autocierre) ocultaT = setTimeout(cerrar, 6500);
     }
@@ -641,18 +565,18 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
             enlace('Ver el horario', '#cronograma'),
             enlace('Inscribirme', '#inscripcion')
         ];
-        // Si el dispositivo tiene las animaciones desactivadas, Bruno queda quieto: se ofrece activarlas (o desactivarlas de nuevo)
+        // Si el dispositivo tiene las animaciones desactivadas, Bruno se ve quieto (foto fija): se ofrece activarlas (o desactivarlas de nuevo)
         if (reduceSistema) {
             const anim = document.createElement('button');
             anim.type = 'button';
             anim.className = 'bruno-accion bruno-accion-sec';
-            anim.textContent = reduce ? 'Activar animaciones de Bruno' : 'Desactivar animaciones';
+            anim.textContent = reduce ? 'Activar animación de Bruno' : 'Congelar a Bruno';
             anim.addEventListener('click', () => {
                 try { localStorage.setItem('bruno_anim', reduce ? '1' : '0'); } catch (e) {}
                 reduce = !reduce;
-                el.classList.toggle('anim-on', !reduce);
+                aplicarImagen(imgNormal);
+                aplicarImagen(imgExplica);
                 cerrar();
-                if (!reduce) animar('saluda', 1350);
             });
             acciones.push(anim);
         }
@@ -661,7 +585,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
         btn.setAttribute('aria-expanded', 'true');
     }
 
-    btn.addEventListener('click', () => { if (burbuja.hidden) { animar('saluda', 1350); menu(); } else { cerrar(); } });
+    btn.addEventListener('click', () => { burbuja.hidden ? menu() : cerrar(); });
 
     // Consejos automaticos: una sola vez por seccion y sin interrumpir mientras se escribe
     const escribiendo = () => /^(INPUT|TEXTAREA)$/.test((document.activeElement || {}).tagName || '');
@@ -680,14 +604,11 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
         });
     }
 
-    // De vez en cuando saluda solo (si no hay un mensaje abierto ni se esta escribiendo)
-    setInterval(() => { if (!reduce && burbuja.hidden && !document.hidden && !escribiendo()) animar('saluda', 1350); }, 9000);
-
-    // Saludo inicial (una vez por visita)
+    // Saludo inicial (una vez por visita): la pose normal ya saluda con la mano en su propio loop
     try {
         if (!sessionStorage.getItem('bruno_saludo')) {
             sessionStorage.setItem('bruno_saludo', '1');
-            setTimeout(() => { if (burbuja.hidden && !escribiendo()) animar('saluda', 1350); mostrar('Hola, soy Bruno. Toca si necesitas ayuda.', [], true); }, 5000);
+            setTimeout(() => { if (burbuja.hidden && !escribiendo()) mostrar('Hola, soy Bruno. Toca si necesitas ayuda.', [], true); }, 5000);
         }
     } catch (e) {}
 })();

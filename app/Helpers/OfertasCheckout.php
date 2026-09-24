@@ -64,6 +64,8 @@ class OfertasCheckout {
             'titulo' => ['Especializacion en Electricidad Industrial', 'más IA'],
             'duracion' => '30 horas académicas',
             'quitar_beneficios' => ['Acceso al aula virtual por tiempo limitado'],
+            // Archivos de assets/images/testimonios/ que esta oferta no muestra (el collage grande ya no va).
+            'testimonios_ocultos' => ['01-alumnos-dicen.jpg'],
             // Capturas de chat de alumnos (recortadas al encabezado y al mensaje), en este orden.
             // El 'alt' repite el mensaje porque el texto va dentro de la imagen.
             'chats' => [

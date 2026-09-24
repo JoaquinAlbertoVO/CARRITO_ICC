@@ -197,6 +197,13 @@ class CheckoutController extends Controller {
             return $out;
         };
 
+        // Imagenes de la carpeta de testimonios, menos las que la oferta oculta por nombre (el deploy por
+        // SFTP no borra del servidor lo que se quita del repo, asi que se ocultan tambien desde aqui)
+        $ocultas = $cfg['testimonios_ocultos'] ?? [];
+        $testimonios = array_values(array_filter($imagenes('testimonios'), function ($t) use ($ocultas) {
+            return !in_array(basename($t['url']), $ocultas, true);
+        }));
+
         // Capturas de chat de alumnos definidas en la oferta (si falta el archivo, no se muestra)
         $chats = [];
         foreach ($cfg['chats'] ?? [] as $c) {
@@ -232,7 +239,7 @@ class CheckoutController extends Controller {
             'simbolo' => $simbolo,
             'precio' => $actual[$k],
             'precioRegular' => $regular[$k],
-            'testimonios' => $imagenes('testimonios'),
+            'testimonios' => $testimonios,
             'chats' => $chats,
             'galeria' => $imagenes('galeria'),
             'paisDetectado' => $pais,

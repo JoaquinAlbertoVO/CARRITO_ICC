@@ -223,7 +223,14 @@ class CheckoutController extends Controller {
             }
         }
 
-        return [
+        // Modo prueba de pago: precio de US$ 0.10 SOLO con ?prueba=<clave> y solo si PRUEBA_PAGO_CLAVE
+        // existe en el .env del servidor (sin esa linea esta apagado y el parametro no hace nada).
+        // Sirve para probar de punta a punta un pago real de PayPal; borrar la linea del .env al terminar.
+        require_once __DIR__ . '/../Helpers/Mailer.php';
+        $clavePrueba = trim((string) \App\Helpers\Mailer::env('PRUEBA_PAGO_CLAVE'));
+        $modoPrueba = $clavePrueba !== '' && isset($_GET['prueba']) && hash_equals($clavePrueba, (string) $_GET['prueba']);
+
+        $datos = [
             'clave' => $clave,
             'curso' => $cfg['curso'],
             'titulo' => $cfg['titulo'],
@@ -267,6 +274,18 @@ class CheckoutController extends Controller {
                 'base' => BASE_URL,
             ],
         ];
+
+        if ($modoPrueba) {
+            $datos['precio'] = 0.10;
+            $datos['metodos'] = ['paypal'];
+            $datos['barraTexto'] = 'MODO PRUEBA: pago de US$ 0.10';
+            $datos['js']['precioUsd'] = 0.10;
+            $datos['js']['precioPen'] = round(0.10 * 3.80, 2);
+            $datos['js']['metodos'] = ['paypal'];
+            $datos['js']['hotmart'] = null;
+            $datos['js']['prueba'] = $clavePrueba;
+        }
+        return $datos;
     }
 
     public function voucher() {
@@ -388,6 +407,11 @@ class CheckoutController extends Controller {
         $apellido = isset($input['apellido']) ? strip_tags(trim($input['apellido'])) : '';
         $celular  = isset($input['celular']) ? strip_tags(trim($input['celular'])) : '';
 
+        // Modo prueba (ver datosV2): solo salta el piso de precio si la clave coincide con la del .env
+        require_once __DIR__ . '/../Helpers/Mailer.php';
+        $clavePrueba = trim((string) \App\Helpers\Mailer::env('PRUEBA_PAGO_CLAVE'));
+        $modoPrueba = $clavePrueba !== '' && isset($input['prueba']) && hash_equals($clavePrueba, (string) $input['prueba']);
+
         if (empty($orderId)) {
             http_response_code(400);
             echo json_encode(['success' => false, 'error' => 'Falta el orderID de PayPal']);
@@ -428,7 +452,7 @@ class CheckoutController extends Controller {
         try {
             require_once __DIR__ . '/../Models/Curso.php';
             $cursoLista = (new \App\Models\Curso())->getCursoByNombre($curso);
-            if ($cursoLista && (float)($cursoLista['precio'] ?? 0) > 0 && $monedaPagada === 'USD') {
+            if (!$modoPrueba && $cursoLista && (float)($cursoLista['precio'] ?? 0) > 0 && $monedaPagada === 'USD') {
                 $pisoUsd = ((float)$cursoLista['precio'] / 3.80) * 0.20;
                 if ((float)$monto < $pisoUsd) {
                     file_put_contents($logFile, date('Y-m-d H:i:s') . " | MONTO SOSPECHOSO (pago $monto $monedaPagada, piso " . round($pisoUsd, 2) . "): Orden $orderId - Curso: $curso - NO matriculado\n", FILE_APPEND);
@@ -503,7 +527,7 @@ class CheckoutController extends Controller {
             if (!$existente) {
                 require_once __DIR__ . '/../Helpers/Mailer.php';
                 \App\Helpers\Mailer::notificarMatricula([
-                    'metodo' => 'PayPal / Tarjeta', 'estado' => 'PAGADO',
+                    'metodo' => $modoPrueba ? 'PayPal / Tarjeta (PRUEBA US$ 0.10)' : 'PayPal / Tarjeta', 'estado' => $modoPrueba ? 'PRUEBA' : 'PAGADO',
                     'nombre' => $nombreFinal, 'documento' => $dni, 'correo' => $emailFinal, 'celular' => $celular,
                     'curso' => $curso, 'monto' => $monto, 'moneda' => $monedaPagada, 'referencia' => $orderId,
                 ]);

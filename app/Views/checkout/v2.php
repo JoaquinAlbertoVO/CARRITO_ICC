@@ -858,7 +858,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
                     createOrder: function (data, actions) {
                         return actions.order.create({
                             purchase_units: [{
-                                amount: { currency_code: 'USD', value: self.amountInUSD.toString() },
+                                amount: { currency_code: 'USD', value: self.amountInUSD.toFixed(2) },
                                 description: 'Acceso al curso: ' + CFG.curso
                             }]
                         });
@@ -878,7 +878,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
-                                    orderID: data.orderID, curso: CFG.curso,
+                                    orderID: data.orderID, curso: CFG.curso, prueba: CFG.prueba || '',
                                     dni: self.dni, nombre: self.nombre, apellido: self.apellido, celular: self.celular
                                 })
                             })

@@ -47,7 +47,7 @@ $iconosModulo = ['fas fa-bolt', 'fas fa-drafting-compass', 'fas fa-tachometer-al
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=19">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=20">
     <!-- El navegador descubre el <img> de Bruno recien al final del HTML (esta muy abajo en la pagina);
          con esto empieza a bajarlo desde ya, para que ya este listo y animando cuando se vea -->
     <link rel="preload" as="image" type="image/webp" href="<?= BASE_URL ?>assets/images/mascota/bruno-idle.webp">
@@ -349,8 +349,9 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                 <h3 class="flex items-center gap-3 font-display text-lg font-bold text-brand-dark"><span class="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-bold text-deep">1</span> Datos del participante</h3>
                 <p class="mt-1 text-sm text-muted">Con estos datos se emite tu certificado.</p>
                 <div class="mt-4 grid gap-4 sm:grid-cols-2">
-                    <label class="sm:col-span-2 text-sm font-semibold">DNI o documento de identidad
-                        <input x-model="dni" aria-required="true" type="text" inputmode="text" autocomplete="off" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand" placeholder="DNI, C.E. o pasaporte">
+                    <label class="sm:col-span-2 text-sm font-semibold">DNI o documento de identidad<?php if ($d['moneda'] === 'USD'): ?> <span class="font-normal text-muted">(opcional)</span><?php endif; ?>
+                        <input x-model="dni" <?= $d['moneda'] === 'USD' ? '' : 'aria-required="true"' ?> type="text" inputmode="text" autocomplete="off" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand" placeholder="<?= $d['moneda'] === 'USD' ? 'Si tu país no usa DNI, déjalo en blanco' : 'DNI, C.E. o pasaporte' ?>">
+                        <?php if ($d['moneda'] === 'USD'): ?><span class="mt-1 block text-xs font-normal text-muted">Si en tu país no existe este documento, puedes dejarlo vacío. Escribe tus nombres y apellidos tal como quieres que salgan en tu certificado.</span><?php endif; ?>
                     </label>
                     <label class="text-sm font-semibold">Nombres
                         <input x-model="nombre" aria-required="true" type="text" autocomplete="given-name" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand">
@@ -788,12 +789,18 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
             },
 
             datosCompletos() {
-                return this.dni.trim() && this.nombre.trim() && this.apellido.trim() && this.celular.trim();
+                // En los links en dolares (extranjero) el documento es opcional: no todos los paises usan DNI
+                const docOk = CFG.moneda === 'USD' || this.dni.trim();
+                return docOk && this.nombre.trim() && this.apellido.trim() && this.celular.trim();
+            },
+
+            textoFaltan() {
+                return CFG.moneda === 'USD' ? 'tus nombres, apellidos y celular' : 'tu DNI, nombres, apellidos y celular';
             },
 
             enviarVoucher() {
                 if (!this.datosCompletos()) {
-                    this.mostrarError('Por favor, completa tu DNI, nombres, apellidos y celular.');
+                    this.mostrarError('Por favor, completa ' + this.textoFaltan() + '.');
                     return;
                 }
                 if (!this.voucherFile) {
@@ -807,6 +814,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
                 fd.append('nombre', this.nombre);
                 fd.append('apellido', this.apellido);
                 fd.append('celular', this.celular);
+                fd.append('monto', CFG.precioPen);
 
                 this.error = '';
                 this.enviando = true;
@@ -835,7 +843,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
                     onClick: function (data, actions) {
                         // No se abre el pago de PayPal sin los datos del alumno
                         if (!self.datosCompletos()) {
-                            self.mostrarError('Por favor, completa tus datos (DNI, nombres, apellidos y celular) antes de pagar.');
+                            self.mostrarError('Por favor, completa ' + self.textoFaltan() + ' antes de pagar.');
                             return actions.reject();
                         }
                         self.error = '';

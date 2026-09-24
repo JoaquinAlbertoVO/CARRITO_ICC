@@ -54,4 +54,89 @@ class Mailer {
         // de matricula que lo llama - el alumno ya quedo creado en la BD de todas formas.
         return @mail($email, $subject, $body, $headers);
     }
+
+    /** Correo del equipo de asesores: recibe un aviso por cada matricula / pago nuevo. */
+    const CORREO_ASESORES = 'informes@stenergyedu.com';
+
+    /**
+     * Aviso interno para los asesores con todos los datos del alumno, para que lleven su
+     * propio control sin entrar al panel admin. Sirve para PayPal, Hotmart y vouchers de
+     * Yape/Plin (en ese caso el pago aun esta por verificar y se adjunta la captura).
+     *
+     * $d: metodo, estado, nombre, documento, correo, celular, curso, monto, moneda, referencia.
+     * $adjunto (opcional): ['ruta' => ..., 'nombre' => ..., 'mime' => ...] (max 5 MB).
+     */
+    public static function notificarMatricula(array $d, $adjunto = null) {
+        $v = function ($k) use ($d) {
+            $x = isset($d[$k]) ? trim((string) $d[$k]) : '';
+            return $x;
+        };
+        $h = function ($s) { return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); };
+
+        $porVerificar = $v('estado') === 'POR VERIFICAR';
+        $documento = $v('documento') !== '' ? $v('documento') : 'No indicó (alumno del extranjero)';
+        $monto = $v('monto') !== '' ? $v('monto') . ' ' . $v('moneda') : '—';
+
+        $filas = [
+            'Estado'           => $v('estado'),
+            'Medio de pago'    => $v('metodo'),
+            'Alumno'           => $v('nombre'),
+            'Documento'        => $documento,
+            'Correo'           => $v('correo') !== '' ? $v('correo') : '—',
+            'Celular/WhatsApp' => $v('celular'),
+            'Curso'            => $v('curso'),
+            'Monto'            => $monto,
+            'Referencia/orden' => $v('referencia') !== '' ? $v('referencia') : '—',
+            'Fecha'            => date('d/m/Y H:i') . ' (hora Perú)',
+        ];
+
+        $tabla = '';
+        foreach ($filas as $etiqueta => $valor) {
+            $tabla .= '<tr><td style="padding:8px 12px;background:#f1f5f9;font-weight:bold;border:1px solid #e2e8f0;white-space:nowrap;">'
+                . $h($etiqueta) . '</td><td style="padding:8px 12px;border:1px solid #e2e8f0;">' . $h($valor) . '</td></tr>';
+        }
+
+        $titulo = $porVerificar ? 'Pago por verificar (Yape/Plin)' : 'Nueva matrícula confirmada';
+        $nota = $porVerificar
+            ? 'El alumno subió su comprobante (adjunto). Verifica el pago antes de dar acceso.'
+            : 'El pago ya fue confirmado y el alumno quedó registrado en el aula virtual.';
+
+        $html = '<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#0f172a;">'
+            . '<h2 style="color:#3730a3;margin-bottom:4px;">' . $h($titulo) . '</h2>'
+            . '<p style="color:#334155;">' . $h($nota) . '</p>'
+            . '<table style="border-collapse:collapse;width:100%;font-size:14px;">' . $tabla . '</table>'
+            . '</div>';
+
+        // Sin saltos de linea en el asunto (evita inyeccion de cabeceras con nombres raros)
+        $asunto = '[ICC] ' . ($porVerificar ? 'Pago por verificar' : 'Nueva matrícula') . ' - '
+            . preg_replace('/[\r\n]+/', ' ', $v('nombre')) . ' - ' . preg_replace('/[\r\n]+/', ' ', $v('curso'));
+        $asuntoCodificado = '=?UTF-8?B?' . base64_encode($asunto) . '?=';
+
+        $cabeceras = "MIME-Version: 1.0\r\nFrom: ICC <informes@icc.com.pe>\r\n";
+
+        $adjuntoOk = is_array($adjunto) && !empty($adjunto['ruta']) && is_file($adjunto['ruta']) && filesize($adjunto['ruta']) <= 5 * 1024 * 1024;
+        if ($adjuntoOk) {
+            $limite = 'icc_' . md5(uniqid('', true));
+            $cabeceras .= "Content-Type: multipart/mixed; boundary=\"$limite\"\r\n";
+            $nombreAdj = preg_replace('/[^A-Za-z0-9._-]/', '_', $adjunto['nombre'] ?? basename($adjunto['ruta']));
+            $mensaje = "--$limite\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n"
+                . chunk_split(base64_encode($html))
+                . "--$limite\r\nContent-Type: " . ($adjunto['mime'] ?? 'application/octet-stream') . "; name=\"$nombreAdj\"\r\n"
+                . "Content-Transfer-Encoding: base64\r\nContent-Disposition: attachment; filename=\"$nombreAdj\"\r\n\r\n"
+                . chunk_split(base64_encode(file_get_contents($adjunto['ruta'])))
+                . "--$limite--";
+        } else {
+            $cabeceras .= "Content-Type: text/html; charset=UTF-8\r\n";
+            $mensaje = $html;
+        }
+
+        // @ : un fallo de correo nunca debe tumbar la matricula/pago que lo llama
+        $ok = @mail(self::CORREO_ASESORES, $asuntoCodificado, $mensaje, $cabeceras);
+
+        // Registro sin datos personales, solo para saber si el aviso salio o fallo
+        @file_put_contents(__DIR__ . '/../../api/notificaciones_log.txt',
+            date('Y-m-d H:i:s') . ' | ' . ($ok ? 'AVISO ENVIADO' : 'FALLO AVISO') . ' | ' . $v('metodo') . ' | ref ' . $v('referencia') . "\n", FILE_APPEND);
+
+        return $ok;
+    }
 }

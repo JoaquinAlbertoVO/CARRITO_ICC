@@ -312,6 +312,17 @@ class CheckoutController extends Controller {
                     $jsonFileName = 'voucher_' . date('Ymd_His') . '_' . $curso . '.json';
                     file_put_contents($uploadDir . $jsonFileName, json_encode($studentData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
+                    // Aviso a los asesores con la captura adjunta (el pago aun se verifica a mano)
+                    $mimes = ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'pdf' => 'application/pdf'];
+                    $montoDecl = isset($_POST['monto']) ? substr(strip_tags(trim($_POST['monto'])), 0, 20) : '';
+                    require_once __DIR__ . '/../Helpers/Mailer.php';
+                    \App\Helpers\Mailer::notificarMatricula([
+                        'metodo' => 'Yape / Plin (voucher)', 'estado' => 'POR VERIFICAR',
+                        'nombre' => trim($nombre . ' ' . $apellido), 'documento' => $dni, 'correo' => '', 'celular' => $celular,
+                        'curso' => str_replace('_', ' ', $curso), 'monto' => $montoDecl, 'moneda' => 'PEN',
+                        'referencia' => $fileName,
+                    ], ['ruta' => $destination, 'nombre' => $fileName, 'mime' => $mimes[$fileExt]]);
+
                     // --- ALERTA POR WHATSAPP (CALLMEBOT) ---
                     // IMPORTANTE: Reemplaza estos datos con tu numero y tu API key de CallMeBot
                     $whatsapp_phone = ""; // Ej: +51999999999 (con el simbolo + y el codigo de pais)
@@ -485,6 +496,16 @@ class CheckoutController extends Controller {
             }
 
             file_put_contents($logFile, date('Y-m-d H:i:s') . " | VENTA PAYPAL OK: $nombreFinal ($emailFinal) - Orden $orderId - $monto $monedaPagada - Curso: $curso\n", FILE_APPEND);
+
+            // Aviso a los asesores (una sola vez por orden: si el navegador reintenta, no se repite)
+            if (!$existente) {
+                require_once __DIR__ . '/../Helpers/Mailer.php';
+                \App\Helpers\Mailer::notificarMatricula([
+                    'metodo' => 'PayPal / Tarjeta', 'estado' => 'PAGADO',
+                    'nombre' => $nombreFinal, 'documento' => $dni, 'correo' => $emailFinal, 'celular' => $celular,
+                    'curso' => $curso, 'monto' => $monto, 'moneda' => $monedaPagada, 'referencia' => $orderId,
+                ]);
+            }
 
             // Solo a cuentas nuevas: mandar las credenciales por correo
             if ($esCuentaNueva) {

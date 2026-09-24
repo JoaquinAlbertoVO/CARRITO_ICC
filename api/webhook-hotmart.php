@@ -132,6 +132,11 @@ if (empty($transaccion)) {
                     }
                 }
 
+                // Hotmart reintenta webhooks: solo se avisa a los asesores la primera vez que llega la transaccion
+                $stmtYa = $pdo->prepare("SELECT id FROM ventas_hotmart WHERE n_operacion = ? AND evento = 'APROBADA' LIMIT 1");
+                $stmtYa->execute([$transaccion]);
+                $yaRegistrada = (bool) $stmtYa->fetch();
+
                 // C. Dejar registro de la transaccion (para poder revertir el acceso si luego llega un reembolso)
                 $stmtVenta = $pdo->prepare("INSERT INTO ventas_hotmart (n_operacion, id_usuario, id_curso, evento, monto, moneda, fecha_evento)
                                              VALUES (?, ?, ?, 'APROBADA', ?, ?, ?)
@@ -140,6 +145,15 @@ if (empty($transaccion)) {
 
                 $avisoCurso = $id_curso ? '' : ' [ADVERTENCIA: no se encontro el curso "' . $curso . '" en la BD, matricular a mano]';
                 hotmart_log("VENTA APROBADA: $nombre ($email) compro '$curso' - Transaccion $transaccion - $monto $moneda$avisoCurso");
+
+                if (!$yaRegistrada) {
+                    require_once __DIR__ . '/../app/Helpers/Mailer.php';
+                    \App\Helpers\Mailer::notificarMatricula([
+                        'metodo' => 'Hotmart', 'estado' => 'PAGADO',
+                        'nombre' => $nombre, 'documento' => $dni, 'correo' => $email, 'celular' => $celular,
+                        'curso' => $curso, 'monto' => $monto, 'moneda' => $moneda, 'referencia' => $transaccion,
+                    ]);
+                }
 
                 // D. Solo a cuentas nuevas: mandar las credenciales por correo (a un alumno
                 // que ya tenia cuenta y compra otro curso no hay que reenviarle password).

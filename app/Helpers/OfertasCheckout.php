@@ -35,7 +35,7 @@ class OfertasCheckout {
             'curso' => 'Especializacion en Electricidad Industrial',
             'horas' => 30,
             'inicio' => '2026-10-20',
-            'video' => '632hOVAUEhE', // video promocional actual del curso (YouTube): "Electricidad Industrial con IA"
+            'video' => 'Zh6n3WXFLrg', // video promocional actual del curso (YouTube): "Electricidad Industrial con IA"
             // Texto de gancho armado a partir del temario: que lo revise el jefe.
             'subtitulo' => 'Conviertete en un especialista en instalaciones eléctricas de principio a fin, con IA como asistente: cálculos, planos, especificaciones, presupuesto y expediente del proyecto.',
             'docente' => [

@@ -73,11 +73,14 @@ class OfertasCheckout {
             'testimonios_ocultos' => ['01-alumnos-dicen.jpg'],
             // Capturas de chat de alumnos (recortadas al encabezado y al mensaje), en este orden.
             // El 'alt' repite el mensaje porque el texto va dentro de la imagen.
+            // POR AHORA NO SE MUESTRAN: estas 4 capturas usan la misma plantilla que otras imagenes que venian
+            // marcadas "ejemplo ilustrativo", y no se pudo confirmar que sean mensajes reales de alumnos.
+            // Se vuelven a activar (descomentando) solo con las capturas originales del celular.
             'chats' => [
-                ['archivo' => 'assets/images/testimonios-chat/chat-rk.webp', 'alt' => 'Mensaje de un alumno: "Buen curso, aprendí bastante sobre instalaciones, seguridad y el uso correcto de los equipos. Espero poder participar en otro."'],
-                ['archivo' => 'assets/images/testimonios-chat/chat-jh.webp', 'alt' => 'Mensaje de un alumno: "Me gustó bastante la capacitación de electricidad industrial. Aprendí cosas que no conocía y ahora entiendo mejor cómo funcionan los circuitos."'],
-                ['archivo' => 'assets/images/testimonios-chat/chat-ed.webp', 'alt' => 'Mensaje de un alumno: "Gracias por la capacitación. Estuvo muy interesante y bien organizada. Me gustaría llevar otro curso de mantenimiento eléctrico. ¡Saludos!"'],
-                ['archivo' => 'assets/images/testimonios-chat/chat-el.webp', 'alt' => 'Mensaje de un alumno: "Excelente capacitación, se entendió todo con claridad y hubo buena atención. Muchas gracias por la oportunidad."'],
+                // ['archivo' => 'assets/images/testimonios-chat/chat-rk.webp', 'alt' => 'Mensaje de un alumno: "Buen curso, aprendí bastante sobre instalaciones, seguridad y el uso correcto de los equipos. Espero poder participar en otro."'],
+                // ['archivo' => 'assets/images/testimonios-chat/chat-jh.webp', 'alt' => 'Mensaje de un alumno: "Me gustó bastante la capacitación de electricidad industrial. Aprendí cosas que no conocía y ahora entiendo mejor cómo funcionan los circuitos."'],
+                // ['archivo' => 'assets/images/testimonios-chat/chat-ed.webp', 'alt' => 'Mensaje de un alumno: "Gracias por la capacitación. Estuvo muy interesante y bien organizada. Me gustaría llevar otro curso de mantenimiento eléctrico. ¡Saludos!"'],
+                // ['archivo' => 'assets/images/testimonios-chat/chat-el.webp', 'alt' => 'Mensaje de un alumno: "Excelente capacitación, se entendió todo con claridad y hubo buena atención. Muchas gracias por la oportunidad."'],
             ],
             // 'etiqueta corta' => 'nombre completo del tema' (la etiqueta se ve; el nombre completo
             // queda como tooltip). Las etiquetas quitan lo que el titulo de la seccion ya dice.

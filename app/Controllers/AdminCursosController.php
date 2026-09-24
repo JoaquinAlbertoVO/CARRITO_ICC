@@ -466,9 +466,11 @@ class AdminCursosController extends Controller {
         $curso = $_GET['curso'];
         $fecha = $_GET['fecha'];
         $categoria = $_GET['categoria'];
+        $dni = $_GET['dni'] ?? '';
+        $horas = $_GET['horas'] ?? '20';
 
         $certificadoModel = new \App\Models\Certificado();
-        $imagen = $certificadoModel->generarImagenCertificado($alumno, $curso, $fecha, $categoria);
+        $imagen = $certificadoModel->generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha, $categoria);
 
         header("Content-Type: image/jpeg");
         header("Content-Disposition: inline; filename=certificado.jpg");
@@ -917,8 +919,9 @@ class AdminCursosController extends Controller {
         // A4 apaisado es 297mm x 210mm
         $pdf->Image($filepath_jpg, 0, 0, 297, 210);
         
-        // Añadir el QR
-        $pdf->Image($filepath_qr, 13.4, 174.7, 27.5, 27.5);
+        // Añadir el QR (sobre la tarjeta blanca del panel; la posicion vive en Certificado::QR_MM)
+        list($qx, $qy, $ql) = \App\Models\Certificado::QR_MM;
+        $pdf->Image($filepath_qr, $qx, $qy, $ql, $ql);
         
         $pdf->Output('F', $filepath_pdf);
 

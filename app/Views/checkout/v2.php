@@ -47,7 +47,7 @@ $iconosModulo = ['fas fa-bolt', 'fas fa-drafting-compass', 'fas fa-tachometer-al
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=14">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=15">
     <!-- El navegador descubre el <img> de Bruno recien al final del HTML (esta muy abajo en la pagina);
          con esto empieza a bajarlo desde ya, para que ya este listo y animando cuando se vea -->
     <link rel="preload" as="image" type="image/webp" href="<?= BASE_URL ?>assets/images/mascota/bruno-idle.webp">
@@ -304,6 +304,23 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
     </div>
 </section>
 <?php endif; ?>
+
+<!-- Certificado (modelo referencial: sin firmas ni datos de ninguna persona) -->
+<section class="bg-white py-12">
+    <div class="max-w-5xl mx-auto px-4">
+        <p class="reveal text-center text-sm font-bold uppercase tracking-wider text-brand">Certificación</p>
+        <h2 class="reveal mt-1 text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Recibe tu certificado de participación</h2>
+        <p class="reveal mx-auto mt-2 max-w-2xl text-center text-muted">Tu inscripción incluye un certificado de participación con código QR, emitido con los datos que registres al inscribirte.</p>
+        <figure class="reveal mx-auto mt-8 max-w-3xl">
+            <img src="<?= BASE_URL ?>assets/images/certificado-modelo-1600.webp"
+                 srcset="<?= BASE_URL ?>assets/images/certificado-modelo-800.webp 800w, <?= BASE_URL ?>assets/images/certificado-modelo-1600.webp 1600w"
+                 sizes="(min-width: 768px) 768px, calc(100vw - 32px)"
+                 alt="Modelo del certificado de participación de ICC, con código QR" width="1600" height="1131" loading="lazy"
+                 class="w-full rounded-2xl shadow-xl ring-1 ring-black/10">
+            <figcaption class="mt-3 text-center text-xs text-muted">Modelo referencial del certificado.</figcaption>
+        </figure>
+    </div>
+</section>
 
 <!-- Inscripcion y pago -->
 <section id="inscripcion" class="relative scroll-mt-28 overflow-hidden bg-brand-dark bg-cover bg-center py-14" style="background-image: url('<?= $e($fondo) ?>');">

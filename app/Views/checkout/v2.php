@@ -272,7 +272,7 @@ $iconosModulo = ['fas fa-bolt', 'fas fa-drafting-compass', 'fas fa-tachometer-al
 <!-- Galeria -->
 <section class="bg-white py-12">
     <div class="max-w-6xl mx-auto px-4">
-        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Así se trabaja en el curso</h2>
+        <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Equipos y materiales del curso</h2>
         <?php
         // Con pocas fotos se ven grandes (no arrinconadas a un lado); con 4 o mas, cuadricula de 2 / 4 columnas
         $nGal = count($d['galeria']);

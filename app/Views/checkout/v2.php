@@ -445,7 +445,7 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
             <template x-if="metodoUsado === 'manual'">
                 <div>
                     <h3 class="mt-3 font-display text-2xl font-bold text-brand-dark">¡Comprobante recibido!</h3>
-                    <p class="mt-2 text-muted">Validaremos tu pago y te enviaremos tus accesos. Para agilizarlo, escríbenos por WhatsApp confirmando tus datos.</p>
+                    <p class="mt-2 text-muted">Validaremos tu pago y te enviaremos tus accesos. Cuando esté validado, te enviaremos por WhatsApp el link del grupo del curso. Para agilizarlo, escríbenos confirmando tus datos.</p>
                     <a href="<?= $wa ?>?text=<?= rawurlencode('Hola, acabo de subir mi comprobante para el curso ' . $d['curso'] . '. Mis nombres son:') ?>" target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 font-bold text-white shadow-lg"><i class="fab fa-whatsapp text-xl"></i> Escribir por WhatsApp</a>
                 </div>
             </template>
@@ -453,6 +453,11 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                 <div>
                     <h3 class="mt-3 font-display text-2xl font-bold text-brand-dark">¡Pago recibido!</h3>
                     <p class="mt-2 text-muted">En unos minutos recibirás tus credenciales por correo. Si necesitas ayuda, usa el chat de soporte de abajo a la derecha.</p>
+                    <!-- El link del grupo llega del servidor solo cuando PayPal confirma el pago (no va en el HTML) -->
+                    <div x-show="grupo" x-cloak class="mt-5">
+                        <p class="text-sm font-semibold text-brand-dark">Únete al grupo de WhatsApp del curso (también te lo enviamos por correo):</p>
+                        <a :href="grupo" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 font-bold text-white shadow-lg"><i class="fab fa-whatsapp text-xl"></i> Unirme al grupo</a>
+                    </div>
                 </div>
             </template>
         </div>
@@ -724,6 +729,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
             success: false,
             error: '',
             metodoUsado: null,
+            grupo: '',
             cuenta: '--:--:--',
             manualDetails: {
                 yape: { qr: CFG.base + 'assets/images/Yape.jpg', titular: 'Mariela Ma.', nombre: 'Yape' },
@@ -877,7 +883,10 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
                                 })
                             })
                             .then(r => r.json())
-                            .then(resp => { if (!resp.success) console.error('No se pudo registrar la venta de PayPal:', resp.error, data.orderID); })
+                            .then(resp => {
+                                if (!resp.success) console.error('No se pudo registrar la venta de PayPal:', resp.error, data.orderID);
+                                else if (resp.grupo) self.grupo = resp.grupo;
+                            })
                             .catch(err => console.error('Error confirmando PayPal (orden ' + data.orderID + '):', err));
                         });
                     },

@@ -55,8 +55,37 @@ class Mailer {
         return @mail($email, $subject, $body, $headers);
     }
 
+    /**
+     * Correo al alumno con el link del grupo de WhatsApp de su curso (solo para pagos ya confirmados:
+     * PayPal y Hotmart). No se envia a los correos de relleno que se inventan cuando PayPal no da el email.
+     */
+    public static function enviarGrupoWsp($email, $nombre, $curso, $link) {
+        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || $link === ''
+            || substr($email, -strlen('@paypal.icc.com.pe')) === '@paypal.icc.com.pe') {
+            return false;
+        }
+        $h = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); };
+
+        $body = '
+        <div style="font-family: Arial, Helvetica, sans-serif; max-width: 520px; margin: 0 auto; color:#0f172a;">
+            <h2 style="color:#3730a3; margin-bottom: 4px;">¡Ya casi empiezas, ' . $h($nombre) . '!</h2>
+            <p style="color:#334155;">Tu inscripción a <strong>' . $h($curso) . '</strong> está confirmada. Únete al <strong>grupo de WhatsApp del curso</strong>: ahí compartimos los avisos, los enlaces de las clases en vivo y resolvemos tus dudas.</p>
+            <p>
+                <a href="' . $h($link) . '" style="background:#15803d; color:#ffffff; padding:12px 24px; border-radius:24px; text-decoration:none; font-weight:bold; display:inline-block;">
+                    Unirme al grupo de WhatsApp
+                </a>
+            </p>
+            <p style="font-size:0.85rem; color:#64748b;">Si el botón no funciona, copia este enlace en tu navegador:<br>' . $h($link) . '</p>
+            <p style="font-size:0.85rem; color:#64748b; margin-top:24px;">Este enlace es solo para alumnos inscritos; por favor no lo compartas.<br>¿Algún problema? Escríbenos a <a href="mailto:informes@icc.com.pe">informes@icc.com.pe</a>.</p>
+        </div>';
+
+        $headers  = "MIME-Version: 1.0\r\nContent-Type: text/html; charset=UTF-8\r\nFrom: ICC <informes@icc.com.pe>\r\n";
+        $asunto = '=?UTF-8?B?' . base64_encode('Únete al grupo de WhatsApp de tu curso - ICC') . '?=';
+        return @mail($email, $asunto, $body, $headers);
+    }
+
     /** Lee una variable del .env del servidor (mismo archivo que usan Database y PayPalClient). */
-    private static function env($clave) {
+    public static function env($clave) {
         if (!empty($_ENV[$clave])) return $_ENV[$clave];
         $archivo = __DIR__ . '/../../.env';
         if (is_file($archivo)) {
@@ -157,8 +186,21 @@ class Mailer {
         $html = '<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#0f172a;">'
             . '<h2 style="color:#3730a3;margin-bottom:4px;">' . $h($titulo) . '</h2>'
             . '<p style="color:#334155;">' . $h($nota) . '</p>'
-            . '<table style="border-collapse:collapse;width:100%;font-size:14px;">' . $tabla . '</table>'
-            . '</div>';
+            . '<table style="border-collapse:collapse;width:100%;font-size:14px;">' . $tabla . '</table>';
+
+        // Voucher por verificar: enlace de un clic para escribirle al alumno con el link del grupo
+        // una vez validado el pago (el grupo NO se le da antes de verificar).
+        if ($porVerificar && $v('grupo') !== '') {
+            $tel = preg_replace('/\D+/', '', $v('celular'));
+            if (strlen($tel) === 9 && $tel[0] === '9') $tel = '51' . $tel; // celular peruano sin codigo de pais
+            if (strlen($tel) >= 10) {
+                $msg = 'Hola ' . $v('nombre') . ', validamos tu pago para ' . $v('curso') . '. Este es el link del grupo de WhatsApp del curso: ' . $v('grupo');
+                $html .= '<p style="margin-top:16px;"><a href="https://wa.me/' . $tel . '?text=' . rawurlencode($msg)
+                    . '" style="background:#15803d;color:#fff;padding:10px 18px;border-radius:20px;text-decoration:none;font-weight:bold;display:inline-block;">'
+                    . 'Enviar link del grupo por WhatsApp (solo tras verificar el pago)</a></p>';
+            }
+        }
+        $html .= '</div>';
 
         // Sin saltos de linea en el asunto (evita inyeccion de cabeceras con nombres raros)
         $asunto = '[ICC] ' . ($porVerificar ? 'Pago por verificar' : 'Nueva matrícula') . ' - '

@@ -153,6 +153,14 @@ if (empty($transaccion)) {
                         'nombre' => $nombre, 'documento' => $dni, 'correo' => $email, 'celular' => $celular,
                         'curso' => $curso, 'monto' => $monto, 'moneda' => $moneda, 'referencia' => $transaccion,
                     ]);
+
+                    // Link del grupo de WhatsApp del curso al comprador (una sola vez por transaccion)
+                    require_once __DIR__ . '/../app/Helpers/OfertasCheckout.php';
+                    $grupo = \App\Helpers\OfertasCheckout::grupoWsp($curso);
+                    if ($grupo !== '') {
+                        $okGrupo = \App\Helpers\Mailer::enviarGrupoWsp($email, $nombre, $curso, $grupo);
+                        hotmart_log(($okGrupo ? 'Link del grupo enviado a ' : 'No se envio el link del grupo a ') . $email);
+                    }
                 }
 
                 // D. Solo a cuentas nuevas: mandar las credenciales por correo (a un alumno

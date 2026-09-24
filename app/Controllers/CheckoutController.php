@@ -316,11 +316,13 @@ class CheckoutController extends Controller {
                     $mimes = ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'pdf' => 'application/pdf'];
                     $montoDecl = isset($_POST['monto']) ? substr(strip_tags(trim($_POST['monto'])), 0, 20) : '';
                     require_once __DIR__ . '/../Helpers/Mailer.php';
+                    require_once __DIR__ . '/../Helpers/OfertasCheckout.php';
                     \App\Helpers\Mailer::notificarMatricula([
                         'metodo' => 'Yape / Plin (voucher)', 'estado' => 'POR VERIFICAR',
                         'nombre' => trim($nombre . ' ' . $apellido), 'documento' => $dni, 'correo' => '', 'celular' => $celular,
                         'curso' => str_replace('_', ' ', $curso), 'monto' => $montoDecl, 'moneda' => 'PEN',
                         'referencia' => $fileName,
+                        'grupo' => \App\Helpers\OfertasCheckout::grupoWsp($curso),
                     ], ['ruta' => $destination, 'nombre' => $fileName, 'mime' => $mimes[$fileExt]]);
 
                     // --- ALERTA POR WHATSAPP (CALLMEBOT) ---
@@ -514,7 +516,17 @@ class CheckoutController extends Controller {
                 file_put_contents($logFile, date('Y-m-d H:i:s') . ' | ' . ($enviado ? 'Correo de bienvenida enviado a ' : 'FALLO al enviar correo de bienvenida a ') . "$emailFinal\n", FILE_APPEND);
             }
 
-            echo json_encode(['success' => true]);
+            // Grupo de WhatsApp del curso: pago ya verificado con PayPal, asi que se envia por correo
+            // (una vez por orden) y tambien se devuelve al navegador para mostrar el boton en pantalla.
+            require_once __DIR__ . '/../Helpers/OfertasCheckout.php';
+            $grupo = \App\Helpers\OfertasCheckout::grupoWsp($curso);
+            if ($grupo !== '' && !$existente) {
+                require_once __DIR__ . '/../Helpers/Mailer.php';
+                $enviadoGrupo = \App\Helpers\Mailer::enviarGrupoWsp($emailFinal, $nombreFinal, $curso, $grupo);
+                file_put_contents($logFile, date('Y-m-d H:i:s') . ' | ' . ($enviadoGrupo ? 'Link del grupo enviado a ' : 'No se envio el link del grupo a ') . "$emailFinal\n", FILE_APPEND);
+            }
+
+            echo json_encode(['success' => true, 'grupo' => $grupo]);
         } catch (\Exception $e) {
             file_put_contents($logFile, date('Y-m-d H:i:s') . " | ERROR BD: " . $e->getMessage() . " (Orden $orderId, ya pagada en PayPal)\n", FILE_APPEND);
             http_response_code(500);

@@ -204,6 +204,20 @@ class OfertasCheckout {
     }
 
     /**
+     * Link del grupo de WhatsApp del curso (o '' si no hay). Se lee del .env del servidor
+     * (GRUPO_WSP_ELECTRICIDAD_IA) y nunca va en el HTML: solo se entrega tras un pago confirmado.
+     * Se identifica el curso por su nombre, igual que hacen el pago y la matricula.
+     */
+    public static function grupoWsp($nombreCurso) {
+        $n = strtolower(strtr((string) $nombreCurso, ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'Á' => 'a', 'É' => 'e', 'Í' => 'i', 'Ó' => 'o', 'Ú' => 'u', '_' => ' ']));
+        if (strpos($n, 'especializacion en electricidad industrial') !== false) {
+            require_once __DIR__ . '/Mailer.php';
+            return Mailer::env('GRUPO_WSP_ELECTRICIDAD_IA');
+        }
+        return '';
+    }
+
+    /**
      * Configuracion completa de una oferta, o null si no existe.
      */
     public static function config($clave) {

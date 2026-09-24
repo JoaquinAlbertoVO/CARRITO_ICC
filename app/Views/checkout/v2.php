@@ -522,7 +522,11 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
 (function () {
     const el = document.getElementById('bruno');
     if (!el) return;
-    try { if (localStorage.getItem('bruno_oculto') === '1') { el.remove(); return; } } catch (e) {}
+    // "Ocultar a Bruno" dura 7 dias (no para siempre) y ?bruno=1 en el link lo vuelve a mostrar al instante
+    try {
+        if (/[?&]bruno=1(&|$)/.test(location.search)) { localStorage.removeItem('bruno_oculto_hasta'); }
+        if (Date.now() < parseInt(localStorage.getItem('bruno_oculto_hasta') || '0', 10)) { el.remove(); return; }
+    } catch (e) {}
 
     const reduceSistema = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let reduce = reduceSistema; // se respeta, salvo que la persona active la animacion desde el menu de Bruno
@@ -618,7 +622,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
         ocultar.className = 'bruno-accion bruno-accion-sec';
         ocultar.textContent = 'Ocultar a Bruno';
         ocultar.addEventListener('click', () => {
-            try { localStorage.setItem('bruno_oculto', '1'); } catch (e) {}
+            try { localStorage.setItem('bruno_oculto_hasta', String(Date.now() + 7 * 24 * 3600 * 1000)); } catch (e) {}
             el.remove();
         });
         const textoInscribirme = [textoTip('#precios'), textoTip('#inscripcion')].filter(Boolean).join(' ');

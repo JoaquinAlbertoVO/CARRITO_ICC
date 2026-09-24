@@ -151,6 +151,11 @@ class CheckoutController extends Controller {
         if (!$linkHotmart) {
             $metodos = array_values(array_diff($metodos, ['hotmart']));
         }
+        // Yape/Plin cobran en soles: si el precio queda en dolares (link con ?moneda=USD), aunque
+        // el visitante este en Peru solo se ofrece PayPal (y Hotmart si aplica)
+        if ($moneda === 'USD') {
+            $metodos = array_values(array_diff($metodos, ['manual']));
+        }
 
         // Beneficios reales de la BD (sin los que se quitan para esta oferta) + acceso de por vida
         $beneficios = [];

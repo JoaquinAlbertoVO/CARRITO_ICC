@@ -197,6 +197,14 @@ class CheckoutController extends Controller {
             return $out;
         };
 
+        // Capturas de chat de alumnos definidas en la oferta (si falta el archivo, no se muestra)
+        $chats = [];
+        foreach ($cfg['chats'] ?? [] as $c) {
+            if (is_file(__DIR__ . '/../../' . $c['archivo'])) {
+                $chats[] = ['url' => BASE_URL . $c['archivo'], 'alt' => $c['alt']];
+            }
+        }
+
         return [
             'clave' => $clave,
             'curso' => $cfg['curso'],
@@ -225,6 +233,7 @@ class CheckoutController extends Controller {
             'precio' => $actual[$k],
             'precioRegular' => $regular[$k],
             'testimonios' => $imagenes('testimonios'),
+            'chats' => $chats,
             'galeria' => $imagenes('galeria'),
             'paisDetectado' => $pais,
             'metodos' => $metodos,

@@ -47,7 +47,7 @@ $iconosModulo = ['fas fa-bolt', 'fas fa-drafting-compass', 'fas fa-tachometer-al
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=15">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=16">
     <!-- El navegador descubre el <img> de Bruno recien al final del HTML (esta muy abajo en la pagina);
          con esto empieza a bajarlo desde ya, para que ya este listo y animando cuando se vea -->
     <link rel="preload" as="image" type="image/webp" href="<?= BASE_URL ?>assets/images/mascota/bruno-idle.webp">
@@ -282,7 +282,7 @@ $iconosModulo = ['fas fa-bolt', 'fas fa-drafting-compass', 'fas fa-tachometer-al
 </section>
 <?php endif; ?>
 
-<?php if (!empty($d['testimonios'])): ?>
+<?php if (!empty($d['testimonios']) || !empty($d['chats'])): ?>
 <?php
 $testAnchas = array_filter($d['testimonios'], function ($t) { return $t['ancha']; });
 $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['ancha']; });
@@ -294,6 +294,14 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
         <?php foreach ($testAnchas as $t): ?>
         <img src="<?= $e($t['url']) ?>" alt="Opiniones de alumnos de ICC" loading="lazy" class="reveal mx-auto mt-8 w-full max-w-4xl rounded-2xl shadow-xl ring-4 ring-white">
         <?php endforeach; ?>
+        <?php if (!empty($d['chats'])): ?>
+        <!-- Capturas de chat de alumnos (recortadas al mensaje) -->
+        <div class="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
+            <?php foreach ($d['chats'] as $c): ?>
+            <img src="<?= $e($c['url']) ?>" alt="<?= $e($c['alt']) ?>" width="678" height="380" loading="lazy" class="reveal w-full rounded-2xl shadow-md ring-1 ring-black/5">
+            <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
         <?php if ($testVerticales): ?>
         <div class="mt-8 flex snap-x gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-4">
             <?php foreach ($testVerticales as $t): ?>

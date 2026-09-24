@@ -204,6 +204,12 @@ class CheckoutController extends Controller {
             return !in_array(basename($t['url']), $ocultas, true);
         }));
 
+        // Fotos de la galeria, con el texto alternativo que la oferta defina para cada archivo
+        $galeria = $imagenes('galeria');
+        foreach ($galeria as $i => $g) {
+            $galeria[$i]['alt'] = $cfg['galeria_alt'][basename($g['url'])] ?? '';
+        }
+
         // Capturas de chat de alumnos definidas en la oferta (si falta el archivo, no se muestra)
         $chats = [];
         foreach ($cfg['chats'] ?? [] as $c) {
@@ -241,7 +247,7 @@ class CheckoutController extends Controller {
             'precioRegular' => $regular[$k],
             'testimonios' => $testimonios,
             'chats' => $chats,
-            'galeria' => $imagenes('galeria'),
+            'galeria' => $galeria,
             'paisDetectado' => $pais,
             'metodos' => $metodos,
             'js' => [

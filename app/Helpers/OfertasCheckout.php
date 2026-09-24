@@ -64,6 +64,11 @@ class OfertasCheckout {
             'titulo' => ['Especializacion en Electricidad Industrial', 'más IA'],
             'duracion' => '30 horas académicas',
             'quitar_beneficios' => ['Acceso al aula virtual por tiempo limitado'],
+            // Texto alternativo de las fotos de assets/images/galeria/ (por nombre de archivo).
+            'galeria_alt' => [
+                '01-instrumentos-de-medicion.webp' => 'Estante con instrumentos de medición: multímetros, cámara termográfica, medidor de puesta a tierra, pinza amperimétrica y analizador de redes.',
+                '02-protecciones-y-medidores.webp' => 'Estante con interruptores termomagnéticos y diferenciales, un medidor de energía en su caja y un interruptor de potencia.',
+            ],
             // Archivos de assets/images/testimonios/ que esta oferta no muestra (el collage grande ya no va).
             'testimonios_ocultos' => ['01-alumnos-dicen.jpg'],
             // Capturas de chat de alumnos (recortadas al encabezado y al mensaje), en este orden.

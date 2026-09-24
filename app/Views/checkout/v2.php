@@ -47,7 +47,7 @@ $iconosModulo = ['fas fa-bolt', 'fas fa-drafting-compass', 'fas fa-tachometer-al
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=16">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout-v2.css?v=17">
     <!-- El navegador descubre el <img> de Bruno recien al final del HTML (esta muy abajo en la pagina);
          con esto empieza a bajarlo desde ya, para que ya este listo y animando cuando se vea -->
     <link rel="preload" as="image" type="image/webp" href="<?= BASE_URL ?>assets/images/mascota/bruno-idle.webp">
@@ -273,9 +273,14 @@ $iconosModulo = ['fas fa-bolt', 'fas fa-drafting-compass', 'fas fa-tachometer-al
 <section class="bg-white py-12">
     <div class="max-w-6xl mx-auto px-4">
         <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Así se trabaja en el curso</h2>
-        <div class="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <?php
+        // Con pocas fotos se ven grandes (no arrinconadas a un lado); con 4 o mas, cuadricula de 2 / 4 columnas
+        $nGal = count($d['galeria']);
+        $colsGal = $nGal <= 2 ? 'mx-auto max-w-4xl grid-cols-1 sm:grid-cols-2' : ($nGal === 3 ? 'grid-cols-1 sm:grid-cols-3' : 'grid-cols-2 lg:grid-cols-4');
+        ?>
+        <div class="mt-8 grid gap-3 sm:gap-4 <?= $colsGal ?>">
             <?php foreach ($d['galeria'] as $img): ?>
-            <img src="<?= $e($img['url']) ?>" alt="" loading="lazy" class="reveal aspect-[4/3] w-full rounded-2xl object-cover shadow-md">
+            <img src="<?= $e($img['url']) ?>" alt="<?= $e($img['alt'] ?? '') ?>" width="1200" height="900" loading="lazy" class="reveal aspect-[4/3] w-full rounded-2xl object-cover shadow-md">
             <?php endforeach; ?>
         </div>
     </div>

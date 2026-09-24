@@ -68,6 +68,7 @@ class OfertasCheckout {
             'galeria_alt' => [
                 '01-instrumentos-de-medicion.webp' => 'Estante con instrumentos de medición: multímetros, cámara termográfica, medidor de puesta a tierra, pinza amperimétrica y analizador de redes.',
                 '02-protecciones-y-medidores.webp' => 'Estante con interruptores termomagnéticos y diferenciales, un medidor de energía en su caja y un interruptor de potencia.',
+                '03-motores.webp' => 'Dos motores eléctricos sobre una mesa: uno azul, más pequeño, y otro gris oscuro, más grande.',
             ],
             // Archivos de assets/images/testimonios/ que esta oferta no muestra (el collage grande ya no va).
             'testimonios_ocultos' => ['01-alumnos-dicen.jpg'],

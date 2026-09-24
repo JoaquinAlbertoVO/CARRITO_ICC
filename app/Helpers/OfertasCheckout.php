@@ -218,6 +218,32 @@ class OfertasCheckout {
     }
 
     /**
+     * Periodo en que se dicta el curso segun el cronograma de su oferta: ['inicio' => 'Y-m-d', 'fin' => 'Y-m-d'],
+     * o null si el curso no tiene oferta (o la oferta no trae fecha de inicio). Se identifica el curso por su
+     * nombre, igual que grupoWsp(); el fin es la ultima sesion del cronograma.
+     */
+    public static function periodoPorCurso($nombreCurso) {
+        $norm = function ($s) {
+            $s = strtolower(strtr((string) $s, ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'Á' => 'a', 'É' => 'e', 'Í' => 'i', 'Ó' => 'o', 'Ú' => 'u', '_' => ' ']));
+            return trim(preg_replace('/\s+/', ' ', $s));
+        };
+        $n = $norm($nombreCurso);
+        foreach (self::OFERTAS as $o) {
+            if (empty($o['curso']) || empty($o['inicio']) || strpos($n, $norm($o['curso'])) === false) {
+                continue;
+            }
+            $fin = $o['inicio'];
+            foreach ($o['sesiones'] ?? [] as $sesion) {
+                if ($sesion > $fin) {
+                    $fin = $sesion;
+                }
+            }
+            return ['inicio' => $o['inicio'], 'fin' => $fin];
+        }
+        return null;
+    }
+
+    /**
      * Configuracion completa de una oferta, o null si no existe.
      */
     public static function config($clave) {

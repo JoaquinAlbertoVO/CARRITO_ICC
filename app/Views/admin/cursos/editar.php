@@ -29,6 +29,19 @@
                                 </div>
                             </div>
                             <div class="form-row">
+                                <div class="col-12 col-md-3 mb-3">
+                                    <label>Inicio del curso</label>
+                                    <input type="date" name="fecha_inicio" class="form-control" value="<?php echo htmlspecialchars($data['fecha_inicio'] ?? ''); ?>">
+                                </div>
+                                <div class="col-12 col-md-3 mb-3">
+                                    <label>Fin del curso</label>
+                                    <input type="date" name="fecha_fin" class="form-control" value="<?php echo htmlspecialchars($data['fecha_fin'] ?? ''); ?>">
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <small class="form-text text-muted mt-md-4">Salen en el certificado ("realizado del ... al ..."). Si quedan vacías, el certificado no lleva fechas.</small>
+                                </div>
+                            </div>
+                            <div class="form-row">
                                 <div class="col-12 col-md-4 mb-3">
                                     <label>Categoría</label>
                                     <select name="categoria" class="form-control">

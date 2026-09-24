@@ -30,6 +30,19 @@ class Curso {
               ADD COLUMN beneficios TEXT,
               ADD COLUMN programacion TEXT;");
         } catch (\PDOException $e) {}
+        // Fechas en que se realiza el curso (salen en el certificado: "realizado del ... al ...")
+        foreach (['fecha_inicio', 'fecha_fin'] as $col) {
+            try {
+                $this->db->exec("ALTER TABLE cursos ADD COLUMN $col DATE NULL DEFAULT NULL");
+            } catch (\PDOException $e) {}
+        }
+    }
+
+    /** 'YYYY-MM-DD' valido o null (el formulario manda '' cuando el campo queda vacio). */
+    private function fechaONull($v) {
+        $v = trim((string)$v);
+        $d = \DateTime::createFromFormat('!Y-m-d', $v);
+        return ($d && $d->format('Y-m-d') === $v) ? $v : null;
     }
 
     public function getCursos($estado = 1) {
@@ -57,7 +70,7 @@ class Curso {
 
     public function registrarCurso($data) {
         try {
-            $sql = "INSERT INTO cursos(nombre_curso, categoria, fecha_emision, horas_academicas, foto, precio, docente, docente_foto, lecciones, descripcion, requisitos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO cursos(nombre_curso, categoria, fecha_emision, horas_academicas, foto, precio, docente, docente_foto, lecciones, descripcion, requisitos, fecha_inicio, fecha_fin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
                 $data['nombre_curso'],
@@ -70,7 +83,9 @@ class Curso {
                 $data['docente_foto'] ?? '50x50',
                 $data['lecciones'] ?? 1,
                 $data['descripcion'] ?? '',
-                $data['requisitos'] ?? ''
+                $data['requisitos'] ?? '',
+                $this->fechaONull($data['fecha_inicio'] ?? ''),
+                $this->fechaONull($data['fecha_fin'] ?? '')
             ]);
             return true;
         } catch (\PDOException $e) {
@@ -82,7 +97,7 @@ class Curso {
     public function actualizarCurso($data) {
         try {
             // Construir SQL dinámicamente porque las fotos pueden o no enviarse
-            $sql = "UPDATE cursos SET nombre_curso = ?, categoria = ?, fecha_emision = ?, horas_academicas = ?, precio = ?, precio_usd = ?, fecha_prox = ?, docente = ?, lecciones = ?, descripcion = ?, requisitos = ?, resumen = ?, temas = ?, beneficios = ?, programacion = ?";
+            $sql = "UPDATE cursos SET nombre_curso = ?, categoria = ?, fecha_emision = ?, horas_academicas = ?, precio = ?, precio_usd = ?, fecha_prox = ?, docente = ?, lecciones = ?, descripcion = ?, requisitos = ?, resumen = ?, temas = ?, beneficios = ?, programacion = ?, fecha_inicio = ?, fecha_fin = ?";
             $params = [
                 $data['nombre_curso'],
                 $data['categoria'],
@@ -98,7 +113,9 @@ class Curso {
                 $data['resumen'] ?? '',
                 $data['temas'] ?? '',
                 $data['beneficios'] ?? '',
-                $data['programacion'] ?? ''
+                $data['programacion'] ?? '',
+                $this->fechaONull($data['fecha_inicio'] ?? ''),
+                $this->fechaONull($data['fecha_fin'] ?? '')
             ];
 
             if (!empty($data['foto'])) {

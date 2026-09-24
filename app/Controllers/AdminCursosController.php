@@ -872,8 +872,30 @@ class AdminCursosController extends Controller {
         $mes = $meses[date('n') - 1];
         $fecha = date('d') . ' de ' . $mes . ' del ' . date('Y');
 
+        // Fechas en que se dicto el curso: las del propio curso (admin > editar curso) y, si faltan, el
+        // cronograma de su oferta del checkout. Sin ninguna, el certificado sale sin frase de fechas.
+        new \App\Models\Curso(); // su constructor crea las columnas fecha_inicio / fecha_fin si aun no existen
+        $inicio_curso = $fin_curso = null;
+        try {
+            $stmt_fc = $this->db->prepare("SELECT fecha_inicio, fecha_fin FROM cursos WHERE id_curso = ?");
+            $stmt_fc->execute([$id_curso_cert]);
+            $fc = $stmt_fc->fetch();
+            $inicio_curso = $fc['fecha_inicio'] ?? null;
+            $fin_curso = $fc['fecha_fin'] ?? null;
+        } catch (\PDOException $e) {
+            error_log("Certificado: no se pudieron leer las fechas del curso: " . $e->getMessage());
+        }
+        $texto_realizado = \App\Models\Certificado::textoPeriodo($inicio_curso, $fin_curso);
+        if ($texto_realizado === null) {
+            require_once __DIR__ . '/../Helpers/OfertasCheckout.php';
+            $periodo = \App\Helpers\OfertasCheckout::periodoPorCurso($curso);
+            if ($periodo) {
+                $texto_realizado = \App\Models\Certificado::textoPeriodo($periodo['inicio'], $periodo['fin']);
+            }
+        }
+
         $certificadoModel = new \App\Models\Certificado();
-        $imagen = $certificadoModel->generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha, $categoria);
+        $imagen = $certificadoModel->generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha, $categoria, $texto_realizado);
 
         $curso_saneado = preg_replace('/[^A-Za-z0-9]/', '_', $curso);
         $curso_saneado = preg_replace('/_+/', '_', $curso_saneado);

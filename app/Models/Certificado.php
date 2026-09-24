@@ -195,6 +195,44 @@ class Certificado {
         return count($lineas);
     }
 
+    /** 'Y-m-d' (o DATE de MySQL) -> DateTime, o null si esta vacio o no es una fecha real (p. ej. 0000-00-00). */
+    private static function fecha_ymd($v) {
+        $v = substr(trim((string)$v), 0, 10);
+        $d = \DateTime::createFromFormat('!Y-m-d', $v);
+        return ($d && $d->format('Y-m-d') === $v && (int)$d->format('Y') >= 2000) ? $d : null;
+    }
+
+    /**
+     * Frase del periodo del curso para el certificado, o null si no hay fechas:
+     * "Realizado del 20 de octubre al 20 de noviembre", "Realizado del 20 al 25 de octubre",
+     * "Realizado el 20 de octubre" (un solo dia) o, si cruza de ano, con el ano en cada extremo.
+     * El ano normal no se escribe: ya figura en "Emitido: ...".
+     */
+    public static function textoPeriodo($inicio, $fin = null) {
+        $a = self::fecha_ymd($inicio);
+        $b = self::fecha_ymd($fin);
+        if (!$a && !$b) {
+            return null;
+        }
+        $meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        $f = function ($d, $con_anio = false) use ($meses) {
+            return (int)$d->format('j') . ' de ' . $meses[(int)$d->format('n') - 1] . ($con_anio ? ' del ' . $d->format('Y') : '');
+        };
+        if (!$a || !$b || $a == $b) {
+            return 'Realizado el ' . $f($a ?: $b);
+        }
+        if ($b < $a) {
+            list($a, $b) = [$b, $a];
+        }
+        if ($a->format('Y') !== $b->format('Y')) {
+            return 'Realizado del ' . $f($a, true) . ' al ' . $f($b, true);
+        }
+        if ($a->format('n') === $b->format('n')) {
+            return 'Realizado del ' . (int)$a->format('j') . ' al ' . $f($b);
+        }
+        return 'Realizado del ' . $f($a) . ' al ' . $f($b);
+    }
+
     /** "Realizado del 1 de Setiembre al 19 de Setiembre del 2026." -> [prefijo normal, fechas en negrita]. */
     private function partir_fechas($texto) {
         $t = trim(preg_replace('/[\s\.]+$/u', '', trim($texto)));
@@ -214,7 +252,8 @@ class Certificado {
      * @param string|int  $horas           Horas lectivas.
      * @param string      $fecha_emision   Ej.: "20 de Setiembre del 2026".
      * @param string      $categoria       (sin uso en este diseno; se mantiene por compatibilidad).
-     * @param string|null $texto_realizado Ej.: "Realizado del 1 de Setiembre al 19 de Setiembre del 2026".
+     * @param string|null $texto_realizado Ej.: "Realizado del 1 de Setiembre al 19 de Setiembre del 2026" (ver textoPeriodo());
+     *                                     null o vacio = el certificado no lleva frase de fechas.
      * @param string|null $descripcion     Frase opcional al final ("orientado a ..."), sin punto final.
      * @return resource|\GdImage Imagen 2246x1588 lista para imagejpeg().
      */
@@ -309,13 +348,22 @@ class Certificado {
         $extra = (count($lineas_curso) - 1) * 28.75;
 
         // Cuerpo: organizador, fechas y horas resaltados
-        $fechas = $this->partir_fechas($texto_realizado !== null ? $texto_realizado : 'Realizado del 20 de Julio al 25 de Julio del 2026.');
-        $tramos = [
-            ['organizado por el Instituto de Capacitación Continua, ' . $fechas[0], false],
-            [$fechas[1], true],
-            [', con una duración de ', false],
-            [$txt_horas, true],
-        ];
+        // Sin fechas (null o vacio) no se escribe la frase "realizado del ...": mejor omitirla que imprimir una fecha equivocada.
+        $organiza = 'organizado por el Instituto de Capacitación Continua';
+        if ($texto_realizado !== null && trim((string)$texto_realizado) !== '') {
+            $fechas = $this->partir_fechas($texto_realizado);
+            $tramos = [
+                [$organiza . ', ' . $fechas[0], false],
+                [$fechas[1], true],
+                [', con una duración de ', false],
+                [$txt_horas, true],
+            ];
+        } else {
+            $tramos = [
+                [$organiza . ', con una duración de ', false],
+                [$txt_horas, true],
+            ];
+        }
         $desc = trim((string)$descripcion);
         $tramos[] = [$desc !== '' ? ', ' . rtrim($desc, ". \t") . '.' : '.', false];
 

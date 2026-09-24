@@ -152,8 +152,8 @@ $iconosModulo = ['fas fa-bolt', 'fas fa-drafting-compass', 'fas fa-tachometer-al
         <h2 class="reveal mt-1 text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Recibe tu certificado de participación</h2>
         <p class="reveal mx-auto mt-2 max-w-2xl text-center text-muted">Tu inscripción incluye un certificado de participación con código QR, emitido con los datos que registres al inscribirte.</p>
         <figure class="reveal mx-auto mt-8 max-w-3xl">
-            <img src="<?= BASE_URL ?>assets/images/certificado-modelo-1600.webp?v=20260924"
-                 srcset="<?= BASE_URL ?>assets/images/certificado-modelo-800.webp?v=20260924 800w, <?= BASE_URL ?>assets/images/certificado-modelo-1600.webp?v=20260924 1600w"
+            <img src="<?= BASE_URL ?>assets/images/certificado-modelo-1600.webp?v=20260924b"
+                 srcset="<?= BASE_URL ?>assets/images/certificado-modelo-800.webp?v=20260924b 800w, <?= BASE_URL ?>assets/images/certificado-modelo-1600.webp?v=20260924b 1600w"
                  sizes="(min-width: 768px) 768px, calc(100vw - 32px)"
                  alt="Modelo del certificado de participación de ICC, con código QR" width="1600" height="1131" loading="lazy"
                  class="w-full rounded-2xl shadow-xl ring-1 ring-black/10">
@@ -736,10 +736,10 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
                 plin: { qr: CFG.base + 'assets/images/plin.jpg', titular: 'Ricardo Cardenas', nombre: 'Plin' }
             },
 
-            // PayPal cobra siempre en dolares: en dolares se cobra el precio en USD de la etapa;
-            // si el visitante ve soles, el equivalente al mismo cambio que usa el resto del sitio.
+            // PayPal cobra siempre en dolares y siempre el precio en USD de la etapa vigente (definido por ICC),
+            // tambien en el link en soles: ya no se convierte con el tipo de cambio (antes S/ 39.90 = US$ 10.50).
             get amountInUSD() {
-                return CFG.moneda === 'USD' ? CFG.precioUsd : parseFloat((CFG.precioPen / CFG.tipoCambio).toFixed(2));
+                return CFG.precioUsd;
             },
 
             init() {

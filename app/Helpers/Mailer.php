@@ -62,7 +62,8 @@ class Mailer {
         if (is_file($archivo)) {
             foreach (file($archivo, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $linea) {
                 if (preg_match('/^\s*' . preg_quote($clave, '/') . '\s*=\s*(.*)$/', $linea, $m)) {
-                    return trim($m[1], " \t\"'");
+                    // \r: un .env con saltos de linea de Windows dejaria un caracter invisible al final
+                    return trim($m[1], " \t\r\n\"'");
                 }
             }
         }
@@ -94,10 +95,18 @@ class Mailer {
             CURLOPT_TIMEOUT => 8,
         ]);
         $resp = curl_exec($ch);
+        $errCurl = curl_error($ch);
+        $http = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
         $json = is_string($resp) ? json_decode($resp, true) : null;
-        return is_array($json) && !empty($json['ok']);
+        $ok = is_array($json) && !empty($json['ok']);
+        self::$detalleSheets = $ok ? 'ok' : ('http ' . $http . ($errCurl !== '' ? ' curl: ' . $errCurl : '')
+            . ' resp: ' . substr(preg_replace('/\s+/', ' ', strip_tags((string) $resp)), 0, 120));
+        return $ok;
     }
+
+    /** Motivo del ultimo intento de registrar en Sheets (para el log, sin datos personales). */
+    private static $detalleSheets = '';
 
     /** Correo del equipo de asesores: recibe un aviso por cada matricula / pago nuevo. */
     const CORREO_ASESORES = 'informes@stenergyedu.com';
@@ -182,7 +191,7 @@ class Mailer {
         $d['documento'] = $v('documento');
         $sheets = self::registrarEnSheets($d);
         @file_put_contents(__DIR__ . '/../../api/notificaciones_log.txt',
-            date('Y-m-d H:i:s') . ' | SHEETS ' . ($sheets === null ? 'NO CONFIGURADO' : ($sheets ? 'OK' : 'FALLO')) . ' | ref ' . $v('referencia') . "\n", FILE_APPEND);
+            date('Y-m-d H:i:s') . ' | SHEETS ' . ($sheets === null ? 'NO CONFIGURADO' : ($sheets ? 'OK' : 'FALLO ' . self::$detalleSheets)) . ' | ref ' . $v('referencia') . "\n", FILE_APPEND);
 
         // Registro sin datos personales, solo para saber si el aviso salio o fallo
         @file_put_contents(__DIR__ . '/../../api/notificaciones_log.txt',

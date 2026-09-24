@@ -323,7 +323,6 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
             <img src="<?= $e($c['url']) ?>" alt="<?= $e($c['alt']) ?>" width="678" height="400" loading="lazy" class="reveal w-full rounded-2xl shadow-md ring-1 ring-black/5">
             <?php endforeach; ?>
         </div>
-        <p class="mx-auto mt-4 max-w-3xl text-center text-xs text-muted">Mensajes de alumnos del curso, reproducidos solo con sus iniciales para proteger su privacidad.</p>
         <?php endif; ?>
         <?php if ($testVerticales): ?>
         <div class="mt-8 flex snap-x gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-4">

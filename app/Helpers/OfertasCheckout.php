@@ -49,10 +49,10 @@ class OfertasCheckout {
             'sesiones' => ['2026-10-20', '2026-10-22', '2026-10-27', '2026-10-29', '2026-11-03', '2026-11-05', '2026-11-11', '2026-11-13', '2026-11-18'],
             // Precio por etapa (fechas en hora de Lima; 'hasta' inclusive). El precio REGULAR de
             // referencia es el de la ultima etapa, que es el que de verdad se cobra despues.
-            // Los USD de las etapas 1 y 3 son propuestos (misma razon ~3.5 que 69.90 -> 19.90).
+            // USD de la etapa 1 (15.00) definido por ICC; el de la etapa 3 (42.90) es propuesto (misma razon ~3.5 que 69.90 -> 19.90).
             // 'hotmart' = oferta de Hotmart con ese mismo precio; sin oferta no se muestra Hotmart.
             'etapas' => [
-                ['nombre' => 'Preventa 1', 'hasta' => '2026-09-30', 'pen' => 39.90, 'usd' => 11.90, 'hotmart' => []],
+                ['nombre' => 'Preventa 1', 'hasta' => '2026-09-30', 'pen' => 39.90, 'usd' => 15.00, 'hotmart' => []],
                 ['nombre' => 'Preventa 2', 'hasta' => '2026-10-15', 'pen' => 69.90, 'usd' => 19.90, 'hotmart' => [
                     'PEN' => 'https://pay.hotmart.com/G107652272C?off=ius4rna9',
                     'USD' => 'https://pay.hotmart.com/G107652272C?off=ndvqfw67',
@@ -75,7 +75,7 @@ class OfertasCheckout {
             // Capturas de chat de alumnos (recortadas al encabezado y al mensaje), en este orden.
             // El 'alt' repite el mensaje porque el texto va dentro de la imagen.
             // Segun ICC son mensajes reales de alumnos, recreados con mejor calidad de imagen y solo con sus
-            // iniciales (por eso la vista los presenta como "reproducidos"). Guardar los mensajes originales y
+            // iniciales; la vista ya no lo aclara al pie por decision de ICC. Guardar los mensajes originales y
             // la autorizacion de cada alumno por si hiciera falta demostrarlo.
             'chats' => [
                 ['archivo' => 'assets/images/testimonios-chat/chat-rk.webp', 'alt' => 'Mensaje de un alumno: "Buen curso, aprendí bastante sobre instalaciones, seguridad y el uso correcto de los equipos. Espero poder participar en otro."'],

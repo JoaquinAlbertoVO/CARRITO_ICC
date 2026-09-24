@@ -150,8 +150,7 @@ $iconosModulo = ['fas fa-bolt', 'fas fa-drafting-compass', 'fas fa-tachometer-al
 <section class="bg-gradient-to-b from-white to-mist px-4 py-12">
     <div class="max-w-4xl mx-auto">
         <h2 class="reveal text-center font-display text-2xl sm:text-3xl font-bold text-brand-dark">Conoce el curso</h2>
-        <div x-data="{ play: false }"
-             x-init="new IntersectionObserver((es) => { es.forEach(en => { if (en.isIntersecting) play = true; }); }, { threshold: .4 }).observe($el)"
+        <div x-data="videoCurso()"
              class="reveal relative mt-6 aspect-video overflow-hidden rounded-2xl bg-deep shadow-2xl ring-4 ring-white">
             <template x-if="!play">
                 <button type="button" @click="play = true" class="group absolute inset-0 h-full w-full" aria-label="Reproducir video del curso">
@@ -164,8 +163,9 @@ $iconosModulo = ['fas fa-bolt', 'fas fa-drafting-compass', 'fas fa-tachometer-al
             <template x-if="play">
                 <!-- mute=1: es la unica forma de que un navegador deje reproducir un video solo, sin que la
                      persona toque nada antes; el control de volumen del propio reproductor de YouTube queda
-                     visible por si alguien quiere subirle el audio -->
-                <iframe src="https://www.youtube.com/embed/<?= $e($d['video']) ?>?autoplay=1&mute=1&rel=0" title="Video del curso" class="absolute inset-0 h-full w-full" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                     visible por si alguien quiere subirle el audio. enablejsapi=1 permite reiniciarlo desde
+                     el principio cuando la persona llega a esta seccion (ver videoCurso() al final). -->
+                <iframe src="https://www.youtube.com/embed/<?= $e($d['video']) ?>?autoplay=1&mute=1&rel=0&playsinline=1&enablejsapi=1" title="Video del curso" class="absolute inset-0 h-full w-full" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
             </template>
         </div>
     </div>
@@ -677,6 +677,36 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
         }, { threshold: 0.12 });
         els.forEach(el => io.observe(el));
     })();
+
+    // Video del curso: arranca solo (mudo) apenas termina de cargar la pagina, sin esperar el scroll ni un
+    // clic; se crea despues del evento "load" para no competir con el banner y el resto de la pagina.
+    // Como la seccion queda mas abajo, cuando la persona llega a verla por primera vez se reinicia desde
+    // el principio (comando al reproductor de YouTube), asi no lo encuentra a mitad.
+    function videoCurso() {
+        return {
+            play: false,
+            init() {
+                const arrancar = () => { this.play = true; };
+                if (document.readyState === 'complete') arrancar();
+                else window.addEventListener('load', arrancar, { once: true });
+                if (!('IntersectionObserver' in window)) return;
+                new IntersectionObserver((entradas, obs) => {
+                    entradas.forEach(en => {
+                        if (!en.isIntersecting) return;
+                        obs.disconnect();
+                        this.desdeElPrincipio();
+                    });
+                }, { threshold: 0.4 }).observe(this.$el);
+            },
+            desdeElPrincipio() {
+                const f = this.$el.querySelector('iframe');
+                if (!f || !f.contentWindow) return; // todavia no se creo: ya va a empezar desde el principio
+                const orden = (func, args) => f.contentWindow.postMessage(JSON.stringify({ event: 'command', func: func, args: args || [] }), '*');
+                orden('seekTo', [0, true]);
+                orden('playVideo');
+            }
+        };
+    }
 
     function checkoutV2() {
         return {

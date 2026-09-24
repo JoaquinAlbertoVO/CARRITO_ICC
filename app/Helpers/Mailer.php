@@ -55,6 +55,50 @@ class Mailer {
         return @mail($email, $subject, $body, $headers);
     }
 
+    /** Lee una variable del .env del servidor (mismo archivo que usan Database y PayPalClient). */
+    private static function env($clave) {
+        if (!empty($_ENV[$clave])) return $_ENV[$clave];
+        $archivo = __DIR__ . '/../../.env';
+        if (is_file($archivo)) {
+            foreach (file($archivo, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $linea) {
+                if (preg_match('/^\s*' . preg_quote($clave, '/') . '\s*=\s*(.*)$/', $linea, $m)) {
+                    return trim($m[1], " \t\"'");
+                }
+            }
+        }
+        return '';
+    }
+
+    /**
+     * Agrega una fila al Google Sheets de los asesores mediante el Apps Script publicado como web app
+     * (docs/apps-script-matriculas.gs). Devuelve null si no esta configurado, true/false segun el resultado.
+     * Timeout corto: nunca debe retrasar ni tumbar un pago.
+     */
+    public static function registrarEnSheets(array $d) {
+        $url = self::env('SHEETS_WEBHOOK_URL');
+        $token = self::env('SHEETS_WEBHOOK_TOKEN');
+        if ($url === '' || $token === '' || !function_exists('curl_init')) return null;
+
+        $campos = ['fecha', 'estado', 'metodo', 'nombre', 'documento', 'correo', 'celular', 'curso', 'monto', 'moneda', 'referencia'];
+        $carga = ['token' => $token];
+        foreach ($campos as $c) $carga[$c] = isset($d[$c]) ? trim((string) $d[$c]) : '';
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => json_encode($carga, JSON_UNESCAPED_UNICODE),
+            CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true, // Apps Script responde con una redireccion tras ejecutar el POST
+            CURLOPT_CONNECTTIMEOUT => 3,
+            CURLOPT_TIMEOUT => 8,
+        ]);
+        $resp = curl_exec($ch);
+        curl_close($ch);
+        $json = is_string($resp) ? json_decode($resp, true) : null;
+        return is_array($json) && !empty($json['ok']);
+    }
+
     /** Correo del equipo de asesores: recibe un aviso por cada matricula / pago nuevo. */
     const CORREO_ASESORES = 'informes@stenergyedu.com';
 
@@ -132,6 +176,13 @@ class Mailer {
 
         // @ : un fallo de correo nunca debe tumbar la matricula/pago que lo llama
         $ok = @mail(self::CORREO_ASESORES, $asuntoCodificado, $mensaje, $cabeceras);
+
+        // Ademas del correo, una fila en el Google Sheets de los asesores (si esta configurado)
+        $d['fecha'] = date('d/m/Y H:i:s');
+        $d['documento'] = $v('documento');
+        $sheets = self::registrarEnSheets($d);
+        @file_put_contents(__DIR__ . '/../../api/notificaciones_log.txt',
+            date('Y-m-d H:i:s') . ' | SHEETS ' . ($sheets === null ? 'NO CONFIGURADO' : ($sheets ? 'OK' : 'FALLO')) . ' | ref ' . $v('referencia') . "\n", FILE_APPEND);
 
         // Registro sin datos personales, solo para saber si el aviso salio o fallo
         @file_put_contents(__DIR__ . '/../../api/notificaciones_log.txt',

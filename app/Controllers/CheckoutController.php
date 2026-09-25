@@ -318,12 +318,15 @@ class CheckoutController extends Controller {
                     $nombre = isset($_POST['nombre']) ? strip_tags($_POST['nombre']) : '';
                     $apellido = isset($_POST['apellido']) ? strip_tags($_POST['apellido']) : '';
                     $celular = isset($_POST['celular']) ? strip_tags($_POST['celular']) : '';
+                    $correo = isset($_POST['correo']) ? trim($_POST['correo']) : '';
+                    $correo = filter_var($correo, FILTER_VALIDATE_EMAIL) ? $correo : '';
                     
                     $studentData = [
                         'dni' => $dni,
                         'nombre' => $nombre,
                         'apellido' => $apellido,
                         'celular' => $celular,
+                        'correo' => $correo,
                         'curso' => $curso,
                         'fecha' => date('Y-m-d H:i:s')
                     ];
@@ -338,7 +341,7 @@ class CheckoutController extends Controller {
                     require_once __DIR__ . '/../Helpers/OfertasCheckout.php';
                     \App\Helpers\Mailer::notificarMatricula([
                         'metodo' => 'Yape / Plin (voucher)', 'estado' => 'POR VERIFICAR',
-                        'nombre' => trim($nombre . ' ' . $apellido), 'documento' => $dni, 'correo' => '', 'celular' => $celular,
+                        'nombre' => trim($nombre . ' ' . $apellido), 'documento' => $dni, 'correo' => $correo, 'celular' => $celular,
                         'curso' => str_replace('_', ' ', $curso), 'monto' => $montoDecl, 'moneda' => 'PEN',
                         'referencia' => $fileName,
                         'grupo' => \App\Helpers\OfertasCheckout::grupoWsp($curso),
@@ -406,6 +409,9 @@ class CheckoutController extends Controller {
         $nombre   = isset($input['nombre']) ? strip_tags(trim($input['nombre'])) : '';
         $apellido = isset($input['apellido']) ? strip_tags(trim($input['apellido'])) : '';
         $celular  = isset($input['celular']) ? strip_tags(trim($input['celular'])) : '';
+        // Correo que escribio el alumno en el formulario: es al que se envian sus accesos y el link del grupo
+        $correoIngresado = isset($input['correo']) ? trim($input['correo']) : '';
+        $correoIngresado = filter_var($correoIngresado, FILTER_VALIDATE_EMAIL) ? $correoIngresado : '';
 
         // Modo prueba (ver datosV2): solo salta el piso de precio si la clave coincide con la del .env
         require_once __DIR__ . '/../Helpers/Mailer.php';
@@ -471,7 +477,7 @@ class CheckoutController extends Controller {
 
         // Preferimos los datos que el alumno escribio (para el certificado); si faltan, usamos los de PayPal
         $nombreFinal = $nombre !== '' ? trim($nombre . ' ' . $apellido) : ($nombrePaypal ?: 'Alumno PayPal');
-        $emailFinal  = $emailPaypal ?: (preg_replace('/[^a-z0-9]/', '', strtolower($nombreFinal)) . '_' . substr($orderId, -6) . '@paypal.icc.com.pe');
+        $emailFinal  = $correoIngresado ?: $emailPaypal ?: (preg_replace('/[^a-z0-9]/', '', strtolower($nombreFinal)) . '_' . substr($orderId, -6) . '@paypal.icc.com.pe');
 
         try {
             $db = new \App\Core\Database();

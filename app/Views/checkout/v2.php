@@ -362,6 +362,10 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                     <label class="sm:col-span-2 text-sm font-semibold">Celular / WhatsApp
                         <input x-model="celular" aria-required="true" type="tel" autocomplete="tel" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand" placeholder="+51 987 654 321">
                     </label>
+                    <label class="sm:col-span-2 text-sm font-semibold">Correo electrónico
+                        <input x-model="correo" aria-required="true" type="email" inputmode="email" autocomplete="email" class="mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3 font-normal focus:border-brand" placeholder="tucorreo@ejemplo.com">
+                        <span class="mt-1 block text-xs font-normal text-muted">Aquí te enviaremos tus accesos al aula virtual. Revisa que esté bien escrito.</span>
+                    </label>
                 </div>
             </div>
 
@@ -728,7 +732,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
             tab: null,
             manualMethod: 'yape',
             voucherFile: null,
-            dni: '', nombre: '', apellido: '', celular: '',
+            dni: '', nombre: '', apellido: '', celular: '', correo: '',
             enviando: false,
             success: false,
             error: '',
@@ -801,11 +805,12 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
             datosCompletos() {
                 // En los links en dolares (extranjero) el documento es opcional: no todos los paises usan DNI
                 const docOk = CFG.moneda === 'USD' || this.dni.trim();
-                return docOk && this.nombre.trim() && this.apellido.trim() && this.celular.trim();
+                const correoOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(this.correo.trim());
+                return docOk && this.nombre.trim() && this.apellido.trim() && this.celular.trim() && correoOk;
             },
 
             textoFaltan() {
-                return CFG.moneda === 'USD' ? 'tus nombres, apellidos y celular' : 'tu DNI, nombres, apellidos y celular';
+                return (CFG.moneda === 'USD' ? 'tus nombres, apellidos, celular' : 'tu DNI, nombres, apellidos, celular') + ' y un correo electrónico válido';
             },
 
             enviarVoucher() {
@@ -824,6 +829,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
                 fd.append('nombre', this.nombre);
                 fd.append('apellido', this.apellido);
                 fd.append('celular', this.celular);
+                fd.append('correo', this.correo.trim());
                 fd.append('monto', CFG.precioPen);
 
                 this.error = '';
@@ -883,7 +889,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
                                     orderID: data.orderID, curso: CFG.curso, prueba: CFG.prueba || '',
-                                    dni: self.dni, nombre: self.nombre, apellido: self.apellido, celular: self.celular
+                                    dni: self.dni, nombre: self.nombre, apellido: self.apellido, celular: self.celular, correo: self.correo.trim()
                                 })
                             })
                             .then(r => r.json())

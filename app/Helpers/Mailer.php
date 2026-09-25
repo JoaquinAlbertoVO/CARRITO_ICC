@@ -200,6 +200,16 @@ class Mailer {
                     . 'Enviar link del grupo por WhatsApp (solo tras verificar el pago)</a></p>';
             }
         }
+        $adjuntoOk = is_array($adjunto) && !empty($adjunto['ruta']) && is_file($adjunto['ruta']) && filesize($adjunto['ruta']) <= 5 * 1024 * 1024;
+        $adjMime = $adjuntoOk ? (string) ($adjunto['mime'] ?? 'application/octet-stream') : '';
+        // Si el comprobante es una imagen, se muestra dentro del propio correo (los PDF solo pueden ir adjuntos)
+        $imagenEnLinea = $adjuntoOk && strpos($adjMime, 'image/') === 0;
+        if ($imagenEnLinea) {
+            $html .= '<p style="margin:20px 0 6px;font-weight:bold;">Comprobante subido por el alumno:</p>'
+                . '<img src="cid:voucher@icc" alt="Comprobante de pago" style="max-width:100%;height:auto;border:1px solid #e2e8f0;border-radius:8px;">';
+        } elseif ($adjuntoOk) {
+            $html .= '<p style="margin-top:16px;">El comprobante (PDF) va adjunto a este correo.</p>';
+        }
         $html .= '</div>';
 
         // Sin saltos de linea en el asunto (evita inyeccion de cabeceras con nombres raros)
@@ -209,15 +219,18 @@ class Mailer {
 
         $cabeceras = "MIME-Version: 1.0\r\nFrom: ICC <informes@icc.com.pe>\r\n";
 
-        $adjuntoOk = is_array($adjunto) && !empty($adjunto['ruta']) && is_file($adjunto['ruta']) && filesize($adjunto['ruta']) <= 5 * 1024 * 1024;
         if ($adjuntoOk) {
             $limite = 'icc_' . md5(uniqid('', true));
-            $cabeceras .= "Content-Type: multipart/mixed; boundary=\"$limite\"\r\n";
+            // multipart/related: la imagen va incrustada en el cuerpo (cid) ; multipart/mixed: adjunto normal (PDF)
+            $cabeceras .= 'Content-Type: multipart/' . ($imagenEnLinea ? 'related' : 'mixed') . "; boundary=\"$limite\"\r\n";
             $nombreAdj = preg_replace('/[^A-Za-z0-9._-]/', '_', $adjunto['nombre'] ?? basename($adjunto['ruta']));
             $mensaje = "--$limite\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n"
                 . chunk_split(base64_encode($html))
-                . "--$limite\r\nContent-Type: " . ($adjunto['mime'] ?? 'application/octet-stream') . "; name=\"$nombreAdj\"\r\n"
-                . "Content-Transfer-Encoding: base64\r\nContent-Disposition: attachment; filename=\"$nombreAdj\"\r\n\r\n"
+                . "--$limite\r\nContent-Type: $adjMime; name=\"$nombreAdj\"\r\n"
+                . "Content-Transfer-Encoding: base64\r\n"
+                . ($imagenEnLinea ? "Content-ID: <voucher@icc>\r\nContent-Disposition: inline; filename=\"$nombreAdj\"\r\n"
+                                  : "Content-Disposition: attachment; filename=\"$nombreAdj\"\r\n")
+                . "\r\n"
                 . chunk_split(base64_encode(file_get_contents($adjunto['ruta'])))
                 . "--$limite--";
         } else {

@@ -300,9 +300,9 @@ class Certificado {
             // Una linea; la linea base sigue al tamano para que quede centrada en su franja
             $this->centrado_track($img, $tam * $E, $cx * $E, (219 + 0.3185 * $tam) * $E, $navy, $f_nombre, $nombre, 1.5 * $E);
         } else {
-            // Nombre muy largo: dos lineas equilibradas, con el mayor tamano al que quepan
+            // Nombre muy largo: dos lineas equilibradas, con el mayor tamano al que quepan (tope 33 para no tocar "Otorgado a")
             $lineas_n = null;
-            for ($tam = 38; $tam >= 20 && $lineas_n === null; $tam--) {
+            for ($tam = 33; $tam >= 20 && $lineas_n === null; $tam--) {
                 $lineas_n = $this->partir_lineas($nombre, $tam * $E, $f_nombre, 1.5 * $E, $ancho_n, 2);
             }
             $tam++;
@@ -376,14 +376,44 @@ class Certificado {
     public function dibujarCodigo($img, $codigo) {
         $E = self::ESCALA;
         $font = $this->fuente('Montserrat-Regular');
+        $color = $this->color($img, 'emision');
         $txt = 'Código: ' . $codigo;
-        // El panel se corta en diagonal: si el codigo es largo (nombre en vez de DNI) se reduce para que no se salga
+        $x = 96 * $E;
+        $y = 527.2 * $E;
+        // El panel se corta en diagonal: el ancho util es ~186 px en esta linea y ~165 px una linea mas abajo.
+        $max1 = 186 * $E;
+        $max2 = 165 * $E;
+
+        // 1) Una linea, reduciendo hasta 9 px si hace falta
         $tam = 10.5;
         $w = $this->avance_texto($tam * $E, $font, $txt);
-        $max = 219 * $E;
-        if ($w > $max) {
-            $tam = max(8, $tam * $max / $w);
+        if ($w > $max1) {
+            $tam = max(9, $tam * $max1 / $w);
         }
-        imagettftext($img, $this->pt($tam * $E), 0, 96 * $E, (int)round(527.2 * $E), $this->color($img, 'emision'), $font, $txt);
+        if ($this->avance_texto($tam * $E, $font, $txt) <= $max1) {
+            imagettftext($img, $this->pt($tam * $E), 0, $x, (int)round($y), $color, $font, $txt);
+            return;
+        }
+
+        // 2) Codigo muy largo (nombre en vez de DNI): se parte en dos lineas en un guion
+        $tam = 9.5;
+        $partes = explode('-', $codigo);
+        $l1 = 'Código: ' . array_shift($partes);
+        while ($partes && $this->avance_texto($tam * $E, $font, $l1 . '-' . $partes[0] . '-') <= $max1) {
+            $l1 .= '-' . array_shift($partes);
+        }
+        $l2 = implode('-', $partes);
+        if ($l2 !== '') {
+            $l1 .= '-';
+        }
+        imagettftext($img, $this->pt($tam * $E), 0, $x, (int)round($y), $color, $font, $l1);
+        if ($l2 !== '') {
+            $tam2 = $tam;
+            $w2 = $this->avance_texto($tam2 * $E, $font, $l2);
+            if ($w2 > $max2) {
+                $tam2 = max(8, $tam2 * $max2 / $w2);
+            }
+            imagettftext($img, $this->pt($tam2 * $E), 0, $x, (int)round($y + 12.5 * $E), $color, $font, $l2);
+        }
     }
 }

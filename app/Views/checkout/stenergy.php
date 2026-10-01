@@ -14,7 +14,9 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- PayPal SDK: misma cuenta/Client ID que usa ICC -->
-    <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>
+    <!-- enable-funding=card: obliga a PayPal a intentar mostrar el boton de tarjeta de credito/debito
+         por separado (antes dependia solo de que PayPal detectara al visitante como elegible) -->
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD&enable-funding=card"></script>
 
     <style>
         :root {

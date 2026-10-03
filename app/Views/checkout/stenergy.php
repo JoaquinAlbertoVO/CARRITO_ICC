@@ -119,11 +119,11 @@
             <!-- Columna izquierda: info del curso -->
             <div class="card">
                 <h1 x-text="courseName">Cargando curso...</h1>
-                <div class="meta-row">
-                    <span>⏳ <strong x-text="duracion"></strong></span>
-                    <span>🎓 <strong x-text="incluye"></strong></span>
+                <div class="meta-row" x-show="duracion || incluye">
+                    <span x-show="duracion">⏳ <strong x-text="duracion"></strong></span>
+                    <span x-show="incluye">🎓 <strong x-text="incluye"></strong></span>
                 </div>
-                <p class="subtitle" x-text="descripcion"></p>
+                <p class="subtitle" x-show="descripcion" x-text="descripcion"></p>
                 <div class="accent-line"></div>
                 <div class="price-box">
                     <span class="currency" x-text="currencySymbol"></span>
@@ -215,12 +215,21 @@
 
                 <div class="success-view" x-show="paymentSuccess" x-transition style="display:none;">
                     <div class="check">✅</div>
-                    <template x-if="paymentMethodUsed === 'paypal'">
+                    <template x-if="paymentMethodUsed === 'paypal' && matriculaAuto">
                         <div>
                             <h2>¡Pago confirmado!</h2>
                             <p style="color: var(--st-text-muted); line-height: 1.6;">
                                 Estamos matriculando tu acceso en la plataforma de ST Energy.
                                 En unos minutos recibirás un correo con tus credenciales — revisa también tu carpeta de Spam.
+                            </p>
+                        </div>
+                    </template>
+                    <template x-if="paymentMethodUsed === 'paypal' && !matriculaAuto">
+                        <div>
+                            <h2>¡Pago confirmado!</h2>
+                            <p style="color: var(--st-text-muted); line-height: 1.6;">
+                                Nuestro equipo activará tu acceso a la brevedad y te lo enviará por correo.
+                                Para agilizarlo, escríbenos por WhatsApp confirmando tus datos.
                             </p>
                         </div>
                     </template>
@@ -277,6 +286,19 @@
                 temas: [],
                 equipos: [],
                 precioDefault: 900
+            },
+            // ?tipo=subestaciones. Duracion, temario y descripcion pendientes (no se inventan: quedan ocultos
+            // hasta que ST Energy los pase). Sin matricula automatica: todavia no hay course_id en WordPress,
+            // la matricula se hace a mano (ver stenergy_confirm).
+            subestaciones: {
+                nombre: 'Mantenimiento de Subestaciones Eléctricas',
+                duracion: '',
+                incluye: '',
+                descripcion: '',
+                temas: [],
+                equipos: [],
+                precioDefault: 350,
+                matriculaAuto: false
             }
         };
 
@@ -287,6 +309,8 @@
                 activeTab: 'manual',
                 manualMethod: 'yape',
                 voucherFile: null,
+                tipo: 'duo',
+                matriculaAuto: true,
                 courseName: 'Cargando curso...',
                 coursePrice: 900.00,
                 currency: 'PEN',
@@ -313,6 +337,8 @@
                     const tipo = (urlParams.get('tipo') || 'duo').toLowerCase();
                     const perfil = CURSOS_STENERGY[tipo] || CURSOS_STENERGY.duo;
 
+                    this.tipo = CURSOS_STENERGY[tipo] ? tipo : 'duo';
+                    this.matriculaAuto = perfil.matriculaAuto !== false;
                     this.courseName = perfil.nombre;
                     this.duracion = perfil.duracion;
                     this.incluye = perfil.incluye;
@@ -368,6 +394,7 @@
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({
                                         orderID: data.orderID,
+                                        tipo: self.tipo,
                                         email: self.email,
                                         dni: self.dni,
                                         nombre: self.nombre,

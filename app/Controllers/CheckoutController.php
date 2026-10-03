@@ -589,6 +589,10 @@ class CheckoutController extends Controller {
         $apellido = isset($input['apellido']) ? strip_tags(trim($input['apellido'])) : '';
         $celular  = isset($input['celular']) ? substr(strip_tags(trim($input['celular'])), 0, 50) : '';
         $email    = isset($input['email']) ? strip_tags(trim($input['email'])) : '';
+        // Curso del link (?tipo=): lista cerrada. Un valor desconocido se trata como 'duo', igual que la pagina.
+        // 'subestaciones' todavia no tiene course_id en WordPress: no se matricula solo (ver mas abajo).
+        $tipo = isset($input['tipo']) ? strtolower(trim($input['tipo'])) : 'duo';
+        $tipo = in_array($tipo, ['solo', 'duo', 'subestaciones'], true) ? $tipo : 'duo';
 
         if (empty($orderId)) {
             http_response_code(400);
@@ -639,19 +643,26 @@ class CheckoutController extends Controller {
         // 2. Matricular en WordPress via enroll-wp.
         // Curso 1: "Terminaciones Termocontraibles - 29/09/2026" (course_id confirmado: 4043)
         $resultadoTerminaciones = null;
-        try {
-            $stEnergy = new \App\Libraries\StEnergyClient();
-            $res = $stEnergy->enrollCourse(4043, $emailFinal, $nombreFinal, $dni);
-            $resultadoTerminaciones = $res['data'];
-            file_put_contents($logFile, date('Y-m-d H:i:s') . " | ENROLL Terminaciones Termocontraibles (course_id 4043): HTTP {$res['code']} - {$res['raw']} ($nombreFinal / $emailFinal)\n", FILE_APPEND);
-        } catch (\Exception $e) {
-            file_put_contents($logFile, date('Y-m-d H:i:s') . ' | ERROR ENROLL Terminaciones: ' . $e->getMessage() . " ($nombreFinal / $emailFinal)\n", FILE_APPEND);
-        }
+        if ($tipo === 'subestaciones') {
+            // Mantenimiento de Subestaciones Electricas: aun no hay course_id en WordPress, asi que NO se
+            // matricula en Terminaciones (seria el curso equivocado). Matricular a mano; al tener el id real,
+            // reemplazar este bloque por enrollCourse(<id>, ...).
+            file_put_contents($logFile, date('Y-m-d H:i:s') . " | PENDIENTE MANUAL: matricular en 'Mantenimiento de Subestaciones Electricas' (sin course_id en WordPress) - $nombreFinal ($emailFinal) - Orden $orderId\n", FILE_APPEND);
+        } else {
+            try {
+                $stEnergy = new \App\Libraries\StEnergyClient();
+                $res = $stEnergy->enrollCourse(4043, $emailFinal, $nombreFinal, $dni);
+                $resultadoTerminaciones = $res['data'];
+                file_put_contents($logFile, date('Y-m-d H:i:s') . " | ENROLL Terminaciones Termocontraibles (course_id 4043): HTTP {$res['code']} - {$res['raw']} ($nombreFinal / $emailFinal)\n", FILE_APPEND);
+            } catch (\Exception $e) {
+                file_put_contents($logFile, date('Y-m-d H:i:s') . ' | ERROR ENROLL Terminaciones: ' . $e->getMessage() . " ($nombreFinal / $emailFinal)\n", FILE_APPEND);
+            }
 
-        // Curso 2: "Empalmes Termocontraibles - 29/09/2026" - TODAVIA NO EXISTE EN WORDPRESS
-        // (confirmado con el equipo). En cuanto lo creen alla, reemplazar este bloque por
-        // otra llamada a enrollCourse() con el course_id real, igual que arriba.
-        file_put_contents($logFile, date('Y-m-d H:i:s') . " | PENDIENTE MANUAL: falta matricular tambien en 'Empalmes Termocontraibles - 29/09/2026' (el curso aun no existe en WordPress) - $nombreFinal ($emailFinal) - Orden $orderId\n", FILE_APPEND);
+            // Curso 2: "Empalmes Termocontraibles - 29/09/2026" - TODAVIA NO EXISTE EN WORDPRESS
+            // (confirmado con el equipo). En cuanto lo creen alla, reemplazar este bloque por
+            // otra llamada a enrollCourse() con el course_id real, igual que arriba.
+            file_put_contents($logFile, date('Y-m-d H:i:s') . " | PENDIENTE MANUAL: falta matricular tambien en 'Empalmes Termocontraibles - 29/09/2026' (el curso aun no existe en WordPress) - $nombreFinal ($emailFinal) - Orden $orderId\n", FILE_APPEND);
+        }
 
         file_put_contents($logFile, date('Y-m-d H:i:s') . " | VENTA ST ENERGY OK: $nombreFinal ($emailFinal) - Orden $orderId - $monto $monedaPagada - DNI $dni - Cel $celular\n", FILE_APPEND);
 

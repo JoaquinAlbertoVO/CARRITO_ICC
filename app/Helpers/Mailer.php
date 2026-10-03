@@ -182,6 +182,11 @@ class Mailer {
         $nota = $porVerificar
             ? 'El alumno subió su comprobante (adjunto). Verifica el pago antes de dar acceso.'
             : 'El pago ya fue confirmado y el alumno quedó registrado en el aula virtual.';
+        // Aviso propio de la venta (ej. ST Energy: hay cursos que se matriculan a mano)
+        if ($v('nota') !== '') {
+            $nota = $v('nota');
+        }
+        $marca = $v('marca') !== '' ? $v('marca') : 'ICC';
 
         $html = '<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#0f172a;">'
             . '<h2 style="color:#3730a3;margin-bottom:4px;">' . $h($titulo) . '</h2>'
@@ -213,7 +218,7 @@ class Mailer {
         $html .= '</div>';
 
         // Sin saltos de linea en el asunto (evita inyeccion de cabeceras con nombres raros)
-        $asunto = '[ICC] ' . ($porVerificar ? 'Pago por verificar' : 'Nueva matrícula') . ' - '
+        $asunto = '[' . preg_replace('/[\r\n]+/', ' ', $marca) . '] ' . ($porVerificar ? 'Pago por verificar' : 'Nueva matrícula') . ' - '
             . preg_replace('/[\r\n]+/', ' ', $v('nombre')) . ' - ' . preg_replace('/[\r\n]+/', ' ', $v('curso'));
         $asuntoCodificado = '=?UTF-8?B?' . base64_encode($asunto) . '?=';
 
@@ -242,11 +247,14 @@ class Mailer {
         $ok = @mail(self::CORREO_ASESORES, $asuntoCodificado, $mensaje, $cabeceras);
 
         // Ademas del correo, una fila en el Google Sheets de los asesores (si esta configurado)
-        $d['fecha'] = date('d/m/Y H:i:s');
-        $d['documento'] = $v('documento');
-        $sheets = self::registrarEnSheets($d);
-        @file_put_contents(__DIR__ . '/../../api/notificaciones_log.txt',
-            date('Y-m-d H:i:s') . ' | SHEETS ' . ($sheets === null ? 'NO CONFIGURADO' : ($sheets ? 'OK' : 'FALLO ' . self::$detalleSheets)) . ' | ref ' . $v('referencia') . "\n", FILE_APPEND);
+        // ('sinSheets' => true lo omite: las ventas de ST Energy solo avisan por correo)
+        if (empty($d['sinSheets'])) {
+            $d['fecha'] = date('d/m/Y H:i:s');
+            $d['documento'] = $v('documento');
+            $sheets = self::registrarEnSheets($d);
+            @file_put_contents(__DIR__ . '/../../api/notificaciones_log.txt',
+                date('Y-m-d H:i:s') . ' | SHEETS ' . ($sheets === null ? 'NO CONFIGURADO' : ($sheets ? 'OK' : 'FALLO ' . self::$detalleSheets)) . ' | ref ' . $v('referencia') . "\n", FILE_APPEND);
+        }
 
         // Registro sin datos personales, solo para saber si el aviso salio o fallo
         @file_put_contents(__DIR__ . '/../../api/notificaciones_log.txt',

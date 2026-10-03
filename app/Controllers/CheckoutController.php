@@ -643,6 +643,7 @@ class CheckoutController extends Controller {
         // 2. Matricular en WordPress via enroll-wp.
         // Curso 1: "Terminaciones Termocontraibles - 29/09/2026" (course_id confirmado: 4043)
         $resultadoTerminaciones = null;
+        $matriculadoOk = false; // true solo si WordPress respondio 2xx (para decirlo bien en el aviso al equipo)
         if ($tipo === 'subestaciones') {
             // Mantenimiento de Subestaciones Electricas: aun no hay course_id en WordPress, asi que NO se
             // matricula en Terminaciones (seria el curso equivocado). Matricular a mano; al tener el id real,
@@ -653,6 +654,7 @@ class CheckoutController extends Controller {
                 $stEnergy = new \App\Libraries\StEnergyClient();
                 $res = $stEnergy->enrollCourse(4043, $emailFinal, $nombreFinal, $dni);
                 $resultadoTerminaciones = $res['data'];
+                $matriculadoOk = $res['code'] >= 200 && $res['code'] < 300;
                 file_put_contents($logFile, date('Y-m-d H:i:s') . " | ENROLL Terminaciones Termocontraibles (course_id 4043): HTTP {$res['code']} - {$res['raw']} ($nombreFinal / $emailFinal)\n", FILE_APPEND);
             } catch (\Exception $e) {
                 file_put_contents($logFile, date('Y-m-d H:i:s') . ' | ERROR ENROLL Terminaciones: ' . $e->getMessage() . " ($nombreFinal / $emailFinal)\n", FILE_APPEND);
@@ -665,6 +667,33 @@ class CheckoutController extends Controller {
         }
 
         file_put_contents($logFile, date('Y-m-d H:i:s') . " | VENTA ST ENERGY OK: $nombreFinal ($emailFinal) - Orden $orderId - $monto $monedaPagada - DNI $dni - Cel $celular\n", FILE_APPEND);
+
+        // Aviso al equipo de ST Energy (solo correo, sin Google Sheets). Un fallo aqui nunca afecta al pago.
+        $nombresCurso = [
+            'solo' => 'Terminaciones Termocontraíbles en Media Tensión',
+            'duo' => 'Terminaciones y Empalmes Termocontraíbles en Media Tensión',
+            'subestaciones' => 'Mantenimiento de Subestaciones Eléctricas',
+        ];
+        if ($tipo === 'subestaciones') {
+            $notaEquipo = 'Pago confirmado por PayPal. Este curso NO se matricula solo: hay que matricular al alumno a mano en la plataforma.';
+        } elseif (!$matriculadoOk) {
+            $notaEquipo = 'Pago confirmado por PayPal, pero la matrícula automática en la plataforma FALLÓ: hay que matricular al alumno a mano.';
+        } elseif ($tipo === 'duo') {
+            $notaEquipo = 'Pago confirmado. Quedó matriculado solo en Terminaciones; falta matricularlo a mano en Empalmes (ese curso aún no existe en WordPress).';
+        } else {
+            $notaEquipo = 'Pago confirmado. Quedó matriculado automáticamente en la plataforma de ST Energy.';
+        }
+        try {
+            require_once __DIR__ . '/../Helpers/Mailer.php';
+            \App\Helpers\Mailer::notificarMatricula([
+                'marca' => 'ST Energy', 'sinSheets' => true, 'nota' => $notaEquipo,
+                'metodo' => 'PayPal / Tarjeta', 'estado' => 'PAGADO',
+                'nombre' => $nombreFinal, 'documento' => $dni, 'correo' => $emailFinal, 'celular' => $celular,
+                'curso' => $nombresCurso[$tipo], 'monto' => $monto, 'moneda' => $monedaPagada, 'referencia' => $orderId,
+            ]);
+        } catch (\Throwable $e) {
+            file_put_contents($logFile, date('Y-m-d H:i:s') . ' | FALLO aviso por correo: ' . $e->getMessage() . "\n", FILE_APPEND);
+        }
 
         echo json_encode([
             'success' => true,
@@ -729,6 +758,22 @@ class CheckoutController extends Controller {
 
         $jsonFileName = 'voucher_' . date('Ymd_His') . '_' . $curso . '.json';
         file_put_contents($uploadDir . $jsonFileName, json_encode($studentData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+        // Aviso al equipo de ST Energy con la captura dentro del correo (el pago se verifica a mano)
+        $mimes = ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'pdf' => 'application/pdf'];
+        try {
+            require_once __DIR__ . '/../Helpers/Mailer.php';
+            \App\Helpers\Mailer::notificarMatricula([
+                'marca' => 'ST Energy', 'sinSheets' => true,
+                'metodo' => 'Yape / Plin (voucher)', 'estado' => 'POR VERIFICAR',
+                'nombre' => trim($studentData['nombre'] . ' ' . $studentData['apellido']),
+                'documento' => $studentData['dni'], 'correo' => $studentData['email'], 'celular' => $studentData['celular'],
+                'curso' => isset($_POST['curso']) ? strip_tags(trim($_POST['curso'])) : '', 'monto' => $studentData['precio'],
+                'moneda' => $studentData['moneda'] ?: 'PEN', 'referencia' => $fileName,
+            ], ['ruta' => $destination, 'nombre' => $fileName, 'mime' => $mimes[$fileExt]]);
+        } catch (\Throwable $e) {
+            // un fallo de correo nunca debe tumbar la subida del comprobante
+        }
 
         echo json_encode(['success' => true, 'file' => $fileName]);
     }

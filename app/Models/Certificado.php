@@ -267,15 +267,16 @@ class Certificado {
      * @param string      $alumno          Nombre completo.
      * @param string      $dni             Documento; si esta vacio (o todo ceros) no se imprime.
      * @param string      $curso           Nombre del curso.
-     * @param string|int  $horas           Horas lectivas.
+     * @param string|int  $horas           Horas académicas.
      * @param string      $fecha_emision   Ej.: "20 de Setiembre del 2026".
      * @param string      $categoria       (sin uso en este diseno; se mantiene por compatibilidad).
      * @param string|null $texto_realizado Ej.: "Realizado del 1 de Setiembre al 19 de Setiembre del 2026" (ver textoPeriodo());
      *                                     null o vacio = el certificado no lleva frase de fechas.
      * @param string|null $descripcion     Frase opcional al final ("orientado a ..."), sin punto final.
+     * @param string|null $modalidad       Ej.: "Virtual" -> "..., en modalidad virtual, ..."; null = no se menciona.
      * @return resource|\GdImage Imagen 2246x1588 lista para imagejpeg().
      */
-    public function generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha_emision, $categoria, $texto_realizado = null, $descripcion = null) {
+    public function generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha_emision, $categoria, $texto_realizado = null, $descripcion = null, $modalidad = null) {
         $E = self::ESCALA;
 
         $ruta_fondo = __DIR__ . '/../../' . self::FONDO;
@@ -300,9 +301,9 @@ class Certificado {
         $emision_c = $this->color($img, 'emision');
 
         $horas = trim((string)$horas);
-        $txt_horas = $horas . ($horas === '1' ? ' hora lectiva' : ' horas lectivas');
+        $txt_horas = $horas . ($horas === '1' ? ' hora académica' : ' horas académicas');
 
-        // --- Panel: horas lectivas (dorado, en mayusculas y con espaciado) y fecha de emision
+        // --- Panel: horas academicas (dorado, en mayusculas y con espaciado) y fecha de emision
         $this->dibujar_track($img, 13 * $E, 96 * $E, 180.6 * $E, $dorado, $f_semi, mb_strtoupper($txt_horas, 'UTF-8'), 3 * $E);
         imagettftext($img, $this->pt(10.5 * $E), 0, 96 * $E, (int)round(512.2 * $E), $emision_c, $f_reg, 'Emitido: ' . $fecha_emision);
 
@@ -368,20 +369,18 @@ class Certificado {
         // Cuerpo: organizador, fechas y horas resaltados
         // Sin fechas (null o vacio) no se escribe la frase "realizado del ...": mejor omitirla que imprimir una fecha equivocada.
         $organiza = 'organizado por el Instituto de Capacitación Continua';
+        $tramos = [[$organiza, false]];
+        if ($modalidad !== null && trim((string)$modalidad) !== '') {
+            $tramos[] = [', en ', false];
+            $tramos[] = ['modalidad ' . mb_strtolower(trim((string)$modalidad), 'UTF-8'), true];
+        }
         if ($texto_realizado !== null && trim((string)$texto_realizado) !== '') {
             $fechas = $this->partir_fechas($texto_realizado);
-            $tramos = [
-                [$organiza . ', ' . $fechas[0], false],
-                [$fechas[1], true],
-                [', con una duración de ', false],
-                [$txt_horas, true],
-            ];
-        } else {
-            $tramos = [
-                [$organiza . ', con una duración de ', false],
-                [$txt_horas, true],
-            ];
+            $tramos[] = [', ' . $fechas[0], false];
+            $tramos[] = [$fechas[1], true];
         }
+        $tramos[] = [', con una duración de ', false];
+        $tramos[] = [$txt_horas, true];
         $desc = trim((string)$descripcion);
         $tramos[] = [$desc !== '' ? ', ' . rtrim($desc, ". \t") . '.' : '.', false];
 

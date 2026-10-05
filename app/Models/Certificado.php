@@ -96,6 +96,24 @@ class Certificado {
         $this->dibujar_track($img, $size, $cx - $w / 2, $y, $color, $font, $txt, $track);
     }
 
+    /** Texto centrado en $cx, dibujado de una sola pieza (conserva el kerning de la fuente). */
+    private function centrado_simple($img, $size, $cx, $y, $color, $font, $txt) {
+        $w = $this->avance_texto($size, $font, $txt);
+        imagettftext($img, $this->pt($size), 0, (int)round($cx - $w / 2), (int)round($y), $color, $font, $txt);
+    }
+
+    /** "JUAN PEREZ de la CRUZ" -> "Juan Perez de la Cruz" (particulos en minuscula salvo al inicio). */
+    private function nombre_propio($txt) {
+        $txt = mb_convert_case(preg_replace('/\s+/u', ' ', trim((string)$txt)), MB_CASE_TITLE, 'UTF-8');
+        $palabras = explode(' ', $txt);
+        foreach ($palabras as $i => $p) {
+            if ($i > 0 && in_array(mb_strtolower($p, 'UTF-8'), ['de', 'del', 'la', 'las', 'los', 'y', 'e'], true)) {
+                $palabras[$i] = mb_strtolower($p, 'UTF-8');
+            }
+        }
+        return implode(' ', $palabras);
+    }
+
     /** Reparte $txt en como maximo $max_lineas lineas equilibradas que quepan en $ancho_max. Devuelve null si no caben. */
     private function partir_lineas($txt, $size, $font, $track, $ancho_max, $max_lineas) {
         $palabras = preg_split('/\s+/u', trim($txt), -1, PREG_SPLIT_NO_EMPTY);
@@ -273,7 +291,7 @@ class Certificado {
         $f_semi = $this->fuente('Montserrat-SemiBold');
         $f_bold = $this->fuente('Montserrat-Bold');
         $f_xbold = $this->fuente('Montserrat-ExtraBold');
-        $f_nombre = $this->fuente('CormorantGaramond-Bold');
+        $f_nombre = __DIR__ . '/../Views/admin/cursos/arialbd.ttf';
 
         $navy   = $this->color($img, 'azul_marino');
         $gris   = $this->color($img, 'gris');
@@ -288,30 +306,30 @@ class Certificado {
         $this->dibujar_track($img, 13 * $E, 96 * $E, 180.6 * $E, $dorado, $f_semi, mb_strtoupper($txt_horas, 'UTF-8'), 3 * $E);
         imagettftext($img, $this->pt(10.5 * $E), 0, 96 * $E, (int)round(512.2 * $E), $emision_c, $f_reg, 'Emitido: ' . $fecha_emision);
 
-        // --- Nombre (serif, mayusculas; se reduce hasta caber en 560 px de lienzo)
+        // --- Nombre (Arial negrita, "Nombre Apellido"; se reduce hasta caber en 560 px de lienzo)
         $cx = 776.5;
-        $nombre = mb_strtoupper(trim($alumno), 'UTF-8');
+        $nombre = $this->nombre_propio($alumno);
         $ancho_n = 560 * $E;
-        $tam = 49;
-        while ($tam > 28 && $this->ancho_track($tam * $E, $f_nombre, $nombre, 1.5 * $E) > $ancho_n) {
+        $tam = 40;
+        while ($tam > 26 && $this->avance_texto($tam * $E, $f_nombre, $nombre) > $ancho_n) {
             $tam--;
         }
-        if ($this->ancho_track($tam * $E, $f_nombre, $nombre, 1.5 * $E) <= $ancho_n) {
-            // Una linea; la linea base sigue al tamano para que quede centrada en su franja
-            $this->centrado_track($img, $tam * $E, $cx * $E, (219 + 0.3185 * $tam) * $E, $navy, $f_nombre, $nombre, 1.5 * $E);
+        if ($this->avance_texto($tam * $E, $f_nombre, $nombre) <= $ancho_n) {
+            // Una linea; la linea base sigue al tamano para que las mayusculas queden centradas en su franja
+            $this->centrado_simple($img, $tam * $E, $cx * $E, (219 + 0.358 * $tam) * $E, $navy, $f_nombre, $nombre);
         } else {
             // Nombre muy largo: dos lineas equilibradas, con el mayor tamano al que quepan (tope 33 para no tocar "Otorgado a")
             $lineas_n = null;
             for ($tam = 33; $tam >= 20 && $lineas_n === null; $tam--) {
-                $lineas_n = $this->partir_lineas($nombre, $tam * $E, $f_nombre, 1.5 * $E, $ancho_n, 2);
+                $lineas_n = $this->partir_lineas($nombre, $tam * $E, $f_nombre, 0, $ancho_n, 2);
             }
             $tam++;
             if ($lineas_n === null) {
                 $lineas_n = [$nombre];
             }
-            $base_n = 249 - (count($lineas_n) - 1) * $tam * 1.05;
+            $base_n = 249 - (count($lineas_n) - 1) * $tam * 1.15;
             foreach ($lineas_n as $i => $l) {
-                $this->centrado_track($img, $tam * $E, $cx * $E, ($base_n + $i * $tam * 1.05) * $E, $navy, $f_nombre, $l, 1.5 * $E);
+                $this->centrado_simple($img, $tam * $E, $cx * $E, ($base_n + $i * $tam * 1.15) * $E, $navy, $f_nombre, $l);
             }
         }
 

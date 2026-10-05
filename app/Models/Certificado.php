@@ -291,7 +291,7 @@ class Certificado {
         $f_semi = $this->fuente('Montserrat-SemiBold');
         $f_bold = $this->fuente('Montserrat-Bold');
         $f_xbold = $this->fuente('Montserrat-ExtraBold');
-        $f_nombre = __DIR__ . '/../Views/admin/cursos/arialbd.ttf';
+        $f_nombre = $this->fuente('Lora-Bold');
 
         $navy   = $this->color($img, 'azul_marino');
         $gris   = $this->color($img, 'gris');
@@ -306,17 +306,17 @@ class Certificado {
         $this->dibujar_track($img, 13 * $E, 96 * $E, 180.6 * $E, $dorado, $f_semi, mb_strtoupper($txt_horas, 'UTF-8'), 3 * $E);
         imagettftext($img, $this->pt(10.5 * $E), 0, 96 * $E, (int)round(512.2 * $E), $emision_c, $f_reg, 'Emitido: ' . $fecha_emision);
 
-        // --- Nombre (Arial negrita, "Nombre Apellido"; se reduce hasta caber en 560 px de lienzo)
+        // --- Nombre (Lora negrita, "Nombre Apellido"; se reduce hasta caber en 560 px de lienzo)
         $cx = 776.5;
         $nombre = $this->nombre_propio($alumno);
         $ancho_n = 560 * $E;
-        $tam = 40;
+        $tam = 38;
         while ($tam > 26 && $this->avance_texto($tam * $E, $f_nombre, $nombre) > $ancho_n) {
             $tam--;
         }
         if ($this->avance_texto($tam * $E, $f_nombre, $nombre) <= $ancho_n) {
             // Una linea; la linea base sigue al tamano para que las mayusculas queden centradas en su franja
-            $this->centrado_simple($img, $tam * $E, $cx * $E, (219 + 0.358 * $tam) * $E, $navy, $f_nombre, $nombre);
+            $this->centrado_simple($img, $tam * $E, $cx * $E, (219 + 0.35 * $tam) * $E, $navy, $f_nombre, $nombre);
         } else {
             // Nombre muy largo: dos lineas equilibradas, con el mayor tamano al que quepan (tope 33 para no tocar "Otorgado a")
             $lineas_n = null;

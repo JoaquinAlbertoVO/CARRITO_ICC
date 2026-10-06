@@ -12,10 +12,12 @@ namespace App\Models;
 class CertificadoRegistro {
     const RUC = '20602400159';
     const RAZON_SOCIAL = 'INSTITUTO DE CAPACITACION CONTINUA S.R.L.';
+    const ST_RUC = '20615420388';
+    const ST_RAZON_SOCIAL = 'SOLUCIONES TECNICAS ENERGY S.A.C.';
 
     /**
-     * Marcas que emiten certificados. 'ICC' usa la identidad de arriba; 'ST' (ST Energy) toma su razon social y RUC del
-     * .env del servidor (ST_RAZON_SOCIAL, ST_RUC): no se escriben aqui para no inventarlos. El host decide la marca por
+     * Marcas que emiten certificados: 'ICC' (INSTITUTO DE CAPACITACION CONTINUA S.R.L.) y 'ST' (ST Energy, SOLUCIONES TECNICAS
+     * ENERGY S.A.C.). Los datos de ST pueden sobrescribirse desde el .env (ST_RAZON_SOCIAL, ST_RUC). El host decide la marca por
      * defecto (verifica.stenergyedu.com = ST); un certificado siempre se muestra con la marca con que se registro.
      */
     public static function marca($clave) {
@@ -24,8 +26,8 @@ class CertificadoRegistro {
             return [
                 'clave' => 'ST',
                 'nombre' => 'ST Energy',
-                'razon_social' => trim((string) \App\Helpers\Mailer::env('ST_RAZON_SOCIAL')),
-                'ruc' => trim((string) \App\Helpers\Mailer::env('ST_RUC')),
+                'razon_social' => trim((string) \App\Helpers\Mailer::env('ST_RAZON_SOCIAL')) ?: self::ST_RAZON_SOCIAL,
+                'ruc' => trim((string) \App\Helpers\Mailer::env('ST_RUC')) ?: self::ST_RUC,
                 'email' => 'informes@stenergyedu.com',
                 'telefono' => '+51 986 884 219',
                 'imagen' => false, // el diseno del certificado de ST Energy no es el de ICC: no se dibuja

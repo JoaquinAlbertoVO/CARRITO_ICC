@@ -96,11 +96,21 @@ class CertificadoRegistro {
         if (!$h) {
             return ['ok' => 0, 'omitidas' => 0];
         }
+        // El BOM (marca de codificacion) va pegado a la comilla del primer encabezado: si no se salta ANTES de
+        // leer, fgetcsv no reconoce la comilla y la columna "Nombre" no se encuentra (se descartaban todas las filas).
+        if (fread($h, 3) !== "\xEF\xBB\xBF") {
+            rewind($h);
+        }
+        // Excel con configuracion regional en español guarda los CSV con ';' en vez de ','
+        $pos = ftell($h);
+        $primera = (string) fgets($h);
+        fseek($h, $pos);
+        $sep = substr_count($primera, ';') > substr_count($primera, ',') ? ';' : ',';
+
         $cab = null;
-        while (($fila = fgetcsv($h)) !== false) {
+        while (($fila = fgetcsv($h, 0, $sep)) !== false) {
             if ($cab === null) {
-                $fila[0] = preg_replace('/^\xEF\xBB\xBF/', '', (string) ($fila[0] ?? '')); // BOM de Excel
-                $cab = array_map(function ($c) { return strtolower(trim($c)); }, $fila);
+                $cab = array_map(function ($c) { return strtolower(trim((string) $c, " \t\r\n\"'")); }, $fila);
                 continue;
             }
             $get = function ($col) use ($cab, $fila) {

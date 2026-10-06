@@ -1,0 +1,13 @@
+{
+  "curso": "Operación y Mantenimiento de Subestaciones Eléctricas",
+  "codigo_curso": "MSE",
+  "horas": "16",
+  "periodo": "Realizado del 28 de septiembre al 2 de octubre del 2026",
+  "emision": "4 de Octubre del 2026",
+  "modalidad": "Virtual",
+  "lista": "C:/RUTA/FUERA/DEL/REPO/alumnos.csv",
+  "salida": "C:/RUTA/FUERA/DEL/REPO/Certificados_MSE",
+  "copia": "",
+  "url_base": "https://icc.com.pe",
+  "token": "EL_MISMO_VALOR_DE_CERT_REGISTRO_TOKEN_DEL_.env_DEL_SERVIDOR"
+}

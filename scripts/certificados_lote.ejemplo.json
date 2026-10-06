@@ -9,5 +9,7 @@
   "salida": "C:/RUTA/FUERA/DEL/REPO/Certificados_MSE",
   "copia": "",
   "url_base": "https://icc.com.pe",
+  "marca": "ICC",
+  "url_verificacion": "",
   "token": "EL_MISMO_VALOR_DE_CERT_REGISTRO_TOKEN_DEL_.env_DEL_SERVIDOR"
 }

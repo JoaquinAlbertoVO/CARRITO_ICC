@@ -9,6 +9,13 @@ class Router {
     public function __construct() {
         $url = $this->parseUrl();
 
+        // verifica.<dominio> (p. ej. verifica.stenergyedu.com): sitio dedicado a verificar certificados.
+        // /<codigo> equivale a /verificar/<codigo>; assets y /verificar/... se dejan tal cual.
+        $hostVerif = strtolower($_SERVER['HTTP_HOST'] ?? '');
+        if (strpos($hostVerif, 'verifica.') === 0 && (empty($url) || !in_array($url[0], ['verificar', 'assets'], true))) {
+            array_unshift($url, 'verificar');
+        }
+
         // Controlador por defecto o de la URL
         if (isset($url[0]) && $url[0] != '') {
             if ($url[0] === 'admin') {

@@ -13,6 +13,39 @@ class CertificadoRegistro {
     const RUC = '20602400159';
     const RAZON_SOCIAL = 'INSTITUTO DE CAPACITACION CONTINUA S.R.L.';
 
+    /**
+     * Marcas que emiten certificados. 'ICC' usa la identidad de arriba; 'ST' (ST Energy) toma su razon social y RUC del
+     * .env del servidor (ST_RAZON_SOCIAL, ST_RUC): no se escriben aqui para no inventarlos. El host decide la marca por
+     * defecto (verifica.stenergyedu.com = ST); un certificado siempre se muestra con la marca con que se registro.
+     */
+    public static function marca($clave) {
+        if (strtoupper((string) $clave) === 'ST') {
+            require_once __DIR__ . '/../Helpers/Mailer.php';
+            return [
+                'clave' => 'ST',
+                'nombre' => 'ST Energy',
+                'razon_social' => trim((string) \App\Helpers\Mailer::env('ST_RAZON_SOCIAL')),
+                'ruc' => trim((string) \App\Helpers\Mailer::env('ST_RUC')),
+                'email' => 'informes@stenergyedu.com',
+                'telefono' => '+51 986 884 219',
+                'imagen' => false, // el diseno del certificado de ST Energy no es el de ICC: no se dibuja
+            ];
+        }
+        return [
+            'clave' => 'ICC', 'nombre' => 'ICC – Instituto de Capacitación Continua', 'razon_social' => self::RAZON_SOCIAL,
+            'ruc' => self::RUC, 'email' => 'informes@icc.com.pe', 'telefono' => '+51 941 208 020', 'imagen' => true,
+        ];
+    }
+
+    /** Marca por defecto segun el dominio por el que se entra. */
+    public static function marcaDeHost($host) {
+        return stripos((string) $host, 'stenergyedu.com') !== false ? 'ST' : 'ICC';
+    }
+
+    public static function normalizarMarca($m) {
+        return strtoupper(trim((string) $m)) === 'ST' ? 'ST' : 'ICC';
+    }
+
     private $db;
 
     public function __construct() {
@@ -27,6 +60,7 @@ class CertificadoRegistro {
             `periodo` VARCHAR(160) DEFAULT NULL,
             `fecha_emision` VARCHAR(60) DEFAULT NULL,
             `modalidad` VARCHAR(40) DEFAULT NULL,
+            `marca` VARCHAR(10) NOT NULL DEFAULT 'ICC',
             `archivo_pdf` VARCHAR(255) DEFAULT NULL,
             `estado` VARCHAR(12) NOT NULL DEFAULT 'vigente',
             `creado` DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -36,6 +70,9 @@ class CertificadoRegistro {
         // Tablas creadas antes de que existiera la columna modalidad (la imagen del certificado la necesita)
         if (!$this->db->query("SHOW COLUMNS FROM `certificados_emitidos` LIKE 'modalidad'")->fetch()) {
             $this->db->exec("ALTER TABLE `certificados_emitidos` ADD COLUMN `modalidad` VARCHAR(40) DEFAULT NULL AFTER `fecha_emision`");
+        }
+        if (!$this->db->query("SHOW COLUMNS FROM `certificados_emitidos` LIKE 'marca'")->fetch()) {
+            $this->db->exec("ALTER TABLE `certificados_emitidos` ADD COLUMN `marca` VARCHAR(10) NOT NULL DEFAULT 'ICC' AFTER `modalidad`");
         }
     }
 
@@ -78,14 +115,14 @@ class CertificadoRegistro {
         if ($codigo === '' || $nombre === '' || $curso === '') {
             return false;
         }
-        $st = $this->db->prepare("INSERT INTO certificados_emitidos (codigo, nombre, dni, curso, horas, periodo, fecha_emision, modalidad, archivo_pdf)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        $st = $this->db->prepare("INSERT INTO certificados_emitidos (codigo, nombre, dni, curso, horas, periodo, fecha_emision, modalidad, marca, archivo_pdf)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ON DUPLICATE KEY UPDATE nombre = VALUES(nombre), dni = VALUES(dni), curso = VALUES(curso), horas = VALUES(horas),
-                periodo = VALUES(periodo), fecha_emision = VALUES(fecha_emision), modalidad = VALUES(modalidad), archivo_pdf = VALUES(archivo_pdf)");
+                periodo = VALUES(periodo), fecha_emision = VALUES(fecha_emision), modalidad = VALUES(modalidad), marca = VALUES(marca), archivo_pdf = VALUES(archivo_pdf)");
         $ok = $st->execute([
             $codigo, $nombre, substr(trim((string) ($d['dni'] ?? '')), 0, 20), $curso,
             substr(trim((string) ($d['horas'] ?? '')), 0, 20), substr(trim((string) ($d['periodo'] ?? '')), 0, 160),
-            substr(trim((string) ($d['fecha_emision'] ?? '')), 0, 60), substr(trim((string) ($d['modalidad'] ?? '')), 0, 40),
+            substr(trim((string) ($d['fecha_emision'] ?? '')), 0, 60), substr(trim((string) ($d['modalidad'] ?? '')), 0, 40), self::normalizarMarca($d['marca'] ?? 'ICC'),
             substr(trim((string) ($d['archivo_pdf'] ?? '')), 0, 255),
         ]);
         if ($ok) {
@@ -99,7 +136,7 @@ class CertificadoRegistro {
      * El curso, las horas, el periodo, la fecha de emision y la modalidad son del lote completo.
      * @return array{ok:int, omitidas:int}
      */
-    public function importarCsv($ruta, $curso, $horas, $periodo, $emision, $modalidad = '') {
+    public function importarCsv($ruta, $curso, $horas, $periodo, $emision, $modalidad = '', $marca = 'ICC') {
         $ok = 0;
         $omitidas = 0;
         $h = fopen($ruta, 'r');
@@ -130,7 +167,7 @@ class CertificadoRegistro {
             $guardada = $this->registrar([
                 'codigo' => $get('codigo'), 'nombre' => $get('nombre'), 'dni' => $get('dni'),
                 'curso' => $curso, 'horas' => $horas, 'periodo' => $periodo, 'fecha_emision' => $emision,
-                'modalidad' => $modalidad, 'archivo_pdf' => $get('archivo'),
+                'modalidad' => $modalidad, 'marca' => $marca, 'archivo_pdf' => $get('archivo'),
             ]);
             $guardada ? $ok++ : $omitidas++;
         }
@@ -140,7 +177,7 @@ class CertificadoRegistro {
 
     /** Resumen por curso para el panel: [curso, total]. */
     public function resumen() {
-        return $this->db->query("SELECT curso, COUNT(*) AS total FROM certificados_emitidos GROUP BY curso ORDER BY curso")->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->db->query("SELECT marca, curso, COUNT(*) AS total FROM certificados_emitidos GROUP BY marca, curso ORDER BY marca, curso")->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /** Ultimos certificados, o los que coincidan con q (codigo, nombre, DNI o curso). Para el panel. */
@@ -148,10 +185,10 @@ class CertificadoRegistro {
         $limite = max(1, min(200, (int) $limite));
         $q = trim((string) $q);
         if ($q === '') {
-            $st = $this->db->query("SELECT id, codigo, nombre, dni, curso, fecha_emision, estado FROM certificados_emitidos ORDER BY id DESC LIMIT $limite");
+            $st = $this->db->query("SELECT id, codigo, nombre, dni, curso, fecha_emision, marca, estado FROM certificados_emitidos ORDER BY id DESC LIMIT $limite");
         } else {
             $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $q) . '%';
-            $st = $this->db->prepare("SELECT id, codigo, nombre, dni, curso, fecha_emision, estado FROM certificados_emitidos
+            $st = $this->db->prepare("SELECT id, codigo, nombre, dni, curso, fecha_emision, marca, estado FROM certificados_emitidos
                 WHERE codigo LIKE ? OR nombre LIKE ? OR dni LIKE ? OR curso LIKE ? ORDER BY id DESC LIMIT $limite");
             $st->execute([$like, $like, $like, $like]);
         }

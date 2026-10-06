@@ -35,16 +35,23 @@ class VerificarController extends Controller {
             }
         }
 
+        // Un certificado se muestra siempre con la marca con que se registro; sin certificado (formulario, no encontrado)
+        // manda el dominio (verifica.stenergyedu.com = ST Energy) o ?marca=st para previsualizar.
+        $claveMarca = $cert ? $cert['marca']
+            : (isset($_GET['marca']) ? CertificadoRegistro::normalizarMarca($_GET['marca']) : CertificadoRegistro::marcaDeHost($_SERVER['HTTP_HOST'] ?? ''));
+        $marca = CertificadoRegistro::marca($claveMarca);
+        $nombreMarca = $marca['clave'] === 'ST' ? 'ST Energy' : 'ICC';
+
         $this->view('verificar/index', [
-            'title' => 'Verificar certificado - ICC',
-            'meta_description' => 'Verifica la autenticidad de un certificado emitido por el Instituto de Capacitación Continua (ICC).',
+            'title' => 'Verificar certificado - ' . $nombreMarca,
+            'meta_description' => 'Verifica la autenticidad de un certificado emitido por ' . ($marca['clave'] === 'ST' ? 'ST Energy' : 'el Instituto de Capacitación Continua (ICC)') . '.',
             'estado' => $estado,
             'cert' => $cert,
             'ingresado' => $ingresado,
-            'ruc' => CertificadoRegistro::RUC,
-            'razon_social' => CertificadoRegistro::RAZON_SOCIAL,
+            'marca' => $marca,
+            'marca_forzada' => isset($_GET['marca']) ? $marca['clave'] : '',
             'dni_enmascarado' => $cert ? CertificadoRegistro::enmascararDni($cert['dni']) : '',
-        ]);
+        ], $marca['clave'] === 'ST' ? 'layouts/stenergy' : 'layouts/main');
     }
 
     /**
@@ -58,7 +65,7 @@ class VerificarController extends Controller {
         } catch (\Throwable $e) {
             $cert = null;
         }
-        if (!$cert || $cert['estado'] !== 'vigente') {
+        if (!$cert || $cert['estado'] !== 'vigente' || !CertificadoRegistro::marca($cert['marca'])['imagen']) {
             http_response_code(404);
             exit;
         }

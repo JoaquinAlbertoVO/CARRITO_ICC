@@ -1035,7 +1035,7 @@ class AdminCursosController extends Controller {
             $_SESSION['registro_cert_msg'] = ['tipo' => 'danger', 'texto' => 'Falta el nombre del curso o el archivo .csv (máx. 2 MB).'];
         } else {
             $r = (new \App\Models\CertificadoRegistro())->importarCsv(
-                $_FILES['csv']['tmp_name'], $curso, trim($_POST['horas'] ?? ''), trim($_POST['periodo'] ?? ''), trim($_POST['emision'] ?? ''), trim($_POST['modalidad'] ?? '')
+                $_FILES['csv']['tmp_name'], $curso, trim($_POST['horas'] ?? ''), trim($_POST['periodo'] ?? ''), trim($_POST['emision'] ?? ''), trim($_POST['modalidad'] ?? ''), $_POST['marca'] ?? 'ICC'
             );
             $_SESSION['registro_cert_msg'] = ['tipo' => $r['ok'] > 0 ? 'success' : 'warning',
                 'texto' => 'Importados: ' . $r['ok'] . '. Filas omitidas (sin código o sin nombre): ' . $r['omitidas'] . '.'];

@@ -184,7 +184,10 @@ $datos = [
     'modalidad' => !empty($cfg['modalidad']) ? $cfg['modalidad'] : null,
 ];
 $codigoCurso = strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $cfg['codigo_curso']));
-$urlBase = rtrim($cfg['url_base'] ?? 'https://icc.com.pe', '/');
+$urlBase = rtrim($cfg['url_base'] ?? 'https://icc.com.pe', '/');   // donde esta el sistema (registro y API)
+$marca = strtoupper($cfg['marca'] ?? 'ICC') === 'ST' ? 'ST' : 'ICC';
+// Direccion que lleva el QR: por defecto <url_base>/verificar/ ; para ST Energy, "https://verifica.stenergyedu.com/"
+$urlVerificacion = !empty($cfg['url_verificacion']) ? rtrim($cfg['url_verificacion'], '/') . '/' : $urlBase . '/verificar/';
 $salida = rtrim(str_replace('\\', '/', $cfg['salida']), '/') . '/';
 $copia = !empty($cfg['copia']) ? rtrim(str_replace('\\', '/', $cfg['copia']), '/') . '/' : null;
 $modelo = new \App\Models\Certificado();
@@ -204,7 +207,7 @@ if ($reemitir) {
         }
         $al = $mapa[$codigo];
         $archivo = rtrim(substr(sanear($al['nombre']), 0, 60), '_') . '_' . $codigo . '_QR_NUEVO.pdf';
-        crear_pdf($modelo, $datos, $al['nombre'], $al['dni'], $codigo, $urlBase . '/verificar/' . $codigo, $dirRe . $archivo);
+        crear_pdf($modelo, $datos, $al['nombre'], $al['dni'], $codigo, $urlVerificacion . $codigo, $dirRe . $archivo);
         echo "  OK  {$al['nombre']} -> $archivo\n";
         $hechos++;
     }
@@ -213,6 +216,13 @@ if ($reemitir) {
 }
 
 // ---- Modo lote ----
+if ($marca === 'ST') {
+    fwrite(STDERR, "AVISO: marca ST Energy. El PDF se dibuja con el DISENO DE ICC (logo, firmas y sellos de ICC); si los certificados de ST Energy
+" .
+        "llevan otro diseno, usa este script solo para el registro/QR o pide adaptar el diseno antes de entregarlos.
+
+");
+}
 $token = (string) ($cfg['token'] ?? getenv('CERT_REGISTRO_TOKEN') ?: '');
 if ($token === '') {
     salir('Falta "token" en el JSON del lote (o la variable CERT_REGISTRO_TOKEN): es el mismo del .env del servidor.');
@@ -242,7 +252,7 @@ foreach ($alumnos as $al) {
     }
     $vistos[$codigo] = true;
 
-    $urlQr = $urlBase . '/verificar/' . $codigo;
+    $urlQr = $urlVerificacion . $codigo;
     // (el nombre se acorta: Windows no admite rutas de mas de ~260 caracteres)
     $archivo = rtrim(substr(sanear($nombre), 0, 60), '_') . '_' . $codigo . '.pdf';
     crear_pdf($modelo, $datos, $nombre, $dni, $codigo, $urlQr, $salida . $archivo);
@@ -252,7 +262,7 @@ foreach ($alumnos as $al) {
 
     $registros[] = [
         'codigo' => $codigo, 'nombre' => $nombre, 'dni' => $dni, 'curso' => $datos['curso'], 'horas' => $datos['horas'],
-        'periodo' => $datos['periodo'] ?? '', 'fecha_emision' => $datos['emision'], 'modalidad' => $datos['modalidad'] ?? '',
+        'periodo' => $datos['periodo'] ?? '', 'fecha_emision' => $datos['emision'], 'modalidad' => $datos['modalidad'] ?? '', 'marca' => $marca,
         'archivo_pdf' => $archivo, 'url_qr' => $urlQr,
     ];
     echo "  OK  $nombre -> $archivo\n";

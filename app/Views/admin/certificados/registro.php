@@ -25,10 +25,10 @@
                             <p class="text-muted mb-0">Todavía no hay certificados en el registro. Los que se generen desde el panel se agregan solos; los de lotes anteriores se importan con el formulario.</p>
                         <?php else: ?>
                             <table class="table table-sm mb-0">
-                                <thead><tr><th>Curso</th><th class="text-right">Certificados</th></tr></thead>
+                                <thead><tr><th>Marca</th><th>Curso</th><th class="text-right">Certificados</th></tr></thead>
                                 <tbody>
                                 <?php foreach ($resumen as $fila): ?>
-                                    <tr><td><?= htmlspecialchars($fila['curso']) ?></td><td class="text-right"><?= (int) $fila['total'] ?></td></tr>
+                                    <tr><td><?= $fila['marca'] === 'ST' ? 'ST Energy' : 'ICC' ?></td><td><?= htmlspecialchars($fila['curso']) ?></td><td class="text-right"><?= (int) $fila['total'] ?></td></tr>
                                 <?php endforeach; ?>
                                 </tbody>
                             </table>
@@ -43,6 +43,13 @@
                     <div class="card-body">
                         <p class="text-muted small">Sube el archivo <code>_resumen.csv</code> que dejó el script de certificados (columnas Nombre, DNI, Codigo, Archivo, URL_QR). Si un código ya existe, se actualiza (no se duplica).</p>
                         <form method="post" enctype="multipart/form-data" action="<?= BASE_URL ?>admin/registro_certificados_importar">
+                            <div class="form-group">
+                                <label>Marca que emitió el certificado</label>
+                                <select name="marca" class="form-control">
+                                    <option value="ICC">ICC (verifica en icc.com.pe/verificar)</option>
+                                    <option value="ST">ST Energy (verifica en verifica.stenergyedu.com)</option>
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label>Nombre del curso (como figura en el certificado)</label>
                                 <input type="text" name="curso" class="form-control" required placeholder="Operación y Mantenimiento de Subestaciones Eléctricas">
@@ -88,15 +95,16 @@
             <div class="table-responsive">
                 <table class="table table-sm table-hover mb-0">
                     <thead>
-                        <tr><th>Código</th><th>Alumno</th><th>Curso</th><th>Emisión</th><th>Estado</th><th class="text-right">Acción</th></tr>
+                        <tr><th>Código</th><th>Marca</th><th>Alumno</th><th>Curso</th><th>Emisión</th><th>Estado</th><th class="text-right">Acción</th></tr>
                     </thead>
                     <tbody>
                     <?php if (empty($filas)): ?>
-                        <tr><td colspan="6" class="text-center text-muted py-4">No hay certificados<?= $q !== '' ? ' que coincidan con la búsqueda' : ' registrados todavía' ?>.</td></tr>
+                        <tr><td colspan="7" class="text-center text-muted py-4">No hay certificados<?= $q !== '' ? ' que coincidan con la búsqueda' : ' registrados todavía' ?>.</td></tr>
                     <?php endif; ?>
                     <?php foreach ($filas as $f): $anulado = $f['estado'] !== 'vigente'; ?>
                         <tr>
                             <td><a href="<?= BASE_URL ?>verificar/<?= htmlspecialchars(rawurlencode($f['codigo'])) ?>" target="_blank" rel="noopener"><code><?= htmlspecialchars($f['codigo']) ?></code></a></td>
+                            <td><?= $f['marca'] === 'ST' ? 'ST Energy' : 'ICC' ?></td>
                             <td><?= htmlspecialchars($f['nombre']) ?><?= !empty($f['dni']) ? '<br><small class="text-muted">DNI ' . htmlspecialchars($f['dni']) . '</small>' : '' ?></td>
                             <td><?= htmlspecialchars($f['curso']) ?></td>
                             <td><?= htmlspecialchars((string) $f['fecha_emision']) ?></td>

@@ -48,6 +48,41 @@ class VerificarController extends Controller {
     }
 
     /**
+     * GET /verificar/imagen/<codigo>: imagen JPEG del certificado (sin DNI) para mostrarla junto a los datos.
+     * Solo para certificados vigentes; se dibuja a partir del registro y se guarda en assets/certificados_img/.
+     */
+    public function imagen($codigo = null) {
+        header('X-Robots-Tag: noindex, nofollow');
+        try {
+            $cert = $codigo ? (new CertificadoRegistro())->buscar($codigo) : null;
+        } catch (\Throwable $e) {
+            $cert = null;
+        }
+        if (!$cert || $cert['estado'] !== 'vigente') {
+            http_response_code(404);
+            exit;
+        }
+
+        header('Content-Type: image/jpeg');
+        header('Cache-Control: public, max-age=3600');
+
+        $ruta = CertificadoRegistro::rutaCache($cert['codigo']);
+        if (is_file($ruta)) {
+            readfile($ruta);
+            exit;
+        }
+
+        $img = CertificadoRegistro::renderizarImagen($cert, BASE_URL . 'verificar/' . $cert['codigo']);
+        $dir = dirname($ruta);
+        if (is_dir($dir) || @mkdir($dir, 0775, true)) {
+            @imagejpeg($img, $ruta, 85); // si no se puede guardar, igual se sirve abajo
+        }
+        imagejpeg($img, null, 85);
+        imagedestroy($img);
+        exit;
+    }
+
+    /**
      * POST /verificar/registrar: lo usa el script de lotes (scripts/generar_certificados_lote.php) para dar de alta
      * en el registro los certificados que acaba de generar. Protegido por CERT_REGISTRO_TOKEN del .env del servidor;
      * sin esa variable el endpoint esta apagado.

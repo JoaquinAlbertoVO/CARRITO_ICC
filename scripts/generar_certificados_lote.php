@@ -170,7 +170,8 @@ foreach ($alumnos as $al) {
 
     $registros[] = [
         'codigo' => $codigo, 'nombre' => $nombre, 'dni' => $dni, 'curso' => $curso, 'horas' => $horas,
-        'periodo' => $periodo ?? '', 'fecha_emision' => $emision, 'archivo_pdf' => $archivo, 'url_qr' => $urlQr,
+        'periodo' => $periodo ?? '', 'fecha_emision' => $emision, 'modalidad' => $modalidad ?? '',
+        'archivo_pdf' => $archivo, 'url_qr' => $urlQr,
     ];
     echo "  OK  $nombre -> $archivo\n";
 }

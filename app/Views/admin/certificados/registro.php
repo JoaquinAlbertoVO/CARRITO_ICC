@@ -62,6 +62,10 @@
                                 <input type="text" name="periodo" class="form-control" placeholder="Realizado del 28 de septiembre al 2 de octubre del 2026">
                             </div>
                             <div class="form-group">
+                                <label>Modalidad <span class="text-muted">(solo si el certificado dice "en modalidad virtual")</span></label>
+                                <input type="text" name="modalidad" class="form-control" placeholder="Virtual">
+                            </div>
+                            <div class="form-group">
                                 <label>Archivo _resumen.csv</label>
                                 <input type="file" name="csv" accept=".csv" class="form-control-file" required>
                             </div>
@@ -70,6 +74,48 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
+                <h4 class="card-title mb-0"><?= $q !== '' ? 'Resultados de la búsqueda' : 'Últimos certificados registrados' ?></h4>
+                <form method="get" action="<?= BASE_URL ?>admin/registro_certificados" class="form-inline mt-2 mt-md-0">
+                    <input type="text" name="q" value="<?= htmlspecialchars($q) ?>" class="form-control form-control-sm mr-2" placeholder="Código, nombre, DNI o curso" style="min-width: 260px;">
+                    <button type="submit" class="btn btn-sm btn-primary">Buscar</button>
+                    <?php if ($q !== ''): ?><a href="<?= BASE_URL ?>admin/registro_certificados" class="btn btn-sm btn-link">Quitar filtro</a><?php endif; ?>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead>
+                        <tr><th>Código</th><th>Alumno</th><th>Curso</th><th>Emisión</th><th>Estado</th><th class="text-right">Acción</th></tr>
+                    </thead>
+                    <tbody>
+                    <?php if (empty($filas)): ?>
+                        <tr><td colspan="6" class="text-center text-muted py-4">No hay certificados<?= $q !== '' ? ' que coincidan con la búsqueda' : ' registrados todavía' ?>.</td></tr>
+                    <?php endif; ?>
+                    <?php foreach ($filas as $f): $anulado = $f['estado'] !== 'vigente'; ?>
+                        <tr>
+                            <td><a href="<?= BASE_URL ?>verificar/<?= htmlspecialchars(rawurlencode($f['codigo'])) ?>" target="_blank" rel="noopener"><code><?= htmlspecialchars($f['codigo']) ?></code></a></td>
+                            <td><?= htmlspecialchars($f['nombre']) ?><?= !empty($f['dni']) ? '<br><small class="text-muted">DNI ' . htmlspecialchars($f['dni']) . '</small>' : '' ?></td>
+                            <td><?= htmlspecialchars($f['curso']) ?></td>
+                            <td><?= htmlspecialchars((string) $f['fecha_emision']) ?></td>
+                            <td><span class="badge badge-<?= $anulado ? 'danger' : 'success' ?>"><?= $anulado ? 'Anulado' : 'Vigente' ?></span></td>
+                            <td class="text-right">
+                                <form method="post" action="<?= BASE_URL ?>admin/registro_certificados_estado" class="d-inline"
+                                      onsubmit="return confirm('<?= $anulado ? '¿Reactivar este certificado? Volverá a mostrarse como válido.' : '¿Anular este certificado? La página pública pasará a mostrarlo como anulado.' ?>');">
+                                    <input type="hidden" name="id" value="<?= (int) $f['id'] ?>">
+                                    <input type="hidden" name="accion" value="<?= $anulado ? 'reactivar' : 'anular' ?>">
+                                    <input type="hidden" name="q" value="<?= htmlspecialchars($q) ?>">
+                                    <button type="submit" class="btn btn-sm <?= $anulado ? 'btn-outline-success' : 'btn-outline-danger' ?>"><?= $anulado ? 'Reactivar' : 'Anular' ?></button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer text-muted small">Se muestran hasta 50 resultados; usa el buscador para encontrar uno concreto.</div>
         </div>
     </div>
 </div>

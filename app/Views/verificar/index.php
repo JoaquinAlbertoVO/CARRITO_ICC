@@ -2,7 +2,13 @@
 $e = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); };
 ?>
 <style>
-    .ver-card { max-width: 680px; margin: 0 auto; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 28px; box-shadow: 0 8px 24px rgba(15, 23, 42, .06); }
+    .ver-grid { max-width: 680px; margin: 0 auto; }
+    .ver-grid.con-imagen { max-width: 1140px; display: grid; grid-template-columns: minmax(300px, 440px) 1fr; gap: 28px; align-items: start; }
+    .ver-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 28px; box-shadow: 0 8px 24px rgba(15, 23, 42, .06); }
+    .ver-cert { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 14px; box-shadow: 0 8px 24px rgba(15, 23, 42, .06); }
+    .ver-cert img { display: block; width: 100%; height: auto; border-radius: 6px; border: 1px solid #e2e8f0; }
+    .ver-cert p { margin: 10px 4px 0; font-size: .82rem; color: #64748b; text-align: center; }
+    @media (max-width: 900px) { .ver-grid.con-imagen { grid-template-columns: 1fr; max-width: 680px; } }
     .ver-form { display: flex; gap: 10px; flex-wrap: wrap; }
     .ver-form input[type=text] { flex: 1 1 240px; min-width: 0; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 1rem; text-transform: uppercase; }
     .ver-form button { padding: 12px 22px; border: 0; border-radius: 10px; background: #1d4ed8; color: #fff; font-weight: 700; font-size: 1rem; cursor: pointer; }
@@ -30,6 +36,7 @@ $e = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); 
 
 <section style="padding: 50px 0 70px;">
     <div class="container" style="padding-left: 16px; padding-right: 16px;">
+        <div class="ver-grid<?= $estado === 'valido' ? ' con-imagen' : '' ?>">
         <div class="ver-card">
             <p style="margin-top:0; color:#334155;">Escribe el <strong>código</strong> que aparece en tu certificado (junto a "Código:", por ejemplo <em>CERT-MSE-12345678</em>) o escanea el QR del certificado.</p>
             <form class="ver-form" method="get" action="<?= BASE_URL ?>verificar">
@@ -67,6 +74,15 @@ $e = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); 
                 RUC <?= $e($ruc) ?><br>
                 ¿Dudas sobre un certificado? <a href="mailto:informes@icc.com.pe">informes@icc.com.pe</a> · WhatsApp +51 941 208 020
             </div>
+        </div>
+
+        <?php if ($estado === 'valido'): ?>
+        <!-- Imagen del certificado al que corresponden los datos (se dibuja a partir del registro, sin el DNI) -->
+        <div class="ver-cert">
+            <img src="<?= BASE_URL ?>verificar/imagen/<?= $e(rawurlencode($cert['codigo'])) ?>" alt="Certificado emitido a <?= $e($cert['nombre']) ?>: <?= $e($cert['curso']) ?>" width="1123" height="794">
+            <p>Certificado emitido a nombre de <?= $e($cert['nombre']) ?>. El documento de identidad no se muestra completo por privacidad.</p>
+        </div>
+        <?php endif; ?>
         </div>
     </div>
 </section>

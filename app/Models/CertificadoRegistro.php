@@ -6,8 +6,8 @@ namespace App\Models;
  *
  * El QR de un certificado apunta a /verificar/<codigo>. Antes apuntaba al PDF del propio certificado,
  * lo que no demostraba nada. Los certificados emitidos en lote (script masivo) nunca quedaron en la
- * base de datos, asi que aqui se registran (alta automatica al generarlos desde el panel, o importando
- * el _resumen.csv del lote desde admin > Registro de certificados).
+ * base de datos, asi que aqui se registran (alta automatica al generarlos desde el panel, desde el script
+ * de lotes, o importando el _resumen.csv del lote desde admin > Registro de certificados).
  */
 class CertificadoRegistro {
     const RUC = '20602400159';
@@ -26,12 +26,17 @@ class CertificadoRegistro {
             `horas` VARCHAR(20) DEFAULT NULL,
             `periodo` VARCHAR(160) DEFAULT NULL,
             `fecha_emision` VARCHAR(60) DEFAULT NULL,
+            `modalidad` VARCHAR(40) DEFAULT NULL,
             `archivo_pdf` VARCHAR(255) DEFAULT NULL,
             `estado` VARCHAR(12) NOT NULL DEFAULT 'vigente',
             `creado` DATETIME DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
             UNIQUE KEY `idx_codigo` (`codigo`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+        // Tablas creadas antes de que existiera la columna modalidad (la imagen del certificado la necesita)
+        if (!$this->db->query("SHOW COLUMNS FROM `certificados_emitidos` LIKE 'modalidad'")->fetch()) {
+            $this->db->exec("ALTER TABLE `certificados_emitidos` ADD COLUMN `modalidad` VARCHAR(40) DEFAULT NULL AFTER `fecha_emision`");
+        }
     }
 
     /** Deja el codigo en su forma canonica (mayusculas, sin espacios) o '' si no tiene forma de codigo. */
@@ -73,23 +78,28 @@ class CertificadoRegistro {
         if ($codigo === '' || $nombre === '' || $curso === '') {
             return false;
         }
-        $st = $this->db->prepare("INSERT INTO certificados_emitidos (codigo, nombre, dni, curso, horas, periodo, fecha_emision, archivo_pdf)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        $st = $this->db->prepare("INSERT INTO certificados_emitidos (codigo, nombre, dni, curso, horas, periodo, fecha_emision, modalidad, archivo_pdf)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ON DUPLICATE KEY UPDATE nombre = VALUES(nombre), dni = VALUES(dni), curso = VALUES(curso), horas = VALUES(horas),
-                periodo = VALUES(periodo), fecha_emision = VALUES(fecha_emision), archivo_pdf = VALUES(archivo_pdf)");
-        return $st->execute([
+                periodo = VALUES(periodo), fecha_emision = VALUES(fecha_emision), modalidad = VALUES(modalidad), archivo_pdf = VALUES(archivo_pdf)");
+        $ok = $st->execute([
             $codigo, $nombre, substr(trim((string) ($d['dni'] ?? '')), 0, 20), $curso,
             substr(trim((string) ($d['horas'] ?? '')), 0, 20), substr(trim((string) ($d['periodo'] ?? '')), 0, 160),
-            substr(trim((string) ($d['fecha_emision'] ?? '')), 0, 60), substr(trim((string) ($d['archivo_pdf'] ?? '')), 0, 255),
+            substr(trim((string) ($d['fecha_emision'] ?? '')), 0, 60), substr(trim((string) ($d['modalidad'] ?? '')), 0, 40),
+            substr(trim((string) ($d['archivo_pdf'] ?? '')), 0, 255),
         ]);
+        if ($ok) {
+            @unlink(self::rutaCache($codigo)); // si cambiaron los datos, la imagen guardada ya no vale
+        }
+        return $ok;
     }
 
     /**
-     * Importa el _resumen.csv que deja el script masivo (columnas Nombre, DNI, Codigo, Archivo, URL_QR).
-     * El curso, las horas, el periodo y la fecha de emision son del lote completo.
+     * Importa el _resumen.csv que deja el script de lotes (columnas Nombre, DNI, Codigo, Archivo, URL_QR).
+     * El curso, las horas, el periodo, la fecha de emision y la modalidad son del lote completo.
      * @return array{ok:int, omitidas:int}
      */
-    public function importarCsv($ruta, $curso, $horas, $periodo, $emision) {
+    public function importarCsv($ruta, $curso, $horas, $periodo, $emision, $modalidad = '') {
         $ok = 0;
         $omitidas = 0;
         $h = fopen($ruta, 'r');
@@ -120,7 +130,7 @@ class CertificadoRegistro {
             $guardada = $this->registrar([
                 'codigo' => $get('codigo'), 'nombre' => $get('nombre'), 'dni' => $get('dni'),
                 'curso' => $curso, 'horas' => $horas, 'periodo' => $periodo, 'fecha_emision' => $emision,
-                'archivo_pdf' => $get('archivo'),
+                'modalidad' => $modalidad, 'archivo_pdf' => $get('archivo'),
             ]);
             $guardada ? $ok++ : $omitidas++;
         }
@@ -131,5 +141,74 @@ class CertificadoRegistro {
     /** Resumen por curso para el panel: [curso, total]. */
     public function resumen() {
         return $this->db->query("SELECT curso, COUNT(*) AS total FROM certificados_emitidos GROUP BY curso ORDER BY curso")->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    /** Ultimos certificados, o los que coincidan con q (codigo, nombre, DNI o curso). Para el panel. */
+    public function listar($q = '', $limite = 50) {
+        $limite = max(1, min(200, (int) $limite));
+        $q = trim((string) $q);
+        if ($q === '') {
+            $st = $this->db->query("SELECT id, codigo, nombre, dni, curso, fecha_emision, estado FROM certificados_emitidos ORDER BY id DESC LIMIT $limite");
+        } else {
+            $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $q) . '%';
+            $st = $this->db->prepare("SELECT id, codigo, nombre, dni, curso, fecha_emision, estado FROM certificados_emitidos
+                WHERE codigo LIKE ? OR nombre LIKE ? OR dni LIKE ? OR curso LIKE ? ORDER BY id DESC LIMIT $limite");
+            $st->execute([$like, $like, $like, $like]);
+        }
+        return $st->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    /** Anula o reactiva un certificado: la pagina publica pasa a decir "anulado" / "valido". */
+    public function cambiarEstado($id, $estado) {
+        if (!in_array($estado, ['vigente', 'anulado'], true)) {
+            return false;
+        }
+        $st = $this->db->prepare("UPDATE certificados_emitidos SET estado = ? WHERE id = ?");
+        return $st->execute([$estado, (int) $id]);
+    }
+
+    // ---- Imagen del certificado para la pagina publica ----
+
+    public static function rutaCache($codigo) {
+        return __DIR__ . '/../../assets/certificados_img/' . self::normalizar($codigo) . '.jpg';
+    }
+
+    /**
+     * Dibuja el certificado a partir de los datos del registro (mismo diseno que el PDF: fondo, texto, codigo y QR).
+     * NO lleva el DNI: la pagina es publica y ahi solo se muestra enmascarado.
+     * @param array  $c      fila de certificados_emitidos
+     * @param string $urlQr  direccion que lleva el QR
+     * @return resource|\GdImage reducida a 1123 px de ancho
+     */
+    public static function renderizarImagen(array $c, $urlQr) {
+        require_once __DIR__ . '/../Libraries/phpqrcode/qrlib.php';
+        $modelo = new Certificado();
+        $img = $modelo->generarImagenCertificado(
+            $c['nombre'], '', $c['curso'], $c['horas'], $c['fecha_emision'], '',
+            !empty($c['periodo']) ? $c['periodo'] : null, null, !empty($c['modalidad']) ? $c['modalidad'] : null
+        );
+        $modelo->dibujarCodigo($img, $c['codigo']);
+
+        // El QR no forma parte del fondo (en el PDF se pega aparte): se coloca en la misma posicion
+        $tmp = tempnam(sys_get_temp_dir(), 'qr');
+        $viejo = error_reporting(error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+        \QRcode::png($urlQr, $tmp, QR_ECLEVEL_M, 10, 0);
+        error_reporting($viejo);
+        $qr = @imagecreatefrompng($tmp);
+        @unlink($tmp);
+        if ($qr) {
+            $pxMm = imagesx($img) / 297; // el lienzo es el A4 apaisado (297 mm de ancho)
+            list($qx, $qy, $ql) = Certificado::QR_MM;
+            imagecopyresampled($img, $qr, (int) round($qx * $pxMm), (int) round($qy * $pxMm), 0, 0,
+                (int) round($ql * $pxMm), (int) round($ql * $pxMm), imagesx($qr), imagesy($qr));
+            imagedestroy($qr);
+        }
+
+        $w = 1123;
+        $h = (int) round(imagesy($img) * $w / imagesx($img));
+        $chica = imagecreatetruecolor($w, $h);
+        imagecopyresampled($chica, $img, 0, 0, 0, 0, $w, $h, imagesx($img), imagesy($img));
+        imagedestroy($img);
+        return $chica;
     }
 }

@@ -992,10 +992,33 @@ class AdminCursosController extends Controller {
         $mensaje = $_SESSION['registro_cert_msg'] ?? null;
         unset($_SESSION['registro_cert_msg']);
 
+        $q = trim($_GET['q'] ?? '');
+        $registro = new \App\Models\CertificadoRegistro();
         $this->view('admin/certificados/registro', [
-            'resumen' => (new \App\Models\CertificadoRegistro())->resumen(),
+            'resumen' => $registro->resumen(),
+            'filas' => $registro->listar($q, 50),
+            'q' => $q,
             'mensaje' => $mensaje,
         ], 'admin/layouts/main');
+    }
+
+    /** Anula o reactiva un certificado del registro publico (POST: id, accion = anular|reactivar). */
+    public function registro_certificados_estado() {
+        if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1 || $_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . BASE_URL . 'admin');
+            exit;
+        }
+        $accion = $_POST['accion'] ?? '';
+        $id = (int) ($_POST['id'] ?? 0);
+        if ($id > 0 && in_array($accion, ['anular', 'reactivar'], true)) {
+            $ok = (new \App\Models\CertificadoRegistro())->cambiarEstado($id, $accion === 'anular' ? 'anulado' : 'vigente');
+            $_SESSION['registro_cert_msg'] = $ok
+                ? ['tipo' => 'success', 'texto' => $accion === 'anular' ? 'Certificado anulado: la página pública ahora lo muestra como anulado.' : 'Certificado reactivado: vuelve a mostrarse como válido.']
+                : ['tipo' => 'danger', 'texto' => 'No se pudo cambiar el estado del certificado.'];
+        }
+        $q = trim($_POST['q'] ?? '');
+        header('Location: ' . BASE_URL . 'admin/registro_certificados' . ($q !== '' ? '?q=' . rawurlencode($q) : ''));
+        exit;
     }
 
     public function registro_certificados_importar() {
@@ -1012,7 +1035,7 @@ class AdminCursosController extends Controller {
             $_SESSION['registro_cert_msg'] = ['tipo' => 'danger', 'texto' => 'Falta el nombre del curso o el archivo .csv (máx. 2 MB).'];
         } else {
             $r = (new \App\Models\CertificadoRegistro())->importarCsv(
-                $_FILES['csv']['tmp_name'], $curso, trim($_POST['horas'] ?? ''), trim($_POST['periodo'] ?? ''), trim($_POST['emision'] ?? '')
+                $_FILES['csv']['tmp_name'], $curso, trim($_POST['horas'] ?? ''), trim($_POST['periodo'] ?? ''), trim($_POST['emision'] ?? ''), trim($_POST['modalidad'] ?? '')
             );
             $_SESSION['registro_cert_msg'] = ['tipo' => $r['ok'] > 0 ? 'success' : 'warning',
                 'texto' => 'Importados: ' . $r['ok'] . '. Filas omitidas (sin código o sin nombre): ' . $r['omitidas'] . '.'];

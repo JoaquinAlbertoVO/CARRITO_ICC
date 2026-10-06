@@ -897,6 +897,11 @@ class AdminCursosController extends Controller {
         $certificadoModel = new \App\Models\Certificado();
         $imagen = $certificadoModel->generarImagenCertificado($alumno, $dni, $curso, $horas, $fecha, $categoria, $texto_realizado);
 
+        // Codigo propio de este certificado: va impreso en el panel y el QR lleva a /verificar/<codigo>
+        // (antes el QR abria el PDF del propio certificado, que no verifica nada).
+        $codigo_cert = \App\Models\CertificadoRegistro::generarCodigo();
+        $certificadoModel->dibujarCodigo($imagen, $codigo_cert);
+
         $curso_saneado = preg_replace('/[^A-Za-z0-9]/', '_', $curso);
         $curso_saneado = preg_replace('/_+/', '_', $curso_saneado);
         $curso_saneado = trim($curso_saneado, '_');
@@ -920,7 +925,7 @@ class AdminCursosController extends Controller {
         $filepath_pdf = $upload_dir . $filename_pdf;
         
         // Asegurar que el QR usa HTTPS de forma confiable, asumiendo BASE_URL
-        $url_qr = BASE_URL . "assets/certificados/" . $upload_dir_relative . $filename_pdf;
+        $url_qr = BASE_URL . "verificar/" . $codigo_cert;
         $filepath_qr = $upload_dir . $filename_base . "_qr.png";
         
         // Guardar nivel de reporte de errores actual
@@ -963,8 +968,56 @@ class AdminCursosController extends Controller {
         $stmt2 = $this->db->prepare("UPDATE usuario_cursos SET estado_certificado = 2 WHERE id_usuario = ? AND id_curso = ?");
         $stmt2->execute([$id_usuario, $id_curso_cert]);
 
+        // Alta en el registro publico (/verificar). Si falla, el certificado ya quedo emitido: solo se avisa en el log.
+        try {
+            (new \App\Models\CertificadoRegistro())->registrar([
+                'codigo' => $codigo_cert, 'nombre' => $alumno, 'dni' => $dni, 'curso' => $curso, 'horas' => $horas,
+                'periodo' => $texto_realizado, 'fecha_emision' => $fecha, 'archivo_pdf' => $archivo_pdf_db,
+            ]);
+        } catch (\Throwable $e) {
+            error_log('Certificado emitido sin alta en el registro de verificacion (' . $codigo_cert . '): ' . $e->getMessage());
+        }
+
         // Redirigir al archivo recién creado para que el admin lo pueda ver de inmediato
         header('Location: ' . BASE_URL . 'assets/certificados/' . $archivo_pdf_db);
+        exit;
+    }
+
+    // --- REGISTRO PUBLICO DE CERTIFICADOS (pagina /verificar) ---
+    public function registro_certificados() {
+        if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
+            header('Location: ' . BASE_URL . 'admin');
+            exit;
+        }
+        $mensaje = $_SESSION['registro_cert_msg'] ?? null;
+        unset($_SESSION['registro_cert_msg']);
+
+        $this->view('admin/certificados/registro', [
+            'resumen' => (new \App\Models\CertificadoRegistro())->resumen(),
+            'mensaje' => $mensaje,
+        ], 'admin/layouts/main');
+    }
+
+    public function registro_certificados_importar() {
+        if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1 || $_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . BASE_URL . 'admin');
+            exit;
+        }
+        $curso = trim($_POST['curso'] ?? '');
+        $archivoOk = isset($_FILES['csv']) && $_FILES['csv']['error'] === UPLOAD_ERR_OK
+            && strtolower(pathinfo($_FILES['csv']['name'], PATHINFO_EXTENSION)) === 'csv'
+            && $_FILES['csv']['size'] <= 2 * 1024 * 1024;
+
+        if ($curso === '' || !$archivoOk) {
+            $_SESSION['registro_cert_msg'] = ['tipo' => 'danger', 'texto' => 'Falta el nombre del curso o el archivo .csv (máx. 2 MB).'];
+        } else {
+            $r = (new \App\Models\CertificadoRegistro())->importarCsv(
+                $_FILES['csv']['tmp_name'], $curso, trim($_POST['horas'] ?? ''), trim($_POST['periodo'] ?? ''), trim($_POST['emision'] ?? '')
+            );
+            $_SESSION['registro_cert_msg'] = ['tipo' => $r['ok'] > 0 ? 'success' : 'warning',
+                'texto' => 'Importados: ' . $r['ok'] . '. Filas omitidas (sin código o sin nombre): ' . $r['omitidas'] . '.'];
+        }
+        header('Location: ' . BASE_URL . 'admin/registro_certificados');
         exit;
     }
 

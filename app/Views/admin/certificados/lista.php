@@ -6,6 +6,9 @@
                 <p class="text-muted mb-0">Administra todos los certificados emitidos y atiende solicitudes pendientes.</p>
             </div>
             <div class="mt-3 mt-md-0">
+                <a href="<?= BASE_URL ?>admin/registro_certificados" class="btn btn-outline-primary mr-2">
+                    <i class="material-icons mr-1">verified_user</i> Registro público
+                </a>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevoCertificado">
                     <i class="material-icons mr-1">add_circle</i> Generar Nuevo Certificado
                 </button>

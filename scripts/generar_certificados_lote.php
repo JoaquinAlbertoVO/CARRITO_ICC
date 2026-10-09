@@ -5,6 +5,7 @@
  * Solo por consola (en el navegador responde 404). Uso, desde la carpeta del proyecto:
  *   C:\xampp\php\php.exe scripts\generar_certificados_lote.php RUTA\lote.json [--solo-generar]
  *   C:\xampp\php\php.exe scripts\generar_certificados_lote.php RUTA\lote.json --reemitir=CODIGO[,CODIGO...] [--resumen=RUTA\_resumen.csv]
+ *   C:\xampp\php\php.exe scripts\generar_certificados_lote.php RUTA\lote.json --registrar [--resumen=RUTA\_resumen.csv]
  *
  * El JSON del lote y la lista de alumnos (CSV con columnas Nombre, DNI) viven FUERA del repositorio: llevan
  * datos reales y todo lo que esta en el repo se publica en el sitio. Ver scripts/certificados_lote.ejemplo.json.
@@ -19,6 +20,11 @@
  * la verificacion (sirve para los certificados viejos cuyo QR abre el PDF). Toma nombre y DNI del _resumen.csv del
  * lote (por defecto <salida>/_resumen.csv), y curso/horas/periodo/emision/modalidad del JSON: tienen que ser los del
  * lote original. No registra nada ni toca otros archivos: deja los PDF en <salida>/reemision/.
+ *
+ * --registrar: da de alta en /verificar los certificados de un lote YA generado (por ejemplo, uno que se hizo con
+ * --solo-generar o cuyo registro fallo), SIN volver a crear los PDF. Lee <salida>/_resumen.csv (o --resumen=RUTA) y usa
+ * curso/horas/periodo/emision/modalidad del JSON, que tienen que ser los del lote. Necesita el token. Es seguro repetirlo:
+ * un codigo que ya existe se actualiza, no se duplica.
  */
 if (PHP_SAPI !== 'cli') {
     http_response_code(404);
@@ -93,12 +99,13 @@ function leer_alumnos($ruta) {
     return $out;
 }
 
-/** _resumen.csv de un lote (Nombre, DNI, Codigo, ...): devuelve [codigo en mayusculas => [nombre, dni]]. */
+/** _resumen.csv de un lote (Nombre, DNI, Codigo, Archivo, ...): devuelve [codigo en mayusculas => [nombre, dni, archivo]]. */
 function leer_resumen($ruta) {
     list($cab, $filas) = leer_csv($ruta, 'el _resumen.csv');
     $iN = array_search('nombre', $cab, true);
     $iD = array_search('dni', $cab, true);
     $iC = array_search('codigo', $cab, true);
+    $iA = array_search('archivo', $cab, true);
     if ($iN === false || $iC === false) {
         salir('El _resumen.csv necesita las columnas Nombre y Codigo.');
     }
@@ -106,7 +113,8 @@ function leer_resumen($ruta) {
     foreach ($filas as $f) {
         $codigo = strtoupper(trim($f[$iC] ?? ''));
         if ($codigo !== '') {
-            $mapa[$codigo] = ['nombre' => trim($f[$iN] ?? ''), 'dni' => $iD === false ? '' : trim($f[$iD] ?? '')];
+            $mapa[$codigo] = ['nombre' => trim($f[$iN] ?? ''), 'dni' => $iD === false ? '' : trim($f[$iD] ?? ''),
+                'archivo' => $iA === false ? '' : trim($f[$iA] ?? '')];
         }
     }
     return $mapa;
@@ -146,14 +154,38 @@ function enviar_registro($url, $token, array $certificados) {
     return [$http, $resp === false ? $err : $resp];
 }
 
+/**
+ * Envia los certificados al registro del sitio (de a 200). Devuelve true si todos se registraron; si no, avisa por
+ * consola y devuelve false.
+ */
+function registrar_en_sitio($urlBase, $token, array $lote, $resumenCsv) {
+    $tot = ['registrados' => 0, 'omitidos' => 0];
+    foreach (array_chunk($lote, 200) as $parte) {
+        list($http, $cuerpo) = enviar_registro($urlBase . '/verificar/registrar', $token, $parte);
+        $j = json_decode((string) $cuerpo, true);
+        if ($http === 200 && !empty($j['ok'])) {
+            $tot['registrados'] += (int) $j['registrados'];
+            $tot['omitidos'] += (int) $j['omitidos'];
+        } else {
+            $motivo = $j['error'] ?? trim(substr((string) $cuerpo, 0, 120));
+            fwrite(STDERR, "\nNO SE PUDO REGISTRAR en el sitio (HTTP $http: $motivo).\n");
+            fwrite(STDERR, "Los PDF estan listos. Importa $resumenCsv en admin > Registro publico, o repite con --registrar.\n");
+            return false;
+        }
+    }
+    echo "Registrados en el sitio: {$tot['registrados']} (omitidos: {$tot['omitidos']}). Ya se pueden verificar en $urlBase/verificar\n";
+    return $tot['omitidos'] === 0;
+}
+
 // ---- Argumentos y configuracion del lote ----
 $args = array_slice($argv, 1);
 $soloGenerar = in_array('--solo-generar', $args, true);
+$registrarLote = in_array('--registrar', $args, true);
 $reemitir = [];
 $resumenRuta = null;
 $posicionales = [];
 foreach ($args as $a) {
-    if ($a === '--solo-generar') {
+    if ($a === '--solo-generar' || $a === '--registrar') {
         continue;
     } elseif (strpos($a, '--reemitir=') === 0) {
         $reemitir = array_values(array_filter(array_map(function ($c) { return strtoupper(trim($c)); }, explode(',', substr($a, 11)))));
@@ -170,7 +202,10 @@ $cfg = json_decode((string) @file_get_contents($posicionales[0]), true);
 if (!is_array($cfg)) {
     salir('No se pudo leer el JSON del lote: ' . $posicionales[0]);
 }
-$requeridos = $reemitir ? ['curso', 'codigo_curso', 'horas', 'emision', 'salida'] : ['curso', 'codigo_curso', 'horas', 'emision', 'lista', 'salida'];
+if ($registrarLote && $reemitir) {
+    salir('--registrar y --reemitir no se combinan: usa uno por vez.');
+}
+$requeridos = ($reemitir || $registrarLote) ? ['curso', 'codigo_curso', 'horas', 'emision', 'salida'] : ['curso', 'codigo_curso', 'horas', 'emision', 'lista', 'salida'];
 foreach ($requeridos as $k) {
     if (empty($cfg[$k])) {
         salir("Falta \"$k\" en el JSON del lote.");
@@ -213,6 +248,41 @@ if ($reemitir) {
     }
     echo "\n$hechos certificados reemitidos en $dirRe\n(el registro no se toca: siguen verificandose con el mismo codigo)\n";
     exit($hechos === count($reemitir) ? 0 : 1);
+}
+
+// ---- Modo --registrar: dar de alta un lote ya generado, sin volver a crear los PDF ----
+if ($registrarLote) {
+    $token = (string) ($cfg['token'] ?? getenv('CERT_REGISTRO_TOKEN') ?: '');
+    if ($token === '') {
+        salir('Falta "token" en el JSON del lote (o la variable CERT_REGISTRO_TOKEN): es el mismo del .env del servidor.');
+    }
+    $resumenCsv = $resumenRuta ?? ($salida . '_resumen.csv');
+    $mapa = leer_resumen($resumenCsv);
+    if (!$mapa) {
+        salir("El _resumen.csv no tiene certificados: $resumenCsv");
+    }
+    $lote = [];
+    $sinPdf = 0;
+    foreach ($mapa as $codigo => $al) {
+        if ($al['nombre'] === '') {
+            fwrite(STDERR, "  SIN NOMBRE (se omite): $codigo\n");
+            continue;
+        }
+        if ($al['archivo'] !== '' && !is_file($salida . $al['archivo'])) {
+            $sinPdf++;
+        }
+        $lote[] = [
+            'codigo' => $codigo, 'nombre' => $al['nombre'], 'dni' => $al['dni'], 'curso' => $datos['curso'], 'horas' => $datos['horas'],
+            'periodo' => $datos['periodo'] ?? '', 'fecha_emision' => $datos['emision'], 'modalidad' => $datos['modalidad'] ?? '',
+            'marca' => $marca, 'archivo_pdf' => $al['archivo'],
+        ];
+    }
+    echo count($lote) . " certificados de $resumenCsv\n  curso:    {$datos['curso']} ({$datos['horas']} h)\n  periodo:  " . ($datos['periodo'] ?? '(sin periodo)') .
+        "\n  emision:  {$datos['emision']}\n  marca:    $marca\n";
+    if ($sinPdf > 0) {
+        fwrite(STDERR, "  AVISO: $sinPdf PDF del _resumen.csv no estan en $salida (se registran igual).\n");
+    }
+    exit(registrar_en_sitio($urlBase, $token, $lote, $resumenCsv) ? 0 : 2);
 }
 
 // ---- Modo lote ----
@@ -285,18 +355,4 @@ if ($soloGenerar) {
     exit(0);
 }
 $lote = array_map(function ($r) { unset($r['url_qr']); return $r; }, $registros);
-$tot = ['registrados' => 0, 'omitidos' => 0];
-foreach (array_chunk($lote, 200) as $parte) {
-    list($http, $cuerpo) = enviar_registro($urlBase . '/verificar/registrar', $token, $parte);
-    $j = json_decode((string) $cuerpo, true);
-    if ($http === 200 && !empty($j['ok'])) {
-        $tot['registrados'] += (int) $j['registrados'];
-        $tot['omitidos'] += (int) $j['omitidos'];
-    } else {
-        $motivo = $j['error'] ?? trim(substr((string) $cuerpo, 0, 120));
-        fwrite(STDERR, "\nNO SE PUDO REGISTRAR en el sitio (HTTP $http: $motivo).\n");
-        fwrite(STDERR, "Los PDF estan listos. Importa " . $salida . "_resumen.csv en admin > Registro publico.\n");
-        exit(2);
-    }
-}
-echo "Registrados en el sitio: {$tot['registrados']} (omitidos: {$tot['omitidos']}). Ya se pueden verificar en $urlBase/verificar\n";
+exit(registrar_en_sitio($urlBase, $token, $lote, $salida . '_resumen.csv') ? 0 : 2);

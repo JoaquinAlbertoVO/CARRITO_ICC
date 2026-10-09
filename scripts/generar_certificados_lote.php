@@ -316,6 +316,19 @@ foreach ($alumnos as $al) {
     // Codigo estable por alumno y curso (HMAC con el token): repetir el lote no crea codigos nuevos,
     // y no se puede deducir del DNI.
     $codigo = 'CERT-' . $codigoCurso . '-' . strtoupper(substr(hash_hmac('sha256', $codigoCurso . '|' . $ident, $token), 0, 10));
+    // Opcional ("codigo_con_dni": true en el JSON): CERT-<SIGLA>-<DNI>, como los lotes antiguos. Es deducible del DNI;
+    // sin DNI se mantiene el codigo HMAC.
+    // Con la opcion activa, quien no tiene DNI usa su nombre (CERT-<SIGLA>-NOMBRE-APELLIDO).
+    $conDni = false;
+    if (!empty($cfg['codigo_con_dni'])) {
+        if (preg_match('/^[A-Za-z0-9-]+$/', $dni)) {
+            $codigo = 'CERT-' . $codigoCurso . '-' . strtoupper($dni);
+            $conDni = true;
+        } elseif ($dni === '') {
+            $codigo = 'CERT-' . $codigoCurso . '-' . str_replace('_', '-', sanear($nombre));
+            $conDni = true;
+        }
+    }
     if (isset($vistos[$codigo])) {
         echo "  OMITIDO (repetido en la lista): $nombre\n";
         continue;
@@ -324,7 +337,7 @@ foreach ($alumnos as $al) {
 
     $urlQr = $urlVerificacion . $codigo;
     // (el nombre se acorta: Windows no admite rutas de mas de ~260 caracteres)
-    $archivo = rtrim(substr(sanear($nombre), 0, 60), '_') . '_' . $codigo . '.pdf';
+    $archivo = $conDni ? $codigo . '.pdf' : rtrim(substr(sanear($nombre), 0, 60), '_') . '_' . $codigo . '.pdf';
     crear_pdf($modelo, $datos, $nombre, $dni, $codigo, $urlQr, $salida . $archivo);
     if ($copia) {
         copy($salida . $archivo, $copia . $archivo);

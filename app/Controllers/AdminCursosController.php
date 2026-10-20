@@ -1055,28 +1055,11 @@ class AdminCursosController extends Controller {
         $previo = $f['codigo'] === '' ? null : $registro->buscar($codigo);
 
         $nombre = preg_replace('/\s+/u', ' ', $f['alumno']);
-        $dir = __DIR__ . '/../../assets/certificados/' . self::CARPETA_SUELTOS;
-        if (!is_dir($dir) && !mkdir($dir, 0777, true)) {
-            $volver('danger', 'No se pudo crear la carpeta de certificados sueltos en el servidor.');
-        }
-        $sin_tildes = strtr($nombre, [
-            'á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ñ' => 'n', 'ü' => 'u',
-            'Á' => 'A', 'É' => 'E', 'Í' => 'I', 'Ó' => 'O', 'Ú' => 'U', 'Ñ' => 'N', 'Ü' => 'U',
-        ]);
-        $slug = strtoupper(trim(preg_replace('/[^A-Za-z0-9]+/', '_', $sin_tildes), '_'));
-        $archivo = rtrim(substr($slug, 0, 60), '_') . '_' . $codigo . '.pdf';
-
         try {
-            (new \App\Models\Certificado())->guardarPdf([
-                'alumno' => $nombre, 'dni' => $f['dni'], 'curso' => $f['curso'], 'horas' => $f['horas'],
+            $archivo = $this->emitir_certificado_icc([
+                'nombre' => $nombre, 'dni' => $f['dni'], 'curso' => $f['curso'], 'horas' => $f['horas'],
                 'emision' => $emision, 'periodo' => $periodo, 'modalidad' => $modalidad,
-            ], $codigo, BASE_URL . 'verificar/' . $codigo, $dir . $archivo);
-
-            $registro->registrar([
-                'codigo' => $codigo, 'nombre' => $nombre, 'dni' => $f['dni'], 'curso' => $f['curso'], 'horas' => $f['horas'],
-                'periodo' => $periodo, 'fecha_emision' => $emision, 'modalidad' => $modalidad, 'marca' => 'ICC',
-                'archivo_pdf' => self::CARPETA_SUELTOS . $archivo,
-            ]);
+            ], $codigo, self::CARPETA_SUELTOS, $registro);
         } catch (\Throwable $e) {
             error_log('Certificado suelto: ' . $e->getMessage());
             $volver('danger', 'No se pudo generar el certificado: ' . $e->getMessage());
@@ -1084,7 +1067,199 @@ class AdminCursosController extends Controller {
 
         $texto = 'Certificado generado para ' . $nombre . ' (código ' . $codigo . ').'
             . ($previo ? ' El código ya existía: se actualizó su registro público con estos datos.' : '');
-        $volver('success', $texto, ['pdf' => BASE_URL . 'assets/certificados/' . self::CARPETA_SUELTOS . rawurlencode($archivo), 'codigo' => $codigo]);
+        $volver('success', $texto, ['pdf' => $this->url_certificado($archivo), 'codigo' => $codigo]);
+    }
+
+    /**
+     * Dibuja el PDF de un certificado ICC (con su codigo y el QR de /verificar/<codigo>) dentro de assets/certificados/<carpeta>
+     * y lo da de alta (o actualiza) en el registro publico. Devuelve la ruta del PDF relativa a assets/certificados/.
+     * @param array  $c       nombre, dni, curso, horas, emision (texto), periodo (o null), modalidad (o null)
+     * @param string $carpeta con barra final, p. ej. 'SUELTOS/'
+     * @param string|null $archivo nombre del PDF; null = <NOMBRE>_<CODIGO>.pdf
+     * @throws \RuntimeException si no se puede crear la carpeta
+     */
+    private function emitir_certificado_icc(array $c, $codigo, $carpeta, \App\Models\CertificadoRegistro $registro, $archivo = null) {
+        $dir = __DIR__ . '/../../assets/certificados/' . $carpeta;
+        if (!is_dir($dir) && !mkdir($dir, 0777, true)) {
+            throw new \RuntimeException('No se pudo crear la carpeta ' . $carpeta . ' en el servidor.');
+        }
+        if (!is_file($dir . 'index.html')) {
+            @file_put_contents($dir . 'index.html', ''); // evita que el servidor liste los PDF de la carpeta
+        }
+        if ($archivo === null) {
+            $archivo = rtrim(substr($this->slug_mayusculas($c['nombre']), 0, 60), '_') . '_' . $codigo . '.pdf';
+        }
+        (new \App\Models\Certificado())->guardarPdf([
+            'alumno' => $c['nombre'], 'dni' => $c['dni'], 'curso' => $c['curso'], 'horas' => $c['horas'],
+            'emision' => $c['emision'], 'periodo' => $c['periodo'], 'modalidad' => $c['modalidad'],
+        ], $codigo, BASE_URL . 'verificar/' . $codigo, $dir . $archivo);
+
+        $registro->registrar([
+            'codigo' => $codigo, 'nombre' => $c['nombre'], 'dni' => $c['dni'], 'curso' => $c['curso'], 'horas' => $c['horas'],
+            'periodo' => $c['periodo'], 'fecha_emision' => $c['emision'], 'modalidad' => $c['modalidad'], 'marca' => 'ICC',
+            'archivo_pdf' => $carpeta . $archivo,
+        ]);
+        return $carpeta . $archivo;
+    }
+
+    /** "María José Peña" -> "MARIA_JOSE_PENA" (para nombres de archivo y codigos). */
+    private function slug_mayusculas($txt) {
+        $sin_tildes = strtr($txt, [
+            'á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ñ' => 'n', 'ü' => 'u',
+            'Á' => 'A', 'É' => 'E', 'Í' => 'I', 'Ó' => 'O', 'Ú' => 'U', 'Ñ' => 'N', 'Ü' => 'U',
+        ]);
+        return strtoupper(trim(preg_replace('/[^A-Za-z0-9]+/', '_', $sin_tildes), '_'));
+    }
+
+    /** URL publica de un PDF dado su ruta relativa a assets/certificados/. */
+    private function url_certificado($ruta) {
+        return BASE_URL . 'assets/certificados/' . implode('/', array_map('rawurlencode', explode('/', $ruta)));
+    }
+
+    // --- CERTIFICADOS EN LOTE (carga masiva: la pagina manda una fila por vez y arma el ZIP al final) ---
+    const CARPETA_LOTES = 'LOTES_WEB/';
+    const MAX_FILAS_LOTE = 500;
+
+    private function lote_valido($lote) {
+        return preg_match('/^\d{8}_\d{6}_[a-f0-9]{6}$/', (string) $lote) === 1;
+    }
+
+    public function certificado_masivo() {
+        if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
+            header('Location: ' . BASE_URL . 'admin');
+            exit;
+        }
+        new \App\Models\Curso();
+        $cursos = [];
+        try {
+            $cursos = $this->db->query("SELECT nombre_curso, horas_academicas, fecha_inicio, fecha_fin FROM cursos ORDER BY nombre_curso ASC")->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log('Certificado masivo: no se pudo leer la lista de cursos: ' . $e->getMessage());
+        }
+        $this->view('admin/certificados/masivo', [
+            'cursos' => $cursos,
+            'lote' => date('Ymd_His') . '_' . bin2hex(random_bytes(3)),
+            'max_filas' => self::MAX_FILAS_LOTE,
+        ], 'admin/layouts/main');
+    }
+
+    /** POST (AJAX): emite el certificado de UNA fila del lote. Responde JSON {ok, codigo, archivo, pdf, previo} o {ok:false, error}. */
+    public function certificado_masivo_fila() {
+        header('Content-Type: application/json; charset=utf-8');
+        $responder = function ($ok, $datos = []) {
+            echo json_encode(['ok' => $ok] + $datos, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            exit;
+        };
+        if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1 || $_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(403);
+            $responder(false, ['error' => 'Sesión vencida: vuelve a entrar al panel y repite.']);
+        }
+        @set_time_limit(120);
+
+        $f = [];
+        foreach (['lote', 'alumno', 'dni', 'codigo', 'curso', 'horas', 'modalidad', 'inicio', 'fin', 'emision', 'tipo_codigo', 'sigla'] as $k) {
+            $f[$k] = trim((string) ($_POST[$k] ?? ''));
+        }
+        if (!$this->lote_valido($f['lote'])) {
+            $responder(false, ['error' => 'Identificador de lote no válido: recarga la página.']);
+        }
+        $nombre = trim(preg_replace('/\s+/u', ' ', $f['alumno']));
+        if ($nombre === '' || $f['curso'] === '' || $f['horas'] === '') {
+            $responder(false, ['error' => 'Faltan datos: nombre, curso y horas son obligatorios.']);
+        }
+        if ($f['dni'] !== '' && !preg_match('/^[A-Za-z0-9-]{1,20}$/', $f['dni'])) {
+            $responder(false, ['error' => 'DNI no válido (solo letras, números y guiones).']);
+        }
+        $emision = \App\Models\Certificado::textoEmision($f['emision']);
+        if ($emision === null) {
+            $responder(false, ['error' => 'La fecha de emisión no es válida.']);
+        }
+        $modalidad = in_array($f['modalidad'], ['Virtual', 'Presencial', 'Semipresencial'], true) ? $f['modalidad'] : null;
+        $periodo = \App\Models\Certificado::textoPeriodo($f['inicio'], $f['fin']);
+
+        try {
+            $registro = new \App\Models\CertificadoRegistro();
+
+            // Codigo: el de la fila si lo trae (reemision); CERT-<SIGLA>-<DNI> como los lotes antiguos; o aleatorio.
+            // En el aleatorio, quien ya tiene certificado de este curso y fecha conserva su codigo (repetir el lote o
+            // reintentar una fila no crea codigos nuevos).
+            $archivo = null;
+            if ($f['codigo'] !== '') {
+                $codigo = \App\Models\CertificadoRegistro::normalizar($f['codigo']);
+                if ($codigo === '') {
+                    $responder(false, ['error' => 'Código no válido: usa 6 a 60 letras, números o guiones.']);
+                }
+            } elseif ($f['tipo_codigo'] === 'dni') {
+                $sigla = strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $f['sigla']));
+                if ($sigla === '') {
+                    $responder(false, ['error' => 'Falta la sigla del curso para armar el código (CERT-<SIGLA>-<DNI>).']);
+                }
+                $ident = $f['dni'] !== '' ? strtoupper($f['dni']) : str_replace('_', '-', substr($this->slug_mayusculas($nombre), 0, 40));
+                $codigo = \App\Models\CertificadoRegistro::normalizar('CERT-' . substr($sigla, 0, 12) . '-' . $ident);
+                if ($codigo === '') {
+                    $responder(false, ['error' => 'No se pudo armar el código con este DNI/nombre.']);
+                }
+                $archivo = $codigo . '.pdf';
+            } else {
+                $codigo = $registro->buscarMismo($nombre, $f['dni'], $f['curso'], $emision) ?: \App\Models\CertificadoRegistro::generarCodigo();
+            }
+            $previo = $registro->buscar($codigo) !== null;
+
+            $ruta = $this->emitir_certificado_icc([
+                'nombre' => $nombre, 'dni' => $f['dni'], 'curso' => $f['curso'], 'horas' => $f['horas'],
+                'emision' => $emision, 'periodo' => $periodo, 'modalidad' => $modalidad,
+            ], $codigo, self::CARPETA_LOTES . $f['lote'] . '/', $registro, $archivo);
+        } catch (\Throwable $e) {
+            error_log('Certificado masivo: ' . $e->getMessage());
+            $responder(false, ['error' => 'No se pudo generar: ' . $e->getMessage()]);
+        }
+        $responder(true, ['codigo' => $codigo, 'archivo' => basename($ruta), 'pdf' => $this->url_certificado($ruta), 'previo' => $previo]);
+    }
+
+    /** GET ?lote=...: ZIP con todos los PDF del lote y su _resumen.csv (mismo formato que deja el script de lotes). */
+    public function certificado_masivo_zip() {
+        if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
+            header('Location: ' . BASE_URL . 'admin');
+            exit;
+        }
+        $lote = (string) ($_GET['lote'] ?? '');
+        if (!$this->lote_valido($lote)) {
+            die('Lote no válido.');
+        }
+        if (!class_exists('\ZipArchive')) {
+            die('El servidor no tiene habilitada la extensión ZIP de PHP: descarga los PDF uno por uno desde la lista.');
+        }
+        $carpeta = self::CARPETA_LOTES . $lote . '/';
+        $filas = (new \App\Models\CertificadoRegistro())->listarCarpeta($carpeta);
+        if (!$filas) {
+            die('Este lote no tiene certificados.');
+        }
+
+        $csv = "\xEF\xBB\xBF\"Nombre\",\"DNI\",\"Codigo\",\"Archivo\",\"URL_QR\"\n";
+        $zip = new \ZipArchive();
+        $tmp = tempnam(sys_get_temp_dir(), 'lote');
+        if ($zip->open($tmp, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== true) {
+            die('No se pudo crear el ZIP.');
+        }
+        foreach ($filas as $r) {
+            $archivo = basename($r['archivo_pdf']);
+            $ruta = __DIR__ . '/../../assets/certificados/' . $r['archivo_pdf'];
+            if (is_file($ruta)) {
+                $zip->addFile($ruta, $archivo);
+            }
+            $csv .= '"' . implode('","', array_map(function ($v) { return str_replace('"', '""', (string) $v); },
+                [$r['nombre'], $r['dni'], $r['codigo'], $archivo, BASE_URL . 'verificar/' . $r['codigo']])) . "\"\n";
+        }
+        $zip->addFromString('_resumen.csv', $csv);
+        $zip->close();
+
+        $nombre_zip = 'CERTIFICADOS_' . (substr($this->slug_mayusculas($filas[0]['curso']), 0, 50) ?: 'LOTE') . '_' . substr($lote, 0, 8) . '.zip';
+        header('Content-Type: application/zip');
+        header('Content-Disposition: attachment; filename="' . $nombre_zip . '"');
+        header('Content-Length: ' . filesize($tmp));
+        readfile($tmp);
+        @unlink($tmp);
+        exit;
     }
 
     // --- REGISTRO PUBLICO DE CERTIFICADOS (pagina /verificar) ---

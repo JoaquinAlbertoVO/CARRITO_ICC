@@ -10,6 +10,7 @@ $mod = $viejo['modalidad'] ?? 'Virtual';
                 <p class="text-muted mb-0">Genera un certificado ICC con QR de verificación para un alumno que no está en el sistema (reemplazos, pedidos puntuales).</p>
             </div>
             <div class="mt-3 mt-md-0">
+                <a href="<?= BASE_URL ?>admin/certificado_masivo" class="btn btn-outline-primary mr-2">Certificados en lote</a>
                 <a href="<?= BASE_URL ?>admin/certificados" class="btn btn-outline-primary">Volver a certificados</a>
             </div>
         </div>

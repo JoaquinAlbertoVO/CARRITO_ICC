@@ -207,6 +207,31 @@ class CertificadoRegistro {
         return $st->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Codigo del certificado ICC ya emitido a la misma persona (DNI, o nombre si no tiene) para el mismo curso y fecha de
+     * emision, o null. Sirve para que repetir un lote (o reintentar una fila) reutilice el codigo en vez de crear otro.
+     */
+    public function buscarMismo($nombre, $dni, $curso, $emision) {
+        $dni = trim((string) $dni);
+        if ($dni !== '') {
+            $st = $this->db->prepare("SELECT codigo FROM certificados_emitidos WHERE marca = 'ICC' AND curso = ? AND fecha_emision = ? AND dni = ? ORDER BY id DESC LIMIT 1");
+            $st->execute([$curso, $emision, $dni]);
+        } else {
+            $st = $this->db->prepare("SELECT codigo FROM certificados_emitidos WHERE marca = 'ICC' AND curso = ? AND fecha_emision = ? AND (dni IS NULL OR dni = '') AND nombre = ? ORDER BY id DESC LIMIT 1");
+            $st->execute([$curso, $emision, $nombre]);
+        }
+        $c = $st->fetchColumn();
+        return $c === false ? null : $c;
+    }
+
+    /** Todos los certificados cuyo PDF esta bajo $carpeta (p. ej. 'LOTES_WEB/20261020_153000_ab12cd/'), en orden de alta. */
+    public function listarCarpeta($carpeta) {
+        $like = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $carpeta) . '%';
+        $st = $this->db->prepare("SELECT codigo, nombre, dni, curso, archivo_pdf FROM certificados_emitidos WHERE archivo_pdf LIKE ? ORDER BY id ASC");
+        $st->execute([$like]);
+        return $st->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     /** Anula o reactiva un certificado: la pagina publica pasa a decir "anulado" / "valido". */
     public function cambiarEstado($id, $estado) {
         if (!in_array($estado, ['vigente', 'anulado'], true)) {

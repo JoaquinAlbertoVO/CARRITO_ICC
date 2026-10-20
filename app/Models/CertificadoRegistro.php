@@ -197,6 +197,16 @@ class CertificadoRegistro {
         return $st->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /** Ultimos certificados cuyo PDF esta bajo $carpeta (p. ej. 'SUELTOS/'), con el archivo, para el panel. */
+    public function recientesEnCarpeta($carpeta, $limite = 10) {
+        $limite = max(1, min(50, (int) $limite));
+        $like = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $carpeta) . '%';
+        $st = $this->db->prepare("SELECT codigo, nombre, curso, fecha_emision, archivo_pdf, estado FROM certificados_emitidos
+            WHERE archivo_pdf LIKE ? ORDER BY id DESC LIMIT $limite");
+        $st->execute([$like]);
+        return $st->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     /** Anula o reactiva un certificado: la pagina publica pasa a decir "anulado" / "valido". */
     public function cambiarEstado($id, $estado) {
         if (!in_array($estado, ['vigente', 'anulado'], true)) {

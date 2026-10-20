@@ -251,6 +251,48 @@ class Certificado {
         return 'Realizado del ' . $f($a) . ' al ' . $f($b);
     }
 
+    /** 'Y-m-d' -> "20 de Octubre del 2026" (como se imprime en "Emitido: ..."), o null si no es una fecha valida. */
+    public static function textoEmision($ymd) {
+        $d = self::fecha_ymd($ymd);
+        if (!$d) {
+            return null;
+        }
+        $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        return (int)$d->format('j') . ' de ' . $meses[(int)$d->format('n') - 1] . ' del ' . $d->format('Y');
+    }
+
+    /**
+     * Dibuja el certificado completo (texto, codigo y QR de verificacion) y lo guarda como PDF A4 apaisado en $ruta_pdf.
+     * @param array  $d       alumno, dni, curso, horas, emision, periodo (o null), modalidad (o null)
+     * @param string $codigo  codigo impreso en el panel
+     * @param string $url_qr  direccion que abre el QR
+     */
+    public function guardarPdf(array $d, $codigo, $url_qr, $ruta_pdf) {
+        require_once __DIR__ . '/../Libraries/phpqrcode/qrlib.php';
+        require_once __DIR__ . '/../Libraries/fpdf/fpdf.php';
+
+        $imagen = $this->generarImagenCertificado($d['alumno'], $d['dni'], $d['curso'], $d['horas'], $d['emision'], '', $d['periodo'], null, $d['modalidad']);
+        $this->dibujarCodigo($imagen, $codigo);
+
+        $base = sys_get_temp_dir() . '/cert_' . preg_replace('/[^A-Za-z0-9-]/', '', $codigo);
+        imagejpeg($imagen, $base . '.jpg', 100);
+        imagedestroy($imagen);
+
+        // phpqrcode emite avisos de funciones obsoletas en PHP 8+ que romperian los headers
+        $viejo = error_reporting(error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+        \QRcode::png($url_qr, $base . '_qr.png', QR_ECLEVEL_M, 10, 0);
+        error_reporting($viejo);
+
+        $pdf = new \FPDF('L', 'mm', 'A4');
+        $pdf->AddPage();
+        $pdf->Image($base . '.jpg', 0, 0, 297, 210);
+        list($qx, $qy, $ql) = self::QR_MM;
+        $pdf->Image($base . '_qr.png', $qx, $qy, $ql, $ql);
+        $pdf->Output('F', $ruta_pdf);
+        @unlink($base . '.jpg');
+        @unlink($base . '_qr.png');
+    }
+
     /** "Realizado del 1 de Setiembre al 19 de Setiembre del 2026." -> [prefijo normal, fechas en negrita]. */
     private function partir_fechas($texto) {
         $t = trim(preg_replace('/[\s\.]+$/u', '', trim($texto)));

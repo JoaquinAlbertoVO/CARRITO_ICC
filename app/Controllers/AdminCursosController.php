@@ -983,6 +983,110 @@ class AdminCursosController extends Controller {
         exit;
     }
 
+    // --- CERTIFICADO SUELTO (sin alumno ni curso en la base: reemplazos, pedidos puntuales) ---
+    const CARPETA_SUELTOS = 'SUELTOS/';
+
+    public function certificado_suelto() {
+        if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
+            header('Location: ' . BASE_URL . 'admin');
+            exit;
+        }
+        $mensaje = $_SESSION['cert_suelto_msg'] ?? null;
+        unset($_SESSION['cert_suelto_msg']);
+        $viejo = $_SESSION['cert_suelto_form'] ?? [];
+        unset($_SESSION['cert_suelto_form']);
+
+        new \App\Models\Curso(); // su constructor crea las columnas fecha_inicio / fecha_fin si aun no existen
+        $cursos = [];
+        try {
+            $cursos = $this->db->query("SELECT nombre_curso, horas_academicas, fecha_inicio, fecha_fin FROM cursos ORDER BY nombre_curso ASC")->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log('Certificado suelto: no se pudo leer la lista de cursos: ' . $e->getMessage());
+        }
+
+        $recientes = [];
+        try {
+            $recientes = (new \App\Models\CertificadoRegistro())->recientesEnCarpeta(self::CARPETA_SUELTOS, 10);
+        } catch (\Throwable $e) {
+            error_log('Certificado suelto: no se pudo leer el registro: ' . $e->getMessage());
+        }
+
+        $this->view('admin/certificados/suelto', [
+            'mensaje' => $mensaje, 'viejo' => $viejo, 'cursos' => $cursos, 'recientes' => $recientes,
+        ], 'admin/layouts/main');
+    }
+
+    /** POST: genera el PDF con QR, lo guarda en assets/certificados/SUELTOS/ y lo da de alta en /verificar. */
+    public function certificado_suelto_generar() {
+        if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1 || $_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . BASE_URL . 'admin');
+            exit;
+        }
+        $f = [];
+        foreach (['alumno', 'dni', 'curso', 'horas', 'modalidad', 'inicio', 'fin', 'emision', 'codigo'] as $k) {
+            $f[$k] = trim((string) ($_POST[$k] ?? ''));
+        }
+        $volver = function ($tipo, $texto, $extra = []) use ($f) {
+            $_SESSION['cert_suelto_msg'] = ['tipo' => $tipo, 'texto' => $texto] + $extra;
+            // Si hubo error se conserva todo lo escrito; si salio bien, solo los datos del curso (para emitir otro del mismo)
+            $_SESSION['cert_suelto_form'] = $tipo === 'success' ? array_diff_key($f, ['alumno' => 1, 'dni' => 1, 'codigo' => 1]) : $f;
+            header('Location: ' . BASE_URL . 'admin/certificado_suelto');
+            exit;
+        };
+
+        if ($f['alumno'] === '' || $f['curso'] === '' || $f['horas'] === '') {
+            $volver('danger', 'Faltan datos: nombre del alumno, curso y horas académicas son obligatorios.');
+        }
+        if ($f['dni'] !== '' && !preg_match('/^[A-Za-z0-9-]{1,20}$/', $f['dni'])) {
+            $volver('danger', 'El documento solo puede tener letras, números y guiones (máx. 20).');
+        }
+        $emision = \App\Models\Certificado::textoEmision($f['emision']);
+        if ($emision === null) {
+            $volver('danger', 'La fecha de emisión no es válida.');
+        }
+        $modalidad = in_array($f['modalidad'], ['Virtual', 'Presencial', 'Semipresencial'], true) ? $f['modalidad'] : null;
+        $periodo = \App\Models\Certificado::textoPeriodo($f['inicio'], $f['fin']);
+
+        $registro = new \App\Models\CertificadoRegistro();
+        $codigo = $f['codigo'] === '' ? \App\Models\CertificadoRegistro::generarCodigo() : \App\Models\CertificadoRegistro::normalizar($f['codigo']);
+        if ($codigo === '') {
+            $volver('danger', 'El código no es válido: usa 6 a 60 letras, números o guiones (ej. CERT-MSE-12345678).');
+        }
+        $previo = $f['codigo'] === '' ? null : $registro->buscar($codigo);
+
+        $nombre = preg_replace('/\s+/u', ' ', $f['alumno']);
+        $dir = __DIR__ . '/../../assets/certificados/' . self::CARPETA_SUELTOS;
+        if (!is_dir($dir) && !mkdir($dir, 0777, true)) {
+            $volver('danger', 'No se pudo crear la carpeta de certificados sueltos en el servidor.');
+        }
+        $sin_tildes = strtr($nombre, [
+            'á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ñ' => 'n', 'ü' => 'u',
+            'Á' => 'A', 'É' => 'E', 'Í' => 'I', 'Ó' => 'O', 'Ú' => 'U', 'Ñ' => 'N', 'Ü' => 'U',
+        ]);
+        $slug = strtoupper(trim(preg_replace('/[^A-Za-z0-9]+/', '_', $sin_tildes), '_'));
+        $archivo = rtrim(substr($slug, 0, 60), '_') . '_' . $codigo . '.pdf';
+
+        try {
+            (new \App\Models\Certificado())->guardarPdf([
+                'alumno' => $nombre, 'dni' => $f['dni'], 'curso' => $f['curso'], 'horas' => $f['horas'],
+                'emision' => $emision, 'periodo' => $periodo, 'modalidad' => $modalidad,
+            ], $codigo, BASE_URL . 'verificar/' . $codigo, $dir . $archivo);
+
+            $registro->registrar([
+                'codigo' => $codigo, 'nombre' => $nombre, 'dni' => $f['dni'], 'curso' => $f['curso'], 'horas' => $f['horas'],
+                'periodo' => $periodo, 'fecha_emision' => $emision, 'modalidad' => $modalidad, 'marca' => 'ICC',
+                'archivo_pdf' => self::CARPETA_SUELTOS . $archivo,
+            ]);
+        } catch (\Throwable $e) {
+            error_log('Certificado suelto: ' . $e->getMessage());
+            $volver('danger', 'No se pudo generar el certificado: ' . $e->getMessage());
+        }
+
+        $texto = 'Certificado generado para ' . $nombre . ' (código ' . $codigo . ').'
+            . ($previo ? ' El código ya existía: se actualizó su registro público con estos datos.' : '');
+        $volver('success', $texto, ['pdf' => BASE_URL . 'assets/certificados/' . self::CARPETA_SUELTOS . rawurlencode($archivo), 'codigo' => $codigo]);
+    }
+
     // --- REGISTRO PUBLICO DE CERTIFICADOS (pagina /verificar) ---
     public function registro_certificados() {
         if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {

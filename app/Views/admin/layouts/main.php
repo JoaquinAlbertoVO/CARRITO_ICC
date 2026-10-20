@@ -301,7 +301,7 @@ if (empty($_SESSION['active'])) {
 
 
                                 <?php $current_path = $_SERVER['REQUEST_URI'] ?? ''; ?>
-                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/ingenieria') === false && strpos($current_path, 'admin/cursos') === false && strpos($current_path, 'admin/certificados') === false && strpos($current_path, 'admin/ventas') === false && strpos($current_path, 'admin/boleta_rapida') === false && strpos($current_path, 'admin/gestionar_videos') === false) ? 'active' : '' ?>">
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/ingenieria') === false && strpos($current_path, 'admin/cursos') === false && strpos($current_path, 'admin/certificados') === false && strpos($current_path, 'admin/certificado_suelto') === false && strpos($current_path, 'admin/ventas') === false && strpos($current_path, 'admin/boleta_rapida') === false && strpos($current_path, 'admin/gestionar_videos') === false) ? 'active' : '' ?>">
                                         <a class="sidebar-menu-button" href="./">
                                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
@@ -351,6 +351,14 @@ if (empty($_SESSION['active'])) {
                                                 <i class="material-icons text-muted">card_membership</i>
                                             </span>
                                             <span class="sidebar-menu-text">Certificados</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/certificado_suelto') !== false) ? 'active' : '' ?>">
+                                        <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/certificado_suelto">
+                                            <span class="sidebar-menu-icon sidebar-menu-icon--left">
+                                                <i class="material-icons text-muted">note_add</i>
+                                            </span>
+                                            <span class="sidebar-menu-text">Certificado suelto</span>
                                         </a>
                                     </li>
                                 </ul>

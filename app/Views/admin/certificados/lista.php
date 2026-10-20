@@ -9,6 +9,9 @@
                 <a href="<?= BASE_URL ?>admin/registro_certificados" class="btn btn-outline-primary mr-2">
                     <i class="material-icons mr-1">verified_user</i> Registro público
                 </a>
+                <a href="<?= BASE_URL ?>admin/certificado_suelto" class="btn btn-outline-success mr-2">
+                    <i class="material-icons mr-1">note_add</i> Certificado suelto
+                </a>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevoCertificado">
                     <i class="material-icons mr-1">add_circle</i> Generar Nuevo Certificado
                 </button>

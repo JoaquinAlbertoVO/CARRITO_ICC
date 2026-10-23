@@ -20,9 +20,19 @@ class User {
 
         $admin = $stmt->fetch();
         if ($admin) {
-            // Validar la contraseña (si es hash bcrypt, si no, fallback por seguridad antes de migrar)
-            if (password_verify($pass, $admin['pass']) || $pass === $admin['pass']) {
-                // Autenticación correcta
+            $guardada = (string) $admin['pass'];
+            // Si la columna guarda un hash, solo vale password_verify: comparar en texto plano dejaria
+            // entrar a quien escriba el hash mismo (por ejemplo, sacado de un respaldo de la base)
+            if (password_get_info($guardada)['algo'] !== null) {
+                if (password_verify($pass, $guardada)) {
+                    return $admin;
+                }
+                return false;
+            }
+            // Admin que aun tiene la clave en texto plano: se acepta una vez y se guarda como bcrypt
+            if ($guardada !== '' && hash_equals($guardada, (string) $pass)) {
+                $update = $this->db->prepare("UPDATE plataforma SET pass = ? WHERE id_pla = ?");
+                $update->execute([password_hash($pass, PASSWORD_BCRYPT), $admin['id_pla']]);
                 return $admin;
             }
         }

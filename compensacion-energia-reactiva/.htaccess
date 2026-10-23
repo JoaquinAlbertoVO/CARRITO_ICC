@@ -1,3 +1,2 @@
-RewriteEngine on
-	RewriteCond %{QUERY_STRING} ^((.*?)&|)utm_
-    RewriteRule ^(.*)$ https://pvty2.site [R=301,NE,L]
+# Vaciado a proposito: traia una redireccion maliciosa de las visitas con utm_ hacia un dominio ajeno.
+# Se deja el archivo (en vez de borrarlo) para que el despliegue sobrescriba la copia del servidor.

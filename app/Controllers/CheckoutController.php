@@ -569,6 +569,14 @@ class CheckoutController extends Controller {
     // via la API del sistema react-cours, no toca la BD de ICC)
     // ============================================================
 
+    // Precios de lista en soles por ?tipo= (los mismos precioDefault de app/Views/checkout/stenergy.php;
+    // si cambian alla, cambiarlos aqui tambien).
+    const STENERGY_PRECIO_LISTA_PEN = ['solo' => 600, 'duo' => 900, 'subestaciones' => 350];
+    // Un pago por PayPal se acepta si es al menos este % de la lista (deja pasar promos como S/ 570 en el duo = 63 %).
+    const STENERGY_PISO_PORCENTAJE = 0.50;
+    // Mismo tipo de cambio que usa la pagina para pasar de soles a dolares.
+    const STENERGY_TIPO_CAMBIO = 3.80;
+
     public function stenergy() {
         $this->view('checkout/stenergy', [], false);
     }
@@ -633,6 +641,37 @@ class CheckoutController extends Controller {
         $nombrePaypal = trim(($payer['name']['given_name'] ?? '') . ' ' . ($payer['name']['surname'] ?? ''));
         $nombreFinal = $nombre !== '' ? trim($nombre . ' ' . $apellido) : ($nombrePaypal ?: 'Alumno ST Energy');
 
+        $nombresCurso = [
+            'solo' => 'Terminaciones Termocontraíbles en Media Tensión',
+            'duo' => 'Terminaciones y Empalmes Termocontraíbles en Media Tensión',
+            'subestaciones' => 'Mantenimiento de Subestaciones Eléctricas',
+        ];
+
+        // Piso de monto: el precio viaja en el link (?precio=), asi que alguien podria editarlo y pagar
+        // centavos. Un pago en otra moneda o por debajo del piso NO se matricula: se avisa al equipo
+        // para que lo revise a mano (el dinero ya entro a PayPal, asi que nunca se descarta en silencio).
+        $listaPen = self::STENERGY_PRECIO_LISTA_PEN[$tipo];
+        $pisoUsd  = round($listaPen * self::STENERGY_PISO_PORCENTAJE / self::STENERGY_TIPO_CAMBIO, 2);
+        if ($monedaPagada !== 'USD' || (float)$monto < $pisoUsd) {
+            file_put_contents($logFile, date('Y-m-d H:i:s') . " | MONTO SOSPECHOSO (pago $monto $monedaPagada, piso $pisoUsd USD, tipo $tipo): $nombreFinal ($emailFinal) - Orden $orderId - NO matriculado\n", FILE_APPEND);
+            try {
+                require_once __DIR__ . '/../Helpers/Mailer.php';
+                \App\Helpers\Mailer::notificarMatricula([
+                    'marca' => 'ST Energy', 'sinSheets' => true,
+                    'titulo' => 'Pago PayPal con monto por revisar',
+                    'nota' => "El monto pagado ($monto $monedaPagada) está por debajo del mínimo aceptado para este curso ($pisoUsd USD, lista S/ $listaPen). NO se matriculó al alumno: revisa la venta en PayPal y decide si darle acceso o devolverle el dinero.",
+                    'metodo' => 'PayPal / Tarjeta', 'estado' => 'MONTO POR REVISAR',
+                    'nombre' => $nombreFinal, 'documento' => $dni, 'correo' => $emailFinal, 'celular' => $celular,
+                    'curso' => $nombresCurso[$tipo], 'monto' => $monto, 'moneda' => $monedaPagada, 'referencia' => $orderId,
+                ]);
+            } catch (\Throwable $e) {
+                file_put_contents($logFile, date('Y-m-d H:i:s') . ' | FALLO aviso por correo (monto sospechoso): ' . $e->getMessage() . "\n", FILE_APPEND);
+            }
+            http_response_code(402);
+            echo json_encode(['success' => false, 'error' => 'El monto pagado no coincide con el precio del curso. Escribenos por WhatsApp con tu numero de orden: ' . $orderId]);
+            return;
+        }
+
         if (empty($emailFinal)) {
             file_put_contents($logFile, date('Y-m-d H:i:s') . " | ERROR: pago confirmado pero sin correo del comprador (Orden $orderId)\n", FILE_APPEND);
             http_response_code(400);
@@ -669,11 +708,6 @@ class CheckoutController extends Controller {
         file_put_contents($logFile, date('Y-m-d H:i:s') . " | VENTA ST ENERGY OK: $nombreFinal ($emailFinal) - Orden $orderId - $monto $monedaPagada - DNI $dni - Cel $celular\n", FILE_APPEND);
 
         // Aviso al equipo de ST Energy (solo correo, sin Google Sheets). Un fallo aqui nunca afecta al pago.
-        $nombresCurso = [
-            'solo' => 'Terminaciones Termocontraíbles en Media Tensión',
-            'duo' => 'Terminaciones y Empalmes Termocontraíbles en Media Tensión',
-            'subestaciones' => 'Mantenimiento de Subestaciones Eléctricas',
-        ];
         if ($tipo === 'subestaciones') {
             $notaEquipo = 'Pago confirmado por PayPal. Este curso NO se matricula solo: hay que matricular al alumno a mano en la plataforma.';
         } elseif (!$matriculadoOk) {

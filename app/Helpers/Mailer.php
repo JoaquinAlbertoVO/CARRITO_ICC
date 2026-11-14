@@ -179,6 +179,10 @@ class Mailer {
         }
 
         $titulo = $porVerificar ? 'Pago por verificar (Yape/Plin)' : 'Nueva matrícula confirmada';
+        // Titulo propio de la venta (ej. ST Energy: pago PayPal con monto por revisar)
+        if ($v('titulo') !== '') {
+            $titulo = $v('titulo');
+        }
         $nota = $porVerificar
             ? 'El alumno subió su comprobante (adjunto). Verifica el pago antes de dar acceso.'
             : 'El pago ya fue confirmado y el alumno quedó registrado en el aula virtual.';
@@ -218,7 +222,7 @@ class Mailer {
         $html .= '</div>';
 
         // Sin saltos de linea en el asunto (evita inyeccion de cabeceras con nombres raros)
-        $asunto = '[' . preg_replace('/[\r\n]+/', ' ', $marca) . '] ' . ($porVerificar ? 'Pago por verificar' : 'Nueva matrícula') . ' - '
+        $asunto = '[' . preg_replace('/[\r\n]+/', ' ', $marca) . '] ' . ($v('titulo') !== '' ? preg_replace('/[\r\n]+/', ' ', $v('titulo')) : ($porVerificar ? 'Pago por verificar' : 'Nueva matrícula')) . ' - '
             . preg_replace('/[\r\n]+/', ' ', $v('nombre')) . ' - ' . preg_replace('/[\r\n]+/', ' ', $v('curso'));
         $asuntoCodificado = '=?UTF-8?B?' . base64_encode($asunto) . '?=';
 

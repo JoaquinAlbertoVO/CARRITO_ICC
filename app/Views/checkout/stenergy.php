@@ -405,6 +405,9 @@
                                 .then(res => res.json())
                                 .then(resp => {
                                     if (!resp.success) {
+                                        // Sin matricula automatica (monto por revisar o fallo): el aviso de exito
+                                        // pasa a "nuestro equipo activara tu acceso / escribenos por WhatsApp".
+                                        self.matriculaAuto = false;
                                         console.error('No se pudo matricular automaticamente:', resp.error, '- Orden:', data.orderID);
                                     }
                                 })

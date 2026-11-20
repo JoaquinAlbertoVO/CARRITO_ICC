@@ -276,6 +276,7 @@
                                                 <li><a href="news-details.html">News Details</a></li>
                                             </ul>
                                         </li>-->
+                                        <li><a href="<?= BASE_URL ?>tienda">Packs</a></li>
                                         <li><a href="<?= BASE_URL ?>contacto">Contáctanos</a></li>
                                     </ul>
                                 </div>

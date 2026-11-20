@@ -18,6 +18,14 @@
          por separado (antes dependia solo de que PayPal detectara al visitante como elegible) -->
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD&enable-funding=card"></script>
 
+    <?php if (!empty($culqiPublicKey)): ?>
+    <!-- Culqi: tarjeta en soles (Checkout Custom tokeniza la tarjeta; 3DS cuando el banco lo pide).
+         Solo se carga si CULQI_PUBLIC_KEY esta en el .env del servidor. -->
+    <script src="https://js.culqi.com/checkout-js"></script>
+    <script src="https://3ds.culqi.com" defer></script>
+    <?php endif; ?>
+    <script>window.CULQI_PUBLIC_KEY = <?= json_encode((string) ($culqiPublicKey ?? '')) ?>;</script>
+
     <style>
         :root {
             --st-black: #0a0a0a;
@@ -80,9 +88,11 @@
 
         .tab-row { display: flex; gap: 8px; margin-bottom: 16px; }
         .tab-btn {
-            flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--st-border);
-            background: #0f0f0f; color: var(--st-text-muted); font-weight: 700; font-size: 0.9rem; cursor: pointer;
+            flex: 1; padding: 10px 6px; border-radius: 8px; border: 1px solid var(--st-border);
+            background: #0f0f0f; color: var(--st-text-muted); font-weight: 700; font-size: 0.85rem; cursor: pointer;
         }
+        .pay-note { font-size: 0.82rem; color: var(--st-text-muted); line-height: 1.5; margin: 4px 0 14px; }
+        .pay-error { background: rgba(230, 57, 70, 0.12); border: 1px solid var(--st-red); color: #ffb3b9; border-radius: 8px; padding: 10px 12px; font-size: 0.85rem; margin-bottom: 12px; }
         .tab-btn.active { background: var(--st-yellow); color: #0a0a0a; border-color: var(--st-yellow); }
 
         .wallet-row { display: flex; gap: 8px; }
@@ -132,7 +142,7 @@
                 </div>
                 <template x-if="currency === 'PEN'">
                     <p style="font-size: 0.82rem; color: var(--st-text-muted);">
-                        (Se cobra en dólares vía PayPal: <strong style="color: var(--st-text);" x-text="'$' + amountInUSD.toFixed(2) + ' USD'"></strong> al cambio de <span x-text="tipoCambio"></span>)
+                        (Por PayPal se cobra en dólares: <strong style="color: var(--st-text);" x-text="'$' + amountInUSD.toFixed(2) + ' USD'"></strong> al cambio de <span x-text="tipoCambio"></span>)
                     </p>
                 </template>
 
@@ -165,7 +175,27 @@
                 <div x-show="!paymentSuccess">
                     <div class="tab-row">
                         <button type="button" class="tab-btn" :class="{ active: activeTab === 'manual' }" @click="activeTab = 'manual'">📱 Yape / Plin</button>
-                        <button type="button" class="tab-btn" :class="{ active: activeTab === 'paypal' }" @click="activeTab = 'paypal'">💳 PayPal / Tarjeta</button>
+                        <button type="button" class="tab-btn" x-show="culqiDisponible" :class="{ active: activeTab === 'culqi' }" @click="activeTab = 'culqi'">💳 Tarjeta (S/)</button>
+                        <button type="button" class="tab-btn" :class="{ active: activeTab === 'paypal' }" @click="activeTab = 'paypal'" x-text="culqiDisponible ? '🌎 PayPal (US$)' : '💳 PayPal / Tarjeta'">💳 PayPal / Tarjeta</button>
+                    </div>
+
+                    <!-- Vista tarjeta en soles (Culqi) -->
+                    <div x-show="activeTab === 'culqi'" style="display:none;">
+                        <p class="pay-note">Paga con tu tarjeta de débito o crédito <strong style="color: var(--st-text);">en soles</strong>, sin cuenta de PayPal. Si tu banco lo pide, te enviará un código para confirmar la compra.</p>
+                        <label class="section-label">Tus datos (para tu matrícula)</label>
+                        <input type="email" x-model="email" placeholder="Correo electrónico" class="form-control" required>
+                        <input type="text" x-model="dni" placeholder="DNI o Documento de Identidad" class="form-control" required>
+                        <input type="text" x-model="nombre" placeholder="Nombres completos" class="form-control" required>
+                        <input type="text" x-model="apellido" placeholder="Apellidos completos" class="form-control" required>
+                        <input type="text" x-model="celular" placeholder="Número de celular / WhatsApp" class="form-control" required>
+
+                        <div class="pay-error" x-show="culqiError" x-text="culqiError" style="display:none;"></div>
+
+                        <button type="button" class="btn-wa" style="width:100%; justify-content:center; border:0; cursor:pointer;"
+                                :disabled="culqiProcesando" @click="pagarConCulqi()"
+                                x-text="culqiProcesando ? 'Procesando pago…' : ('Pagar S/ ' + coursePrice.toFixed(2) + ' con tarjeta')">
+                            Pagar con tarjeta
+                        </button>
                     </div>
 
                     <!-- Vista Yape / Plin (manual) -->
@@ -215,7 +245,7 @@
 
                 <div class="success-view" x-show="paymentSuccess" x-transition style="display:none;">
                     <div class="check">✅</div>
-                    <template x-if="paymentMethodUsed === 'paypal' && matriculaAuto">
+                    <template x-if="paymentMethodUsed !== 'manual' && matriculaAuto">
                         <div>
                             <h2>¡Pago confirmado!</h2>
                             <p style="color: var(--st-text-muted); line-height: 1.6;">
@@ -224,7 +254,7 @@
                             </p>
                         </div>
                     </template>
-                    <template x-if="paymentMethodUsed === 'paypal' && !matriculaAuto">
+                    <template x-if="paymentMethodUsed !== 'manual' && !matriculaAuto">
                         <div>
                             <h2>¡Pago confirmado!</h2>
                             <p style="color: var(--st-text-muted); line-height: 1.6;">
@@ -323,6 +353,14 @@
 
                 email: '', dni: '', nombre: '', apellido: '', celular: '',
 
+                // Culqi (tarjeta en soles)
+                culqiDisponible: false,
+                culqiProcesando: false,
+                culqiError: '',
+                culqiToken: '',
+                culqiDeviceId: '',
+                culqiEsperando3ds: false,
+
                 get currencySymbol() {
                     return this.currency === 'USD' ? '$' : 'S/';
                 },
@@ -352,7 +390,139 @@
                     if (urlParams.get('precio')) this.coursePrice = parseFloat(urlParams.get('precio'));
                     if (urlParams.get('moneda')) this.currency = urlParams.get('moneda').toUpperCase();
 
+                    // Tarjeta en soles: solo con llave de Culqi configurada y precio en soles
+                    this.culqiDisponible = !!window.CULQI_PUBLIC_KEY && this.currency === 'PEN' && typeof CulqiCheckout !== 'undefined';
+                    // Resultado de la autenticacion 3DS (la libreria Culqi3DS responde con postMessage al mismo origen)
+                    window.addEventListener('message', (event) => {
+                        if (event.origin !== window.location.origin || !this.culqiEsperando3ds) return;
+                        const r = (event.data && typeof event.data === 'object') ? event.data : {};
+                        if (r.parameters3DS) {
+                            this.culqiEsperando3ds = false;
+                            this.enviarCargoCulqi(r.parameters3DS);
+                        } else if (r.error) {
+                            this.culqiEsperando3ds = false;
+                            this.culqiProcesando = false;
+                            this.culqiError = 'Tu banco no pudo confirmar la compra (' + r.error + '). No se te cobró; intenta de nuevo o usa otra tarjeta.';
+                        }
+                    }, false);
+
                     this.renderPayPalButtons();
+                },
+
+                get culqiMontoCentimos() {
+                    return Math.round(this.coursePrice * 100);
+                },
+
+                async pagarConCulqi() {
+                    this.culqiError = '';
+                    if (!this.email || !this.dni || !this.nombre || !this.apellido || !this.celular) {
+                        this.culqiError = 'Completa tu correo, DNI, nombres, apellidos y celular antes de pagar.';
+                        return;
+                    }
+                    if (typeof CulqiCheckout === 'undefined') {
+                        this.culqiError = 'No se pudo cargar el pago con tarjeta. Recarga la página o usa otro método.';
+                        return;
+                    }
+
+                    // Identificador del dispositivo para el antifraude/3DS de Culqi (si falla, se cobra sin el)
+                    this.culqiProcesando = true;
+                    this.culqiToken = '';
+                    this.culqiDeviceId = '';
+                    try {
+                        if (typeof Culqi3DS !== 'undefined') {
+                            Culqi3DS.reset();
+                            Culqi3DS.publicKey = window.CULQI_PUBLIC_KEY;
+                            this.culqiDeviceId = (await Culqi3DS.generateDevice()) || '';
+                        }
+                    } catch (e) {
+                        console.warn('Culqi3DS.generateDevice fallo:', e);
+                    }
+                    this.culqiProcesando = false;
+
+                    const self = this;
+                    const culqi = new CulqiCheckout(window.CULQI_PUBLIC_KEY, {
+                        settings: { title: 'ST Energy', currency: 'PEN', amount: this.culqiMontoCentimos },
+                        client: { email: this.email, firstName: this.nombre, lastName: this.apellido },
+                        options: {
+                            lang: 'auto',
+                            installments: false,
+                            modal: true,
+                            paymentMethods: { tarjeta: true, yape: false, billetera: false, bancaMovil: false, agente: false, cuotealo: false },
+                            paymentMethodsSort: ['tarjeta']
+                        },
+                        appearance: {
+                            theme: 'default',
+                            buttonCardPayText: 'Pagar',
+                            defaultStyle: { buttonBackground: '#F5C500', buttonTextColor: '#0a0a0a' }
+                        }
+                    });
+                    // Culqi llama a esta funcion cuando la tarjeta ya es un token (o hubo un error)
+                    culqi.culqi = function () {
+                        if (culqi.token) {
+                            self.culqiToken = culqi.token.id;
+                            culqi.close();
+                            self.enviarCargoCulqi(null);
+                        } else if (culqi.error) {
+                            self.culqiError = culqi.error.user_message || culqi.error.merchant_message || 'No se pudo validar la tarjeta.';
+                        }
+                    };
+                    culqi.open();
+                },
+
+                // Crea el cargo en el servidor. auth3ds: parametros de Culqi3DS cuando el banco pidio autenticacion.
+                async enviarCargoCulqi(auth3ds) {
+                    this.culqiProcesando = true;
+                    this.culqiError = '';
+                    try {
+                        const res = await fetch('<?= BASE_URL ?>checkout/stenergy_culqi', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                token: this.culqiToken,
+                                deviceId: this.culqiDeviceId,
+                                tipo: this.tipo,
+                                precio: this.coursePrice,
+                                email: this.email,
+                                dni: this.dni,
+                                nombre: this.nombre,
+                                apellido: this.apellido,
+                                celular: this.celular,
+                                authentication3DS: auth3ds
+                            })
+                        });
+                        const resp = await res.json();
+
+                        if (resp.success) {
+                            this.matriculaAuto = !!resp.matriculaAuto;
+                            this.paymentMethodUsed = 'culqi';
+                            this.paymentSuccess = true;
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                            return;
+                        }
+
+                        // El banco pide 3DS: la libreria muestra su ventana y el resultado llega por postMessage (ver init)
+                        if (resp.need3ds && !auth3ds && typeof Culqi3DS !== 'undefined') {
+                            const self = this;
+                            Culqi3DS.settings = {
+                                charge: { totalAmount: this.culqiMontoCentimos, returnUrl: window.location.href, currency: 'PEN' },
+                                card: { email: this.email }
+                            };
+                            Culqi3DS.options = {
+                                showModal: true, showLoading: true, showIcon: true,
+                                closeModalAction: function () { self.culqiEsperando3ds = false; self.culqiProcesando = false; },
+                                style: { btnColor: '#F5C500', btnTextColor: '#0a0a0a' }
+                            };
+                            this.culqiEsperando3ds = true;
+                            Culqi3DS.initAuthentication(this.culqiToken);
+                            return;
+                        }
+
+                        this.culqiError = resp.error || 'No se pudo completar el pago. Intenta de nuevo o usa otra tarjeta.';
+                    } catch (err) {
+                        console.error('Error confirmando el pago con Culqi:', err);
+                        this.culqiError = 'No pudimos confirmar tu pago por un problema de conexión. Antes de intentar de nuevo, escríbenos por WhatsApp para revisar si se realizó el cobro.';
+                    }
+                    this.culqiProcesando = false;
                 },
 
                 renderPayPalButtons() {

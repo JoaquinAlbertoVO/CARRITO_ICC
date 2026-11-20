@@ -9,7 +9,7 @@ class AdminCursosController extends Controller {
 
     public function __construct() {
         // Proteger el panel completo
-        if (empty($_SESSION['active'])) {
+        if (empty($_SESSION['es_admin'])) {
             header('Location: ' . BASE_URL . 'admin/login');
             exit;
         }
@@ -1378,7 +1378,7 @@ class AdminCursosController extends Controller {
     }
 
     public function visitantes() {
-        if (!isset($_SESSION['active']) || $_SESSION['active'] !== true) {
+        if (empty($_SESSION['es_admin'])) {
             header('Location: ' . BASE_URL . 'admin/login');
             exit;
         }

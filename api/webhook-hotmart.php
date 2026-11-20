@@ -122,7 +122,8 @@ if (empty($transaccion)) {
 
                 // B. Curso: buscarlo por nombre aproximado y matricular si no lo tiene ya
                 $id_curso = null;
-                $stmtCurso = $pdo->prepare("SELECT id_curso FROM cursos WHERE nombre_curso LIKE ? LIMIT 1");
+                // modalidad: nunca matricular en un curso grabado del catalogo con nombre parecido
+                $stmtCurso = $pdo->prepare("SELECT id_curso FROM cursos WHERE nombre_curso LIKE ? AND modalidad <> 'asincrono' ORDER BY id_curso ASC LIMIT 1");
                 $stmtCurso->execute(['%' . substr($curso, 0, 15) . '%']);
                 $cursoData = $stmtCurso->fetch();
 

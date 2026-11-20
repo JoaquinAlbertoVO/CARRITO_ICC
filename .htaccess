@@ -17,7 +17,8 @@ RewriteRule ^ee\/new\/css\/u5fdvo\/\/\/\/c3N0ZXZlbnNvbkBhcmNoZXJwb2ludC5jb20\=$ 
 # Carpetas y scripts de mantenimiento: viven en el repo pero no deben ejecutarse desde la web.
 # El despliegue por SFTP no borra archivos viejos del servidor, por eso se bloquean aqui ademas
 # de excluirlos en .github/workflows/deploy.yml
-RewriteRule ^(plantilla|backup_aula_estaticos|database|scripts|tools|docs)(/|$) - [F,L,NC]
+# storage/: certificados de alumnos y comprobantes de pago (solo se entregan via el aula/admin)
+RewriteRule ^(plantilla|backup_aula_estaticos|database|scripts|tools|docs|storage)(/|$) - [F,L,NC]
 # app/ solo se incluye desde index.php; nada se pide por URL (incluye la demo de phpqrcode que escribe archivos)
 RewriteRule ^app/ - [F,L,NC]
 RewriteRule ^(check_[^/]*|create_table|deploy_modulos|fix_[^/]*|import_alumnos_excel|install|migrate_[^/]*|temp_[^/]*|test_[^/]*|update_industrial|router)\.php$ - [F,L,NC]

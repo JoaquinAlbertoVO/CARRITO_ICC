@@ -4,6 +4,8 @@ namespace App\Controllers;
 use App\Core\Controller;
 
 class AdminCursosController extends Controller {
+    // Admin > Packs y cursos grabados (app/Controllers/AdminCatalogo.php)
+    use AdminCatalogo;
 
     protected $db;
 
@@ -831,7 +833,7 @@ class AdminCursosController extends Controller {
             }
         }
 
-        $todos_los_cursos = $cursoModel->getCursos(1);
+        $todos_los_cursos = $cursoModel->getCursos(1, true);
         $cursos_inscritos = $estudianteModel->getCursosInscritos($id_usuario);
 
         $data = [

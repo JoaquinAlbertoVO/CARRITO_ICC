@@ -511,7 +511,8 @@ class CheckoutController extends Controller {
             }
 
             // Matricular en el curso (mismo criterio que ya usa el webhook de Hotmart)
-            $stmtCurso = $pdo->prepare("SELECT id_curso FROM cursos WHERE nombre_curso LIKE ? LIMIT 1");
+            // modalidad: nunca matricular en un curso grabado del catalogo con nombre parecido
+            $stmtCurso = $pdo->prepare("SELECT id_curso FROM cursos WHERE nombre_curso LIKE ? AND modalidad <> 'asincrono' ORDER BY id_curso ASC LIMIT 1");
             $stmtCurso->execute(['%' . substr($curso, 0, 15) . '%']);
             $cursoData = $stmtCurso->fetch();
 

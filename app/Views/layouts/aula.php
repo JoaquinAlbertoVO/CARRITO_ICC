@@ -1,171 +1,82 @@
+<?php
+/**
+ * Layout del aula virtual (rediseño 2026-11): marca ICC del checkout v2 (azul ICC, azul marino y
+ * verde lima), Tailwind compilado en assets/css/aula.css (tools/tailwind: npm run build:aula) y Alpine.
+ */
+$h = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); };
+$nombreCompleto = trim((string) ($alumno['nombre'] ?? ($_SESSION['aula_nombre'] ?? '')));
+$primerNombre = $nombreCompleto !== '' ? mb_convert_case(explode(' ', $nombreCompleto)[0], MB_CASE_TITLE, 'UTF-8') : 'Alumno';
+$iniciales = '';
+foreach (array_slice(preg_split('/\s+/u', $nombreCompleto), 0, 2) as $p) {
+    $iniciales .= mb_strtoupper(mb_substr($p, 0, 1, 'UTF-8'), 'UTF-8');
+}
+$ruta = trim(parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
+$enInicio = (bool) preg_match('~aula/?$~', $ruta);
+?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title><?= $title ?? 'ICC - Aula Virtual' ?></title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>assets/images/logo_icc.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="<?= BASE_URL ?>assets/images/logo_icc.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= BASE_URL ?>assets/images/logo_icc.png" />
-
-    <link type="text/css" href="<?= BASE_URL ?>assets/aula/vendor/perfect-scrollbar.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/aula/css/app.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/aula/css/app.rtl.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/aula/css/vendor-material-icons.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/aula/css/vendor-fontawesome-free.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/aula/css/vendor-ion-rangeslider.css" rel="stylesheet">
-    <link type="text/css" href="<?= BASE_URL ?>assets/css/modern_override.css" rel="stylesheet">
-    
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '2480034172420246');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=2480034172420246&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
+    <meta name="csrf" content="<?= $h($token ?? '') ?>">
+    <title><?= $h($title ?? 'Aula virtual | ICC') ?></title>
+    <link rel="icon" type="image/png" href="<?= BASE_URL ?>assets/images/logo_icc.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/aula.css?v=1">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 </head>
-<body class="layout-fixed layout-sticky-subnav">
+<body class="min-h-screen bg-surface font-sans text-ink antialiased">
+<a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:font-bold focus:text-brand-dark">Saltar al contenido</a>
 
-    <!-- Header Layout -->
-    <div class="mdk-header-layout js-mdk-header-layout">
-        <div id="header" class="mdk-header bg-dark js-mdk-header m-0" data-fixed data-effects="waterfall">
-            <div class="mdk-header__content">
-                <div class="navbar navbar-expand-sm navbar-main navbar-dark bg-primary pl-md-0 pr-0" id="navbar" data-primary>
-                    <div class="container">
-                        <div class="d-flex sidebar-account flex-shrink-0 mr-auto mr-lg-0">
-                            <a href="<?= BASE_URL ?>aula" class="flex d-flex align-items-center text-underline-0">
-                                <span class="mr-1 text-white">
-                                    <img width="170" src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC">
-                                </span>
-                            </a>
-                        </div>
-
-                        <style>
-                        .dropdown-menu-modern {
-                            background: rgba(17, 22, 37, 0.95) !important;
-                            backdrop-filter: blur(10px);
-                            border: 1px solid rgba(229, 201, 36, 0.2) !important;
-                            border-radius: 12px !important;
-                            box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
-                            padding: 10px 0 !important;
-                            min-width: 220px;
-                        }
-                        .dropdown-item-modern {
-                            color: #f3f4f6 !important;
-                            transition: all 0.3s ease;
-                        }
-                        .dropdown-item-modern:hover {
-                            background: rgba(229, 201, 36, 0.1) !important;
-                            color: #e5c924 !important;
-                        }
-                        .navbar-toggler-dashboard {
-                            background: rgba(255,255,255,0.05);
-                            border-radius: 30px;
-                            padding: 5px 15px 5px 5px !important;
-                            transition: all 0.3s ease;
-                            border: 1px solid transparent !important;
-                            cursor: pointer;
-                        }
-                        .navbar-toggler-dashboard:hover {
-                            background: rgba(255,255,255,0.1);
-                            border-color: rgba(229, 201, 36, 0.3) !important;
-                        }
-                        </style>
-
-                        <ul class="nav navbar-nav ml-auto d-none d-md-flex">
-                            <li class="nav-item">
-                                <a href="<?= BASE_URL ?>aula" class="nav-link">
-                                    <i class="material-icons mr-1">dashboard</i> Dashboard
-                                </a>
-                            </li>
-                        </ul>
-
-                        <ul class="nav navbar-nav d-none d-sm-flex border-left navbar-height align-items-center">
-                            <li class="nav-item dropdown">
-                                <a href="#account_menu" class="nav-link dropdown-toggle navbar-toggler-dashboard d-flex align-items-center" data-toggle="dropdown" data-caret="false">
-                                    <div class="avatar avatar-sm mr-2">
-                                        <span class="avatar-title rounded-circle bg-warning text-dark font-weight-bold">
-                                            <i class="material-icons">person</i>
-                                        </span>
-                                    </div>
-                                    <span class="text-white mr-2"><?= htmlspecialchars($_SESSION['nombre'] ?? 'Estudiante') ?></span>
-                                    <i class="material-icons text-white-50">arrow_drop_down</i>
-                                </a>
-                                <div id="account_menu" class="dropdown-menu dropdown-menu-right dropdown-menu-modern">
-                                    <div class="dropdown-item-text dropdown-item-text-modern d-flex align-items-center px-3 py-2 mb-2 border-bottom" style="border-color: rgba(255,255,255,0.05) !important;">
-                                        <div class="avatar avatar-sm mr-3">
-                                            <span class="avatar-title rounded-circle bg-warning text-dark font-weight-bold">
-                                                <i class="material-icons">person</i>
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <div class="font-weight-bold text-white"><?= htmlspecialchars($_SESSION['nombre'] ?? 'Estudiante') ?></div>
-                                            <div class="text-muted small"><?= htmlspecialchars($_SESSION['correo'] ?? '') ?></div>
-                                        </div>
-                                    </div>
-                                    <a class="dropdown-item dropdown-item-modern px-3 py-2" href="<?= BASE_URL ?>aula"><i class="material-icons mr-2 text-warning">school</i> Mis Cursos</a>
-                                    <div class="dropdown-divider" style="border-color: rgba(255,255,255,0.05);"></div>
-                                    <a class="dropdown-item dropdown-item-modern px-3 py-2 text-danger" href="<?= BASE_URL ?>aula/logout"><i class="material-icons mr-2">exit_to_app</i> Cerrar Sesión</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+<header class="sticky top-0 z-40 bg-deep text-white shadow-lg" x-data="{ menu: false }">
+    <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4">
+        <a href="<?= BASE_URL ?>aula" class="flex shrink-0 items-center gap-3">
+            <img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC" class="h-9 w-auto">
+            <span class="hidden border-l border-white/20 pl-3 font-display text-sm font-bold tracking-wide text-accent sm:block">AULA VIRTUAL</span>
+        </a>
+        <nav class="ml-4 hidden items-center gap-1 text-sm md:flex" aria-label="Aula">
+            <a href="<?= BASE_URL ?>aula" class="rounded-lg px-3 py-2 font-semibold <?= $enInicio ? 'bg-white/10 text-white' : 'text-sky-100 hover:bg-white/10' ?>"><i class="fas fa-th-large mr-1.5" aria-hidden="true"></i>Mis cursos</a>
+            <a href="<?= BASE_URL ?>aula#certificados" class="rounded-lg px-3 py-2 font-semibold text-sky-100 hover:bg-white/10"><i class="fas fa-award mr-1.5" aria-hidden="true"></i>Certificados</a>
+            <a href="<?= BASE_URL ?>tienda" class="rounded-lg px-3 py-2 font-semibold text-sky-100 hover:bg-white/10"><i class="fas fa-store mr-1.5" aria-hidden="true"></i>Más cursos</a>
+        </nav>
+        <div class="relative ml-auto">
+            <button type="button" @click="menu = !menu" @click.outside="menu = false" :aria-expanded="menu.toString()" class="flex items-center gap-2 rounded-full py-1 pl-1 pr-3 hover:bg-white/10">
+                <span class="flex h-9 w-9 items-center justify-center rounded-full bg-accent font-display text-sm font-extrabold text-deep"><?= $h($iniciales ?: 'A') ?></span>
+                <span class="hidden text-sm font-semibold sm:block"><?= $h($primerNombre) ?></span>
+                <i class="fas fa-chevron-down text-xs text-sky-200" aria-hidden="true"></i>
+            </button>
+            <div x-show="menu" x-cloak x-transition.origin.top.right class="absolute right-0 mt-2 w-60 overflow-hidden rounded-xl bg-white text-ink shadow-xl ring-1 ring-line">
+                <div class="border-b border-mist px-4 py-3">
+                    <p class="truncate text-sm font-bold"><?= $h($nombreCompleto ?: 'Alumno') ?></p>
+                    <p class="truncate text-xs text-muted"><?= $h($alumno['usuario'] ?? '') ?></p>
                 </div>
-            </div>
-        </div>
-
-        <?php echo $content; ?>
-
-        <div class="bg-dark text-white" id="footer">
-            <div class="container page__container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <a href="./" class="brand d-flex align-items-center mb-4">
-                            <span class="mr-2">
-                                <img width="200" src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC">
-                            </span>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-12">
-                                <h5>Contáctenos</h5>
-                                <div class="d-flex ">
-                                    <a href="https://wa.link/zw6o1w" target="_black" class="btn btn-facebook btn-rounded-social d-flex align-items-center justify-content-center mr-2"><i class="fab fa-whatsapp"></i></a>
-                                    <a href="https://www.facebook.com/icc.com.pe/" target="_blank" class="btn btn-facebook btn-rounded-social d-flex align-items-center justify-content-center mr-2"><i class="fab fa-facebook"></i></a>
-                                    <a href="https://www.linkedin.com/company/icc-per%C3%BA-capacitaciones-en-ingenier%C3%ADa-el%C3%A9ctrica/" target="_black" class="btn btn-twitter btn-rounded-social d-flex align-items-center justify-content-center mr-2"><i class="fab fa-linkedin"></i></a>
-                                    <a href="https://www.instagram.com/capacitacionesicc/" target="_black" class="btn btn-twitter btn-rounded-social d-flex align-items-center justify-content-center mr-2"><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <a href="<?= BASE_URL ?>aula" class="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-surface md:hidden"><i class="fas fa-th-large w-4 text-brand"></i>Mis cursos</a>
+                <a href="<?= BASE_URL ?>aula#certificados" class="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-surface md:hidden"><i class="fas fa-award w-4 text-brand"></i>Certificados</a>
+                <a href="<?= BASE_URL ?>tienda" class="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-surface md:hidden"><i class="fas fa-store w-4 text-brand"></i>Más cursos</a>
+                <a href="<?= BASE_URL ?>aula/mis_datos" class="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-surface"><i class="fas fa-id-card w-4 text-brand"></i>Datos del certificado</a>
+                <a href="https://wa.me/51941208020" target="_blank" rel="noopener" class="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-surface"><i class="fab fa-whatsapp w-4 text-brand"></i>Soporte</a>
+                <a href="<?= BASE_URL ?>aula/logout" class="flex items-center gap-3 border-t border-mist px-4 py-2.5 text-sm text-red-600 hover:bg-red-50"><i class="fas fa-sign-out-alt w-4"></i>Cerrar sesión</a>
             </div>
         </div>
     </div>
-    
-    <script src="<?= BASE_URL ?>assets/aula/vendor/jquery.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/aula/vendor/popper.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/aula/vendor/bootstrap.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/aula/vendor/perfect-scrollbar.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/aula/vendor/dom-factory.js"></script>
-    <script src="<?= BASE_URL ?>assets/aula/vendor/material-design-kit.js"></script>
-    <script src="<?= BASE_URL ?>assets/aula/vendor/ion.rangeSlider.min.js"></script>
-    <script src="<?= BASE_URL ?>assets/aula/js/dropdown.js"></script>
-    <script src="<?= BASE_URL ?>assets/aula/js/app.js"></script>
+</header>
+
+<main id="contenido" class="mx-auto max-w-7xl px-4 pb-16 pt-6 sm:pt-8">
+    <?php if (!empty($flash)): ?>
+        <div role="status" class="mb-6 flex items-start gap-3 rounded-xl p-4 text-sm <?= $flash['tipo'] === 'ok' ? 'bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200' : 'bg-red-50 text-red-800 ring-1 ring-red-200' ?>">
+            <i class="fas <?= $flash['tipo'] === 'ok' ? 'fa-check-circle' : 'fa-exclamation-circle' ?> mt-0.5" aria-hidden="true"></i>
+            <span><?= $h($flash['texto']) ?></span>
+        </div>
+    <?php endif; ?>
+    <?= $content ?>
+</main>
+
+<footer class="border-t border-line bg-white py-6 text-center text-xs text-muted">
+    ICC · Instituto de Capacitación Continua · <a href="https://wa.me/51941208020" class="font-semibold text-brand hover:underline" target="_blank" rel="noopener">WhatsApp +51 941 208 020</a>
+</footer>
 </body>
 </html>

@@ -36,6 +36,12 @@ class Curso {
                 $this->db->exec("ALTER TABLE cursos ADD COLUMN $col DATE NULL DEFAULT NULL");
             } catch (\PDOException $e) {}
         }
+        // Cursos grabados del catalogo de packs (App\Models\Catalogo): no salen en las listas de cursos en vivo
+        try {
+            if (!$this->db->query("SHOW COLUMNS FROM cursos LIKE 'modalidad'")->fetch()) {
+                $this->db->exec("ALTER TABLE cursos ADD COLUMN modalidad VARCHAR(12) NOT NULL DEFAULT 'en_vivo'");
+            }
+        } catch (\PDOException $e) {}
     }
 
     /** 'YYYY-MM-DD' valido o null (el formulario manda '' cuando el campo queda vacio). */
@@ -45,9 +51,11 @@ class Curso {
         return ($d && $d->format('Y-m-d') === $v) ? $v : null;
     }
 
-    public function getCursos($estado = 1) {
+    /** @param bool $conAsincronos incluir los cursos grabados del catalogo (solo para el admin al matricular a mano) */
+    public function getCursos($estado = 1, $conAsincronos = false) {
         try {
-            $sql = "SELECT c.*, (SELECT COUNT(DISTINCT modulo) FROM curso_videos v WHERE v.id_curso = c.id_curso AND v.estado = 1) AS lecciones_reales FROM cursos c WHERE c.estado = :estado ORDER BY c.id_curso DESC";
+            $sql = "SELECT c.*, (SELECT COUNT(DISTINCT modulo) FROM curso_videos v WHERE v.id_curso = c.id_curso AND v.estado = 1) AS lecciones_reales FROM cursos c WHERE c.estado = :estado"
+                . ($conAsincronos ? "" : " AND c.modalidad <> 'asincrono'") . " ORDER BY c.id_curso DESC";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':estado', $estado, PDO::PARAM_INT);
             $stmt->execute();
@@ -153,7 +161,7 @@ class Curso {
     public function getCursoByNombre($nombre) {
         try {
             // Buscamos coincidencia parcial por si la URL trae un nombre ligeramente distinto
-            $sql = "SELECT * FROM cursos WHERE nombre_curso LIKE ? AND estado = 1 LIMIT 1";
+            $sql = "SELECT * FROM cursos WHERE nombre_curso LIKE ? AND estado = 1 AND modalidad <> 'asincrono' LIMIT 1";
             $stmt = $this->db->prepare($sql);
             $stmt->execute(['%' . $nombre . '%']);
             return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -251,7 +259,7 @@ class Curso {
     }
     public function getCertificadosUsuario($iduser) {
         try {
-            $sql = "SELECT uc.archivo_pdf, c.nombre_curso, c.foto, uc.fecha_subida 
+            $sql = "SELECT uc.id_curso, uc.archivo_pdf, c.nombre_curso, c.foto, uc.fecha_subida 
                     FROM usuario_certificados uc 
                     INNER JOIN cursos c ON uc.id_curso = c.id_curso 
                     WHERE uc.id_usuario = ?";

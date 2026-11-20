@@ -1,364 +1,143 @@
-        <div class="mdk-header-layout__content page" style="background-color: var(--bg-dark); min-height: 100vh;">
-            <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-            
-            <style>
-                /* Premium UI Enhancements - ICC Brand Colors */
-                :root {
-                    --bg-dark: #111625;
-                    --card-bg: #1a233a;
-                    --card-border: rgba(255, 255, 255, 0.08);
-                    --accent: #e5c924;
-                    --accent-glow: rgba(229, 201, 36, 0.25);
-                    --text-main: #f3f4f6;
-                    --text-muted: #a4b1cd;
-                    --tag-bg: rgba(255, 255, 255, 0.05);
-                    --tag-border: rgba(255, 255, 255, 0.1);
-                }
-                
-                .home-banner {
-                    background: linear-gradient(135deg, rgba(17, 22, 37, 0.95) 0%, rgba(26, 35, 58, 0.98) 100%);
-                    border-bottom: 1px solid var(--card-border);
-                    padding: 5rem 0;
-                    position: relative;
-                    overflow: hidden;
-                }
-                
-                .home-banner::before {
-                    content: '';
-                    position: absolute;
-                    top: -50%;
-                    left: -50%;
-                    width: 200%;
-                    height: 200%;
-                    background: radial-gradient(circle, rgba(229, 201, 36, 0.06) 0%, transparent 50%);
-                    z-index: 0;
-                    pointer-events: none;
-                }
+<?php
+$h = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); };
+$nombre = trim((string) ($alumno['nombre'] ?? ''));
+$primer = $nombre !== '' ? mb_convert_case(explode(' ', $nombre)[0], MB_CASE_TITLE, 'UTF-8') : '';
+$datosOk = !empty($alumno['datos_cert_ok']);
+$totalVistos = array_sum(array_column($cursos, 'vistos'));
+$listos = count($certificadosAuto) + count($certificadosSubidos);
+$urlCert = function ($idCurso) use ($datosOk) {
+    return BASE_URL . ($datosOk ? 'aula/certificado/' . (int) $idCurso : 'aula/mis_datos?certificado=' . (int) $idCurso);
+};
+?>
+<!-- Saludo y resumen -->
+<section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-deep via-deep to-brand-dark p-6 text-white shadow-xl sm:p-8">
+    <div class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand/40 blur-3xl"></div>
+    <div class="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+            <p class="text-sm font-semibold text-accent">Aula virtual ICC</p>
+            <h1 class="mt-1 font-display text-3xl font-extrabold sm:text-4xl">Hola<?= $primer ? ', ' . $h($primer) : '' ?> 👋</h1>
+            <p class="mt-2 max-w-xl text-sky-100"><?= $continuar ? 'Sigue donde te quedaste.' : ($cursos ? 'Elige un curso para empezar.' : 'Aquí verás tus cursos apenas se active tu matrícula.') ?></p>
+            <?php if ($continuar): ?>
+            <a href="<?= BASE_URL ?>aula/curso/<?= (int) $continuar['id_curso'] ?>" class="mt-5 inline-flex min-h-[48px] items-center gap-3 rounded-xl bg-accent px-5 font-bold text-deep shadow-lg hover:brightness-95">
+                <i class="fas fa-play" aria-hidden="true"></i> Continuar: <span class="max-w-[14rem] truncate sm:max-w-xs"><?= $h($continuar['nombre_curso']) ?></span>
+            </a>
+            <?php endif; ?>
+        </div>
+        <dl class="grid grid-cols-3 gap-3 text-center sm:gap-4">
+            <div class="rounded-2xl bg-white/10 px-4 py-3 backdrop-blur"><dt class="text-xs text-sky-100">Cursos</dt><dd class="font-display text-2xl font-extrabold"><?= count($cursos) ?></dd></div>
+            <div class="rounded-2xl bg-white/10 px-4 py-3 backdrop-blur"><dt class="text-xs text-sky-100">Clases vistas</dt><dd class="font-display text-2xl font-extrabold"><?= (int) $totalVistos ?></dd></div>
+            <div class="rounded-2xl bg-white/10 px-4 py-3 backdrop-blur"><dt class="text-xs text-sky-100">Certificados</dt><dd class="font-display text-2xl font-extrabold text-accent"><?= (int) $listos ?></dd></div>
+        </dl>
+    </div>
+</section>
 
-                .home-banner .container {
-                    position: relative;
-                    z-index: 1;
-                }
+<?php if ($certificadosAuto && !$datosOk): ?>
+<a href="<?= BASE_URL ?>aula/mis_datos" class="mt-6 flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm ring-2 ring-accent hover:shadow-md sm:p-5">
+    <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent text-xl text-deep"><i class="fas fa-award"></i></span>
+    <span class="flex-1">
+        <span class="block font-display font-bold text-deep">Tus certificados ya están listos</span>
+        <span class="block text-sm text-muted">Confirma cómo debe salir tu nombre y descárgalos.</span>
+    </span>
+    <i class="fas fa-chevron-right text-brand" aria-hidden="true"></i>
+</a>
+<?php endif; ?>
 
-                .display-4.bold {
-                    font-weight: 800;
-                    background: linear-gradient(to right, #ffffff, #9ca3af);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    letter-spacing: -1px;
-                }
+<!-- Cursos -->
+<section class="mt-10" aria-labelledby="t-cursos">
+    <div class="flex items-end justify-between gap-4">
+        <h2 id="t-cursos" class="font-display text-2xl font-extrabold text-deep">Mis cursos</h2>
+        <a href="<?= BASE_URL ?>tienda" class="text-sm font-bold text-brand hover:underline">Ver más cursos <i class="fas fa-arrow-right text-xs"></i></a>
+    </div>
 
-                .course-card-premium {
-                    background-color: var(--card-bg);
-                    border: 1px solid var(--card-border);
-                    border-radius: 16px;
-                    overflow: hidden;
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-                    position: relative;
-                }
-
-                .course-card-premium:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7), 0 0 20px var(--accent-glow);
-                    border-color: var(--accent-glow);
-                }
-
-                .course-img-wrapper {
-                    width: 260px;
-                    min-width: 260px;
-                    height: 180px;
-                    position: relative;
-                    overflow: hidden;
-                }
-
-                .course-img-wrapper img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    transition: transform 0.6s ease;
-                }
-
-                .course-card-premium:hover .course-img-wrapper img {
-                    transform: scale(1.05);
-                }
-
-                .course-img-overlay {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: linear-gradient(to right, transparent, var(--card-bg));
-                    opacity: 0.8;
-                }
-                
-                .play-overlay {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    background: rgba(17, 22, 37, 0.6);
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    opacity: 0;
-                    transition: all 0.3s ease;
-                    border: 2px solid var(--accent);
-                    z-index: 2;
-                }
-                
-                .course-card-premium:hover .play-overlay {
-                    opacity: 1;
-                    transform: translate(-50%, -50%) scale(1.1);
-                }
-                
-                .play-overlay i {
-                    color: var(--accent);
-                    font-size: 30px;
-                    margin-left: 3px;
-                }
-
-                .progress-container {
-                    background-color: rgba(255, 255, 255, 0.1);
-                    border-radius: 10px;
-                    height: 8px;
-                    width: 100%;
-                    overflow: hidden;
-                    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
-                }
-
-                .progress-bar-fill {
-                    height: 100%;
-                    background: linear-gradient(90deg, #e5c924, #fff3a1);
-                    border-radius: 10px;
-                    box-shadow: 0 0 10px rgba(229, 201, 36, 0.5);
-                }
-
-                .course-title {
-                    font-weight: 700;
-                    color: var(--text-main);
-                    font-size: 1.35rem;
-                    transition: color 0.3s ease;
-                }
-
-                .course-card-premium:hover .course-title {
-                    color: var(--accent);
-                }
-
-                .premium-tag {
-                    background-color: var(--tag-bg);
-                    color: var(--text-muted);
-                    font-size: 0.85rem;
-                    padding: 8px 16px;
-                    border-radius: 30px;
-                    display: inline-flex;
-                    align-items: center;
-                    border: 1px solid var(--tag-border);
-                    backdrop-filter: blur(4px);
-                    transition: all 0.2s ease;
-                }
-
-                .premium-tag:hover {
-                    background-color: rgba(255, 255, 255, 0.1);
-                    color: var(--text-main);
-                }
-
-                .premium-tag i {
-                    font-size: 18px;
-                    margin-right: 6px;
-                    color: var(--accent);
-                }
-                
-                .cert-card {
-                    background-color: var(--card-bg);
-                    border: 1px solid var(--card-border);
-                    border-radius: 16px;
-                    overflow: hidden;
-                    transition: all 0.3s ease;
-                }
-                
-                .cert-card:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 15px 30px -10px rgba(0,0,0,0.6);
-                    border-color: rgba(255, 255, 255, 0.15);
-                }
-                
-                .btn-premium {
-                    background: linear-gradient(135deg, #e5c924, #bfa61c);
-                    border: none;
-                    color: #111625;
-                    border-radius: 30px;
-                    padding: 10px 20px;
-                    font-weight: 600;
-                    letter-spacing: 0.5px;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 15px rgba(229, 201, 36, 0.3);
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-                
-                .btn-premium:hover {
-                    background: linear-gradient(135deg, #bfa61c, #998416);
-                    transform: scale(1.02);
-                    box-shadow: 0 6px 20px rgba(229, 201, 36, 0.5);
-                    color: #111625;
-                    text-decoration: none;
-                }
-            </style>
-            
-            <div class="home-banner text-white mb-5">
-                <div class="container-fluid position-relative text-center w-100 px-3 px-md-5">
-                    <h1 class="display-4 bold mb-3" data-aos="fade-up" data-aos-duration="800" style="font-size: 2.8rem; line-height: 1.2;">
-                        Bienvenido a ICC <br>
-                        <span style="font-size: 2.2rem; color: #e2e8f0; font-weight: 600;">Instituto de Capacitación Continua</span>
-                    </h1>
-                    <p class="lead mb-4" style="color: #a1a1aa; font-size: 1.25rem;" data-aos="fade-up" data-aos-duration="1000">Cursos en Ingeniería Eléctrica</p>
-                    
-                    <?php if($resume_curso): ?>
-                    <div class="d-inline-flex mt-2 mx-auto" data-aos="fade-up" data-aos-duration="1000">
-                        <div style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 50px; border: 1px solid rgba(229, 201, 36, 0.2); box-shadow: 0 10px 20px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; padding: 6px 6px 6px 20px;">
-                            <h6 class="text-uppercase mb-0 mr-4 d-flex align-items-center" style="color: var(--accent); letter-spacing: 1px; font-size: 0.8rem; font-weight:700;">
-                                <i class="material-icons mr-2" style="font-size: 20px;">play_circle_filled</i> Continuar: <span class="text-white ml-2" style="font-weight: 600; text-transform: none;"><?= htmlspecialchars($resume_curso['nombre_curso']) ?></span>
-                            </h6>
-                            <a href="<?= BASE_URL ?>aula/curso/<?= $resume_curso['id_curso'] ?>" class="btn-premium" style="padding: 8px 24px; font-size: 0.85rem; border-radius: 30px; margin-bottom: 0;">Retomar</a>
-                        </div>
+    <?php if (!$cursos): ?>
+        <div class="mt-6 rounded-2xl bg-white p-10 text-center shadow-sm ring-1 ring-line">
+            <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-mist text-2xl text-brand"><i class="fas fa-graduation-cap"></i></span>
+            <p class="mt-4 font-display text-xl font-bold text-deep">Todavía no tienes cursos activos</p>
+            <p class="mx-auto mt-2 max-w-md text-muted">Si ya pagaste con Yape o Plin, lo activamos apenas verifiquemos tu pago. ¿Dudas? Escríbenos.</p>
+            <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+                <a href="<?= BASE_URL ?>tienda" class="inline-flex min-h-[44px] items-center justify-center rounded-xl bg-brand px-5 font-bold text-white hover:bg-brand-dark">Ver cursos y packs</a>
+                <a href="https://wa.me/51941208020" target="_blank" rel="noopener" class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-line px-5 font-bold text-ink hover:bg-surface"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
+        </div>
+    <?php else: ?>
+    <div class="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        <?php foreach ($cursos as $c): $grabado = $c['modalidad'] === 'asincrono'; ?>
+        <article class="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-line transition hover:-translate-y-0.5 hover:shadow-lg">
+            <a href="<?= BASE_URL ?>aula/curso/<?= (int) $c['id_curso'] ?>" class="relative block aspect-video overflow-hidden bg-deep">
+                <?php if ($c['miniatura']): ?>
+                    <img src="<?= $h($c['miniatura']) ?>" alt="" loading="lazy" class="h-full w-full object-cover opacity-90 transition group-hover:scale-105 group-hover:opacity-100">
+                <?php else: ?>
+                    <span class="flex h-full w-full items-center justify-center bg-gradient-to-br from-deep to-brand-dark"><i class="fas fa-bolt text-4xl text-accent"></i></span>
+                <?php endif; ?>
+                <span class="absolute inset-0 bg-gradient-to-t from-deep/80 via-transparent"></span>
+                <span class="absolute left-3 top-3 rounded-full px-2.5 py-1 text-xs font-bold <?= $grabado ? 'bg-accent text-deep' : 'bg-white text-brand-dark' ?>"><?= $grabado ? 'Grabado' : 'En vivo' ?></span>
+                <span class="absolute bottom-3 right-3 flex h-11 w-11 items-center justify-center rounded-full bg-white/95 text-brand shadow-lg transition group-hover:scale-110"><i class="fas fa-play ml-0.5"></i></span>
+            </a>
+            <div class="flex flex-1 flex-col p-5">
+                <h3 class="font-display text-lg font-bold leading-snug text-deep"><a href="<?= BASE_URL ?>aula/curso/<?= (int) $c['id_curso'] ?>" class="hover:text-brand"><?= $h($c['nombre_curso']) ?></a></h3>
+                <p class="mt-1 text-xs text-muted"><?= (int) $c['total'] ?> clases<?= (int) $c['horas_academicas'] > 0 ? ' · ' . (int) $c['horas_academicas'] . ' horas' : '' ?></p>
+                <div class="mt-4">
+                    <div class="flex justify-between text-xs font-semibold"><span class="text-muted"><?= (int) $c['vistos'] ?> de <?= (int) $c['total'] ?> vistas</span><span class="text-brand"><?= (int) $c['progreso'] ?>%</span></div>
+                    <div class="mt-1.5 h-2 overflow-hidden rounded-full bg-mist" role="progressbar" aria-valuenow="<?= (int) $c['progreso'] ?>" aria-valuemin="0" aria-valuemax="100" aria-label="Avance del curso">
+                        <div class="h-full rounded-full <?= $c['progreso'] >= 100 ? 'bg-emerald-500' : 'bg-brand' ?>" style="width: <?= (int) $c['progreso'] ?>%"></div>
                     </div>
+                </div>
+                <div class="mt-auto flex gap-2 pt-5">
+                    <a href="<?= BASE_URL ?>aula/curso/<?= (int) $c['id_curso'] ?>" class="inline-flex min-h-[42px] flex-1 items-center justify-center rounded-xl bg-brand text-sm font-bold text-white hover:bg-brand-dark"><?= $c['vistos'] ? ($c['progreso'] >= 100 ? 'Repasar' : 'Continuar') : 'Empezar' ?></a>
+                    <?php if ($c['certificado']): ?>
+                    <a href="<?= $urlCert($c['id_curso']) ?>" class="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-xl border border-line px-3 text-sm font-bold text-deep hover:border-brand hover:text-brand" title="Descargar certificado"><i class="fas fa-award text-brand"></i><span class="sr-only sm:not-sr-only">Certificado</span></a>
                     <?php endif; ?>
                 </div>
             </div>
+        </article>
+        <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+</section>
 
-            <div class="container page__container">
-                <div class="mb-5 pb-2 border-bottom" style="border-color: rgba(255,255,255,0.05) !important;" data-aos="fade-in">
-                    <h2 class="bold mb-2 text-center" style="color: #fff; font-size: 2.2rem;">Cursos Activos</h2>
-                    <p class="text-center" style="color: var(--accent); font-size: 1.1rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;">Nuestros cursos matriculados</p>
-                </div>
-                <div class="pb-4">
-                    <div class="row justify-content-center">
+<!-- Certificados -->
+<section id="certificados" class="mt-12 scroll-mt-24" aria-labelledby="t-cert">
+    <h2 id="t-cert" class="font-display text-2xl font-extrabold text-deep">Mis certificados</h2>
+    <p class="mt-1 text-sm text-muted">Cada certificado lleva un código y un QR que se puede comprobar en <a href="<?= BASE_URL ?>verificar" class="font-semibold text-brand hover:underline">icc.com.pe/verificar</a>.</p>
 
-<?php  
-if(!empty($cursos)) {
-    foreach ($cursos as $curso) {
-        $img_curso = ($curso['foto'] == 'default.png') 
-            ? 'https://www.file-extension.info/images/resource/formats/img.png' 
-            : BASE_URL . 'assets/images/cursos/' . $curso['foto'];
-        ?>
-        <div class="col-lg-10 col-12 mb-4" data-aos="fade-up">
-            <a href="<?= BASE_URL ?>aula/curso/<?= $curso['id_curso'] ?>" class="text-decoration-none">
-                <div class="course-card-premium">
-                    <div class="course-img-wrapper">
-                        <img src="<?= $img_curso ?>" alt="Portada Curso">
-                        <div class="play-overlay"><i class="material-icons">play_circle_filled</i></div>
-                        <div class="course-img-overlay"></div>
-                    </div>
-                    <div class="p-4 p-md-5 w-100">
-                        <h4 class="course-title mb-4 d-flex align-items-center">
-                            <i class="material-icons mr-3" style="color: var(--accent); font-size: 28px;">check_circle</i> 
-                            <?= htmlspecialchars($curso['nombre_curso']) ?>
-                        </h4>
-                        <div class="d-flex flex-wrap align-items-center" style="gap: 12px;">
-                            <span class="premium-tag">
-                                <i class="material-icons">signal_cellular_alt</i> <?= htmlspecialchars($curso['categoria'] ?? 'Básico') ?>
-                            </span>
-                            <span class="premium-tag">
-                                <i class="material-icons">schedule</i> <?= $curso['horas_academicas'] ?> horas de contenido
-                            </span>
-                        </div>
-                        
-                        <?php 
-                        $progreso_real = $curso['progreso_real'] ?? 0; 
-                        ?>
-                        <div class="mt-4 pt-3 border-top" style="border-color: var(--card-border) !important;">
-                            <div class="d-flex justify-content-between mb-2">
-                                <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">Progreso del curso</span>
-                                <span style="color: var(--accent); font-size: 0.85rem; font-weight: 800;"><?= $progreso_real ?>%</span>
-                            </div>
-                            <div class="progress-container">
-                                <div class="progress-bar-fill" style="width: <?= $progreso_real ?>%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <?php
-    }
-} else {
-    echo "
-    <div class='col-12 text-center py-5' data-aos='fade-up'>
-        <div style='background: var(--card-bg); border: 1px dashed rgba(255,255,255,0.1); border-radius: 20px; padding: 60px 20px; max-width: 600px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.2);'>
-            <div style='width: 100px; height: 100px; background: rgba(229, 201, 36, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;'>
-                <i class='material-icons' style='font-size: 50px; color: var(--accent);'>explore</i>
+    <?php if (!$certificadosAuto && !$certificadosSubidos && !$certificadosRegistrados): ?>
+        <p class="mt-6 rounded-2xl bg-white p-6 text-center text-muted ring-1 ring-line">Aún no tienes certificados. En los cursos en vivo aparecen aquí cuando el equipo los emite.</p>
+    <?php else: ?>
+    <ul class="mt-6 grid gap-4 md:grid-cols-2">
+        <?php foreach ($certificadosAuto as $c): $preparando = (int) $c['horas_academicas'] <= 0; ?>
+        <li class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-line">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-mist text-xl text-brand"><i class="fas fa-award"></i></span>
+            <div class="min-w-0 flex-1">
+                <p class="truncate font-semibold text-deep"><?= $h($c['nombre_curso']) ?></p>
+                <p class="text-xs text-muted"><code class="text-[11px]"><?= $h($c['codigo']) ?></code><?= $preparando ? '' : ' · ' . (int) $c['horas_academicas'] . ' horas' ?></p>
             </div>
-            <h3 class='text-white mb-3' style='font-weight: 700;'>¡Aún no tienes cursos activos!</h3>
-            <p style='color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px;'>Explora nuestro catálogo y empieza a aprender con los mejores expertos de la industria.</p>
-            <a href='" . BASE_URL . "cursos' class='btn-premium' style='padding: 12px 30px; font-size: 1.1rem;'><i class='material-icons mr-2'>storefront</i> Ver Catálogo de Cursos</a>
-        </div>
-    </div>";
-}
-?>
-                    </div>
-
-                    <!-- SECCION CERTIFICADOS -->
-                    <div class="col-12 mt-5">
-                        <div class="mb-5 pb-2 border-bottom" style="border-color: rgba(255,255,255,0.05) !important;" data-aos="fade-in">
-                            <h2 class="bold mb-2 text-center" style="color: #fff; font-size: 2.2rem;">Tus Certificados</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                    <?php
-                    if (!empty($certificados)) {
-                        foreach($certificados as $cert) {
-                            $img_curso = ($cert['foto'] == 'default.png') ? 'https://www.file-extension.info/images/resource/formats/img.png' : BASE_URL . 'assets/images/cursos/' . $cert['foto'];
-                            ?>
-                            <div class='col-md-6 col-lg-4 mb-4' data-aos="fade-up">
-                                <div class='course-card-premium h-100 d-flex flex-column' style='flex-direction: column !important;'>
-                                    <div class='card-img-top text-center' style='height:200px; overflow:hidden; width: 100%;'>
-                                        <img src='<?= $img_curso ?>' style='width:100%; height:100%; object-fit: cover;' alt='Curso'>
-                                    </div>
-                                    <div class='p-4 text-center border-bottom flex-grow-1' style="border-color: rgba(255,255,255,0.05) !important;">
-                                        <div class='bold mb-3'>
-                                            <h5 class='text-white' style="font-weight: 600; line-height: 1.4;"><?= htmlspecialchars($cert['nombre_curso']) ?></h5>
-                                        </div>
-                                        <div class='text-muted'>
-                                            <small style="font-size: 0.9rem;">Subido el: <?= date('d/m/Y', strtotime($cert['fecha_subida'])) ?></small>
-                                        </div>
-                                    </div>
-                                    <div class='p-4 text-center mt-auto w-100'>
-                                        <a target="_blank" href='<?= BASE_URL ?>assets/certificados/<?= $cert['archivo_pdf'] ?>' class='btn-premium w-100' style='display: block;'>
-                                            <i class="material-icons mr-2">file_download</i> Descargar
-                                        </a>
-                                    </div>         
-                                </div>
-                            </div> 
-                            <?php
-                        }
-                    } else {
-                        echo "
-                        <div class='col-12 text-center py-5' data-aos='fade-up'>
-                            <div style='background: var(--card-bg); border: 1px dashed rgba(255,255,255,0.1); border-radius: 20px; padding: 50px 20px; max-width: 500px; margin: 0 auto;'>
-                                <div style='width: 80px; height: 80px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;'>
-                                    <i class='material-icons' style='font-size: 40px; color: var(--text-muted);'>workspace_premium</i>
-                                </div>
-                                <h4 class='text-white mb-2' style='font-weight: 600;'>Sin certificados disponibles</h4>
-                                <p style='color: var(--text-muted); font-size: 1rem;'>Tus certificados aparecerán aquí una vez que culmines satisfactoriamente un curso.</p>
-                            </div>
-                        </div>";
-                    }
-                    ?>
-                    </div>
-                </div>
+            <?php if ($preparando): ?>
+                <span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-bold text-amber-800">En preparación</span>
+            <?php else: ?>
+                <a href="<?= $urlCert($c['id_curso']) ?>" class="inline-flex min-h-[40px] shrink-0 items-center gap-2 rounded-xl bg-accent px-4 text-sm font-bold text-deep hover:brightness-95"><i class="fas fa-download"></i><span class="hidden sm:inline">Descargar</span></a>
+            <?php endif; ?>
+        </li>
+        <?php endforeach; ?>
+        <?php foreach ($certificadosRegistrados as $c): ?>
+        <li class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-line">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-mist text-xl text-brand"><i class="fas fa-certificate"></i></span>
+            <div class="min-w-0 flex-1">
+                <p class="truncate font-semibold text-deep"><?= $h($c['curso']) ?></p>
+                <p class="text-xs text-muted"><code class="text-[11px]"><?= $h($c['codigo']) ?></code><?= $c['fecha_emision'] ? ' · ' . $h($c['fecha_emision']) : '' ?></p>
             </div>
-        </div>
-        
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script>
-            AOS.init();
-        </script>
+            <a href="<?= $c['pdf'] ? $h($c['pdf']) : BASE_URL . 'verificar/' . rawurlencode($c['codigo']) ?>" target="_blank" rel="noopener" class="inline-flex min-h-[40px] shrink-0 items-center gap-2 rounded-xl bg-accent px-4 text-sm font-bold text-deep hover:brightness-95"><i class="fas <?= $c['pdf'] ? 'fa-download' : 'fa-eye' ?>"></i><span class="hidden sm:inline"><?= $c['pdf'] ? 'Descargar' : 'Ver' ?></span></a>
+        </li>
+        <?php endforeach; ?>
+        <?php foreach ($certificadosSubidos as $c): ?>
+        <li class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-line">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-mist text-xl text-brand"><i class="fas fa-certificate"></i></span>
+            <div class="min-w-0 flex-1">
+                <p class="truncate font-semibold text-deep"><?= $h($c['nombre_curso']) ?></p>
+                <p class="text-xs text-muted">Curso en vivo<?= !empty($c['fecha_subida']) ? ' · ' . $h(date('d/m/Y', strtotime($c['fecha_subida']))) : '' ?></p>
+            </div>
+            <a href="<?= BASE_URL ?>assets/certificados/<?= implode('/', array_map('rawurlencode', explode('/', (string) $c['archivo_pdf']))) ?>" target="_blank" rel="noopener" class="inline-flex min-h-[40px] shrink-0 items-center gap-2 rounded-xl bg-accent px-4 text-sm font-bold text-deep hover:brightness-95"><i class="fas fa-download"></i><span class="hidden sm:inline">Descargar</span></a>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+    <?php endif; ?>
+</section>

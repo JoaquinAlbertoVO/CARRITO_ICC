@@ -1,282 +1,77 @@
+<?php $h = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); }; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Aula Virtual - ICC</title>
-    
-    <!-- favicons Icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>assets/images/favicons/Favicon_Icc.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="<?= BASE_URL ?>assets/images/favicons/Favicon_Icc.png" />
-    
-    <!-- Google Fonts -->
+    <meta name="robots" content="noindex">
+    <title>Ingresar | Aula virtual ICC</title>
+    <link rel="icon" type="image/png" href="<?= BASE_URL ?>assets/images/logo_icc.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '2480034172420246');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=2480034172420246&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
-    <style>
-        :root {
-            --primary: #000000;
-            --accent: #25d366;
-            --text-light: #ffffff;
-            --text-gray: #a0a0a0;
-            --glass-bg: rgba(20, 20, 22, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --input-bg: rgba(255, 255, 255, 0.05);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* Fondo moderno degradado oscuro con un toque de azul/verde */
-            background: linear-gradient(135deg, #0f1115 0%, #171c26 50%, #0d1a15 100%);
-            color: var(--text-light);
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Formas decorativas desenfocadas de fondo */
-        .blob-1 {
-            position: absolute;
-            top: -10%;
-            left: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(37,211,102,0.15) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            z-index: 0;
-        }
-        
-        .blob-2 {
-            position: absolute;
-            bottom: -20%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(41,98,255,0.1) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            z-index: 0;
-        }
-
-        .login-container {
-            width: 100%;
-            max-width: 420px;
-            padding: 40px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            z-index: 10;
-            position: relative;
-            transform: translateY(20px);
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes fadeUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .login-logo {
-            width: 120px;
-            margin-bottom: 20px;
-        }
-
-        .login-title {
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-        }
-
-        .login-subtitle {
-            font-size: 14px;
-            color: var(--text-gray);
-            font-weight: 300;
-        }
-
-        .form-group {
-            margin-bottom: 22px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #d1d1d1;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 14px 18px;
-            background: var(--input-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 15px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-
-        .form-input::placeholder {
-            color: #666;
-        }
-
-        .form-input:focus {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: #555;
-            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.02);
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 15px;
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-submit:hover {
-            background: #e0e0e0;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-submit:active {
-            transform: translateY(0);
-        }
-
-        /* Toasts de error modernos */
-        .mo-toast-container {
-            margin-bottom: 20px;
-        }
-        
-        .mo-toast {
-            padding: 14px 20px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .mo-toast-error {
-            background: rgba(220, 53, 69, 0.15);
-            border: 1px solid rgba(220, 53, 69, 0.3);
-            color: #ff6b6b;
-        }
-
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            color: var(--text-gray);
-            text-decoration: none;
-            font-size: 13px;
-            transition: color 0.2s;
-        }
-
-        .back-link:hover {
-            color: #fff;
-        }
-
-        @media (max-width: 480px) {
-            .login-container {
-                width: 90%;
-                padding: 30px 20px;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/aula.css?v=1">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 </head>
-<body>
-
-    <!-- Fondos decorativos -->
-    <div class="blob-1"></div>
-    <div class="blob-2"></div>
-
-    <div class="login-container">
-        <div class="login-header">
-            <a href="<?= BASE_URL ?>">
-                <img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC Ingeniería" class="login-logo" style="width: 200px; filter: brightness(0) invert(1);">
-            </a>
-            <h1 class="login-title">Bienvenido</h1>
-            <p class="login-subtitle">Ingresa tus credenciales para acceder al aula</p>
-        </div>
-
-        <div class="mo-toast-container">
-            <?= $alert ?? '' ?>
-        </div>
-
-        <form action="<?= BASE_URL ?>aula/login" method="POST" autocomplete="off">
-            <div class="form-group">
-                <label class="form-label" for="usuario">Usuario</label>
-                <input type="text" id="usuario" name="usuario" class="form-input" placeholder="Ej: jperez" required autofocus>
+<body class="min-h-screen bg-surface font-sans text-ink antialiased">
+<div class="grid min-h-screen lg:grid-cols-2">
+    <!-- Marca -->
+    <section class="relative hidden overflow-hidden bg-deep bg-cover bg-center lg:block" style="background-image:url('<?= BASE_URL ?>assets/images/fondo_icc_hero.jpg')">
+        <div class="absolute inset-0 bg-gradient-to-br from-deep/95 via-deep/80 to-brand-dark/70"></div>
+        <div class="relative flex h-full flex-col justify-between p-12 text-white">
+            <img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC - Instituto de Capacitación Continua" class="h-12 w-auto self-start">
+            <div>
+                <span class="rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wide text-deep">Aula virtual</span>
+                <h1 class="mt-5 max-w-md font-display text-4xl font-extrabold leading-tight">Tus clases, tu material y tus certificados en un solo lugar.</h1>
+                <ul class="mt-8 space-y-3 text-sky-50">
+                    <li class="flex items-center gap-3"><span class="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10"><i class="fas fa-play text-accent text-xs"></i></span> Clases grabadas a tu ritmo</li>
+                    <li class="flex items-center gap-3"><span class="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10"><i class="fas fa-folder-open text-accent text-xs"></i></span> Material para descargar</li>
+                    <li class="flex items-center gap-3"><span class="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10"><i class="fas fa-award text-accent text-xs"></i></span> Certificados con QR verificable</li>
+                </ul>
             </div>
-            
-            <div class="form-group">
-                <label class="form-label" for="clave">Contraseña</label>
-                <input type="password" id="clave" name="clave" class="form-input" placeholder="••••••••" required>
+            <p class="text-xs text-sky-200">© <?= date('Y') ?> Instituto de Capacitación Continua S.R.L.</p>
+        </div>
+    </section>
+
+    <!-- Formulario -->
+    <section class="flex items-center justify-center p-6 sm:p-12">
+        <div class="w-full max-w-sm">
+            <div class="mb-8 rounded-2xl bg-deep p-4 lg:hidden"><img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC" class="mx-auto h-10 w-auto"></div>
+            <h2 class="font-display text-3xl font-extrabold text-deep">Ingresa a tu aula</h2>
+            <p class="mt-2 text-muted">Usa el usuario y la contraseña que te enviamos por correo.</p>
+
+            <?php if (!empty($error)): ?>
+                <p role="alert" class="mt-6 flex items-start gap-2 rounded-xl bg-red-50 p-3 text-sm text-red-700 ring-1 ring-red-200"><i class="fas fa-exclamation-circle mt-0.5"></i><?= $h($error) ?></p>
+            <?php endif; ?>
+
+            <form method="post" action="<?= BASE_URL ?>aula/login" class="mt-6 space-y-4" x-data="{ ver: false, enviando: false }" @submit="enviando = true">
+                <label class="block text-sm font-semibold">Usuario o correo
+                    <span class="relative mt-1 block">
+                        <i class="fas fa-user pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted" aria-hidden="true"></i>
+                        <input name="usuario" value="<?= $h($usuario ?? '') ?>" autocomplete="username" required autofocus class="w-full rounded-xl border border-line bg-white py-3 pl-10 pr-3 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30">
+                    </span>
+                </label>
+                <label class="block text-sm font-semibold">Contraseña
+                    <span class="relative mt-1 block">
+                        <i class="fas fa-lock pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted" aria-hidden="true"></i>
+                        <input name="clave" :type="ver ? 'text' : 'password'" type="password" autocomplete="current-password" required class="w-full rounded-xl border border-line bg-white py-3 pl-10 pr-12 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30">
+                        <button type="button" @click="ver = !ver" :aria-label="ver ? 'Ocultar contraseña' : 'Mostrar contraseña'" class="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg text-muted hover:bg-surface"><i class="fas" :class="ver ? 'fa-eye-slash' : 'fa-eye'"></i></button>
+                    </span>
+                </label>
+                <button type="submit" :disabled="enviando" class="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-brand font-display text-base font-bold text-white shadow-lg shadow-brand/30 hover:bg-brand-dark disabled:opacity-70">
+                    <span x-text="enviando ? 'Ingresando…' : 'Ingresar'">Ingresar</span> <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </button>
+            </form>
+
+            <div class="mt-8 rounded-xl bg-white p-4 text-sm ring-1 ring-line">
+                <p class="font-semibold text-deep">¿Olvidaste tu contraseña?</p>
+                <p class="mt-1 text-muted">Escríbenos y te la enviamos.</p>
+                <a href="https://wa.me/51941208020?text=<?= rawurlencode('Hola ICC, necesito recuperar mi acceso al aula virtual.') ?>" target="_blank" rel="noopener" class="mt-2 inline-flex items-center gap-2 font-bold text-brand hover:underline"><i class="fab fa-whatsapp"></i> WhatsApp +51 941 208 020</a>
             </div>
-
-            <button type="submit" class="btn-submit">Iniciar Sesión</button>
-        </form>
-
-        <a href="<?= BASE_URL ?>" class="back-link">← Volver al sitio principal</a>
-    </div>
-
+            <p class="mt-6 text-center text-sm text-muted">¿Aún no tienes cursos? <a href="<?= BASE_URL ?>tienda" class="font-bold text-brand hover:underline">Mira los packs</a></p>
+        </div>
+    </section>
+</div>
 </body>
 </html>

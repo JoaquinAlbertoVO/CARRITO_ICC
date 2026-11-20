@@ -7,7 +7,7 @@ use App\Models\User;
 class AdminAuthController extends Controller {
     public function login() {
         // Si ya está logueado, redirigir al dashboard
-        if (isset($_SESSION['active']) && $_SESSION['active'] === true) {
+        if (!empty($_SESSION['es_admin'])) {
             header('Location: ' . BASE_URL . 'admin/dashboard');
             exit;
         }
@@ -35,6 +35,10 @@ class AdminAuthController extends Controller {
                 $data = $userModel->authenticate($_POST['usuario'], $_POST['clave'], $_POST['rol']);
 
                 if ($data) {
+                    // Nueva sesion al entrar (evita fijacion de sesion) y marca propia del panel:
+                    // 'active' solo no basta, el aula lo usaba tambien y un alumno entraba al admin.
+                    session_regenerate_id(true);
+                    $_SESSION['es_admin'] = true;
                     $_SESSION['active'] = true;
                     $_SESSION['idUser'] = $data['id_pla'];
                     $_SESSION['nombre'] = $data['name'];

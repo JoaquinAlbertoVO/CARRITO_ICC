@@ -29,7 +29,8 @@ class Router {
                     unset($url[1]);
                 } else {
                     // Middleware: Verificar si el admin está logueado
-                    if (!isset($_SESSION['active']) || $_SESSION['active'] !== true) {
+                    // es_admin solo lo pone el login del panel (el aula usa sus propias claves de sesion)
+                    if (empty($_SESSION['es_admin'])) {
                         header("Location: " . BASE_URL . "admin/login");
                         exit;
                     }

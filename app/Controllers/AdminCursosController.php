@@ -4,12 +4,14 @@ namespace App\Controllers;
 use App\Core\Controller;
 
 class AdminCursosController extends Controller {
+    // Admin > Packs y cursos grabados (app/Controllers/AdminCatalogo.php)
+    use AdminCatalogo;
 
     protected $db;
 
     public function __construct() {
         // Proteger el panel completo
-        if (empty($_SESSION['active'])) {
+        if (empty($_SESSION['es_admin'])) {
             header('Location: ' . BASE_URL . 'admin/login');
             exit;
         }
@@ -831,7 +833,7 @@ class AdminCursosController extends Controller {
             }
         }
 
-        $todos_los_cursos = $cursoModel->getCursos(1);
+        $todos_los_cursos = $cursoModel->getCursos(1, true);
         $cursos_inscritos = $estudianteModel->getCursosInscritos($id_usuario);
 
         $data = [
@@ -1378,7 +1380,7 @@ class AdminCursosController extends Controller {
     }
 
     public function visitantes() {
-        if (!isset($_SESSION['active']) || $_SESSION['active'] !== true) {
+        if (empty($_SESSION['es_admin'])) {
             header('Location: ' . BASE_URL . 'admin/login');
             exit;
         }

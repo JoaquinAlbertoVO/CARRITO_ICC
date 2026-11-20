@@ -60,7 +60,18 @@ class HomeController extends Controller {
             }
         }
 
+        // Packs de cursos grabados publicados (App\Models\Catalogo): si no hay ninguno, la seccion no se muestra
+        $packs = [];
+        try {
+            $packs = array_values(array_filter((new \App\Models\Catalogo())->packs(true), function ($p) {
+                return \App\Models\Catalogo::vendible($p);
+            }));
+        } catch (\Throwable $e) {
+            error_log('Home: no se pudieron leer los packs: ' . $e->getMessage());
+        }
+
         $data = [
+            'packs' => $packs,
             'title' => 'Inicio - Instituto de Capacitación Continua',
             'meta_description' => 'Actualiza tus conocimientos y capacítate con nosotros. Te damos lo mejor en Ingeniería Eléctrica.',
             'ingenieria_courses' => $ingenieria_courses

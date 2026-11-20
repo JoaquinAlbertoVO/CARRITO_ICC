@@ -16,8 +16,15 @@ if (!function_exists('getallheaders')) {
 $headers = getallheaders();
 
 // 2. Extraer y validar el Token Hottok (hash_equals evita timing attacks al comparar secretos)
+// El token vive solo en el .env del servidor (HOTMART_HOTTOK), nunca en el repositorio
+require_once __DIR__ . '/../app/Helpers/Mailer.php';
 $token_recibido = $headers['X-Hotmart-Hottok'] ?? ($headers['x-hotmart-hottok'] ?? '');
-$mi_token_secreto = "VSjWkJjjbrI7QCQL6iFCkE3kv65BgJ58b811b3-57bc-4d2e-97a6-c478922ff02f";
+$mi_token_secreto = \App\Helpers\Mailer::env('HOTMART_HOTTOK');
+
+if ($mi_token_secreto === '') {
+    http_response_code(500);
+    die(json_encode(["error" => "Webhook sin configurar (falta HOTMART_HOTTOK en el .env)."]));
+}
 
 if (!hash_equals($mi_token_secreto, (string) $token_recibido)) {
     http_response_code(401);
@@ -115,7 +122,8 @@ if (empty($transaccion)) {
 
                 // B. Curso: buscarlo por nombre aproximado y matricular si no lo tiene ya
                 $id_curso = null;
-                $stmtCurso = $pdo->prepare("SELECT id_curso FROM cursos WHERE nombre_curso LIKE ? LIMIT 1");
+                // modalidad: nunca matricular en un curso grabado del catalogo con nombre parecido
+                $stmtCurso = $pdo->prepare("SELECT id_curso FROM cursos WHERE nombre_curso LIKE ? AND modalidad <> 'asincrono' ORDER BY id_curso ASC LIMIT 1");
                 $stmtCurso->execute(['%' . substr($curso, 0, 15) . '%']);
                 $cursoData = $stmtCurso->fetch();
 

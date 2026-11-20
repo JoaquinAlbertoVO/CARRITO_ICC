@@ -277,6 +277,8 @@ $ingenieria_courses = $ingenieria_courses ?? [];
         </section>
         <!--Courses One End INGENIERÍA-->
 
+        <?php if (!empty($packs)) { require __DIR__ . '/packs.php'; } ?>
+
         <!--Features One Start-->
         <section class="features-one">
             <div class="container">

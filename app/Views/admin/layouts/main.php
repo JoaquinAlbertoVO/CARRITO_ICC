@@ -345,6 +345,14 @@ if (empty($_SESSION['active'])) {
                                             <span class="sidebar-menu-text">Cursos</span>
                                         </a>
                                     </li>
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/catalogo') !== false && strpos($current_path, 'catalogo_venta') === false) ? 'active' : '' ?>">
+                                        <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/catalogo">
+                                            <span class="sidebar-menu-icon sidebar-menu-icon--left">
+                                                <i class="material-icons text-muted">inventory_2</i>
+                                            </span>
+                                            <span class="sidebar-menu-text">Packs y cursos grabados</span>
+                                        </a>
+                                    </li>
                                     <li class="sidebar-menu-item <?= (strpos($current_path, 'admin/certificados') !== false) ? 'active' : '' ?>">
                                         <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/certificados">
                                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
@@ -379,6 +387,14 @@ if (empty($_SESSION['active'])) {
                                                 <i class="material-icons text-muted">receipt_long</i>
                                             </span>
                                             <span class="sidebar-menu-text">Comprobantes</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item <?= (strpos($current_path, 'catalogo_venta') !== false) ? 'active' : '' ?>">
+                                        <a class="sidebar-menu-button" href="<?= BASE_URL ?>admin/catalogo_ventas">
+                                            <span class="sidebar-menu-icon sidebar-menu-icon--left">
+                                                <i class="material-icons text-muted">shopping_bag</i>
+                                            </span>
+                                            <span class="sidebar-menu-text">Ventas de packs</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item <?= (strpos($current_path, 'ventas_stenergy') !== false) ? 'active' : '' ?>">

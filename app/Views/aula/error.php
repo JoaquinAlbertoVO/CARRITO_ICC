@@ -1,12 +1,8 @@
-<div class="mdk-header-layout__content page" style="background-color: var(--bg-dark); min-height: 100vh;">
-    <div class="container mt-5 pt-5 text-center">
-        <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 60px 20px; max-width: 600px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-            <div style="width: 100px; height: 100px; background: rgba(220, 53, 69, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;">
-                <i class="material-icons text-danger" style="font-size: 50px;">error_outline</i>
-            </div>
-            <h3 class="text-white mb-3" style="font-weight: 700;"><?= htmlspecialchars($title ?? 'Error') ?></h3>
-            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px;"><?= htmlspecialchars($error ?? 'Ha ocurrido un error inesperado.') ?></p>
-            <a href="<?= BASE_URL ?>aula" class="btn btn-primary" style="padding: 12px 30px; font-size: 1.1rem; border-radius: 30px;"><i class="material-icons mr-2">arrow_back</i> Volver a Mi Aula</a>
-        </div>
+<div class="mx-auto max-w-lg rounded-3xl bg-white p-8 text-center shadow-sm ring-1 ring-line">
+    <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-mist text-2xl text-brand"><i class="fas fa-lock"></i></span>
+    <p class="mt-4 font-display text-xl font-bold text-deep"><?= htmlspecialchars($mensaje ?? 'No se pudo abrir esta página.', ENT_QUOTES, 'UTF-8') ?></p>
+    <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+        <a href="<?= BASE_URL ?>aula" class="inline-flex min-h-[44px] items-center justify-center rounded-xl bg-brand px-5 font-bold text-white hover:bg-brand-dark">Volver a mis cursos</a>
+        <a href="https://wa.me/51941208020" target="_blank" rel="noopener" class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-line px-5 font-bold hover:bg-surface"><i class="fab fa-whatsapp"></i> Soporte</a>
     </div>
 </div>

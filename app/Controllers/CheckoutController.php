@@ -511,7 +511,8 @@ class CheckoutController extends Controller {
             }
 
             // Matricular en el curso (mismo criterio que ya usa el webhook de Hotmart)
-            $stmtCurso = $pdo->prepare("SELECT id_curso FROM cursos WHERE nombre_curso LIKE ? LIMIT 1");
+            // modalidad: nunca matricular en un curso grabado del catalogo con nombre parecido
+            $stmtCurso = $pdo->prepare("SELECT id_curso FROM cursos WHERE nombre_curso LIKE ? AND modalidad <> 'asincrono' ORDER BY id_curso ASC LIMIT 1");
             $stmtCurso->execute(['%' . substr($curso, 0, 15) . '%']);
             $cursoData = $stmtCurso->fetch();
 
@@ -576,9 +577,16 @@ class CheckoutController extends Controller {
     const STENERGY_PISO_PORCENTAJE = 0.50;
     // Mismo tipo de cambio que usa la pagina para pasar de soles a dolares.
     const STENERGY_TIPO_CAMBIO = 3.80;
+    const STENERGY_NOMBRES_CURSO = [
+        'solo' => 'Terminaciones Termocontraíbles en Media Tensión',
+        'duo' => 'Terminaciones y Empalmes Termocontraíbles en Media Tensión',
+        'subestaciones' => 'Mantenimiento de Subestaciones Eléctricas',
+    ];
 
     public function stenergy() {
-        $this->view('checkout/stenergy', [], false);
+        // Llave publica de Culqi: sin ella la pestaña de tarjeta en soles no aparece
+        require_once __DIR__ . '/../Libraries/CulqiClient.php';
+        $this->view('checkout/stenergy', ['culqiPublicKey' => \App\Libraries\CulqiClient::llavePublica()], false);
     }
 
     public function stenergy_confirm() {
@@ -641,11 +649,7 @@ class CheckoutController extends Controller {
         $nombrePaypal = trim(($payer['name']['given_name'] ?? '') . ' ' . ($payer['name']['surname'] ?? ''));
         $nombreFinal = $nombre !== '' ? trim($nombre . ' ' . $apellido) : ($nombrePaypal ?: 'Alumno ST Energy');
 
-        $nombresCurso = [
-            'solo' => 'Terminaciones Termocontraíbles en Media Tensión',
-            'duo' => 'Terminaciones y Empalmes Termocontraíbles en Media Tensión',
-            'subestaciones' => 'Mantenimiento de Subestaciones Eléctricas',
-        ];
+        $nombresCurso = self::STENERGY_NOMBRES_CURSO;
 
         // Piso de monto: el precio viaja en el link (?precio=), asi que alguien podria editarlo y pagar
         // centavos. Un pago en otra moneda o por debajo del piso NO se matricula: se avisa al equipo
@@ -679,6 +683,35 @@ class CheckoutController extends Controller {
             return;
         }
 
+        $venta = $this->stenergyRegistrarVenta([
+            'tipo' => $tipo, 'nombre' => $nombreFinal, 'email' => $emailFinal, 'dni' => $dni, 'celular' => $celular,
+            'monto' => $monto, 'moneda' => $monedaPagada, 'referencia' => $orderId,
+            'metodo' => 'PayPal / Tarjeta', 'origen' => 'PayPal',
+        ], $logFile);
+
+        echo json_encode([
+            'success' => true,
+            'enrollTerminaciones' => $venta['resultado'],
+        ]);
+    }
+
+    /**
+     * Pago ya confirmado (PayPal o Culqi): matricula en WordPress cuando se puede, deja el log y
+     * avisa al equipo de ST Energy por correo. Devuelve si la matricula automatica salio bien.
+     */
+    private function stenergyRegistrarVenta(array $v, $logFile) {
+        require_once __DIR__ . '/../Libraries/StEnergyClient.php';
+        $tipo = $v['tipo'];
+        $nombreFinal = $v['nombre'];
+        $emailFinal = $v['email'];
+        $dni = $v['dni'];
+        $celular = $v['celular'];
+        $orderId = $v['referencia'];
+        $monto = $v['monto'];
+        $monedaPagada = $v['moneda'];
+        $origen = $v['origen'];
+        $nombresCurso = self::STENERGY_NOMBRES_CURSO;
+
         // 2. Matricular en WordPress via enroll-wp.
         // Curso 1: "Terminaciones Termocontraibles - 29/09/2026" (course_id confirmado: 4043)
         $resultadoTerminaciones = null;
@@ -705,13 +738,13 @@ class CheckoutController extends Controller {
             file_put_contents($logFile, date('Y-m-d H:i:s') . " | PENDIENTE MANUAL: falta matricular tambien en 'Empalmes Termocontraibles - 29/09/2026' (el curso aun no existe en WordPress) - $nombreFinal ($emailFinal) - Orden $orderId\n", FILE_APPEND);
         }
 
-        file_put_contents($logFile, date('Y-m-d H:i:s') . " | VENTA ST ENERGY OK: $nombreFinal ($emailFinal) - Orden $orderId - $monto $monedaPagada - DNI $dni - Cel $celular\n", FILE_APPEND);
+        file_put_contents($logFile, date('Y-m-d H:i:s') . " | VENTA ST ENERGY OK ($origen): $nombreFinal ($emailFinal) - Orden $orderId - $monto $monedaPagada - DNI $dni - Cel $celular\n", FILE_APPEND);
 
         // Aviso al equipo de ST Energy (solo correo, sin Google Sheets). Un fallo aqui nunca afecta al pago.
         if ($tipo === 'subestaciones') {
-            $notaEquipo = 'Pago confirmado por PayPal. Este curso NO se matricula solo: hay que matricular al alumno a mano en la plataforma.';
+            $notaEquipo = "Pago confirmado por $origen. Este curso NO se matricula solo: hay que matricular al alumno a mano en la plataforma.";
         } elseif (!$matriculadoOk) {
-            $notaEquipo = 'Pago confirmado por PayPal, pero la matrícula automática en la plataforma FALLÓ: hay que matricular al alumno a mano.';
+            $notaEquipo = "Pago confirmado por $origen, pero la matrícula automática en la plataforma FALLÓ: hay que matricular al alumno a mano.";
         } elseif ($tipo === 'duo') {
             $notaEquipo = 'Pago confirmado. Quedó matriculado solo en Terminaciones; falta matricularlo a mano en Empalmes (ese curso aún no existe en WordPress).';
         } else {
@@ -721,7 +754,7 @@ class CheckoutController extends Controller {
             require_once __DIR__ . '/../Helpers/Mailer.php';
             \App\Helpers\Mailer::notificarMatricula([
                 'marca' => 'ST Energy', 'sinSheets' => true, 'nota' => $notaEquipo,
-                'metodo' => 'PayPal / Tarjeta', 'estado' => 'PAGADO',
+                'metodo' => $v['metodo'], 'estado' => 'PAGADO',
                 'nombre' => $nombreFinal, 'documento' => $dni, 'correo' => $emailFinal, 'celular' => $celular,
                 'curso' => $nombresCurso[$tipo], 'monto' => $monto, 'moneda' => $monedaPagada, 'referencia' => $orderId,
             ]);
@@ -729,10 +762,121 @@ class CheckoutController extends Controller {
             file_put_contents($logFile, date('Y-m-d H:i:s') . ' | FALLO aviso por correo: ' . $e->getMessage() . "\n", FILE_APPEND);
         }
 
-        echo json_encode([
-            'success' => true,
-            'enrollTerminaciones' => $resultadoTerminaciones,
-        ]);
+        return [
+            'resultado' => $resultadoTerminaciones,
+            // El alumno ve "estamos matriculando" solo si de verdad quedo matriculado (subestaciones va a mano)
+            'matriculaAuto' => $tipo !== 'subestaciones' && $matriculadoOk,
+        ];
+    }
+
+    /**
+     * Cobro con tarjeta en soles por Culqi. El navegador manda el token de la tarjeta (Culqi Checkout)
+     * y este servidor crea el cargo con la llave secreta. A diferencia de PayPal, el monto se valida
+     * ANTES de cobrar: un precio editado por debajo del piso no llega a cobrarse.
+     * Si el banco pide 3DS, se responde need3ds y el navegador reintenta con authentication_3DS.
+     */
+    public function stenergy_culqi() {
+        header('Content-Type: application/json');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            echo json_encode(['success' => false, 'error' => 'Metodo no permitido']);
+            return;
+        }
+
+        $input = json_decode(file_get_contents('php://input'), true) ?: [];
+
+        $token    = isset($input['token']) ? trim((string) $input['token']) : '';
+        $deviceId = isset($input['deviceId']) ? substr(trim((string) $input['deviceId']), 0, 100) : '';
+        $dni      = isset($input['dni']) ? substr(strip_tags(trim($input['dni'])), 0, 20) : '';
+        $nombre   = isset($input['nombre']) ? substr(strip_tags(trim($input['nombre'])), 0, 50) : '';
+        $apellido = isset($input['apellido']) ? substr(strip_tags(trim($input['apellido'])), 0, 50) : '';
+        $celular  = isset($input['celular']) ? substr(strip_tags(trim($input['celular'])), 0, 50) : '';
+        $email    = isset($input['email']) ? trim((string) $input['email']) : '';
+        $tipo = isset($input['tipo']) ? strtolower(trim($input['tipo'])) : 'duo';
+        $tipo = in_array($tipo, ['solo', 'duo', 'subestaciones'], true) ? $tipo : 'duo';
+        $precio = isset($input['precio']) && is_numeric($input['precio']) ? round((float) $input['precio'], 2) : 0.0;
+        $auth3ds = isset($input['authentication3DS']) && is_array($input['authentication3DS']) ? $input['authentication3DS'] : null;
+
+        $logFile = __DIR__ . '/../../api/stenergy_log.txt';
+
+        if (!preg_match('/^tkn_(test|live)_[A-Za-z0-9]+$/', $token)) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'No se recibio la tarjeta. Intenta de nuevo.']);
+            return;
+        }
+        // Culqi exige un correo valido de 5 a 50 caracteres para el cargo
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 50 || $nombre === '' || $apellido === '' || $dni === '' || $celular === '') {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Completa tu correo, DNI, nombres, apellidos y celular.']);
+            return;
+        }
+
+        // Piso de monto ANTES de cobrar (mismo criterio que PayPal): no se cobra un precio editado a la baja.
+        $listaPen = self::STENERGY_PRECIO_LISTA_PEN[$tipo];
+        $pisoPen  = round($listaPen * self::STENERGY_PISO_PORCENTAJE, 2);
+        if ($precio < $pisoPen || $precio > 99999) {
+            file_put_contents($logFile, date('Y-m-d H:i:s') . " | CULQI BLOQUEADO ANTES DE COBRAR (precio S/ $precio, piso S/ $pisoPen, tipo $tipo): $nombre $apellido ($email)\n", FILE_APPEND);
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'El precio de este link no es valido. Escribenos por WhatsApp para ayudarte con tu inscripcion.']);
+            return;
+        }
+
+        $nombresCurso = self::STENERGY_NOMBRES_CURSO;
+        $cuerpo = [
+            'amount' => (int) round($precio * 100),   // centimos
+            'currency_code' => 'PEN',
+            'email' => $email,
+            'source_id' => $token,
+            'description' => mb_substr('ST Energy - ' . $nombresCurso[$tipo], 0, 80, 'UTF-8'),
+            'antifraud_details' => array_filter([
+                'first_name' => $nombre,
+                'last_name' => $apellido,
+                'phone_number' => substr(preg_replace('/\D+/', '', $celular), 0, 15),
+                'country_code' => 'PE',
+                'device_finger_print_id' => $deviceId,
+            ], function ($x) { return $x !== ''; }),
+            'metadata' => ['dni' => $dni, 'tipo' => $tipo, 'marca' => 'ST Energy'],
+        ];
+        if ($auth3ds) {
+            // Solo los campos que define Culqi3DS, como texto
+            $permitidos = ['eci', 'xid', 'cavv', 'protocolVersion', 'directoryServerTransactionId'];
+            $cuerpo['authentication_3DS'] = array_map('strval', array_intersect_key($auth3ds, array_flip($permitidos)));
+        }
+
+        require_once __DIR__ . '/../Libraries/CulqiClient.php';
+        try {
+            $res = (new \App\Libraries\CulqiClient())->crearCargo($cuerpo);
+        } catch (\Exception $e) {
+            file_put_contents($logFile, date('Y-m-d H:i:s') . ' | CULQI ERROR: ' . $e->getMessage() . " ($email)\n", FILE_APPEND);
+            http_response_code(502);
+            // Un corte de red no garantiza que el cargo no se haya hecho: no se le dice al alumno que no se cobro
+            echo json_encode(['success' => false, 'error' => 'No pudimos confirmar tu pago con tarjeta. Antes de intentar de nuevo, escribenos por WhatsApp para revisar si se realizo el cobro.']);
+            return;
+        }
+
+        if ($res['estado'] === 'requiere_3ds') {
+            file_put_contents($logFile, date('Y-m-d H:i:s') . " | CULQI pide 3DS: $email - S/ $precio - tipo $tipo\n", FILE_APPEND);
+            echo json_encode(['success' => false, 'need3ds' => true]);
+            return;
+        }
+
+        if ($res['estado'] !== 'exitoso') {
+            $d = $res['data'];
+            file_put_contents($logFile, date('Y-m-d H:i:s') . " | CULQI RECHAZADO (HTTP {$res['http']}): " . ($d['merchant_message'] ?? '') . ' [' . ($d['code'] ?? '') . ' ' . ($d['decline_code'] ?? '') . "] - $email - S/ $precio\n", FILE_APPEND);
+            http_response_code(402);
+            echo json_encode(['success' => false, 'error' => $d['user_message'] ?? 'Tu tarjeta fue rechazada. Intenta con otra tarjeta.']);
+            return;
+        }
+
+        // Cargo exitoso: los datos de la venta salen de la respuesta de Culqi, no del navegador
+        $cargo = $res['data'];
+        $venta = $this->stenergyRegistrarVenta([
+            'tipo' => $tipo, 'nombre' => trim($nombre . ' ' . $apellido), 'email' => $email, 'dni' => $dni, 'celular' => $celular,
+            'monto' => number_format(($cargo['amount'] ?? 0) / 100, 2, '.', ''), 'moneda' => $cargo['currency_code'] ?? 'PEN',
+            'referencia' => $cargo['id'] ?? '', 'metodo' => 'Tarjeta en soles (Culqi)', 'origen' => 'Culqi',
+        ], $logFile);
+
+        echo json_encode(['success' => true, 'matriculaAuto' => $venta['matriculaAuto']]);
     }
 
     /**

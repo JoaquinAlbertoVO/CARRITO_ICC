@@ -23,4 +23,6 @@ jobs:
           passphrase: ${{ secrets.FTP_KEY_PASSPHRASE }}
           localDir: '.'
           remoteDir: 'public_html'
-          exclude: '.git/**,.github/**,.env'
+          # Lo que solo sirve en local (copias viejas, scripts de mantenimiento y de un solo uso) no se sube.
+          # Ojo: esto no borra lo que ya esta en el servidor; el .htaccess raiz lo bloquea igual
+          exclude: '.git/**,.github/**,.env,.env.example,plantilla/**,backup_aula_estaticos/**,database/**,scripts/**,tools/**,docs/**,check_*.php,create_table.php,deploy_modulos.php,fix_*.php,import_alumnos_excel.php,install.php,migrate_*.php,temp_*.php,temp_*.sql,test_*.php,update_industrial.php,router.php,*.py,*.sql,courses_data.json,accordion_replacement.txt,docx_content.txt'

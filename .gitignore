@@ -10,3 +10,10 @@
 
 node_modules/
 vendor/
+
+# Archivos privados del aula (certificados de alumnos, comprobantes): nunca al repo
+storage/*
+!storage/.htaccess
+
+# Credenciales de las cuentas de prueba locales
+.claude/credenciales-*

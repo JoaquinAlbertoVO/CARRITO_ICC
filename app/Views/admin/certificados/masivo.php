@@ -24,7 +24,8 @@
                             <option value="<?= htmlspecialchars($c['nombre_curso']) ?>"
                                     data-horas="<?= htmlspecialchars(preg_replace('/\D/', '', (string) $c['horas_academicas'])) ?>"
                                     data-inicio="<?= htmlspecialchars((string) ($c['fecha_inicio'] ?? '')) ?>"
-                                    data-fin="<?= htmlspecialchars((string) ($c['fecha_fin'] ?? '')) ?>"></option>
+                                    data-fin="<?= htmlspecialchars((string) ($c['fecha_fin'] ?? '')) ?>"
+                                    data-sigla="<?= htmlspecialchars((string) ($c['sigla'] ?? '')) ?>"></option>
                         <?php endforeach; ?>
                     </datalist>
                 </div>
@@ -56,19 +57,16 @@
                         <label>Fecha de emisión</label>
                         <input type="date" id="mEmision" class="form-control" value="<?= date('Y-m-d') ?>">
                     </div>
-                    <div class="form-group col-md-6">
-                        <label>Código de cada certificado</label>
-                        <select id="mTipoCodigo" class="form-control">
-                            <option value="aleatorio">Aleatorio, no deducible del DNI (recomendado)</option>
-                            <option value="dni">CERT-&lt;SIGLA&gt;-&lt;DNI&gt;, como los lotes antiguos</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3" id="mSiglaBox" style="display:none;">
+                    <div class="form-group col-md-3">
                         <label>Sigla del curso</label>
                         <input type="text" id="mSigla" class="form-control" maxlength="12" placeholder="MSE">
                     </div>
+                    <div class="form-group col-md-6">
+                        <label>Código de cada certificado</label>
+                        <div class="form-control-plaintext"><code>CERT-<span id="mSiglaEj">SIGLA</span>-DNI</code> <span class="text-muted small">(sin DNI: CERT-<span id="mSiglaEj2">SIGLA</span>-NOMBRE-APELLIDO)</span></div>
+                    </div>
                 </div>
-                <small class="text-muted">Sin fechas "realizado del…", el certificado sale sin esa frase. Quien ya tenga certificado de este curso y fecha de emisión conserva su código (repetir un lote no crea códigos nuevos).</small>
+                <small class="text-muted">Sin fechas "realizado del…", el certificado sale sin esa frase. El código siempre es CERT-SIGLA-DNI: repetir un lote reemite los mismos códigos (no crea nuevos).</small>
             </div>
         </div>
 
@@ -121,16 +119,21 @@
 
     var $ = function (id) { return document.getElementById(id); };
     var curso = $('mCurso'), horas = $('mHoras'), inicio = $('mInicio'), fin = $('mFin'), sigla = $('mSigla');
-    var tipo = $('mTipoCodigo'), cuerpo = $('mCuerpo');
+    var cuerpo = $('mCuerpo');
     var filas = [];          // {nombre, dni, codigo, incluir, estado, ...}
     var siglaTocada = false;
     var ocupado = false;
 
     // ---------- Datos del curso ----------
-    function siglaSugerida(nombre) {
-        return nombre.split(/\s+/).filter(function (w) { return w.length > 3; })
-            .map(function (w) { return w.charAt(0); }).join('').toUpperCase()
-            .normalize('NFD').replace(/[^A-Z0-9]/g, '').substr(0, 8);
+    function siglaSugerida(nombre) {   // iniciales sin "de, la, y, en..." (igual que el servidor)
+        var vacias = ['DE', 'DEL', 'LA', 'LAS', 'LOS', 'EL', 'Y', 'E', 'EN', 'A', 'AL', 'PARA', 'CON', 'POR', 'O', 'U'];
+        return nombre.normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().split(/[^A-Z0-9]+/)
+            .filter(function (w) { return w && vacias.indexOf(w) < 0; })
+            .map(function (w) { return w.charAt(0); }).join('').substr(0, 8);
+    }
+    function mostrarSigla() {
+        var s = sigla.value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '') || 'SIGLA';
+        $('mSiglaEj').textContent = s; $('mSiglaEj2').textContent = s;
     }
     curso.addEventListener('change', function () {
         var op = document.querySelectorAll('#listaCursos option');
@@ -140,13 +143,14 @@
                 var a = op[i].dataset.inicio || '', b = op[i].dataset.fin || '';
                 if (/^\d{4}-\d{2}-\d{2}/.test(a)) inicio.value = a.substr(0, 10);
                 if (/^\d{4}-\d{2}-\d{2}/.test(b)) fin.value = b.substr(0, 10);
+                if (op[i].dataset.sigla && !siglaTocada) { sigla.value = op[i].dataset.sigla; mostrarSigla(); return; }
                 break;
             }
         }
         if (!siglaTocada) sigla.value = siglaSugerida(curso.value);
+        mostrarSigla();
     });
-    sigla.addEventListener('input', function () { siglaTocada = true; });
-    tipo.addEventListener('change', function () { $('mSiglaBox').style.display = tipo.value === 'dni' ? '' : 'none'; });
+    sigla.addEventListener('input', function () { siglaTocada = true; mostrarSigla(); });
 
     // ---------- Lectura de la lista ----------
     function sinTildes(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim(); }
@@ -358,7 +362,7 @@
 
     // ---------- Generacion (una fila por peticion, con progreso) ----------
     function bloquearCurso(b) {
-        ['mCurso', 'mHoras', 'mModalidad', 'mInicio', 'mFin', 'mEmision', 'mTipoCodigo', 'mSigla', 'mLista', 'mArchivo', 'mRevisar'].forEach(function (id) { $(id).disabled = b; });
+        ['mCurso', 'mHoras', 'mModalidad', 'mInicio', 'mFin', 'mEmision', 'mSigla', 'mLista', 'mArchivo', 'mRevisar'].forEach(function (id) { $(id).disabled = b; });
         filas.forEach(function (f) { f.inN.disabled = b || f.estado === 'ok'; f.inD.disabled = b || f.estado === 'ok'; });
     }
 
@@ -376,7 +380,7 @@
             alert('Completa el curso, las horas y la fecha de emisión.');
             return;
         }
-        if (tipo.value === 'dni' && sigla.value.trim() === '') {
+        if (sigla.value.trim() === '') {
             alert('Escribe la sigla del curso para armar los códigos CERT-<SIGLA>-<DNI>.');
             return;
         }
@@ -402,7 +406,7 @@
             fd.append('curso', curso.value.trim()); fd.append('horas', horas.value.trim());
             fd.append('modalidad', $('mModalidad').value);
             fd.append('inicio', inicio.value); fd.append('fin', fin.value); fd.append('emision', $('mEmision').value);
-            fd.append('tipo_codigo', tipo.value); fd.append('sigla', sigla.value.trim());
+            fd.append('sigla', sigla.value.trim());
             try {
                 var res = await fetch(URL_FILA, { method: 'POST', body: fd, credentials: 'same-origin' });
                 if (res.status === 403) { sesionVencida = true; throw new Error('Sesión vencida: vuelve a entrar al panel y reintenta.'); }
@@ -434,6 +438,6 @@
     });
 
     $('mNuevo').addEventListener('click', function () { location.reload(); });
-    tipo.dispatchEvent(new Event('change'));
+    mostrarSigla();
 })();
 </script>

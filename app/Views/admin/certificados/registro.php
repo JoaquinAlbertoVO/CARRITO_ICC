@@ -16,6 +16,51 @@
             <div class="alert alert-<?= htmlspecialchars($mensaje['tipo']) ?>"><?= htmlspecialchars($mensaje['texto']) ?></div>
         <?php endif; ?>
 
+        <div class="card mb-4">
+            <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
+                <h4 class="card-title mb-0"><?= $q !== '' ? 'Resultados de la búsqueda (' . count($filas) . ')' : 'Buscar certificados generados' ?></h4>
+                <form method="get" action="<?= BASE_URL ?>admin/registro_certificados" class="form-inline mt-2 mt-md-0">
+                    <input type="text" name="q" value="<?= htmlspecialchars($q) ?>" class="form-control mr-2" placeholder="Código, nombre, DNI o curso" style="min-width: 320px;" autofocus>
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                    <?php if ($q !== ''): ?><a href="<?= BASE_URL ?>admin/registro_certificados" class="btn btn-link">Quitar filtro</a><?php endif; ?>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead>
+                        <tr><th>Código</th><th>Marca</th><th>Alumno</th><th>Curso</th><th>Emisión</th><th>Estado</th><th class="text-right">Acción</th></tr>
+                    </thead>
+                    <tbody>
+                    <?php if (empty($filas)): ?>
+                        <tr><td colspan="7" class="text-center text-muted py-4">No hay certificados<?= $q !== '' ? ' que coincidan con la búsqueda' : ' registrados todavía' ?>.</td></tr>
+                    <?php endif; ?>
+                    <?php foreach ($filas as $f): $anulado = $f['estado'] !== 'vigente'; ?>
+                        <tr>
+                            <td><a href="<?= BASE_URL ?>verificar/<?= htmlspecialchars(rawurlencode($f['codigo'])) ?>" target="_blank" rel="noopener"><code><?= htmlspecialchars($f['codigo']) ?></code></a></td>
+                            <td><?= $f['marca'] === 'ST' ? 'ST Energy' : 'ICC' ?></td>
+                            <td><?= htmlspecialchars($f['nombre']) ?><?= !empty($f['dni']) ? '<br><small class="text-muted">DNI ' . htmlspecialchars($f['dni']) . '</small>' : '' ?></td>
+                            <td><?= htmlspecialchars($f['curso']) ?></td>
+                            <td><?= htmlspecialchars((string) $f['fecha_emision']) ?></td>
+                            <td><span class="badge badge-<?= $anulado ? 'danger' : 'success' ?>"><?= $anulado ? 'Anulado' : 'Vigente' ?></span></td>
+                            <td class="text-right text-nowrap">
+                                <?php if (!$anulado): ?>
+                                    <a href="<?= BASE_URL ?>verificar/descargar/<?= htmlspecialchars(rawurlencode($f['codigo'])) ?>" class="btn btn-sm btn-outline-primary mr-1" title="Descargar el PDF"><i class="material-icons" style="font-size:16px; vertical-align:middle;">picture_as_pdf</i> PDF</a>
+                                <?php endif; ?>
+                                <form method="post" action="<?= BASE_URL ?>admin/registro_certificados_estado" class="d-inline"
+                                      onsubmit="return confirm('<?= $anulado ? '¿Reactivar este certificado? Volverá a mostrarse como válido.' : '¿Anular este certificado? La página pública pasará a mostrarlo como anulado.' ?>');">
+                                    <input type="hidden" name="id" value="<?= (int) $f['id'] ?>">
+                                    <input type="hidden" name="accion" value="<?= $anulado ? 'reactivar' : 'anular' ?>">
+                                    <input type="hidden" name="q" value="<?= htmlspecialchars($q) ?>">
+                                    <button type="submit" class="btn btn-sm <?= $anulado ? 'btn-outline-success' : 'btn-outline-danger' ?>"><?= $anulado ? 'Reactivar' : 'Anular' ?></button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer text-muted small">Busca por código, nombre, DNI o curso (incluye los del panel, sueltos, lotes y aula). Se muestran hasta 100 resultados.</div>
+        </div>
         <div class="row">
             <div class="col-lg-6 mb-4">
                 <div class="card">
@@ -83,47 +128,5 @@
             </div>
         </div>
 
-        <div class="card mb-4">
-            <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
-                <h4 class="card-title mb-0"><?= $q !== '' ? 'Resultados de la búsqueda' : 'Últimos certificados registrados' ?></h4>
-                <form method="get" action="<?= BASE_URL ?>admin/registro_certificados" class="form-inline mt-2 mt-md-0">
-                    <input type="text" name="q" value="<?= htmlspecialchars($q) ?>" class="form-control form-control-sm mr-2" placeholder="Código, nombre, DNI o curso" style="min-width: 260px;">
-                    <button type="submit" class="btn btn-sm btn-primary">Buscar</button>
-                    <?php if ($q !== ''): ?><a href="<?= BASE_URL ?>admin/registro_certificados" class="btn btn-sm btn-link">Quitar filtro</a><?php endif; ?>
-                </form>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-sm table-hover mb-0">
-                    <thead>
-                        <tr><th>Código</th><th>Marca</th><th>Alumno</th><th>Curso</th><th>Emisión</th><th>Estado</th><th class="text-right">Acción</th></tr>
-                    </thead>
-                    <tbody>
-                    <?php if (empty($filas)): ?>
-                        <tr><td colspan="7" class="text-center text-muted py-4">No hay certificados<?= $q !== '' ? ' que coincidan con la búsqueda' : ' registrados todavía' ?>.</td></tr>
-                    <?php endif; ?>
-                    <?php foreach ($filas as $f): $anulado = $f['estado'] !== 'vigente'; ?>
-                        <tr>
-                            <td><a href="<?= BASE_URL ?>verificar/<?= htmlspecialchars(rawurlencode($f['codigo'])) ?>" target="_blank" rel="noopener"><code><?= htmlspecialchars($f['codigo']) ?></code></a></td>
-                            <td><?= $f['marca'] === 'ST' ? 'ST Energy' : 'ICC' ?></td>
-                            <td><?= htmlspecialchars($f['nombre']) ?><?= !empty($f['dni']) ? '<br><small class="text-muted">DNI ' . htmlspecialchars($f['dni']) . '</small>' : '' ?></td>
-                            <td><?= htmlspecialchars($f['curso']) ?></td>
-                            <td><?= htmlspecialchars((string) $f['fecha_emision']) ?></td>
-                            <td><span class="badge badge-<?= $anulado ? 'danger' : 'success' ?>"><?= $anulado ? 'Anulado' : 'Vigente' ?></span></td>
-                            <td class="text-right">
-                                <form method="post" action="<?= BASE_URL ?>admin/registro_certificados_estado" class="d-inline"
-                                      onsubmit="return confirm('<?= $anulado ? '¿Reactivar este certificado? Volverá a mostrarse como válido.' : '¿Anular este certificado? La página pública pasará a mostrarlo como anulado.' ?>');">
-                                    <input type="hidden" name="id" value="<?= (int) $f['id'] ?>">
-                                    <input type="hidden" name="accion" value="<?= $anulado ? 'reactivar' : 'anular' ?>">
-                                    <input type="hidden" name="q" value="<?= htmlspecialchars($q) ?>">
-                                    <button type="submit" class="btn btn-sm <?= $anulado ? 'btn-outline-success' : 'btn-outline-danger' ?>"><?= $anulado ? 'Reactivar' : 'Anular' ?></button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card-footer text-muted small">Se muestran hasta 50 resultados; usa el buscador para encontrar uno concreto.</div>
-        </div>
     </div>
 </div>

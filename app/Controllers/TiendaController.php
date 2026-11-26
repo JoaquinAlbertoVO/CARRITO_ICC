@@ -53,7 +53,7 @@ class TiendaController extends Controller {
         }
         $this->view('tienda/index', [
             'packs' => $packs, 'cursos' => $cursos, 'pago' => $this->reglasPago(), 'vistaPrevia' => $vistaPrevia,
-        ], 'layouts/tienda');
+        ], 'layouts/sitio');
     }
 
     public function pack($slug = '') {
@@ -101,7 +101,7 @@ class TiendaController extends Controller {
                 'precioPen' => $item['precio'], 'precioUsd' => $item['precio_usd'], 'moneda' => $pago['moneda'],
                 'metodos' => $pago['metodos'], 'vendible' => $item['vendible'],
             ],
-        ], 'layouts/tienda');
+        ], 'layouts/sitio');
     }
 
     /** Lee y limpia los datos del alumno que manda el checkout. */

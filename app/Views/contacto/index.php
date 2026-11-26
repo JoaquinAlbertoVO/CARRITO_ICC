@@ -1,158 +1,91 @@
-
-    <!--Page Header Start-->
-    <style>
-        .contact-header {
-            background-size: cover;
-            background-position: center top;
-            background-repeat: no-repeat;
-        }
-        .contact-header::before {
-            display: none !important;
-        }
-        .contact-header .page-header__wrapper {
-            padding-top: 100px;
-        }
-        .contact-header .page-header__title {
-            padding-bottom: 70px;
-        }
-        .contact-header h2 {
-            color: #1a1e68 !important; /* Azul oscuro corporativo para que contraste con el fondo claro */
-            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
-        }
-    </style>
-    <section class="page-header contact-header clearfix" style="background-image: url(<?= BASE_URL ?>assets/images/CINTA_DE_CONTACTANOS.png);">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="page-header__wrapper clearfix">
-                        <div class="page-header__title">
-                            <h2>Contactános</h2>
-                        </div>
-                        <div class="page-header__menu">
-                            <ul class="page-header__menu-list list-unstyled clearfix">
-                                <li><a href="<?= BASE_URL ?>">Inicio</a></li>
-                                <li class="active">Contactános</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+<?php
+/**
+ * Contacto (estilo checkout v2, layouts/sitio.php). El formulario se envia por fetch a
+ * home/enviar_contacto, que responde un fragmento HTML con la clase "success" o "error".
+ */
+$cab = [
+    'titulo' => 'Contáctanos',
+    'sub' => 'Siempre estamos listos para saber de ti. Escríbenos y te responderemos lo antes posible.',
+    'etiqueta' => 'Contacto',
+    'migas' => [['Inicio', ''], ['Contáctanos', null]],
+];
+require __DIR__ . '/../partials/cabecera_pagina.php';
+$campo = 'w-full rounded-xl border border-line bg-white px-4 py-3 text-ink focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand';
+?>
+<section class="bg-surface pb-16 pt-4">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 lg:grid-cols-3">
+        <!-- Canales -->
+        <div class="space-y-4">
+            <a href="https://wa.me/51941208020" target="_blank" rel="noopener" class="reveal flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-lg">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#25D366] text-2xl text-white"><i class="fab fa-whatsapp" aria-hidden="true"></i></span>
+                <span><span class="block font-display text-lg font-bold text-deep">WhatsApp</span><span class="text-sm text-muted">La forma más rápida de escribirnos</span></span>
+            </a>
+            <a href="tel:+51941208020" class="reveal flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-lg">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand text-xl text-white"><i class="fas fa-phone-alt" aria-hidden="true"></i></span>
+                <span><span class="block font-display text-lg font-bold text-deep">+51 941 208 020</span><span class="text-sm text-muted">Llámanos en cualquier momento</span></span>
+            </a>
+            <a href="mailto:informes@icc.com.pe" class="reveal flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-lg">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand text-xl text-white"><i class="fas fa-envelope" aria-hidden="true"></i></span>
+                <span><span class="block font-display text-lg font-bold text-deep">informes@icc.com.pe</span><span class="text-sm text-muted">Envíanos un correo electrónico</span></span>
+            </a>
         </div>
-    </section>
-    <!--Page Header End-->
 
-    <!--Start Contact Details One-->
-    <section class="contact-details-one">
-        <div class="container">
-            <div class="row">
-                <!--Start Single Contact Details One-->
-                <div class="col-xl-4 col-lg-4">
-                    <div class="contact-details-one__single">
-                        <div class="contact-details-one__single-icon">
-                            <span class="icon-phone-call-1"></span>
-                            <!-- <span class="icon-chat"></span> -->
-                        </div>
-                        <div class="contact-details-one__single-text">
-                            <h4><a href="tel:+51941208020" target="_black">+51 941 208 020</a></h4>
-                            <p>Llame en cualquier momento</p>
-                        </div>
-                    </div>
+        <!-- Formulario -->
+        <div class="reveal rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 sm:p-8 lg:col-span-2" x-data="formContacto()">
+            <h2 class="font-display text-2xl font-bold text-brand-dark">Envíanos un mensaje</h2>
+            <p class="mt-1 text-sm text-muted">Los campos con * son obligatorios.</p>
+            <form action="<?= BASE_URL ?>home/enviar_contacto" method="POST" class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2" @submit.prevent="enviar($el)">
+                <!-- Anti-spam: si un bot llena este campo, el mensaje se descarta -->
+                <div class="hidden" aria-hidden="true"><input type="text" name="telefono_falso" tabindex="-1" autocomplete="off"></div>
+                <div>
+                    <label for="c-nombre" class="mb-1 block text-sm font-semibold text-deep">Nombre *</label>
+                    <input id="c-nombre" type="text" name="name" required autocomplete="name" class="<?= $campo ?>">
                 </div>
-                <!--End Single Contact Details One-->
-
-                <!--Start Single Contact Details One-->
-                <div class="col-xl-4 col-lg-4">
-                    <div class="contact-details-one__single">
-                        <div class="contact-details-one__single-icon">
-                            <span class="icon-message-1"></span>
-                        </div>
-                        <div class="contact-details-one__single-text">
-                            <h4><a href="mailto:informes@icc.com.pe">informes@icc.com.pe</a></h4>
-                            <p>Envíenos un correo electrónico</p>
-                        </div>
-                    </div>
+                <div>
+                    <label for="c-email" class="mb-1 block text-sm font-semibold text-deep">Correo electrónico *</label>
+                    <input id="c-email" type="email" name="email" required autocomplete="email" class="<?= $campo ?>">
                 </div>
-                <!--End Single Contact Details One-->
-
-                <!--Start Single Contact Details One-->
-                <!--<div class="col-xl-4 col-lg-4">
-                    <div class="contact-details-one__single">
-                        <div class="contact-details-one__single-icon">
-                            <span class="icon-address"></span>
-                        </div>
-                        <div class="contact-details-one__single-text">
-                            <h4>Av. República de Polonia</h4>
-                            <p>Visite en cualquier momento</p>
-                        </div>
-                    </div>
-                </div>-->
-                <!--End Single Contact Details One-->
-            </div>
+                <div>
+                    <label for="c-tel" class="mb-1 block text-sm font-semibold text-deep">Teléfono</label>
+                    <input id="c-tel" type="tel" name="phone" autocomplete="tel" class="<?= $campo ?>">
+                </div>
+                <div>
+                    <label for="c-asunto" class="mb-1 block text-sm font-semibold text-deep">Asunto</label>
+                    <input id="c-asunto" type="text" name="subject" class="<?= $campo ?>">
+                </div>
+                <div class="sm:col-span-2">
+                    <label for="c-mensaje" class="mb-1 block text-sm font-semibold text-deep">Mensaje *</label>
+                    <textarea id="c-mensaje" name="message" rows="5" required class="<?= $campo ?>"></textarea>
+                </div>
+                <div class="sm:col-span-2">
+                    <p x-show="mensaje" x-cloak x-text="mensaje" role="status" aria-live="polite"
+                       :class="ok ? 'bg-emerald-50 text-emerald-800 ring-emerald-200' : 'bg-red-50 text-red-800 ring-red-200'" class="mb-4 rounded-xl px-4 py-3 text-sm font-semibold ring-1"></p>
+                    <button type="submit" :disabled="enviando" class="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-accent px-7 py-3 font-display font-bold text-deep shadow-md hover:brightness-95 disabled:opacity-60 sm:w-auto">
+                        <span x-text="enviando ? 'Enviando…' : 'Enviar mensaje'">Enviar mensaje</span> <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </form>
         </div>
-    </section>
-    <!--End Contact Details One-->
-
-    <!--Contact Page Start-->
-    <section class="contact-page">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-4 col-lg-4">
-                    <div class="contact-page__left">
-                        <div class="section-title">
-                            <span class="section-title__tagline" style="font-family: League Spartan;">Enviar un mensaje</span>
-                            <h2 class="section-title__title" style="font-family: League Spartan;">Siempre Estamos <br> Listos Para Saber <br>De Usted</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-8 col-lg-8">
-                    <div class="contact-page__right">
-                        <form action="<?= BASE_URL ?>home/enviar_contacto" method="POST" class="comment-one__form contact-form-validated" novalidate="novalidate">
-                            <div class="row">
-                                <div class="col-xl-6 col-lg-6">
-                                    <div class="comment-form__input-box">
-                                        <input type="text" placeholder="Su nombre" name="name">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6">
-                                    <div class="comment-form__input-box">
-                                        <input type="email" placeholder="dirección de correo electronico" name="email">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-6 col-lg-6">
-                                    <div class="comment-form__input-box">
-                                        <input type="text" placeholder="número de teléfono" name="phone">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6">
-                                    <div class="comment-form__input-box">
-                                        <input type="email" placeholder="tema" name="Subject">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12 col-lg-12">
-                                    <div class="comment-form__input-box">
-                                        <textarea name="message" placeholder="escribe un mensaje"></textarea>
-                                    </div>
-                                    <button type="submit" class="thm-btn comment-form__btn">enviar comentario</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--Contact Page End-->
-
-    <!--Contact Page Google Map Start-->
-    <!--<section class="contact-page-google-map">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3903.133582992453!2d-76.99797338449544!3d-11.965251943648903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c544610d46f1%3A0x3d4689d17d920020!2sAv.%20Rep%C3%BAblica%20de%20Polonia%201147%2C%20San%20Juan%20de%20Lurigancho%2015423!5e0!3m2!1ses-419!2spe!4v1664043242415!5m2!1ses-419!2spe"
-            class="contact-page-google-map__one" allowfullscreen></iframe>
-            
-    </section>-->
-    <!--Contact Page Google Map End-->
+    </div>
+</section>
+<script>
+function formContacto() {
+    return {
+        enviando: false, mensaje: '', ok: false,
+        enviar: function (form) {
+            var self = this;
+            this.enviando = true; this.mensaje = '';
+            fetch(form.action, { method: 'POST', body: new FormData(form) })
+                .then(function (r) { return r.text(); })
+                .then(function (html) {
+                    var div = document.createElement('div'); div.innerHTML = html;
+                    self.ok = !!div.querySelector('.success');
+                    self.mensaje = div.textContent.trim() || 'No pudimos enviar tu mensaje. Escríbenos por WhatsApp.';
+                    if (self.ok) form.reset();
+                })
+                .catch(function () { self.ok = false; self.mensaje = 'No pudimos enviar tu mensaje. Revisa tu conexión o escríbenos por WhatsApp.'; })
+                .then(function () { self.enviando = false; });
+        }
+    };
+}
+</script>

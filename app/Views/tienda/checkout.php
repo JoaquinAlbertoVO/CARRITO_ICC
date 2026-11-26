@@ -1,4 +1,6 @@
 <?php
+$fondo_body = 'bg-surface';
+$meta_description = 'Cursos grabados de electricidad industrial de ICC: compra por curso o por pack, avanza a tu ritmo y descarga tu certificado de cada curso.';
 $h = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); };
 $f2 = function ($n) { return number_format((float) $n, 2); };
 $usd = $pago['moneda'] === 'USD';
@@ -7,6 +9,7 @@ $pagoPayPal = $item['vendible']; // el layout carga el SDK de PayPal solo si se 
 $title = $item['nombre'] . ' | ICC';
 $suma = $usd ? $item['suma_usd'] : $item['suma_pen'];
 $propio = $usd ? $item['precio_usd'] : $item['precio'];
+$barra_movil = $propio > 0; // el layout sube el boton de WhatsApp sobre la barra de compra
 $simbolo = $usd ? 'US$ ' : 'S/ ';
 $nCert = $item['tipo'] === 'pack' ? count($item['cursos']) : 1;
 ?>

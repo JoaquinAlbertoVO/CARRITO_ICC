@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body { font-family: Inter, system-ui, sans-serif; }
+:focus-visible { outline: 3px solid #2559a2; outline-offset: 2px; box-shadow: 0 0 0 2px #fff; }
+input::placeholder, textarea::placeholder { color: #5b6878; opacity: 1; }
+
+/* Aparicion suave de secciones (igual que el checkout v2) */
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+/* Selects del modal de ubicacion */
+.campo-ubigeo { @apply w-full rounded-xl border border-line bg-white px-3 py-2.5 text-sm text-ink focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand disabled:bg-surface disabled:text-muted; }
+
+/* El boton de WhatsApp sube cuando aparece el aviso de cookies en celular */
+@media (max-width: 639px) { #notif-pref-box:not(.hidden) ~ .wa-flotante { bottom: 9rem; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-flotar { animation: none; }
+}
+
+/* HTML que viene de la BD (resumen, temas, beneficios, programacion del curso) */
+.contenido-db p { margin-bottom: .5rem; }
+.contenido-db ul { padding-left: 1.1rem; list-style: disc; }
+.contenido-db ul[style*="list-style: none"] { padding-left: 0; }
+.contenido-db li { margin-bottom: .4rem; }
+.contenido-db strong { color: #061660; }
+.contenido-db .text-muted { color: #4b5573; }
+
+/* Textos legales (privacidad, terminos, reembolsos) */
+.texto-legal { color: #0a1640; line-height: 1.75; }
+.texto-legal h2 { font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif; font-weight: 700; font-size: 1.2rem; color: #061660; margin: 2rem 0 .6rem; }
+.texto-legal p { margin-bottom: .9rem; }
+.texto-legal ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; }
+.texto-legal li { margin-bottom: .35rem; }
+.texto-legal a { color: #0050f4; font-weight: 600; text-decoration: underline; }

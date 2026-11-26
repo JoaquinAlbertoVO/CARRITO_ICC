@@ -1,289 +1,75 @@
-
-
-    <!--Page Header Start-->
-    <section class="page-header clearfix" style="background-image: url(<?= BASE_URL ?>assets/images/APARTADO_NOSOTROS.png);">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="page-header__wrapper clearfix">
-                        <div class="page-header__title">
-                            <h2 style="color: #4D5FE3; font-family: League Spartan;">Nosotros</h2>
-                            <p style="color: #fff;">ICC-Instituto de Capacitación Continua</p>
-                        </div>
-                        <div class="page-header__menu">
-                            <ul class="page-header__menu-list list-unstyled clearfix">
-                                <li><a href="<?= BASE_URL ?>">Inicio</a></li>
-                                <li class="active">Nosotros</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
+<?php
+/** Nosotros (estilo checkout v2, layouts/sitio.php). */
+$img = BASE_URL . 'assets/images/nosotros/';
+$cab = [
+    'titulo' => 'Nosotros',
+    'sub' => 'ICC - Instituto de Capacitación Continua',
+    'etiqueta' => 'Acerca de la compañía',
+    'migas' => [['Inicio', ''], ['Nosotros', null]],
+    'onda' => '#ffffff',
+];
+require __DIR__ . '/../partials/cabecera_pagina.php';
+?>
+<!-- Quienes somos -->
+<section class="bg-white pb-16 pt-6">
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 md:grid-cols-2">
+        <div class="reveal">
+            <p class="text-sm font-bold uppercase tracking-widest text-brand">Acerca de la compañía</p>
+            <h2 class="mt-2 font-display text-3xl font-bold leading-tight text-brand-dark sm:text-4xl">ICC - Instituto de Capacitación Continua</h2>
+            <p class="mt-4 text-lg text-muted">ICC brinda servicios de consultoría y capacitación a estudiantes, profesionales y organizaciones del sector público y privado. Nuestro equipo de profesionales está comprometido con tu futuro.</p>
+            <div class="mt-8 flex items-center gap-4 rounded-2xl bg-surface p-5 ring-1 ring-line/60">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand text-xl text-white"><i class="fas fa-chalkboard-teacher" aria-hidden="true"></i></span>
+                <p class="font-display text-lg font-bold text-deep">Comienza a aprender de nuestros expertos y mejora tus habilidades</p>
             </div>
+            <a href="<?= BASE_URL ?>cursos" class="mt-8 inline-flex min-h-[48px] items-center gap-2 rounded-xl bg-accent px-7 py-3 font-display font-bold text-deep shadow-md hover:brightness-95">Ver cursos <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
         </div>
-    </section>
-    <!--Page Header End-->
+        <div class="reveal">
+            <img src="<?= $img ?>icc-10-anios-700.webp" width="700" height="595" alt="ICC: 10 años brindando educación de calidad en ingeniería eléctrica"
+                 class="mx-auto w-full max-w-md rounded-3xl shadow-xl ring-1 ring-black/5">
+        </div>
+    </div>
+</section>
 
-    <section class="why-choose-one">
-        <div class="container">
-            <div class="row">
-                <!--Start Why Choose One Left-->
-                <div class="col-xl-6 col-lg-6">
-                    <div class="why-choose-one__left">
-                        <div class="section-title">
-                            <span class="section-title__tagline" >Acerca de la compañía</span>
-                            <h2 class="section-title__title" >ICC-Instituto de Capacitación Continua</h2>
-                        </div>
-                        <p class="why-choose-one__left-text">ICC brinda servicios de consultoría y capacitación a estudiantes, profesionales y organizaciones del sector público y privado. Nuestro equipo de profesionales, están comprometidos con tu futuro.</p>
-                        <div class="why-choose-one__left-learning-box">
-                            <div class="icon">
-                                <span class="icon-professor"></span>
-                            </div>
-                            <div class="text">
-                                <h4>Comienza a aprender de nuestros expertos <br>y mejora tus habilidades</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--End Why Choose One Left-->
-
-                <!--Start Why Choose One Right-->
-                <div class="col-xl-6 col-lg-6">
-                    <div class="why-choose-one__right  clearfix animated"   style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: slideInRight;">
-                        <div class="why-choose-one__right-img clearfix">
-                            <img src="<?= BASE_URL ?>assets/images/NOSOTROS_471X400.png" alt="Nosotros" style="width: 100%; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); display: block;">
-                            <!--<div class="why-choose-one__right-img-overlay">
-                                <p>SOMOS LA MEJOR INSTITUCIÓN</p>
-                            </div>-->
-                        </div>
-                    </div>
-                </div>
-                <!--End Why Choose One Right-->
-
+<!-- Mision y vision -->
+<section class="bg-surface py-16">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 md:grid-cols-2">
+        <?php foreach ([
+            ['Misión', 'Brindar un servicio de calidad en capacitaciones para las empresas y personas que lo requieran.', 'mision-900.webp', 'fas fa-bullseye', 'Alumno de ICC en una clase en vivo sobre protecciones eléctricas'],
+            ['Visión', 'Ser reconocidos a nivel Nacional como un centro líder en formación profesional y capacitación.', 'vision-900.webp', 'fas fa-eye', 'Profesional frente a un mapa del mundo: visión de ICC'],
+        ] as $mv): ?>
+        <article class="reveal overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
+            <img src="<?= $img . $mv[2] ?>" width="900" height="540" loading="lazy" alt="<?= $mv[4] ?>" class="aspect-[5/3] w-full object-cover">
+            <div class="p-6">
+                <h2 class="flex items-center gap-3 font-display text-2xl font-bold text-deep">
+                    <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand text-base text-white"><i class="<?= $mv[3] ?>" aria-hidden="true"></i></span>
+                    <?= $mv[0] ?>
+                </h2>
+                <p class="mt-3 text-muted"><?= $mv[1] ?></p>
             </div>
+        </article>
+        <?php endforeach; ?>
+    </div>
+</section>
+
+<!-- Valores -->
+<section class="bg-white py-16">
+    <div class="mx-auto max-w-6xl px-4">
+        <div class="reveal text-center">
+            <p class="text-sm font-bold uppercase tracking-widest text-brand">ICC - Instituto de Capacitación Continua</p>
+            <h2 class="mt-2 font-display text-2xl font-bold text-brand-dark sm:text-3xl">Valores</h2>
         </div>
-    </section>
-
-    <!--Start Features Two-->
-    <section class="features-two">
-        <div class="container">
-            <style>
-                .hover-flip-z .features-two__single-img {
-                    transform-style: preserve-3d;
-                    perspective: 1000px;
-                    position: relative;
-                }
-                .hover-flip-z .features-two__single-img-inner {
-                    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-                    transform: translateZ(0px);
-                }
-                .hover-flip-z .features-two__single-overlay {
-                    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
-                    transform: translateZ(50px);
-                    border-radius: 16px !important;
-                }
-                .hover-flip-z:hover .features-two__single-img-inner {
-                    transform: translateZ(60px) scale(1.05);
-                }
-                .hover-flip-z:hover .features-two__single-overlay {
-                    transform: translateZ(-20px);
-                    opacity: 0;
-                }
-                
-                /* Fix para dispositivos móviles */
-                @media only screen and (max-width: 767px) {
-                    .hover-flip-z .features-two__single-overlay {
-                        position: absolute !important;
-                        width: 100% !important;
-                        height: 100% !important;
-                        bottom: 0 !important;
-                        right: 0 !important;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-                        align-items: center;
-                        text-align: center;
-                        padding: 30px 20px !important;
-                    }
-                }
-            </style>
-            <div class="row">
-                <!--Start Single Features Two-->
-                <div class="col-xl-6 "  >
-                    <div class="features-two__single hover-flip-z">
-                        <div class="features-two__single-img">
-                            <div class="features-two__single-img-inner">
-                                <img src="<?= BASE_URL ?>assets/images/MISION.png" alt="Misión" style="width: 100%; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); display: block;">
-                            </div>
-                            <div class="features-two__single-overlay">
-                                <h3 class="features-two__single-overlay-title"><a href="#">Misión</a>
-                                </h3>
-                                <p class="features-two__single-overlay-text">Brindar un servicio de calidad en capacitaciones para las empresas y personas que lo requieran.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--End Single Features Two-->
-
-                <!--Start Single Features Two-->
-                <div class="col-xl-6 "  >
-                    <div class="features-two__single hover-flip-z">
-                        <div class="features-two__single-img">
-                            <div class="features-two__single-img-inner">
-                                <img src="<?= BASE_URL ?>assets/images/VISION.png" alt="Visión" style="width: 100%; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); display: block;">
-                            </div>
-                            <div class="features-two__single-overlay">
-                                <h3 class="features-two__single-overlay-title"><a href="#">Visión</a>
-                                </h3>
-                                <p class="features-two__single-overlay-text">Ser reconocidos a nivel Nacional como un centro líder en formación profesional y capacitación.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--End Single Features Two-->
+        <div class="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
+            <?php foreach ([
+                ['fas fa-lightbulb', 'Innovación', 'Promovemos de manera continua y sistemática las condiciones necesarias para crear y mejorar los procesos de trabajo en el Centro.'],
+                ['fas fa-flag', 'Liderazgo', 'Actuamos con iniciativa y responsabilidad en el desarrollo de todas nuestras actividades y en la solución de los problemas.'],
+                ['fas fa-handshake', 'Compromiso', 'Somos conscientes de la importancia que tiene cumplir con el desarrollo del trabajo dentro del tiempo estipulado para ello, ponemos al máximo nuestras capacidades para sacar adelante la tarea encomendada.'],
+            ] as $v): ?>
+            <div class="reveal rounded-2xl border-t-4 border-brand bg-surface p-6">
+                <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-mist text-xl text-brand"><i class="<?= $v[0] ?>" aria-hidden="true"></i></span>
+                <h3 class="mt-4 font-display text-xl font-bold text-deep"><?= $v[1] ?></h3>
+                <p class="mt-2 text-sm leading-relaxed text-muted"><?= $v[2] ?></p>
             </div>
+            <?php endforeach; ?>
         </div>
-    </section>
-    <!--End Features Two-->
-
-    <!--Features One Start-->
-    <section class="features-one">
-        <div class="section-title text-center">
-            <span class="section-title__tagline" >ICC-Instituto de Capacitación Continua</span>
-            <h2 class="section-title__title" >Valores</h2>
-        </div>
-        <div class="container">
-            <div class="row">
-                <!--Start Single Features One-->
-                <div class="col-xl-4 col-lg-4 "  >
-                    <div class="features-one__single">
-                        <!--<div class="features-one__single-icon">
-                            <span class="icon-empowerment"></span>
-                        </div>-->
-                        <div class="features-one__single-text">
-                            <h4 ><a href="#">Innovación</a></h4>
-                            <p>Promovemos de manera continua y sistemática las condiciones necesarias para crear y mejorar los procesos de trabajo en el Centro.</p>
-                        </div>
-                    </div>
-                </div>
-                <!--End Single Features One-->
-
-                <!--Start Single Features One-->
-                <div class="col-xl-4 col-lg-4 "  >
-                    <div class="features-one__single">
-                        <!--<div class="features-one__single-icon">
-                            <span class="icon-human-resources-1"></span>
-                        </div>-->
-                        <div class="features-one__single-text">
-                            <h4 ><a href="#">Liderazgo</a></h4>
-                            <p>Actuamos con iniciativa y responsabilidad en el desarrollo de todas nuestras actividades y en la solución de los problemas.</p>
-                        </div>
-                    </div>
-                </div>
-                <!--End Single Features One-->
-
-                <!--Start Single Features One-->
-                <div class="col-xl-4 col-lg-4 "  >
-                    <div class="features-one__single">
-                        <!--<div class="features-one__single-icon">
-                            <span class="icon-recruitment"></span>
-                        </div>-->
-                        <div class="features-one__single-text">
-                            <h4 ><a href="#">Compromiso</a></h4>
-                            <p>Somos conscientes de la importancia que tiene cumplir con el desarrollo del trabajo dentro del tiempo estipulado para ello, ponemos al máximo nuestras capacidades para sacar adelante la tarea encomendada.</p>
-                        </div>
-                    </div>
-                </div>
-                <!--End Single Features One-->
-            </div>
-        </div>
-    </section>
-    <!--Features One End-->
-
-    <!--Testimonials One Start-->
-    <!--<section class="testimonials-one clearfix">
-        <div class="auto-container">
-            <div class="section-title text-center">
-                <span class="section-title__tagline" >ICC-Instituto de Capacitación Continua</span>
-                <h2 class="section-title__title" >Valores</h2>
-            </div>
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="testimonials-one__wrapper">
-                        <div class="testimonials-one__pattern"><img
-                                src="<?= BASE_URL ?>assets/images/pattern/testimonials-one-left-pattern.png" alt="" /></div>
-                        <div class="shape1"><img src="<?= BASE_URL ?>assets/images/shapes/thm-shape3.png" alt="" /></div>
-                        <div class="row">
-                            <div class="col-xl-12">-->
-                                <!--<div class="testimonials-one__carousel owl-carousel owl-theme owl-dot-type1">-->
-                                    <!--Start Single Testimonials One -->
-                                    <!--<div class="testimonials-one__single " 
-                                        >
-                                        <div class="testimonials-one__single-inner">
-                                            <h4 class="testimonials-one__single-title" >Innovación</h4>-->
-                                            <!--<p class="testimonials-one__single-text">Promovemos de manera continua y sistemática las condiciones necesarias para crear y mejorar los procesos de trabajo en el Centro.</p>-->
-                                            <!--<div class="testimonials-one__single-client-info">
-                                                <div class="testimonials-one__single-client-info-img">
-                                                    <img src="<?= BASE_URL ?>assets/images/testimonial/testimonials-v1-client-info-img1.png"
-                                                        alt="" />
-                                                </div>
-                                                <div class="testimonials-one__single-client-info-text">
-                                                    <h5>Kevin Martin</h5>
-                                                    <p>Developer</p>
-                                                </div>
-                                            </div>-->
-                                        <!--</div>
-                                    </div>-->
-                                    <!--End Single Testimonials One -->
-
-                                    <!--Start Single Testimonials One -->
-                                    <!--<div class="testimonials-one__single " 
-                                        >
-                                        <div class="testimonials-one__single-inner">
-                                            <h4 class="testimonials-one__single-title" >Liderazgo</h4>-->
-                                            <!--<p class="testimonials-one__single-text">Actuamos con iniciativa y responsabilidad en el desarrollo de todas nuestras actividades y en la solución de los problemas.</p>-->
-                                            <!--<div class="testimonials-one__single-client-info">
-                                                <div class="testimonials-one__single-client-info-img">
-                                                    <img src="<?= BASE_URL ?>assets/images/testimonial/testimonials-v1-client-info-img2.png"
-                                                        alt="" />
-                                                </div>
-                                                <div class="testimonials-one__single-client-info-text">
-                                                    <h5>Christine Eve</h5>
-                                                    <p>Developer</p>
-                                                </div>
-                                            </div>-->
-                                        <!--</div>
-                                    </div>-->
-                                    <!--End Single Testimonials One -->
-
-                                    <!--Start Single Testimonials One -->
-                                    <!--<div class="testimonials-one__single " 
-                                        >
-                                        <div class="testimonials-one__single-inner">
-                                            <h4 class="testimonials-one__single-title" >Compromiso</h4>
-                                            <p class="testimonials-one__single-text">Somos conscientes de la importancia que tiene cumplir con el desarrollo del trabajo dentro del tiempo estipulado para ello, ponemos al máximo nuestras capacidades para sacar adelante la tarea encomendada.</p>-->
-                                            <!--<div class="testimonials-one__single-client-info">
-                                                <div class="testimonials-one__single-client-info-img">
-                                                    <img src="<?= BASE_URL ?>assets/images/testimonial/testimonials-v1-client-info-img3.png"
-                                                        alt="" />
-                                                </div>
-                                                <div class="testimonials-one__single-client-info-text">
-                                                    <h5>David Cooper</h5>
-                                                    <p>Developer</p>
-                                                </div>
-                                            </div>-->
-                                        <!--</div>
-                                    </div>-->
-                                    <!--End Single Testimonials One -->
-                                <!--</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>-->
-    <!--Testimonials One End-->
-
-
-
+    </div>
+</section>

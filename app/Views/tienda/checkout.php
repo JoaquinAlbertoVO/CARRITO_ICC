@@ -123,7 +123,7 @@ $nCert = $item['tipo'] === 'pack' ? count($item['cursos']) : 1;
                     </div>
                     <div class="mt-4 flex flex-col items-center rounded-2xl bg-surface p-4 text-center">
                         <img :src="qr[metodo].img" :alt="'QR de ' + metodo" class="max-h-60 w-auto rounded-xl shadow">
-                        <p class="mt-3 text-sm text-muted">Paga a nombre de <strong class="text-ink" x-text="qr[metodo].titular"></strong></p>
+                        <p class="mt-3 text-sm text-muted" x-show="qr[metodo].titular">Paga a nombre de <strong class="text-ink" x-text="qr[metodo].titular"></strong></p>
                         <p class="text-sm">Monto exacto: <strong class="text-brand">S/ <?= $f2($item['precio']) ?></strong></p>
                     </div>
                     <label class="mt-4 flex cursor-pointer flex-col items-center rounded-xl border-2 border-dashed border-line bg-surface px-4 py-5 text-center text-sm font-semibold hover:border-brand focus-within:border-brand">
@@ -182,7 +182,7 @@ $nCert = $item['tipo'] === 'pack' ? count($item['cursos']) : 1;
             nombre: '', apellido: '', dni: '', celular: '', correo: '',
             qr: {
                 yape: { img: CFG.base + 'assets/images/Yape.jpg', titular: 'Mariela Ma.' },
-                plin: { img: CFG.base + 'assets/images/plin.jpg', titular: 'Ricardo Cardenas' },
+                plin: { img: CFG.base + 'assets/images/plin.jpg', titular: '' },
             },
             init() { if (this.tab === 'paypal') this.$nextTick(() => this.pintarPayPal()); },
             setTab(t) { this.tab = t; if (t === 'paypal') this.$nextTick(() => this.pintarPayPal()); },

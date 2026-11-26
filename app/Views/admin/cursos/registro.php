@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label>Nombre del Docente</label>
-                                    <input type="text" name="docente" class="form-control" placeholder="Ej. Ricardo Cárdenas">
+                                    <input type="text" name="docente" class="form-control" placeholder="Nombre del docente (no se muestra en la web)">
                                 </div>
                             </div>
                             <div class="form-row">

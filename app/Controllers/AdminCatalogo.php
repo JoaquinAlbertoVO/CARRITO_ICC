@@ -92,6 +92,7 @@ trait AdminCatalogo {
                 'sigla' => substr(preg_replace('/[^A-Z0-9]/', '', strtoupper((string) ($_POST['sigla'] ?? ''))), 0, 10),
                 'precio' => Catalogo::precioONull($_POST['precio'] ?? ''),
                 'precio_usd' => Catalogo::precioONull($_POST['precio_usd'] ?? ''),
+                'precio_regular' => Catalogo::precioONull($_POST['precio_regular'] ?? ''),
                 'horas' => max(0, (int) ($_POST['horas'] ?? 0)),
                 'resumen' => trim((string) ($_POST['resumen'] ?? '')),
                 'publicado' => !empty($_POST['publicado']),

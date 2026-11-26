@@ -32,15 +32,19 @@ $tipos = ['pdf' => 'PDF', 'pptx' => 'Presentación', 'xlsx' => 'Excel', 'docx' =
                                 <input type="text" name="nombre" class="form-control" required maxlength="150" value="<?= $h($curso['nombre_curso']) ?>">
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-4">
-                                    <label>Precio S/</label>
+                                <div class="form-group col-3">
+                                    <label>Precio S/ <small class="text-muted">(oferta)</small></label>
                                     <input type="number" step="0.01" min="0" name="precio" class="form-control" value="<?= $val($curso['precio']) ?>">
                                 </div>
-                                <div class="form-group col-4">
+                                <div class="form-group col-3">
+                                    <label>Regular S/ <small class="text-muted">(tachado)</small></label>
+                                    <input type="number" step="0.01" min="0" name="precio_regular" class="form-control" value="<?= $val($curso['precio_regular'] ?? null) ?>">
+                                </div>
+                                <div class="form-group col-3">
                                     <label>Precio US$</label>
                                     <input type="number" step="0.01" min="0" name="precio_usd" class="form-control" value="<?= $val($curso['precio_usd']) ?>">
                                 </div>
-                                <div class="form-group col-4">
+                                <div class="form-group col-3">
                                     <label>Horas académicas</label>
                                     <input type="number" min="0" name="horas" class="form-control" value="<?= (int) $curso['horas_academicas'] ?: '' ?>">
                                 </div>

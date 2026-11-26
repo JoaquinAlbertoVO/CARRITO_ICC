@@ -38,11 +38,7 @@ class OfertasCheckout {
             'video' => 'Zh6n3WXFLrg', // video promocional actual del curso (YouTube): "Electricidad Industrial con IA"
             // Texto de gancho armado a partir del temario: que lo revise el jefe.
             'subtitulo' => 'Conviertete en un especialista en instalaciones eléctricas de principio a fin, con IA como asistente: cálculos, planos, especificaciones, presupuesto y expediente del proyecto.',
-            'docente' => [
-                'nombre' => 'Ricardo Cardenas',
-                'cargo' => 'Docente del curso', // pendiente: una linea de credenciales reales
-                'foto' => 'assets/images/docentes/ricardo-cardenas.jpg',
-            ],
+            'docente' => null, // el nombre del docente no se muestra en la web
             // Clases en vivo por Zoom: todas de 7 a 9 p. m. (hora de Peru/Colombia/Ecuador/Panama); si queda vacia no se muestra.
             'hora' => '7:00 p. m. a 9:00 p. m.',
             'hora_corta' => '7:00 a 9:00 p. m.', // version corta para las fichas del calendario

@@ -83,7 +83,7 @@ class TiendaController extends Controller {
         $clases = (new \App\Models\Curso())->getVideosByCurso($c['id_curso']);
         $this->checkout('curso', $c['id_curso'], [
             'nombre' => $c['nombre_curso'], 'etiqueta' => 'Curso grabado', 'descripcion' => $c['resumen'], 'publico' => '', 'incluye' => '',
-            'precio' => (float) $c['precio'], 'precio_usd' => (float) $c['precio_usd'], 'suma_pen' => null, 'suma_usd' => null,
+            'precio' => (float) $c['precio'], 'precio_usd' => (float) $c['precio_usd'], 'suma_pen' => Catalogo::regularPen($c), 'suma_usd' => null,
             'horas' => (int) $c['horas_academicas'], 'cursos' => [], 'vendible' => Catalogo::vendible($c),
             'clases' => (int) $c['total_clases'], 'temario' => array_map(function ($v) { return $v['titulo']; }, $clases),
             'materiales' => (int) $c['total_materiales'],

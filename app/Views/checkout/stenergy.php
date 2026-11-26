@@ -209,8 +209,8 @@
                             <img :src="manualMethod === 'yape' ? '<?= BASE_URL ?>assets/images/Yape.jpg' : '<?= BASE_URL ?>assets/images/plin.jpg'"
                                  alt="QR de pago" style="max-width: 200px; border-radius: 10px;">
                         </div>
-                        <div class="meta-row" style="justify-content: center;">
-                            <span>Titular: <strong x-text="manualMethod === 'yape' ? 'Mariela Ma.' : 'Ricardo Cardenas'"></strong></span>
+                        <div class="meta-row" style="justify-content: center;" x-show="manualMethod === 'yape'">
+                            <span>Titular: <strong>Mariela Ma.</strong></span>
                         </div>
                         <div class="meta-row" style="justify-content: center; margin-bottom: 16px;">
                             <span>Monto a transferir: <strong x-text="currencySymbol + ' ' + coursePrice.toFixed(2)"></strong></span>

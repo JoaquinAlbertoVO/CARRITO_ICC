@@ -14,13 +14,16 @@ require __DIR__ . '/../partials/cabecera_pagina.php';
 <section class="bg-surface pb-16 pt-4" x-data="{ moneda: 'PEN' }">
     <div class="mx-auto max-w-6xl px-4">
         <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p class="text-sm text-muted"><?= count($cursos) ?> cursos disponibles</p>
+            <p class="text-sm text-muted"><?= count($cursos) + count($grabados ?? []) ?> cursos especializados</p>
             <?php require __DIR__ . '/_moneda.php'; ?>
         </div>
 
-        <?php if (!empty($cursos)): ?>
+        <?php $todos = array_merge($cursos, $grabados ?? []); ?>
+        <?php if (!empty($todos)): ?>
+        <h2 class="mt-8 font-display text-2xl font-extrabold text-deep">Cursos especializados</h2>
+        <p class="mt-1 text-muted">En vivo por Zoom o grabados para avanzar a tu ritmo, con certificado de cada curso.</p>
         <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <?php foreach ($cursos as $course) { include __DIR__ . '/_tarjeta.php'; } ?>
+            <?php foreach ($todos as $course) { include __DIR__ . '/_tarjeta.php'; } ?>
         </div>
         <?php else: ?>
         <p class="mt-10 rounded-2xl bg-white p-8 text-center text-muted shadow-sm">No hay cursos disponibles por el momento.</p>

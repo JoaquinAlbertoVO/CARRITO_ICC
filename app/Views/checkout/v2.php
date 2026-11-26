@@ -399,7 +399,7 @@ $testVerticales = array_filter($d['testimonios'], function ($t) { return !$t['an
                     </div>
                     <div class="mt-5 flex flex-col items-center rounded-2xl bg-surface p-5 text-center">
                         <img :src="manualDetails[manualMethod].qr" :alt="'QR de ' + manualDetails[manualMethod].nombre" class="max-h-72 w-auto rounded-xl shadow-md">
-                        <p class="mt-3 text-sm text-muted">Escanea con tu app y paga a nombre de</p>
+                        <p class="mt-3 text-sm text-muted" x-text="manualDetails[manualMethod].titular ? 'Escanea con tu app y paga a nombre de' : 'Escanea el QR con tu app'"></p>
                         <p class="font-display text-lg font-bold" x-text="manualDetails[manualMethod].titular"></p>
                         <p class="mt-2 text-sm">Monto exacto: <strong class="text-brand">S/ <?= $fmt($d['js']['precioPen']) ?></strong></p>
                         <a :href="manualDetails[manualMethod].qr" :download="'QR-' + manualDetails[manualMethod].nombre + '.jpg'" class="mt-3 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-brand px-5 text-sm font-bold text-brand hover:bg-mist"><i class="fas fa-download" aria-hidden="true"></i> Guardar el QR en mi celular</a>
@@ -743,7 +743,7 @@ $tipsBruno[] = ['sel' => '#inscripcion', 'texto' => 'Completa tus datos y elige 
             cuenta: '--:--:--',
             manualDetails: {
                 yape: { qr: CFG.base + 'assets/images/Yape.jpg', titular: 'Mariela Ma.', nombre: 'Yape' },
-                plin: { qr: CFG.base + 'assets/images/plin.jpg', titular: 'Ricardo Cardenas', nombre: 'Plin' }
+                plin: { qr: CFG.base + 'assets/images/plin.jpg', titular: '', nombre: 'Plin' }
             },
 
             // PayPal cobra siempre en dolares y siempre el precio en USD de la etapa vigente (definido por ICC),

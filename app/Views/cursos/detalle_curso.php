@@ -2,13 +2,14 @@
 /**
  * Detalle de un curso (estilo checkout v2, layouts/sitio.php).
  * Datos: CursosController::detalle ($curso de la BD, $latest_courses = tarjetas).
- * Solo contenido real: sin reseñas, estrellas ni "precio regular" inventados.
+ * Solo contenido real: sin reseñas ni estrellas inventadas. El precio regular tachado sale de la BD (admin).
  */
 $hd = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); };
 $nombre = $curso['nombre_curso'] ?? 'Curso en ICC';
 $lista = \App\Controllers\CursosController::datosLista($curso);
 $precioPEN = (float) ($curso['precio'] ?? 89.90);
 $precioUSD = (float) ($curso['precio_usd'] ?? 30.00);
+$regularPEN = \App\Models\Catalogo::regularPen($curso);
 $urlCheckout = BASE_URL . 'checkout?curso=' . rawurlencode($nombre);
 $fotoDoc = $curso['docente_foto'] ?? '';
 $tieneFotoDoc = $fotoDoc !== '' && $fotoDoc !== '50x50' && is_file('assets/images/docentes/' . $fotoDoc);
@@ -62,7 +63,7 @@ require __DIR__ . '/../partials/cabecera_pagina.php';
             <div id="comprar" class="overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5 lg:sticky lg:top-24">
                 <img src="<?= BASE_URL ?>assets/images/cursos/<?= $hd($curso['foto'] ?: 'default.png') ?>" alt="" class="aspect-video w-full bg-deep object-cover">
                 <div class="p-6">
-                    <?php if (!empty($curso['docente'])): ?>
+                    <?php if (false): // el nombre del docente no se muestra en la web ?>
                     <div class="flex items-center gap-3">
                         <?php if ($tieneFotoDoc): ?>
                         <img src="<?= BASE_URL ?>assets/images/docentes/<?= $hd($fotoDoc) ?>" alt="" class="h-11 w-11 rounded-full object-cover ring-2 ring-mist">
@@ -85,6 +86,7 @@ require __DIR__ . '/../partials/cabecera_pagina.php';
                             <span x-show="moneda === 'PEN'">S/ <?= number_format($precioPEN, 2) ?></span>
                             <span x-show="moneda === 'USD'" x-cloak>US$ <?= number_format($precioUSD, 2) ?></span>
                         </p>
+                        <?php if ($regularPEN): ?><p class="mt-2 text-sm text-sky-100" x-show="moneda === 'PEN'">Precio regular: <span class="line-through">S/ <?= number_format($regularPEN, 2) ?></span></p><?php endif; ?>
                         <p class="mt-2 text-xs text-sky-100">Pago único · certificado incluido</p>
                     </div>
 
@@ -160,7 +162,7 @@ require __DIR__ . '/../partials/cabecera_pagina.php';
             <div class="min-w-0">
                 <p class="truncate text-xs text-muted"><?= $hd($nombre) ?></p>
                 <p class="font-display text-lg font-extrabold leading-tight text-brand">
-                    <span x-show="moneda === 'PEN'">S/ <?= number_format($precioPEN, 2) ?></span>
+                    <span x-show="moneda === 'PEN'"><?php if ($regularPEN): ?><span class="mr-1 text-sm font-semibold text-muted line-through">S/ <?= number_format($regularPEN, 2) ?></span><?php endif; ?>S/ <?= number_format($precioPEN, 2) ?></span>
                     <span x-show="moneda === 'USD'" x-cloak>US$ <?= number_format($precioUSD, 2) ?></span>
                 </p>
             </div>

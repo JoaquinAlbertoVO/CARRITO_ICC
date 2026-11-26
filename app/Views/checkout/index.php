@@ -179,7 +179,7 @@ $primerAcordeon = $acordeones ? $acordeones[0][0] : null;
                                 <img :src="manualDetails[manualMethod]?.qrUrl" alt="Código QR para pagar" class="mx-auto max-h-72 w-auto max-w-[14rem] rounded-xl object-contain shadow-md ring-1 ring-black/5">
                             </div>
                             <dl class="mt-4 space-y-2 rounded-xl bg-surface p-4 text-sm">
-                                <div class="flex justify-between gap-3"><dt class="text-muted">Titular</dt><dd class="font-semibold text-deep" x-text="manualDetails[manualMethod]?.name">Cargando...</dd></div>
+                                <div class="flex justify-between gap-3" x-show="manualDetails[manualMethod]?.name"><dt class="text-muted">Titular</dt><dd class="font-semibold text-deep" x-text="manualDetails[manualMethod]?.name">Cargando...</dd></div>
                                 <div class="flex justify-between gap-3 border-t border-dashed border-line pt-2"><dt class="text-muted">Monto a transferir</dt><dd class="font-display font-extrabold text-brand" x-text="'S/ ' + amountInSoles.toFixed(2) + ' PEN'"></dd></div>
                                 <template x-if="currency === 'USD'">
                                     <p class="text-xs text-muted" x-text="'(Convertido de $' + coursePrice.toFixed(2) + ' USD al cambio ' + tipoCambio.toFixed(2) + ')'"></p>
@@ -412,7 +412,7 @@ $primerAcordeon = $acordeones ? $acordeones[0][0] : null;
                         title: 'Pago con Plin',
                         qrUrl: '<?= BASE_URL ?>assets/images/plin.jpg',
                         color: '#00c8b0',
-                        name: 'Ricardo Cardenas'
+                        name: ''
                     }
                 },
 
@@ -465,6 +465,10 @@ $primerAcordeon = $acordeones ? $acordeones[0][0] : null;
                     <?php endif; ?>
                     this.currency = (urlParams.get('moneda') || MONEDA_SUGERIDA).toUpperCase();
 
+                    <?php if (!empty($data['cursoDB']) && \App\Models\Catalogo::regularPen($data['cursoDB'])): ?>
+                    // Precio regular del curso en la BD (solo soles)
+                    if (this.currency === 'PEN') this.originalPrice = <?= (float) \App\Models\Catalogo::regularPen($data['cursoDB']) ?>;
+                    <?php endif; ?>
                     // ?regular=55 fija el "Precio Regular" tachado (si no, sale el de la BD)
                     const regularUrl = parseFloat(urlParams.get('regular'));
                     if (regularUrl > 0) this.originalPrice = regularUrl;

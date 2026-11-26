@@ -91,7 +91,7 @@ $testimonios = [
                         <span class="flex items-center gap-1.5"><i class="far fa-calendar-alt text-brand" aria-hidden="true"></i><?= $h($course['date'] ?? 'PRÓXIMAMENTE') ?></span>
                         <span class="flex items-center gap-1.5"><i class="far fa-clock text-brand" aria-hidden="true"></i><?= $h($course['hours']) ?></span>
                         <span class="ml-auto font-display text-lg font-extrabold text-brand">
-                            <span x-show="moneda === 'PEN'">S/ <?= $h($course['price']) ?></span>
+                            <span x-show="moneda === 'PEN'"><?php if (!empty($course['price_regular'])): ?><span class="mr-1 text-sm font-semibold text-muted line-through">S/ <?= $h($course['price_regular']) ?></span><?php endif; ?>S/ <?= $h($course['price']) ?></span>
                             <span x-show="moneda === 'USD'" x-cloak>US$ <?= $h($course['price_usd'] ?? '30.00') ?></span>
                         </span>
                     </div>

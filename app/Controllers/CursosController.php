@@ -20,6 +20,7 @@ class CursosController extends Controller {
     public static function datosLista($c) {
         $n = mb_strtolower($c['nombre_curso'] ?? '', 'UTF-8');
         $fecha = !empty($c['fecha_prox']) ? $c['fecha_prox'] : 'PRÓXIMAMENTE';
+        $regular = \App\Models\Catalogo::regularPen($c);
         $tabla = [
             'subestaciones' => [150.00, 45.00, '18/08', 25],
             'condensadores' => [150.00, 30.00, '01/09', 25],
@@ -32,10 +33,12 @@ class CursosController extends Controller {
         ];
         foreach ($tabla as $clave => $v) {
             if (strpos($n, $clave) !== false) {
-                return ['pen' => $v[0], 'usd' => $v[1], 'fecha' => $fecha, 'horas' => $v[3]];
+                // El precio en soles es el de la BD (admin); la tabla queda de respaldo
+                $pen = (float) ($c['precio'] ?? 0) > 0 ? (float) $c['precio'] : $v[0];
+                return ['pen' => $pen, 'regular' => $regular, 'usd' => $v[1], 'fecha' => $fecha, 'horas' => $v[3]];
             }
         }
-        return ['pen' => (float) ($c['precio'] ?? 89.90), 'usd' => 30.00, 'fecha' => $fecha, 'horas' => (int) ($c['horas_academicas'] ?? 20)];
+        return ['pen' => (float) ($c['precio'] ?? 89.90), 'regular' => $regular, 'usd' => 30.00, 'fecha' => $fecha, 'horas' => (int) ($c['horas_academicas'] ?? 20)];
     }
 
     /** Tarjeta de curso para las vistas de lista (cursos/index e ingenieria). */
@@ -47,10 +50,33 @@ class CursosController extends Controller {
             'image' => 'assets/images/cursos/' . ($c['foto'] ?: 'default.png'),
             'price' => number_format($d['pen'], 2),
             'price_usd' => number_format($d['usd'], 2),
+            'price_regular' => $d['regular'] ? number_format($d['regular'], 2) : null,
             'date' => $d['fecha'],
             'hours' => $d['horas'] . ' hrs',
             'link' => self::slug($c['nombre_curso']),
             'docente' => $c['docente'] ?? '',
+            'docente_foto' => $c['docente_foto'] ?? '',
+        ];
+    }
+
+    /** Tarjeta de un curso grabado: lleva a su pagina de compra en la tienda. */
+    private function tarjetaGrabado($c) {
+        $foto = $c['foto'] ?? '';
+        $regular = \App\Models\Catalogo::regularPen($c);
+        $docente = trim((string) ($c['docente'] ?? ''));
+        return [
+            'id' => $c['id_curso'],
+            'title' => $c['nombre_curso'],
+            'image' => ($foto !== '' && $foto !== 'default.png') ? 'assets/images/cursos/' . $foto : '',
+            'price' => number_format((float) $c['precio'], 2),
+            'price_usd' => number_format((float) $c['precio_usd'], 2),
+            'price_regular' => $regular ? number_format($regular, 2) : null,
+            'date' => 'A tu ritmo',
+            'date_icon' => 'fas fa-play-circle',
+            'hours' => (int) $c['horas_academicas'] . ' hrs',
+            'url' => BASE_URL . 'tienda/curso/' . $c['slug'],
+            'badge' => 'Grabado',
+            'docente' => ($docente === 'Docente') ? '' : $docente,
             'docente_foto' => $c['docente_foto'] ?? '',
         ];
     }
@@ -62,10 +88,16 @@ class CursosController extends Controller {
             return mb_stripos($c['nombre_curso'], 'canalizaci', 0, 'UTF-8') === false;
         });
 
+        // Cursos grabados a la venta en la tienda (los mismos de "Cursos sueltos")
+        $grabados = array_values(array_filter((new \App\Models\Catalogo())->cursosAsincronos(true), function ($c) {
+            return \App\Models\Catalogo::vendible($c);
+        }));
+
         $data = [
             'title' => 'Cursos - Instituto de Capacitación Continua',
-            'meta_description' => 'Explora todos nuestros cursos disponibles.',
-            'cursos' => array_map([$this, 'tarjeta'], array_values($cursos))
+            'meta_description' => 'Explora todos nuestros cursos disponibles: en vivo por Zoom y grabados para avanzar a tu ritmo.',
+            'cursos' => array_map([$this, 'tarjeta'], array_values($cursos)),
+            'grabados' => array_map([$this, 'tarjetaGrabado'], $grabados),
         ];
         $this->view('cursos/index', $data, 'layouts/sitio');
     }

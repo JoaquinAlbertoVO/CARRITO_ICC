@@ -18,7 +18,7 @@ use PDO;
  * Las tablas se crean solas (mismo criterio que el resto de modelos de este proyecto).
  */
 class Catalogo {
-    const VERSION_ESQUEMA = 1;
+    const VERSION_ESQUEMA = 2;
     const MODALIDAD_ASINCRONO = 'asincrono';
 
     /** Carpeta (fuera de la web, ver .htaccess) donde quedan los PDF que descargan los alumnos */
@@ -71,6 +71,8 @@ class Catalogo {
         $this->agregarColumna('cursos', 'clave_origen', "VARCHAR(60) NULL DEFAULT NULL");
         $this->agregarColumna('cursos', 'publicado', "TINYINT(1) NOT NULL DEFAULT 0");
         $this->agregarColumna('cursos', 'precio_usd', "DECIMAL(10,2) NULL DEFAULT NULL");
+        // Precio regular (soles) que se muestra tachado junto al precio de oferta; null = no se muestra
+        $this->agregarColumna('cursos', 'precio_regular', "DECIMAL(10,2) NULL DEFAULT NULL");
         $this->agregarColumna('usuario_cursos', 'origen', "VARCHAR(60) NULL DEFAULT NULL");
         $this->agregarColumna('usuario_cursos', 'fecha_matricula', "DATETIME NULL DEFAULT NULL");
         $this->agregarColumna('usuario', 'datos_cert_ok', "TINYINT(1) NOT NULL DEFAULT 0");
@@ -152,6 +154,13 @@ class Catalogo {
             KEY `idx_venta_estado` (`estado`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
+        // v2 (nov-2026): todos los cursos (en vivo y grabados, tambien los de los packs) a
+        // S/ 69.90 de oferta con S/ 150.00 de precio regular. Se aplica una sola vez; despues
+        // cada precio se cambia desde el admin. Los precios en dolares y de los packs no cambian.
+        if ($v < 2) {
+            $this->db->exec("UPDATE cursos SET precio = 69.90, precio_regular = 150.00");
+        }
+
         $this->db->exec("REPLACE INTO catalogo_meta (clave, valor) VALUES ('esquema', '" . self::VERSION_ESQUEMA . "')");
     }
 
@@ -166,6 +175,12 @@ class Catalogo {
         ]);
         $t = strtolower(trim(preg_replace('/[^A-Za-z0-9]+/', '-', $t), '-'));
         return substr($t, 0, 90);
+    }
+
+    /** Precio regular (soles) a mostrar tachado, o null si no hay uno mayor al de oferta. */
+    public static function regularPen(array $c) {
+        $r = (float) ($c['precio_regular'] ?? 0);
+        return ($r > 0 && $r > (float) ($c['precio'] ?? 0)) ? $r : null;
     }
 
     /** Precio > 0 o null (el formulario manda '' cuando el campo esta vacio). */
@@ -235,7 +250,7 @@ class Catalogo {
     }
 
     public function cursosDePack($idPack) {
-        $st = $this->db->prepare("SELECT c.id_curso, c.nombre_curso, c.slug, c.sigla, c.horas_academicas, c.precio, c.precio_usd, c.publicado,
+        $st = $this->db->prepare("SELECT c.id_curso, c.nombre_curso, c.slug, c.sigla, c.horas_academicas, c.precio, c.precio_usd, c.precio_regular, c.publicado,
                   (SELECT COUNT(*) FROM curso_videos v WHERE v.id_curso = c.id_curso AND v.estado = 1) AS total_clases
                 FROM pack_cursos pc INNER JOIN cursos c ON c.id_curso = pc.id_curso
                 WHERE pc.id_pack = ? AND c.estado = 1 ORDER BY pc.orden ASC, c.id_curso ASC");
@@ -275,10 +290,10 @@ class Catalogo {
     // ------------------------------------------------------------------
 
     public function guardarCurso($id, array $d) {
-        $st = $this->db->prepare("UPDATE cursos SET nombre_curso = ?, sigla = ?, precio = ?, precio_usd = ?, horas_academicas = ?, resumen = ?, publicado = ?
+        $st = $this->db->prepare("UPDATE cursos SET nombre_curso = ?, sigla = ?, precio = ?, precio_usd = ?, precio_regular = ?, horas_academicas = ?, resumen = ?, publicado = ?
                                   WHERE id_curso = ? AND modalidad = 'asincrono'");
         return $st->execute([
-            $d['nombre'], $d['sigla'], $d['precio'], $d['precio_usd'], (int) $d['horas'], $d['resumen'], $d['publicado'] ? 1 : 0, (int) $id,
+            $d['nombre'], $d['sigla'], $d['precio'], $d['precio_usd'], $d['precio_regular'], (int) $d['horas'], $d['resumen'], $d['publicado'] ? 1 : 0, (int) $id,
         ]);
     }
 

@@ -42,6 +42,8 @@ class Curso {
                 $this->db->exec("ALTER TABLE cursos ADD COLUMN modalidad VARCHAR(12) NOT NULL DEFAULT 'en_vivo'");
             }
         } catch (\PDOException $e) {}
+        // El catalogo crea columnas nuevas (precio_regular) y aplica cambios de precios una sola vez
+        try { new Catalogo(); } catch (\Throwable $e) {}
     }
 
     /** 'YYYY-MM-DD' valido o null (el formulario manda '' cuando el campo queda vacio). */
@@ -105,7 +107,7 @@ class Curso {
     public function actualizarCurso($data) {
         try {
             // Construir SQL dinámicamente porque las fotos pueden o no enviarse
-            $sql = "UPDATE cursos SET nombre_curso = ?, categoria = ?, fecha_emision = ?, horas_academicas = ?, precio = ?, precio_usd = ?, fecha_prox = ?, docente = ?, lecciones = ?, descripcion = ?, requisitos = ?, resumen = ?, temas = ?, beneficios = ?, programacion = ?, fecha_inicio = ?, fecha_fin = ?";
+            $sql = "UPDATE cursos SET nombre_curso = ?, categoria = ?, fecha_emision = ?, horas_academicas = ?, precio = ?, precio_usd = ?, precio_regular = ?, fecha_prox = ?, docente = ?, lecciones = ?, descripcion = ?, requisitos = ?, resumen = ?, temas = ?, beneficios = ?, programacion = ?, fecha_inicio = ?, fecha_fin = ?";
             $params = [
                 $data['nombre_curso'],
                 $data['categoria'],
@@ -113,6 +115,7 @@ class Curso {
                 $data['horas_academicas'],
                 $data['precio'],
                 $data['precio_usd'] ?? 30.00,
+                (isset($data['precio_regular']) && (float) $data['precio_regular'] > 0) ? (float) $data['precio_regular'] : null,
                 $data['fecha_prox'] ?? 'PRÓXIMAMENTE',
                 $data['docente'],
                 $data['lecciones'],

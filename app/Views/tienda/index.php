@@ -86,7 +86,7 @@ $grupos = [
                     <h3 class="font-semibold text-deep group-hover:text-brand"><?= $h($c['nombre_curso']) ?></h3>
                     <p class="mt-1 text-xs text-muted"><?= (int) $c['total_clases'] ?> clases<?= (int) $c['horas_academicas'] > 0 ? ' · ' . (int) $c['horas_academicas'] . ' h' : '' ?><?= (int) $c['total_materiales'] > 0 ? ' · material PDF' : '' ?></p>
                 </div>
-                <span class="shrink-0 font-display text-lg font-extrabold text-brand"><?= $precio($c) ?></span>
+                <span class="shrink-0 text-right font-display text-lg font-extrabold text-brand"><?php if (!$usd && ($reg = \App\Models\Catalogo::regularPen($c))): ?><span class="block text-sm font-semibold text-muted line-through">S/ <?= number_format($reg, 2) ?></span><?php endif; ?><?= $precio($c) ?></span>
             </a>
             <?php endforeach; ?>
         </div>

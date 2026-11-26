@@ -52,6 +52,7 @@ class HomeController extends Controller {
                     "image" => "assets/images/cursos/" . ($c['foto'] ?: 'default.png'),
                     "price" => number_format($precioPreventa, 2),
                     "price_usd" => number_format($precioPreventaUSD, 2),
+                    "price_regular" => ($r = \App\Models\Catalogo::regularPen($c)) ? number_format($r, 2) : null,
                     "date" => $fechaProx,
                     "hours" => $horas,
                     "link" => $slug,

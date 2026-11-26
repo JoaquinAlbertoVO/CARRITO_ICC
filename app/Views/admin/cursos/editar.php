@@ -67,6 +67,10 @@
                                     <input type="number" step="0.01" name="precio" class="form-control" value="<?php echo $data['precio'] ?? '89.90'; ?>">
                                 </div>
                                 <div class="col-12 col-md-2 mb-3">
+                                    <label>Precio regular (S/) <small class="text-muted">tachado</small></label>
+                                    <input type="number" step="0.01" name="precio_regular" class="form-control" value="<?php echo htmlspecialchars((string) ($data['precio_regular'] ?? ''), ENT_QUOTES, 'UTF-8'); ?>">
+                                </div>
+                                <div class="col-12 col-md-2 mb-3">
                                     <label>Precio (USD)</label>
                                     <input type="number" step="0.01" name="precio_usd" class="form-control" value="<?php echo $data['precio_usd'] ?? '30.00'; ?>">
                                 </div>
@@ -80,7 +84,7 @@
                                 </div>
                                 <div class="col-12 col-md-3 mb-3">
                                     <label>Nombre del Docente</label>
-                                    <input type="text" name="docente" class="form-control" value="<?php echo $data['docente'] ?? ''; ?>" placeholder="Ej. Ricardo Cárdenas">
+                                    <input type="text" name="docente" class="form-control" value="<?php echo $data['docente'] ?? ''; ?>" placeholder="Nombre del docente (no se muestra en la web)">
                                 </div>
                             </div>
                             <div class="form-row">

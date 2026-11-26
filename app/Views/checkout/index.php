@@ -1,24 +1,40 @@
+<?php
+/**
+ * Checkout clasico (checkout?curso=&precio=&moneda=): Yape/Plin con voucher, PayPal y Hotmart.
+ * Estilo del checkout v2 (assets/css/sitio.css, tools/tailwind: npm run build:sitio).
+ * El script de pago de abajo (checkoutApp/adminPanel) no se cambio en el rediseño: conserva los ids
+ * y clases que usa (.checkout-container, .accordion-content, #btn_submit_manual, #paypal-button-container...).
+ */
+$nombreCursoGA = isset($_GET['curso']) ? htmlspecialchars($_GET['curso']) : 'Express';
+$cursoCk = (isset($data['cursoDB']) && $data['cursoDB']) ? $data['cursoDB'] : null;
+$campoCk = 'w-full rounded-xl border border-line bg-white px-4 py-3 text-ink focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand';
+$acordeones = [];
+if ($cursoCk) {
+    if (!empty($cursoCk['resumen'])) $acordeones[] = [1, 'fas fa-bolt', 'Resumen del curso', $cursoCk['resumen']];
+    if (!empty($cursoCk['temas'])) $acordeones[] = [2, 'fas fa-list-ul', 'Temas principales', $cursoCk['temas']];
+    if (!empty($cursoCk['extra_html'])) $acordeones[] = [5, 'fas fa-robot', htmlspecialchars($cursoCk['extra_titulo']), $cursoCk['extra_html']];
+    if (!empty($cursoCk['beneficios'])) $acordeones[] = [3, 'fas fa-award', 'Beneficios', $cursoCk['beneficios']];
+    if (!empty($cursoCk['programacion'])) $acordeones[] = [4, 'fas fa-calendar-alt', 'Programación y horarios', $cursoCk['programacion']];
+}
+$primerAcordeon = $acordeones ? $acordeones[0][0] : null;
+?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php $nombreCursoGA = isset($_GET['curso']) ? htmlspecialchars($_GET['curso']) : 'Express'; ?>
+    <meta name="robots" content="noindex">
     <title>Pasarela de Pago - <?= $nombreCursoGA ?></title>
-    <!-- Fuentes de ICC.com.pe -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;500;600;700&family=League+Spartan:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css" />
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/checkout.css?v=2.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/sitio.css?v=2">
 
     <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 
-    <!-- PayPal SDK (client-id=sb es para pruebas/sandbox, cámbialo por tu Client ID de producción) -->
+    <!-- PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=BAAqiauJCgNIFSWMjIrbxzcIlAn6mEzi0uhKYnoN48a_57G7zfy8kInsweY2544eHBiTuc8YQRZKsckGUw&currency=USD"></script>
 
     <!-- Google tag (gtag.js) -->
@@ -27,7 +43,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
       gtag('config', 'G-JPZGM0RZHW');
     </script>
 
@@ -36,443 +51,288 @@
       window.$crisp=[];
       window.CRISP_WEBSITE_ID="009b5415-0cf9-4522-9ba1-5d84c98c9006";
       (function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
-      
       // Ocultar el chat al inicio para que solo aparezca después de pagar
       $crisp.push(["do", "chat:hide"]);
     </script>
 </head>
 
-<body>
-    <div class="checkout-container" x-data="checkoutApp()" x-init="init()">
-        <div class="checkout-layout">
+<body class="min-h-screen bg-surface pb-20 font-sans text-ink antialiased lg:pb-0">
+<a href="#pago" class="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:font-bold focus:text-brand-dark">Saltar al pago</a>
 
-            <!-- Columna Izquierda: Información de Compra del Curso -->
-            <div class="course-column">
-                <div>
-                    <div class="brand" style="margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
-                        <img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC Logo" style="max-height: 60px;">
-                    </div>
-                    
-                    <!-- Video Promocional -->
-                    <div class="video-container" style="margin-bottom: 25px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
-                        <!-- Video Placeholder (YouTube) -->
-                        <iframe width="100%" height="315" :src="courseName.toLowerCase().includes('condensadores') ? 'https://www.youtube.com/embed/8TLJJCuo8Yg?rel=0' : (courseName.toLowerCase().includes('terminaciones') ? 'https://www.youtube.com/embed/EFj6mLwhkjg?rel=0' : (courseName.toLowerCase().includes('industrial') ? 'https://www.youtube.com/embed/lvb5RYvgjL0?rel=0' : (courseName.toLowerCase().includes('analizador') ? 'https://www.youtube.com/embed/h9UIxWA7_Lw?rel=0' : (courseName.toLowerCase().includes('canalizaciones') ? 'https://www.youtube.com/embed/HhwUmtNPrto?rel=0' : (courseName.toLowerCase().includes('empalmes') ? 'https://www.youtube.com/embed/EFwgRMFiN-A?rel=0' : (courseName.toLowerCase().includes('variadores') ? 'https://www.youtube.com/embed/r6lolq0LJhE?rel=0' : 'https://www.youtube.com/embed/7SMbMxs27K0?rel=0'))))))" title="Video Promocional" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block;"></iframe>
-                    </div>
+<header class="bg-deep text-white shadow-lg">
+    <div class="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+        <a href="<?= BASE_URL ?>" aria-label="ICC - Inicio"><img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC - Instituto de Capacitación Continua" class="h-9 w-auto"></a>
+        <span class="flex items-center gap-1.5 text-sm text-sky-100"><i class="fas fa-lock text-emerald-400" aria-hidden="true"></i> Pago seguro</span>
+    </div>
+</header>
 
-                    <div class="course-info">
-                        <?php if (!empty($data['cursoDB']['titulo_html'])): ?>
-                        <h1 style="font-size: 1.8rem; margin-bottom: 15px; font-weight: 700; color: var(--text-color);"><?= $data['cursoDB']['titulo_html'] ?></h1>
-                        <?php else: ?>
-                        <h1 x-text="courseName" style="font-size: 1.8rem; margin-bottom: 15px; font-weight: 700; color: var(--text-color);">Cargando curso...</h1>
-                        <?php endif; ?>
-                        
-                        <style>
-                            .accordion-btn {
-                                width: 100%; padding: 14px 18px; text-align: left; background: var(--surface-color, #f8f9fa); border: 1px solid var(--surface-border, #e9ecef); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; color: var(--text-color, #333); margin-bottom: 8px; transition: all 0.2s ease;
-                            }
-                            .accordion-btn:hover { background: #e9ecef; }
-                            .accordion-btn.active { background: #e0f2fe; border-color: #bae6fd; color: #0369a1; border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: 0;}
-                            .accordion-content {
-                                padding: 18px; border: 1px solid #bae6fd; border-top: none; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; font-size: 0.9rem; color: var(--text-muted, #555); background: #fff; margin-bottom: 8px;
-                            }
-                            .accordion-content ul { padding-left: 0; margin-bottom: 10px; list-style-type: none; }
-                            .accordion-content ul li { margin-bottom: 8px; position: relative; padding-left: 24px; line-height: 1.4; }
-                            .accordion-content ul li::before { content: '\f00c'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; left: 0; font-size: 0.9rem; top: 2px; color: #10b981;}
-                            .schedule-box { background: #f8fafc; border: 1px dashed #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
-                            .schedule-box h5 { margin-top: 0; margin-bottom: 10px; color: #0f172a; font-weight: 700; font-size: 1rem; }
-                            .schedule-box ul li::before { content: '📅'; }
-                        </style>
+<div class="checkout-container" x-data="checkoutApp()" x-init="init()">
+    <!-- Titulo del curso -->
+    <section class="relative overflow-hidden bg-brand-dark bg-cover bg-center text-white" style="background-image: url('<?= BASE_URL ?>assets/images/fondo_icc_hero.jpg');">
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-deep/60 via-deep/20 to-deep/30"></div>
+        <div class="relative mx-auto max-w-6xl px-4 pb-14 pt-8">
+            <span class="inline-block rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wide text-deep">Inscripción</span>
+            <?php if ($cursoCk && !empty($cursoCk['titulo_html'])): ?>
+            <h1 class="mt-3 max-w-3xl font-display text-3xl font-extrabold leading-tight sm:text-4xl"><?= $cursoCk['titulo_html'] ?></h1>
+            <?php else: ?>
+            <h1 x-text="courseName" class="mt-3 max-w-3xl font-display text-3xl font-extrabold leading-tight sm:text-4xl">Cargando curso...</h1>
+            <?php endif; ?>
+        </div>
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" class="absolute bottom-0 left-0 block h-8 w-full sm:h-12" aria-hidden="true"><path d="M0,40 C240,80 480,0 720,30 C960,60 1200,80 1440,20 L1440,80 L0,80 Z" fill="#f5f7fb"></path></svg>
+    </section>
 
-                        <!-- Dynamic Accordion based on DB data -->
-                        <?php if (isset($data['cursoDB']) && $data['cursoDB']): 
-                            $curso = $data['cursoDB'];
-                        ?>
-                        <div class="course-accordion" x-data="{ activeAccordion: 1 }" style="margin-top: 20px;">
-                            <?php if (!empty($curso['resumen'])): ?>
-                            <!-- Item 1: Resumen -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 1 }" @click="activeAccordion = activeAccordion === 1 ? null : 1">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-bolt" style="color: #eab308; font-size: 1.1rem;"></i> Resumen del Curso</span>
-                                    <span x-text="activeAccordion === 1 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 1" x-transition>
-                                    <div style="line-height: 1.5;"><?= $curso['resumen'] ?></div>
-                                </div>
-                            </div>
-                            <?php endif; ?>
+    <main class="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 pb-16 pt-4 lg:grid-cols-2">
 
-                            <?php if (!empty($curso['temas'])): ?>
-                            <!-- Item 2: Temas Principales -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 2 }" @click="activeAccordion = activeAccordion === 2 ? null : 2">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-network-wired" style="color: #3b82f6; font-size: 1.1rem;"></i> Temas Principales</span>
-                                    <span x-text="activeAccordion === 2 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 2" x-transition style="display: none;">
-                                    <?= $curso['temas'] ?>
-                                </div>
-                            </div>
-                            <?php endif; ?>
-
-                            <?php if (!empty($curso['extra_html'])): ?>
-                            <!-- Acordeon extra de una oferta (?oferta=, ver OfertasCheckout) -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 5 }" @click="activeAccordion = activeAccordion === 5 ? null : 5">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-robot" style="color: #8b5cf6; font-size: 1.1rem;"></i> <?= htmlspecialchars($curso['extra_titulo']) ?></span>
-                                    <span x-text="activeAccordion === 5 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 5" x-transition style="display: none;">
-                                    <?= $curso['extra_html'] ?>
-                                </div>
-                            </div>
-                            <?php endif; ?>
-
-                            <?php if (!empty($curso['beneficios'])): ?>
-                            <!-- Item 3: Beneficios -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 3 }" @click="activeAccordion = activeAccordion === 3 ? null : 3">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-award" style="color: #f59e0b; font-size: 1.1rem;"></i> Beneficios</span>
-                                    <span x-text="activeAccordion === 3 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 3" x-transition style="display: none;">
-                                    <?= $curso['beneficios'] ?>
-                                </div>
-                            </div>
-                            <?php endif; ?>
-
-                            <?php if (!empty($curso['programacion'])): ?>
-                            <!-- Item 4: Programación -->
-                            <div>
-                                <button class="accordion-btn" :class="{ 'active': activeAccordion === 4 }" @click="activeAccordion = activeAccordion === 4 ? null : 4">
-                                    <span style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-calendar-alt" style="color: #10b981; font-size: 1.1rem;"></i> Programación y Horarios</span>
-                                    <span x-text="activeAccordion === 4 ? '−' : '+'" style="font-weight: bold; font-size: 1.2rem;"></span>
-                                </button>
-                                <div class="accordion-content" x-show="activeAccordion === 4" x-transition style="display: none;">
-                                    <?= $curso['programacion'] ?>
-                                </div>
-                            </div>
-                            <?php endif; ?>
-                        </div>
-                        <?php else: ?>
-                        <?php endif; ?>
-
-<div class="promo-price-container" style="position: relative; margin-top: 30px; margin-bottom: 20px; background: #0f172a; border: 2px solid #3730a3; border-radius: 12px; padding: 35px 20px 25px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); transform: skew(-3deg);">
-                    <!-- Etiqueta amarilla flotante -->
-                    <div style="position: absolute; top: -15px; right: -10px; background: #facc15; color: #0f172a; padding: 6px 16px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; transform: skew(3deg) rotate(5deg); box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 2px solid #0f172a; z-index: 10;">
-                        <span style="display: block; font-size: 0.7rem; line-height: 1.2; text-transform: uppercase;">Precio Regular</span>
-                        <?php if (isset($data['cursoDB']) && $data['cursoDB']): ?>
-                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ ' + (originalPrice || coursePrice * 1.5).toFixed(2) : 'US$ ' + (originalPrice || coursePrice * 1.5).toFixed(2)"></span>
-                        <?php else: ?>
-                            <span style="text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: #6366f1; font-size: 1.1rem;" x-text="currency === 'PEN' ? 'S/ ' + (originalPrice || coursePrice * 1.5).toFixed(2) : 'US$ ' + (originalPrice || coursePrice * 1.5).toFixed(2)"></span>
-                        <?php endif; ?>
-                    </div>
-
-                    <div style="transform: skew(3deg); text-align: center; width: 100%;">
-                        <div style="text-transform: uppercase; font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: #818cf8; margin-bottom: 5px;">Monto total a pagar</div>
-                        <div style="font-size: 3.5rem; font-weight: 900; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.2);">
-                            <span x-text="currencySymbol" style="font-size: 2rem; vertical-align: super; color: #818cf8;"></span>
-                            <span x-text="coursePrice.toFixed(2)"></span>
-                            <span class="price-currency" x-text="currency" style="font-size: 1.2rem; opacity: 0.8; vertical-align: baseline; color: #818cf8;">PEN</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tarjeta de Confianza / Contacto -->
-                <div class="trust-signals" style="margin-top: 20px; background: #0f172a; border-radius: 12px; padding: 25px 20px; text-align: center; color: white; box-shadow: 0 10px 25px rgba(15,23,42,0.4);">
-                    <h4 style="margin-top: 0; margin-bottom: 20px; font-size: 0.95rem; color: #cbd5e1; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Comunícate con nuestros asesores</h4>
-                    
-                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 25px;">
-                        <a href="https://wa.me/51941208020" target="_blank" aria-label="WhatsApp" style="background-color: #25D366; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.4rem;"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://www.facebook.com/profile.php?id=61570845450403" target="_blank" aria-label="Facebook" style="background-color: #1877F2; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.tiktok.com/@icc_capacitaciones_int" target="_blank" aria-label="TikTok" style="background-color: #000000; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.3rem;"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                    
-                    <div style="display: flex; flex-direction: column; gap: 20px; border-top: 1px solid #334155; padding-top: 25px;">
-                        <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
-                            <div style="width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #3b82f6;">
-                                <i class="fas fa-phone-alt" style="color: #3b82f6; font-size: 1.2rem;"></i>
-                            </div>
-                            <div style="text-align: left;">
-                                <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Agente de mensajes</div>
-                                <div style="font-size: 1.15rem; font-weight: 700; color: white;">+51 941 208 020</div>
-                            </div>
-                        </div>
-                        <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
-                            <div style="width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #3b82f6;">
-                                <i class="fas fa-envelope" style="color: #3b82f6; font-size: 1.2rem;"></i>
-                            </div>
-                            <div style="text-align: left;">
-                                <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Agente de mensajes</div>
-                                <div style="font-size: 1.15rem; font-weight: 700; color: white;">informes@icc.com.pe</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Sitio web -->
-                        <div style="margin-top: 5px;">
-                            <a href="https://icc.com.pe/" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); transition: all 0.3s ease;">
-                                <i class="fas fa-globe" style="font-size: 1.2rem; margin-right: 10px;"></i>
-                                icc.com.pe
-                            </a>
-                        </div>
-                    </div>
+        <!-- Columna izquierda: informacion del curso -->
+        <div class="space-y-6">
+            <div class="overflow-hidden rounded-2xl bg-deep shadow-xl ring-1 ring-black/5">
+                <div class="aspect-video">
+                    <iframe class="h-full w-full" title="Video promocional del curso" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                            :src="courseName.toLowerCase().includes('condensadores') ? 'https://www.youtube.com/embed/8TLJJCuo8Yg?rel=0' : (courseName.toLowerCase().includes('terminaciones') ? 'https://www.youtube.com/embed/EFj6mLwhkjg?rel=0' : (courseName.toLowerCase().includes('industrial') ? 'https://www.youtube.com/embed/lvb5RYvgjL0?rel=0' : (courseName.toLowerCase().includes('analizador') ? 'https://www.youtube.com/embed/h9UIxWA7_Lw?rel=0' : (courseName.toLowerCase().includes('canalizaciones') ? 'https://www.youtube.com/embed/HhwUmtNPrto?rel=0' : (courseName.toLowerCase().includes('empalmes') ? 'https://www.youtube.com/embed/EFwgRMFiN-A?rel=0' : (courseName.toLowerCase().includes('variadores') ? 'https://www.youtube.com/embed/r6lolq0LJhE?rel=0' : 'https://www.youtube.com/embed/7SMbMxs27K0?rel=0'))))))"></iframe>
                 </div>
             </div>
-            <!-- Cierre de div (línea 51) y course-column (línea 50) -->
-            </div>
-            </div>
 
-            <!-- Columna Derecha: Opciones de Pago -->
-            <div class="payment-column">
-                <div x-show="!paymentSuccess" x-transition>
-                    <div class="payment-header">
-                    <h2>Método de Pago</h2>
-                </div>
-
-                <!-- Tabs para alternar entre métodos de pago. Si Hotmart es la unica opcion
-                     relevante (compradores internacionales, y Hotmart ya incluye PayPal
-                     adentro), nos saltamos las pestañas y mostramos Hotmart directo. -->
-                <div class="payment-tabs" x-show="!soloHotmart">
-                    <button class="tab-btn" x-show="metodosDisponibles.includes('manual')" :class="{ 'active': activeTab === 'manual' }" @click="setTab('manual')">
-                        📱 Yape / Plin
+            <?php if ($acordeones): ?>
+            <!-- Acordeones con el contenido del curso (BD) -->
+            <div class="space-y-3" x-data="{ activeAccordion: <?= (int) $primerAcordeon ?> }">
+                <?php foreach ($acordeones as $a): ?>
+                <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
+                    <button type="button" class="flex w-full items-center justify-between gap-3 px-5 py-4 text-left font-display font-bold text-deep hover:bg-mist"
+                            :aria-expanded="activeAccordion === <?= $a[0] ?>" @click="activeAccordion = activeAccordion === <?= $a[0] ?> ? null : <?= $a[0] ?>">
+                        <span class="flex items-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-lg bg-mist text-brand"><i class="<?= $a[1] ?>" aria-hidden="true"></i></span> <?= $a[2] ?></span>
+                        <i class="fas fa-chevron-down text-sm text-muted transition-transform" :class="activeAccordion === <?= $a[0] ?> && 'rotate-180'" aria-hidden="true"></i>
                     </button>
-                    <button class="tab-btn" x-show="metodosDisponibles.includes('paypal')" :class="{ 'active': activeTab === 'paypal' }" @click="setTab('paypal')">
-                        💳 PayPal / Tarjeta
+                    <div class="accordion-content contenido-db border-t border-mist px-5 py-4 text-sm leading-relaxed" x-show="activeAccordion === <?= $a[0] ?>" x-transition <?= $a[0] === $primerAcordeon ? '' : 'style="display: none;"' ?>>
+                        <?= $a[3] ?>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+
+            <!-- Precio -->
+            <div class="rounded-2xl bg-deep px-6 py-7 text-center text-white shadow-xl">
+                <p class="text-xs font-bold uppercase tracking-widest text-sky-100">Monto total a pagar</p>
+                <p class="mt-2 font-display text-5xl font-extrabold leading-none">
+                    <span x-text="currencySymbol" class="align-top text-2xl text-accent"></span><span x-text="coursePrice.toFixed(2)"></span>
+                    <span class="text-lg text-sky-100" x-text="currency">PEN</span>
+                </p>
+                <!-- "Precio regular" solo si hay uno real (precio de la BD o ?regular=) mayor al que se cobra -->
+                <p class="mt-3 text-sm text-sky-100" x-show="originalPrice && originalPrice > coursePrice" x-cloak>
+                    Precio regular: <span class="line-through" x-text="(currency === 'PEN' ? 'S/ ' : 'US$ ') + (originalPrice || 0).toFixed(2)"></span>
+                </p>
+            </div>
+
+            <!-- Contacto -->
+            <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+                <h2 class="font-display text-lg font-bold text-deep">¿Dudas? Comunícate con nuestros asesores</h2>
+                <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <a href="https://wa.me/51941208020" target="_blank" rel="noopener" class="flex items-center gap-3 rounded-xl border border-line/60 p-3 hover:bg-mist">
+                        <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#25D366] text-xl text-white"><i class="fab fa-whatsapp" aria-hidden="true"></i></span>
+                        <span class="text-sm"><span class="block font-bold text-deep">+51 941 208 020</span><span class="text-muted">WhatsApp</span></span>
+                    </a>
+                    <a href="mailto:informes@icc.com.pe" class="flex items-center gap-3 rounded-xl border border-line/60 p-3 hover:bg-mist">
+                        <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand text-white"><i class="fas fa-envelope" aria-hidden="true"></i></span>
+                        <span class="text-sm"><span class="block font-bold text-deep">informes@icc.com.pe</span><span class="text-muted">Correo</span></span>
+                    </a>
+                </div>
+                <div class="mt-4 flex items-center justify-center gap-2">
+                    <a href="https://www.facebook.com/profile.php?id=61570845450403" target="_blank" rel="noopener" aria-label="Facebook" class="flex h-10 w-10 items-center justify-center rounded-full bg-mist text-brand hover:bg-brand hover:text-white"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="https://www.tiktok.com/@icc_capacitaciones_int" target="_blank" rel="noopener" aria-label="TikTok" class="flex h-10 w-10 items-center justify-center rounded-full bg-mist text-brand hover:bg-brand hover:text-white"><i class="fab fa-tiktok" aria-hidden="true"></i></a>
+                    <a href="<?= BASE_URL ?>" aria-label="Sitio web de ICC" class="flex h-10 w-10 items-center justify-center rounded-full bg-mist text-brand hover:bg-brand hover:text-white"><i class="fas fa-globe" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna derecha: pago -->
+        <div id="pago" class="lg:sticky lg:top-6 lg:self-start">
+            <div x-show="!paymentSuccess" x-transition class="rounded-2xl bg-white p-6 shadow-xl ring-1 ring-black/5">
+                <h2 class="font-display text-2xl font-bold text-brand-dark">Método de pago</h2>
+
+                <!-- Pestañas (si Hotmart es la unica opcion, se muestra directo) -->
+                <div class="mt-4 grid auto-cols-fr grid-flow-col gap-1 rounded-xl bg-surface p-1" x-show="!soloHotmart" role="tablist">
+                    <button type="button" role="tab" x-show="metodosDisponibles.includes('manual')" :aria-selected="activeTab === 'manual'" :class="activeTab === 'manual' ? 'bg-white text-brand shadow' : 'text-muted hover:text-deep'" class="min-h-[44px] rounded-lg px-2 text-sm font-bold" @click="setTab('manual')">
+                        <i class="fas fa-mobile-alt mr-1" aria-hidden="true"></i> Yape / Plin
                     </button>
-                    <button class="tab-btn" x-show="metodosDisponibles.includes('hotmart') && HOTMART_LINK" :class="{ 'active': activeTab === 'hotmart' }" @click="setTab('hotmart')">
-                        🌎 Otros métodos
+                    <button type="button" role="tab" x-show="metodosDisponibles.includes('paypal')" :aria-selected="activeTab === 'paypal'" :class="activeTab === 'paypal' ? 'bg-white text-brand shadow' : 'text-muted hover:text-deep'" class="min-h-[44px] rounded-lg px-2 text-sm font-bold" @click="setTab('paypal')">
+                        <i class="far fa-credit-card mr-1" aria-hidden="true"></i> PayPal / Tarjeta
+                    </button>
+                    <button type="button" role="tab" x-show="metodosDisponibles.includes('hotmart') && HOTMART_LINK" :aria-selected="activeTab === 'hotmart'" :class="activeTab === 'hotmart' ? 'bg-white text-brand shadow' : 'text-muted hover:text-deep'" class="min-h-[44px] rounded-lg px-2 text-sm font-bold" @click="setTab('hotmart')">
+                        <i class="fas fa-globe-americas mr-1" aria-hidden="true"></i> Otros métodos
                     </button>
                 </div>
 
-                <div class="tab-content">
-                    <!-- Vista Yape / Plin -->
-                    <div class="wallet-view" x-show="activeTab === 'manual'" x-transition>
-                        <div class="digital-wallets">
-                            <div class="wallet-card" :class="{ 'active': manualMethod === 'yape' }"
-                                @click="setManualMethod('yape')">
-                                <div class="wallet-logo" style="background: #7400b8; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(116,0,184,0.3);">Y</div>
-                                <span>Yape</span>
-                            </div>
-                            <div class="wallet-card" :class="{ 'active': manualMethod === 'plin' }"
-                                @click="setManualMethod('plin')">
-                                <div class="wallet-logo" style="background: #00c8b0; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,200,176,0.3);">P</div>
-                                <span>Plin</span>
-                            </div>
+                <div class="mt-5">
+                    <!-- Yape / Plin -->
+                    <div x-show="activeTab === 'manual'" x-transition>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" @click="setManualMethod('yape')" :aria-pressed="manualMethod === 'yape'" :class="manualMethod === 'yape' ? 'border-brand ring-2 ring-brand' : 'border-line'" class="flex items-center justify-center gap-2 rounded-xl border bg-white px-3 py-3 font-bold text-deep">
+                                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-[#7400b8] font-bold text-white">Y</span> Yape
+                            </button>
+                            <button type="button" @click="setManualMethod('plin')" :aria-pressed="manualMethod === 'plin'" :class="manualMethod === 'plin' ? 'border-brand ring-2 ring-brand' : 'border-line'" class="flex items-center justify-center gap-2 rounded-xl border bg-white px-3 py-3 font-bold text-deep">
+                                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-[#00a896] font-bold text-white">P</span> Plin
+                            </button>
                         </div>
 
-                        <div class="wallet-details" x-show="manualMethod">
-                            <div class="qr-container" style="text-align: center; padding: 15px;">
-                                <img :src="manualDetails[manualMethod]?.qrUrl" alt="Código QR" class="qr-image" style="max-width: 220px; max-height: 280px; width: auto; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); object-fit: contain;">
+                        <div x-show="manualMethod" class="mt-5">
+                            <div class="text-center">
+                                <img :src="manualDetails[manualMethod]?.qrUrl" alt="Código QR para pagar" class="mx-auto max-h-72 w-auto max-w-[14rem] rounded-xl object-contain shadow-md ring-1 ring-black/5">
                             </div>
-
-                            <div class="payment-info-box">
-                                <div class="info-row">
-                                    <span>Titular:</span>
-                                    <span x-text="manualDetails[manualMethod]?.name">Cargando...</span>
-                                </div>
-                                <div class="info-row"
-                                    style="border-top: 1px dashed var(--surface-border); margin-top: 8px; padding-top: 8px;">
-                                    <span>Monto a transferir:</span>
-                                    <span style="color: var(--primary); font-weight: 700;"
-                                        x-text="'S/ ' + amountInSoles.toFixed(2) + ' PEN'"></span>
-                                </div>
+                            <dl class="mt-4 space-y-2 rounded-xl bg-surface p-4 text-sm">
+                                <div class="flex justify-between gap-3"><dt class="text-muted">Titular</dt><dd class="font-semibold text-deep" x-text="manualDetails[manualMethod]?.name">Cargando...</dd></div>
+                                <div class="flex justify-between gap-3 border-t border-dashed border-line pt-2"><dt class="text-muted">Monto a transferir</dt><dd class="font-display font-extrabold text-brand" x-text="'S/ ' + amountInSoles.toFixed(2) + ' PEN'"></dd></div>
                                 <template x-if="currency === 'USD'">
-                                    <div class="info-row" style="font-size: 0.8rem; color: var(--text-secondary);">
-                                        <span>(Convertido de:</span>
-                                        <span
-                                            x-text="'$' + coursePrice.toFixed(2) + ' USD al cambio ' + tipoCambio.toFixed(2) + ')'"></span>
-                                    </div>
+                                    <p class="text-xs text-muted" x-text="'(Convertido de $' + coursePrice.toFixed(2) + ' USD al cambio ' + tipoCambio.toFixed(2) + ')'"></p>
                                 </template>
-                            </div>
+                            </dl>
 
-                            <div class="user-info-section" style="margin-top: 15px; text-align: left;">
-                                <h4 style="font-size: 0.95rem; margin-bottom: 10px; color: var(--text-color);">Tus datos (Para el certificado):</h4>
-                                <input type="text" x-model="dni" placeholder="DNI o Documento de Identidad" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
-                                <input type="text" x-model="nombre" placeholder="Nombres completos" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
-                                <input type="text" x-model="apellido" placeholder="Apellidos completos" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
-                                <input type="text" x-model="celular" placeholder="Número de celular / WhatsApp" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
-                            </div>
-
-                            <div class="voucher-section">
-                                <div class="file-upload-box" @click="document.getElementById('voucher_upload').click()">
-                                    <span class="file-upload-label" id="file_label"
-                                        x-text="voucherFile ? '✓ ' + voucherFile.name : 'Subir captura o foto del voucher' "></span>
-                                    <input type="file" id="voucher_upload" style="display: none;"
-                                        @change="voucherFile = $event.target.files[0]" accept="image/*,application/pdf">
+                            <fieldset class="mt-5">
+                                <legend class="font-display font-bold text-deep">Tus datos (para el certificado)</legend>
+                                <div class="mt-3 grid grid-cols-1 gap-3">
+                                    <div><label for="m-dni" class="sr-only">DNI o documento de identidad</label><input id="m-dni" type="text" x-model="dni" placeholder="DNI o documento de identidad" class="<?= $campoCk ?>" required></div>
+                                    <div><label for="m-nombre" class="sr-only">Nombres completos</label><input id="m-nombre" type="text" x-model="nombre" placeholder="Nombres completos" autocomplete="given-name" class="<?= $campoCk ?>" required></div>
+                                    <div><label for="m-apellido" class="sr-only">Apellidos completos</label><input id="m-apellido" type="text" x-model="apellido" placeholder="Apellidos completos" autocomplete="family-name" class="<?= $campoCk ?>" required></div>
+                                    <div><label for="m-celular" class="sr-only">Celular o WhatsApp</label><input id="m-celular" type="tel" x-model="celular" placeholder="Número de celular / WhatsApp" autocomplete="tel" class="<?= $campoCk ?>" required></div>
                                 </div>
-                            </div>
+                            </fieldset>
 
-                            <button @click="submitManualPayment()" id="btn_submit_manual" class="btn-submit" :disabled="!voucherFile">
+                            <label for="voucher_upload" class="mt-4 flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 border-dashed border-line bg-surface px-4 py-5 text-center text-sm font-semibold text-muted hover:border-brand hover:text-brand"
+                                   :class="voucherFile && 'border-emerald-500 bg-emerald-50 text-emerald-800'">
+                                <i class="fas" :class="voucherFile ? 'fa-check-circle' : 'fa-cloud-upload-alt'" aria-hidden="true"></i>
+                                <span id="file_label" x-text="voucherFile ? voucherFile.name : 'Subir captura o foto del voucher'"></span>
+                            </label>
+                            <input type="file" id="voucher_upload" class="sr-only" @change="voucherFile = $event.target.files[0]" accept="image/*,application/pdf">
+
+                            <button type="button" @click="submitManualPayment()" id="btn_submit_manual" :disabled="!voucherFile"
+                                    class="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-xl bg-accent px-6 py-3 font-display text-base font-bold text-deep shadow-md hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-60">
                                 Confirmar mi inscripción
                             </button>
                         </div>
                     </div>
 
-                    <!-- Vista PayPal -->
-                    <div class="paypal-view" x-show="activeTab === 'paypal'" x-transition>
-                        <p class="paypal-instructions">
-                            Inicia sesión en tu cuenta de PayPal o procesa el pago de forma segura con tarjeta de
-                            crédito/débito en dólares.
-                        </p>
-
+                    <!-- PayPal -->
+                    <div x-show="activeTab === 'paypal'" x-transition>
+                        <p class="text-sm text-muted">Inicia sesión en tu cuenta de PayPal o paga de forma segura con tarjeta de crédito o débito en dólares.</p>
                         <template x-if="currency === 'PEN'">
-                            <p
-                                style="font-size: 0.85rem; color: var(--text-secondary); text-align: center; margin-bottom: 15px;">
-                                (Equivalente para PayPal: <strong style="color: var(--text-primary);"
-                                    x-text="'$' + amountInUSD.toFixed(2) + ' USD'"></strong> al cambio de <span
-                                    x-text="tipoCambio"></span>)
-                            </p>
+                            <p class="mt-2 text-sm text-muted">(Equivalente para PayPal: <strong class="text-deep" x-text="'$' + amountInUSD.toFixed(2) + ' USD'"></strong> al cambio de <span x-text="tipoCambio"></span>)</p>
                         </template>
-
-                        <div class="user-info-section" style="margin-top: 5px; margin-bottom: 15px; text-align: left;">
-                            <h4 style="font-size: 0.95rem; margin-bottom: 10px; color: var(--text-color);">Tus datos (Para el certificado):</h4>
-                            <input type="text" x-model="dni" placeholder="DNI o Documento de Identidad" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
-                            <input type="text" x-model="nombre" placeholder="Nombres completos" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
-                            <input type="text" x-model="apellido" placeholder="Apellidos completos" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
-                            <input type="text" x-model="celular" placeholder="Número de celular / WhatsApp" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--surface-border); border-radius: 8px;" required>
-                        </div>
-
-                        <!-- Contenedor del Botón Inteligente de PayPal -->
-                        <div id="paypal-button-container"></div>
+                        <fieldset class="mt-5">
+                            <legend class="font-display font-bold text-deep">Tus datos (para el certificado)</legend>
+                            <div class="mt-3 grid grid-cols-1 gap-3">
+                                <div><label for="p-dni" class="sr-only">DNI o documento de identidad</label><input id="p-dni" type="text" x-model="dni" placeholder="DNI o documento de identidad" class="<?= $campoCk ?>" required></div>
+                                <div><label for="p-nombre" class="sr-only">Nombres completos</label><input id="p-nombre" type="text" x-model="nombre" placeholder="Nombres completos" autocomplete="given-name" class="<?= $campoCk ?>" required></div>
+                                <div><label for="p-apellido" class="sr-only">Apellidos completos</label><input id="p-apellido" type="text" x-model="apellido" placeholder="Apellidos completos" autocomplete="family-name" class="<?= $campoCk ?>" required></div>
+                                <div><label for="p-celular" class="sr-only">Celular o WhatsApp</label><input id="p-celular" type="tel" x-model="celular" placeholder="Número de celular / WhatsApp" autocomplete="tel" class="<?= $campoCk ?>" required></div>
+                            </div>
+                        </fieldset>
+                        <!-- Contenedor del boton de PayPal -->
+                        <div id="paypal-button-container" class="mt-5"></div>
                     </div>
 
-                    <!-- Vista Hotmart: mas metodos locales segun el pais del comprador
-                         (OXXO, Mercado Pago, PSE, Nequi, etc.) - incrustada directo aqui,
-                         confirmado que pay.hotmart.com no bloquea iframes (sin X-Frame-Options
-                         ni frame-ancestors en su CSP). Se deja un link de respaldo por si algun
-                         metodo dentro de Hotmart necesita abrir su propia ventana/popup.
-                         (Se probo el widget oficial de Hotmart, checkoutMode=2, y se volvio al
-                         iframe por decision del cliente.) -->
-                    <div class="hotmart-view" x-show="activeTab === 'hotmart'" x-transition>
-                        <p class="paypal-instructions">
-                            Paga con más métodos según tu país (tarjeta local en cuotas, transferencia bancaria,
-                            billeteras digitales y más).
-                        </p>
-                        <p style="font-size: 0.85rem; color: var(--text-secondary); text-align: center; margin-top: 6px;">
-                            El precio final se muestra en tu moneda local dentro del formulario de pago y puede
-                            incluir impuestos locales (por ejemplo, IVA), que se suman al precio del curso.
-                        </p>
-                        <!-- Alto grande a propósito: si el cuadro alcanza a mostrar todo el
-                             formulario de Hotmart, no aparece su propia barra de scroll interna
-                             y el comprador solo tiene que hacer scroll de la página normal
-                             (mucho menos confuso para alguien que no es muy técnico).
-                             allow="payment": permisos de pago del navegador (Google/Apple Pay). -->
-                        <iframe :src="HOTMART_LINK" loading="lazy" allow="payment *" @load.once="trackHotmartClick('iframe')"
-                                style="width: 100%; height: 1900px; border: 1px solid var(--surface-border); border-radius: 8px; margin-top: 10px;">
-                        </iframe>
-                        <p style="font-size: 0.8rem; color: var(--text-secondary); text-align: center; margin-top: 12px;">
-                            ¿No carga bien aquí? <a :href="HOTMART_LINK" target="_blank" rel="noopener" @click="trackHotmartClick('respaldo')">Ábrelo en una pestaña nueva</a>.
+                    <!-- Hotmart: mas metodos locales segun el pais (iframe; link de respaldo por si un metodo abre su propia ventana) -->
+                    <div x-show="activeTab === 'hotmart'" x-transition>
+                        <p class="text-sm text-muted">Paga con más métodos según tu país (tarjeta local en cuotas, transferencia bancaria, billeteras digitales y más).</p>
+                        <p class="mt-2 text-xs text-muted">El precio final se muestra en tu moneda local dentro del formulario de pago y puede incluir impuestos locales (por ejemplo, IVA), que se suman al precio del curso.</p>
+                        <!-- Alto grande a proposito: asi el formulario de Hotmart no muestra su propia barra de scroll -->
+                        <iframe :src="HOTMART_LINK" loading="lazy" allow="payment *" @load.once="trackHotmartClick('iframe')" title="Formulario de pago de Hotmart"
+                                class="mt-3 h-[1900px] w-full rounded-xl border border-line"></iframe>
+                        <p class="mt-3 text-center text-xs text-muted">
+                            ¿No carga bien aquí? <a :href="HOTMART_LINK" target="_blank" rel="noopener" class="font-semibold text-brand underline" @click="trackHotmartClick('respaldo')">Ábrelo en una pestaña nueva</a>.
                             Tus accesos al Aula Virtual llegan automáticamente a tu correo tras confirmarse el pago.
                         </p>
                     </div>
                 </div>
 
-                <div class="trust-badges">
-                    <div class="trust-badge-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944a11.954 11.954 0 007.834 3.055A8.536 8.536 0 0018 7c0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
-                        Pago 100% Seguro
-                    </div>
-                    <div class="trust-badge-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg>
-                        Encriptación SSL 256-bit
-                    </div>
-                </div>
-                </div> <!-- End of !paymentSuccess -->
-
-                <!-- Vista de Éxito y Rastreador de Progreso -->
-                <div class="success-view" x-show="paymentSuccess" x-transition style="display: none; text-align: center; padding: 40px 20px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
-                    <div style="font-size: 3.5rem; color: #10b981; margin-bottom: 10px; line-height: 1;">✅</div>
-                    <h3 style="color: #0f172a; margin-bottom: 15px; font-size: 1.5rem; font-weight: 700;">¡Voucher recibido con éxito!</h3>
-                    <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 35px;">Estamos procesando tu inscripción. Sigue el estado de tu trámite:</p>
-
-                    <!-- Progress Tracker -->
-                    <div class="progress-tracker" style="display: flex; justify-content: space-between; position: relative; margin-bottom: 40px; max-width: 400px; margin-left: auto; margin-right: auto;">
-                        <!-- Line -->
-                        <div style="position: absolute; top: 15px; left: 16%; right: 16%; height: 4px; background: #e2e8f0; z-index: 1;">
-                            <div style="width: 50%; height: 100%; background: #10b981; transition: width 1s ease-in-out;"></div>
-                        </div>
-
-                        <!-- Step 1 -->
-                        <div style="position: relative; z-index: 2; text-align: center; width: 33%;">
-                            <div style="width: 34px; height: 34px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; border: 4px solid white; box-shadow: 0 0 0 2px #10b981;">✓</div>
-                            <div style="font-size: 0.75rem; font-weight: 700; color: #10b981; line-height: 1.2;">Pago<br>Enviado</div>
-                        </div>
-
-                        <!-- Step 2 -->
-                        <div style="position: relative; z-index: 2; text-align: center; width: 33%;">
-                            <div style="width: 34px; height: 34px; background: white; color: #f59e0b; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; border: 4px solid #f59e0b; font-size: 1rem;">⏳</div>
-                            <div style="font-size: 0.75rem; font-weight: 700; color: #f59e0b; line-height: 1.2;">Validando<br>Inscripción</div>
-                        </div>
-
-                        <!-- Step 3 -->
-                        <div style="position: relative; z-index: 2; text-align: center; width: 33%;">
-                            <div style="width: 34px; height: 34px; background: white; color: #94a3b8; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; border: 4px solid #cbd5e1;">3</div>
-                            <div style="font-size: 0.75rem; font-weight: 600; color: #94a3b8; line-height: 1.2;">Accesos<br>Enviados</div>
-                        </div>
-                    </div>
-
-                    <template x-if="paymentMethodUsed === 'manual'">
-                        <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 20px;">
-                            <h4 style="margin-top: 0; color: #0f172a; margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">⚠️ Siguiente paso obligatorio</h4>
-                            <p style="color: #475569; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">Para agilizar la validación y enviarte tus accesos de inmediato, haz clic en el botón de abajo y envíanos un mensaje por WhatsApp confirmando tus datos.</p>
-                            <a href="https://wa.me/51941208020?text=Hola,%20acabo%20de%20subir%20mi%20voucher%20para%20el%20curso.%20Mis%20nombres%20son:" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; background: #25D366; color: white; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); transition: transform 0.2s ease;">
-                                <span style="font-size: 1.2rem; margin-right: 8px;">💬</span> Escribir a WhatsApp
-                            </a>
-                        </div>
-                    </template>
-                    
-                    <template x-if="paymentMethodUsed === 'paypal'">
-                        <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 20px;">
-                            <h4 style="margin-top: 0; color: #0f172a; margin-bottom: 10px; font-size: 1.1rem; font-weight: 700;">✅ ¡Todo listo!</h4>
-                            <p style="color: #475569; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">Tu pago por PayPal ha sido recibido exitosamente. En un momento, recibirás tus credenciales. (Puedes comunicarte con nosotros desde el chat de soporte abajo a la derecha).</p>
-                            <button @click="$crisp.push(['do', 'chat:show']); $crisp.push(['do', 'chat:open']);" type="button" style="display: inline-flex; align-items: center; justify-content: center; background: #3730a3; color: white; padding: 14px 28px; border-radius: 30px; border: none; font-weight: 700; font-size: 1.05rem; box-shadow: 0 4px 12px rgba(55, 48, 163, 0.3); transition: transform 0.2s ease; cursor: pointer;">
-                                <span style="font-size: 1.2rem; margin-right: 8px;">💬</span> Abrir Chat de Soporte
-                            </button>
-                        </div>
-                    </template>
+                <div class="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-mist pt-4 text-xs font-semibold text-muted">
+                    <span class="flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-600" aria-hidden="true"></i> Pago 100% seguro</span>
+                    <span class="flex items-center gap-1.5"><i class="fas fa-lock text-emerald-600" aria-hidden="true"></i> Conexión cifrada (SSL)</span>
                 </div>
             </div>
 
+            <!-- Exito y estado del tramite -->
+            <div x-show="paymentSuccess" x-transition style="display: none;" class="rounded-2xl bg-white p-8 text-center shadow-xl ring-1 ring-black/5" role="status">
+                <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 text-3xl text-emerald-600"><i class="fas fa-check" aria-hidden="true"></i></span>
+                <h2 class="mt-4 font-display text-2xl font-bold text-deep" x-text="paymentMethodUsed === 'paypal' ? '¡Pago recibido con éxito!' : '¡Voucher recibido con éxito!'">¡Voucher recibido con éxito!</h2>
+                <p class="mt-2 text-sm text-muted">Estamos procesando tu inscripción. Sigue el estado de tu trámite:</p>
+
+                <ol class="relative mx-auto mt-8 grid max-w-sm grid-cols-3 text-xs font-bold">
+                    <li class="absolute left-[16%] right-[16%] top-4 h-1 rounded bg-line" aria-hidden="true"><span class="block h-full w-1/2 rounded bg-emerald-500"></span></li>
+                    <li class="relative text-emerald-700"><span class="mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 text-white ring-4 ring-white"><i class="fas fa-check" aria-hidden="true"></i></span>Pago enviado</li>
+                    <li class="relative text-amber-700"><span class="mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-full border-4 border-amber-400 bg-white text-amber-500 ring-4 ring-white"><i class="fas fa-hourglass-half" aria-hidden="true"></i></span>Validando inscripción</li>
+                    <li class="relative text-muted"><span class="mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-full border-4 border-line bg-white ring-4 ring-white">3</span>Accesos enviados</li>
+                </ol>
+
+                <template x-if="paymentMethodUsed === 'manual'">
+                    <div class="mt-8 rounded-xl border border-dashed border-line bg-surface p-5">
+                        <h3 class="font-display text-lg font-bold text-deep"><i class="fas fa-exclamation-triangle mr-1 text-amber-500" aria-hidden="true"></i> Siguiente paso obligatorio</h3>
+                        <p class="mt-2 text-sm text-muted">Para agilizar la validación y enviarte tus accesos de inmediato, haz clic en el botón de abajo y envíanos un mensaje por WhatsApp confirmando tus datos.</p>
+                        <a href="https://wa.me/51941208020?text=Hola,%20acabo%20de%20subir%20mi%20voucher%20para%20el%20curso.%20Mis%20nombres%20son:" target="_blank" rel="noopener"
+                           class="mt-4 inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-3 font-display font-bold text-white shadow-md hover:brightness-95">
+                            <i class="fab fa-whatsapp text-xl" aria-hidden="true"></i> Escribir a WhatsApp
+                        </a>
+                    </div>
+                </template>
+
+                <template x-if="paymentMethodUsed === 'paypal'">
+                    <div class="mt-8 rounded-xl border border-dashed border-line bg-surface p-5">
+                        <h3 class="font-display text-lg font-bold text-deep">¡Todo listo!</h3>
+                        <p class="mt-2 text-sm text-muted">Tu pago por PayPal ha sido recibido exitosamente. En un momento, recibirás tus credenciales. (Puedes comunicarte con nosotros desde el chat de soporte abajo a la derecha).</p>
+                        <button type="button" @click="$crisp.push(['do', 'chat:show']); $crisp.push(['do', 'chat:open']);"
+                                class="mt-4 inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 font-display font-bold text-white shadow-md hover:bg-brand-dark">
+                            <i class="fas fa-comments" aria-hidden="true"></i> Abrir chat de soporte
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </main>
+
+    <!-- Celular: precio y acceso directo al pago (el formulario queda debajo de la informacion del curso) -->
+    <div x-show="!paymentSuccess" class="fixed inset-x-0 bottom-0 z-40 border-t border-line/60 bg-white p-3 shadow-[0_-4px_16px_rgba(0,0,0,0.12)] lg:hidden">
+        <div class="mx-auto flex max-w-md items-center justify-between gap-3">
+            <div class="min-w-0">
+                <p class="truncate text-xs text-muted" x-text="courseName"></p>
+                <p class="font-display text-lg font-extrabold leading-tight text-brand"><span x-text="currencySymbol"></span><span x-text="coursePrice.toFixed(2)"></span></p>
+            </div>
+            <a href="#pago" class="shrink-0 rounded-xl bg-accent px-5 py-3 font-display text-sm font-bold text-deep shadow-md">Pagar ahora</a>
         </div>
     </div>
+</div>
 
-    <!-- Generador de Enlaces de Pago para Administración (TikTok y Ofertas Especiales) -->
-    <!-- Solo se muestra si añades ?admin=true a la URL -->
-    <div class="admin-card" x-data="adminPanel()" x-show="visible" x-transition>
-        <div class="admin-header">
-            <h3>Generador de Enlaces de Pago</h3>
-            <span class="admin-badge">Admin Panel</span>
-        </div>
+<footer class="bg-deep py-8 text-center text-sm text-sky-100">
+    <div class="mx-auto max-w-6xl px-4">
+        <img src="<?= BASE_URL ?>assets/images/logo_icc.png" alt="ICC" class="mx-auto h-10 w-auto">
+        <p class="mt-3">Medios de pago: Yape · Plin · PayPal · Tarjeta de crédito o débito</p>
+        <p class="mt-1">informes@icc.com.pe · <a href="https://wa.me/51941208020" class="underline" target="_blank" rel="noopener">+51 941 208 020</a></p>
+    </div>
+</footer>
 
-        <div class="admin-grid">
-            <div class="form-group">
-                <label for="admin_curso">Nombre del Curso</label>
-                <input type="text" id="admin_curso" class="form-control" x-model="courseName"
-                    placeholder="Ej: Curso TikTok Premium">
-            </div>
-            <div class="form-group">
-                <label for="admin_precio">Precio Especial</label>
-                <input type="number" id="admin_precio" class="form-control" x-model.number="price" placeholder="Ej: 20">
-            </div>
-            <div class="form-group">
-                <label for="admin_moneda">Moneda</label>
-                <select id="admin_moneda" class="form-control" x-model="currency">
-                    <option value="USD">Dólares (USD)</option>
-                    <option value="PEN">Soles (PEN)</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="admin-actions">
-            <button @click="generateLink()" class="btn-submit" style="margin-top: 0; padding: 12px 20px;">
-                Generar Enlace
-            </button>
-
-            <div class="link-result-box" x-show="generatedLink">
-                <input type="text" readonly :value="generatedLink" id="generated_link_input" class="link-input">
-                <button @click="copyLink()" class="btn-copy">Copiar Link</button>
-            </div>
+<!-- Generador de enlaces de pago para administracion (TikTok y ofertas especiales). Solo con ?admin=true -->
+<div class="mx-auto mb-10 mt-6 max-w-3xl rounded-2xl border-t-4 border-accent bg-white p-6 shadow-xl ring-1 ring-black/5" x-data="adminPanel()" x-show="visible" x-transition style="display: none;">
+    <div class="flex items-center justify-between gap-3">
+        <h2 class="font-display text-xl font-bold text-deep">Generador de enlaces de pago</h2>
+        <span class="rounded-full bg-deep px-3 py-1 text-xs font-bold text-accent">Admin</span>
+    </div>
+    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div><label for="admin_curso" class="mb-1 block text-sm font-semibold text-deep">Nombre del curso</label><input type="text" id="admin_curso" class="<?= $campoCk ?>" x-model="courseName" placeholder="Ej: Curso TikTok Premium"></div>
+        <div><label for="admin_precio" class="mb-1 block text-sm font-semibold text-deep">Precio especial</label><input type="number" id="admin_precio" class="<?= $campoCk ?>" x-model.number="price" placeholder="Ej: 20"></div>
+        <div>
+            <label for="admin_moneda" class="mb-1 block text-sm font-semibold text-deep">Moneda</label>
+            <select id="admin_moneda" class="<?= $campoCk ?>" x-model="currency">
+                <option value="USD">Dólares (USD)</option>
+                <option value="PEN">Soles (PEN)</option>
+            </select>
         </div>
     </div>
+    <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <button type="button" @click="generateLink()" class="min-h-[44px] rounded-xl bg-brand px-5 font-bold text-white hover:bg-brand-dark">Generar enlace</button>
+        <div class="flex flex-1 gap-2" x-show="generatedLink">
+            <label for="generated_link_input" class="sr-only">Enlace generado</label>
+            <input type="text" readonly :value="generatedLink" id="generated_link_input" class="<?= $campoCk ?> min-w-0 flex-1 font-mono text-xs">
+            <button type="button" @click="copyLink()" class="shrink-0 rounded-xl bg-accent px-4 font-bold text-deep hover:brightness-95">Copiar</button>
+        </div>
+    </div>
+</div>
 
 
     <!-- Script de Configuración de la Pasarela -->

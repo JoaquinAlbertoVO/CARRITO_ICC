@@ -16,31 +16,31 @@ class LegalController extends Controller {
             'title' => 'Política de Privacidad - ICC',
             'meta_description' => 'Política de Privacidad del Instituto de Capacitación Continua.'
         ];
-        $this->view('legal/privacidad', $data);
+        $this->view('legal/privacidad', $data, 'layouts/sitio');
     }
 
     public function terminos() {
         $data = [
             'title' => 'Términos de Servicio - ICC',
-            'description' => 'Términos de servicio y condiciones de la plataforma del Instituto de Capacitación Continua ICC.'
+            'meta_description' => 'Términos de servicio y condiciones de la plataforma del Instituto de Capacitación Continua ICC.'
         ];
-        $this->view('legal/terminos', $data);
+        $this->view('legal/terminos', $data, 'layouts/sitio');
     }
 
     public function reclamaciones() {
         $data = [
             'title' => 'Libro de Reclamaciones - ICC',
-            'description' => 'Libro de reclamaciones virtual del Instituto de Capacitación Continua.'
+            'meta_description' => 'Libro de reclamaciones virtual del Instituto de Capacitación Continua.'
         ];
-        $this->view('legal/reclamaciones', $data);
+        $this->view('legal/reclamaciones', $data, 'layouts/sitio');
     }
 
     public function reembolsos() {
         $data = [
             'title' => 'Políticas de Reembolso - ICC',
-            'description' => 'Políticas de reembolso y devoluciones del Instituto de Capacitación Continua.'
+            'meta_description' => 'Políticas de reembolso y devoluciones del Instituto de Capacitación Continua.'
         ];
-        $this->view('legal/reembolsos', $data);
+        $this->view('legal/reembolsos', $data, 'layouts/sitio');
     }
 
     public function procesar_reclamo() {

@@ -12,6 +12,6 @@ class NosotrosController extends Controller {
         ];
 
         // Llama a la vista app/Views/nosotros/index.php
-        $this->view('nosotros/index', $data);
+        $this->view('nosotros/index', $data, 'layouts/sitio');
     }
 }

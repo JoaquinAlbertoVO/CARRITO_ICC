@@ -486,15 +486,24 @@ class Catalogo {
         if ($st->fetchColumn()) {
             return;
         }
-        $sigla = preg_replace('/[^A-Z0-9]/', '', strtoupper((string) ($curso['sigla'] ?? '')));
-        for ($i = 0; $i < 5; $i++) {
-            $codigo = 'CERT-' . ($sigla !== '' ? $sigla . '-' : '') . strtoupper(bin2hex(random_bytes(5)));
+        // Formato fijo: CERT-<SIGLA DEL CURSO>-<DNI> (sin DNI, con el nombre del alumno)
+        $st = $this->db->prepare("SELECT nombre, dni FROM usuario WHERE iduser = ?");
+        $st->execute([(int) $idUsuario]);
+        $al = $st->fetch(PDO::FETCH_ASSOC) ?: [];
+        $sigla = CertificadoRegistro::siglaCurso($curso['nombre_curso'] ?? '', (string) ($curso['sigla'] ?? ''));
+        $base = CertificadoRegistro::codigoPara($sigla, (string) ($al['dni'] ?? ''), (string) ($al['nombre'] ?? ''));
+        if ($base === '') {
+            $base = 'CERT-' . $sigla . '-' . (int) $idUsuario; // sin DNI ni nombre (no deberia pasar)
+        }
+        $base = (new CertificadoRegistro())->codigoLibre($base, $curso['nombre_curso'] ?? '');
+        for ($i = 1; $i <= 5; $i++) {
+            $codigo = $i === 1 ? $base : substr($base, 0, 56) . '-' . $i;
             try {
                 $this->db->prepare("INSERT INTO aula_certificados (id_usuario, id_curso, codigo) VALUES (?, ?, ?)")
                     ->execute([(int) $idUsuario, (int) $curso['id_curso'], $codigo]);
                 return;
             } catch (\PDOException $e) {
-                // codigo repetido (casi imposible): se prueba otro
+                // codigo ya usado por otro curso del aula con la misma sigla: se prueba con sufijo
             }
         }
     }

@@ -42,7 +42,8 @@ class VerificarController extends Controller {
         $marca = CertificadoRegistro::marca($claveMarca);
         $nombreMarca = $marca['clave'] === 'ST' ? 'ST Energy' : 'ICC';
 
-        $this->view('verificar/index', [
+        $esST = $marca['clave'] === 'ST';
+        $this->view($esST ? 'verificar/stenergy' : 'verificar/index', [
             'title' => 'Verificar certificado - ' . $nombreMarca,
             'meta_description' => 'Verifica la autenticidad de un certificado emitido por ' . ($marca['clave'] === 'ST' ? 'ST Energy' : 'el Instituto de Capacitación Continua (ICC)') . '.',
             'estado' => $estado,
@@ -51,7 +52,8 @@ class VerificarController extends Controller {
             'marca' => $marca,
             'marca_forzada' => isset($_GET['marca']) ? $marca['clave'] : '',
             'dni_enmascarado' => $cert ? CertificadoRegistro::enmascararDni($cert['dni']) : '',
-        ], $marca['clave'] === 'ST' ? 'layouts/stenergy' : 'layouts/main');
+            'descargable' => $estado === 'valido' && self::descargable($cert),
+        ], $esST ? 'layouts/stenergy' : 'layouts/sitio');
     }
 
     /**
@@ -86,6 +88,53 @@ class VerificarController extends Controller {
         }
         imagejpeg($img, null, 85);
         imagedestroy($img);
+        exit;
+    }
+
+    /** Se puede bajar el PDF si esta en el servidor o, en los de ICC, si se puede volver a dibujar desde el registro. */
+    private static function descargable($cert) {
+        return $cert && (CertificadoRegistro::rutaPdf($cert['archivo_pdf'] ?? '') !== null || CertificadoRegistro::marca($cert['marca'])['imagen']);
+    }
+
+    /**
+     * GET /verificar/descargar/<codigo>: PDF del certificado vigente. Entrega el PDF original si esta en el servidor;
+     * si no (lotes generados en una PC e importados solo al registro), lo dibuja desde el registro con el diseno actual.
+     */
+    public function descargar($codigo = null) {
+        header('X-Robots-Tag: noindex, nofollow');
+        header('Cache-Control: no-store');
+        try {
+            $cert = $codigo ? (new CertificadoRegistro())->buscar($codigo) : null;
+        } catch (\Throwable $e) {
+            error_log('Descargar certificado: ' . $e->getMessage());
+            $cert = null;
+        }
+        if (!$cert || $cert['estado'] !== 'vigente' || !self::descargable($cert)) {
+            http_response_code(404);
+            echo 'Certificado no disponible para descarga.';
+            exit;
+        }
+
+        $ruta = CertificadoRegistro::rutaPdf($cert['archivo_pdf'] ?? '');
+        $temporal = null;
+        if ($ruta === null) {
+            @set_time_limit(60);
+            $temporal = tempnam(sys_get_temp_dir(), 'cert');
+            (new \App\Models\Certificado())->guardarPdf([
+                'alumno' => $cert['nombre'], 'dni' => (string) $cert['dni'], 'curso' => $cert['curso'], 'horas' => $cert['horas'],
+                'emision' => $cert['fecha_emision'], 'periodo' => !empty($cert['periodo']) ? $cert['periodo'] : null,
+                'modalidad' => !empty($cert['modalidad']) ? $cert['modalidad'] : null,
+            ], $cert['codigo'], BASE_URL . 'verificar/' . $cert['codigo'], $temporal);
+            $ruta = $temporal;
+        }
+
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="' . $cert['codigo'] . '.pdf"');
+        header('Content-Length: ' . filesize($ruta));
+        readfile($ruta);
+        if ($temporal) {
+            @unlink($temporal);
+        }
         exit;
     }
 

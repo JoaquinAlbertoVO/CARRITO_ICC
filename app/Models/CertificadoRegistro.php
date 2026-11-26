@@ -84,9 +84,78 @@ class CertificadoRegistro {
         return preg_match('/^[A-Z0-9-]{6,60}$/', $c) ? $c : '';
     }
 
-    /** Codigo nuevo, no adivinable (los del lote viejo llevan el DNI dentro). */
-    public static function generarCodigo() {
-        return 'CERT-' . strtoupper(bin2hex(random_bytes(5)));
+    /** "María José Peña" -> "MARIA-JOSE-PENA" (para codigos y nombres de archivo). */
+    public static function slug($txt, $sep = '-') {
+        $sin_tildes = strtr((string) $txt, [
+            'á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ñ' => 'n', 'ü' => 'u',
+            'Á' => 'A', 'É' => 'E', 'Í' => 'I', 'Ó' => 'O', 'Ú' => 'U', 'Ñ' => 'N', 'Ü' => 'U',
+        ]);
+        return strtoupper(trim(preg_replace('/[^A-Za-z0-9]+/', $sep, $sin_tildes), $sep));
+    }
+
+    /**
+     * Sigla del curso para el codigo: la guardada en el curso (admin > catalogo) o, si no hay, las iniciales de
+     * las palabras importantes del nombre ("Mantenimiento de Subestaciones Electricas" -> "MSE").
+     */
+    public static function siglaCurso($nombreCurso, $sigla = '') {
+        $s = substr(preg_replace('/[^A-Z0-9]/', '', self::slug($sigla, '')), 0, 12);
+        if ($s !== '') {
+            return $s;
+        }
+        $vacias = ['DE', 'DEL', 'LA', 'LAS', 'LOS', 'EL', 'Y', 'E', 'EN', 'A', 'AL', 'PARA', 'CON', 'POR', 'O', 'U'];
+        $ini = '';
+        foreach (explode('-', self::slug($nombreCurso)) as $w) {
+            if ($w !== '' && !in_array($w, $vacias, true)) {
+                $ini .= $w[0];
+            }
+        }
+        return substr($ini, 0, 8) ?: 'ICC';
+    }
+
+    /**
+     * Codigo de un certificado: SIEMPRE CERT-<SIGLA DEL CURSO>-<DNI>; sin DNI (vacio o todo ceros), con el nombre
+     * (CERT-MSE-JUAN-PEREZ-GARCIA). Devuelve '' si no se puede armar.
+     */
+    public static function codigoPara($sigla, $dni, $nombre) {
+        $sigla = substr(preg_replace('/[^A-Z0-9]/', '', self::slug($sigla, '')), 0, 12);
+        $dni = strtoupper(preg_replace('/[^A-Za-z0-9-]/', '', (string) $dni));
+        $ident = ($dni !== '' && !preg_match('/^0+$/', $dni)) ? $dni : substr(self::slug($nombre), 0, 40);
+        if ($sigla === '' || trim($ident, '-') === '') {
+            return '';
+        }
+        return self::normalizar('CERT-' . $sigla . '-' . trim($ident, '-'));
+    }
+
+    /**
+     * $codigo si esta libre o ya es de este mismo curso (reemision); si lo usa OTRO curso con la misma sigla,
+     * agrega -2, -3... para no pisar ese certificado en el registro.
+     */
+    public function codigoLibre($codigo, $curso) {
+        $st = $this->db->prepare("SELECT curso FROM certificados_emitidos WHERE codigo = ? LIMIT 1");
+        for ($i = 1; $i < 50; $i++) {
+            $c = $i === 1 ? $codigo : substr($codigo, 0, 56) . '-' . $i;
+            $st->execute([$c]);
+            $usado = $st->fetchColumn();
+            if ($usado === false || self::slug($usado) === self::slug($curso)) {
+                return $c;
+            }
+        }
+        return $codigo;
+    }
+
+    /**
+     * Ruta en disco del PDF original del certificado (assets/certificados/... o, los del aula, storage/certificados_aula/...),
+     * o null si no esta en el servidor (p. ej. lotes generados en una PC e importados solo al registro).
+     */
+    public static function rutaPdf($archivo) {
+        $archivo = str_replace('\\', '/', trim((string) $archivo));
+        if ($archivo === '' || strpos($archivo, '..') !== false) {
+            return null;
+        }
+        $ruta = strpos($archivo, 'aula/') === 0
+            ? __DIR__ . '/../../storage/certificados_aula/' . substr($archivo, 5)
+            : __DIR__ . '/../../assets/certificados/' . ltrim($archivo, '/');
+        return (is_file($ruta) && strtolower(pathinfo($ruta, PATHINFO_EXTENSION)) === 'pdf') ? $ruta : null;
     }
 
     /** 48185736 -> 48****36 (la pagina es publica: nunca se muestra el DNI completo). */
@@ -187,10 +256,10 @@ class CertificadoRegistro {
         $limite = max(1, min(200, (int) $limite));
         $q = trim((string) $q);
         if ($q === '') {
-            $st = $this->db->query("SELECT id, codigo, nombre, dni, curso, fecha_emision, marca, estado FROM certificados_emitidos ORDER BY id DESC LIMIT $limite");
+            $st = $this->db->query("SELECT id, codigo, nombre, dni, curso, fecha_emision, marca, estado, archivo_pdf FROM certificados_emitidos ORDER BY id DESC LIMIT $limite");
         } else {
             $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $q) . '%';
-            $st = $this->db->prepare("SELECT id, codigo, nombre, dni, curso, fecha_emision, marca, estado FROM certificados_emitidos
+            $st = $this->db->prepare("SELECT id, codigo, nombre, dni, curso, fecha_emision, marca, estado, archivo_pdf FROM certificados_emitidos
                 WHERE codigo LIKE ? OR nombre LIKE ? OR dni LIKE ? OR curso LIKE ? ORDER BY id DESC LIMIT $limite");
             $st->execute([$like, $like, $like, $like]);
         }

@@ -1,94 +1,83 @@
 <?php
+/**
+ * Verificacion de certificados de ICC (estilo checkout v2, layouts/sitio.php).
+ * La de ST Energy es verificar/stenergy.php. Datos: VerificarController::index.
+ */
 $e = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); };
-$esICC = $marca['clave'] === 'ICC';
 $conImagen = $estado === 'valido' && !empty($marca['imagen']);
-$ejemplo = $esICC ? 'CERT-MSE-12345678' : 'CERT-XXXX-12345678';
+$ejemplo = 'CERT-MSE-12345678';
+$cab = [
+    'titulo' => 'Verificar certificado',
+    'sub' => 'Comprueba que un certificado fue emitido por ICC escribiendo su código o escaneando el QR.',
+    'etiqueta' => 'Certificados ICC',
+    'migas' => [['Inicio', ''], ['Verificar certificado', null]],
+];
+require __DIR__ . '/../partials/cabecera_pagina.php';
+$aviso = function ($icono, $clases, $titulo) {
+    return '<p class="mt-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-bold ' . $clases . '"><i class="' . $icono . '" aria-hidden="true"></i> ' . $titulo . '</p>';
+};
 ?>
-<style>
-    .ver-grid { max-width: 680px; margin: 0 auto; }
-    .ver-grid.con-imagen { max-width: 1140px; display: grid; grid-template-columns: minmax(300px, 440px) 1fr; gap: 28px; align-items: start; }
-    .ver-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 28px; box-shadow: 0 8px 24px rgba(15, 23, 42, .06); }
-    .ver-cert { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 14px; box-shadow: 0 8px 24px rgba(15, 23, 42, .06); }
-    .ver-cert img { display: block; width: 100%; height: auto; border-radius: 6px; border: 1px solid #e2e8f0; }
-    .ver-cert p { margin: 10px 4px 0; font-size: .82rem; color: #64748b; text-align: center; }
-    .ver-form { display: flex; gap: 10px; flex-wrap: wrap; }
-    .ver-form input[type=text] { flex: 1 1 240px; min-width: 0; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 1rem; text-transform: uppercase; }
-    .ver-form button { padding: 12px 22px; border: 0; border-radius: 10px; background: <?= $esICC ? '#1d4ed8' : '#0a0a0a' ?>; color: <?= $esICC ? '#fff' : '#F5C500' ?>; font-weight: 700; font-size: 1rem; cursor: pointer; }
-    .ver-badge { display: inline-block; padding: 6px 14px; border-radius: 999px; font-weight: 700; font-size: .95rem; }
-    .ver-ok { background: #dcfce7; color: #166534; }
-    .ver-mal { background: #fee2e2; color: #991b1b; }
-    .ver-tabla { width: 100%; border-collapse: collapse; margin-top: 18px; }
-    .ver-tabla th { text-align: left; width: 38%; padding: 10px 12px; background: #f1f5f9; border: 1px solid #e2e8f0; font-size: .9rem; color: #334155; vertical-align: top; }
-    .ver-tabla td { padding: 10px 12px; border: 1px solid #e2e8f0; font-size: .95rem; color: #0f172a; }
-    .ver-inst { margin-top: 22px; padding-top: 16px; border-top: 1px dashed #cbd5e1; font-size: .9rem; color: #475569; line-height: 1.6; }
-    @media (max-width: 900px) { .ver-grid.con-imagen { grid-template-columns: 1fr; max-width: 680px; } }
-    @media (max-width: 520px) { .ver-card { padding: 18px; } .ver-tabla th { width: 42%; } }
-</style>
-
-<?php if ($esICC): ?>
-<section class="page-header clearfix" style="background-color: var(--mo-surface); padding-top:120px; padding-bottom:50px; border-bottom:1px solid #eaeaea;">
-    <div class="container">
-        <div class="page-header__inner text-center">
-            <h2 style="color: var(--mo-accent); font-family: var(--mo-font-heading);">Verificar certificado</h2>
-            <ul class="thm-breadcrumb list-unstyled">
-                <li><a href="<?= BASE_URL ?>">Inicio</a></li>
-                <li class="active">Verificar certificado</li>
-            </ul>
-        </div>
-    </div>
-</section>
-<?php endif; ?>
-
-<section style="<?= $esICC ? 'padding: 50px 0 70px;' : 'padding: 0;' ?>">
-    <div class="container" style="padding-left: 16px; padding-right: 16px;">
-        <div class="ver-grid<?= $conImagen ? ' con-imagen' : '' ?>">
-        <div class="ver-card">
-            <p style="margin-top:0; color:#334155;">Escribe el <strong>código</strong> que aparece en tu certificado (junto a "Código:", por ejemplo <em><?= $e($ejemplo) ?></em>) o escanea el QR del certificado.</p>
-            <form class="ver-form" method="get" action="<?= BASE_URL ?>verificar">
-                <input type="text" name="c" value="<?= $e($ingresado) ?>" placeholder="CERT-XXXX-XXXXXXXX" maxlength="60" autocomplete="off" aria-label="Código del certificado" required>
+<section class="bg-surface pb-16 pt-4">
+    <div class="mx-auto px-4 <?= $conImagen ? 'grid max-w-6xl grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,26rem)_1fr]' : 'max-w-2xl' ?>">
+        <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 sm:p-8">
+            <p class="text-ink">Escribe el <strong>código</strong> que aparece en tu certificado (junto a "Código:", por ejemplo <em class="font-mono text-sm"><?= $e($ejemplo) ?></em>) o escanea el QR del certificado.</p>
+            <form class="mt-5 flex flex-col gap-3 sm:flex-row" method="get" action="<?= BASE_URL ?>verificar">
+                <label for="codigo-cert" class="sr-only">Código del certificado</label>
+                <input id="codigo-cert" type="text" name="c" value="<?= $e($ingresado) ?>" placeholder="CERT-XXXX-XXXXXXXX" maxlength="60" autocomplete="off" required
+                       class="min-w-0 flex-1 rounded-xl border border-line px-4 py-3 font-mono uppercase tracking-wide text-ink focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand">
                 <?php if (!empty($marca_forzada)): ?><input type="hidden" name="marca" value="<?= $e($marca_forzada) ?>"><?php endif; ?>
-                <button type="submit">Verificar</button>
+                <button type="submit" class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 font-display font-bold text-white hover:bg-brand-dark"><i class="fas fa-search" aria-hidden="true"></i> Verificar</button>
             </form>
 
             <?php if ($estado === 'valido'): ?>
-                <div style="margin-top: 22px;"><span class="ver-badge ver-ok">✔ Certificado válido</span></div>
-                <p style="margin: 10px 0 0; color:#334155;">Este certificado fue emitido por <strong><?= $e($marca['nombre']) ?></strong>.</p>
-                <table class="ver-tabla">
-                    <tr><th>Otorgado a</th><td><?= $e($cert['nombre']) ?></td></tr>
-                    <?php if ($dni_enmascarado !== ''): ?><tr><th>Documento de identidad</th><td><?= $e($dni_enmascarado) ?></td></tr><?php endif; ?>
-                    <tr><th>Curso</th><td><?= $e($cert['curso']) ?></td></tr>
-                    <?php if (!empty($cert['horas'])): ?><tr><th>Duración</th><td><?= $e($cert['horas']) ?> horas académicas</td></tr><?php endif; ?>
-                    <?php if (!empty($cert['periodo'])): ?><tr><th>Periodo</th><td><?= $e(ucfirst($cert['periodo'])) ?></td></tr><?php endif; ?>
-                    <?php if (!empty($cert['fecha_emision'])): ?><tr><th>Fecha de emisión</th><td><?= $e($cert['fecha_emision']) ?></td></tr><?php endif; ?>
-                    <tr><th>Código</th><td><?= $e($cert['codigo']) ?></td></tr>
-                </table>
+                <?= $aviso('fas fa-check-circle', 'bg-emerald-50 text-emerald-800', 'Certificado válido') ?>
+                <p class="mt-3 text-ink">Este certificado fue emitido por <strong><?= $e($marca['nombre']) ?></strong>.</p>
+                <dl class="mt-5 divide-y divide-mist overflow-hidden rounded-xl ring-1 ring-line/60">
+                    <?php
+                    $filas = [['Otorgado a', $cert['nombre']]];
+                    if ($dni_enmascarado !== '') $filas[] = ['Documento de identidad', $dni_enmascarado];
+                    $filas[] = ['Curso', $cert['curso']];
+                    if (!empty($cert['horas'])) $filas[] = ['Duración', $cert['horas'] . ' horas académicas'];
+                    if (!empty($cert['periodo'])) $filas[] = ['Periodo', ucfirst($cert['periodo'])];
+                    if (!empty($cert['fecha_emision'])) $filas[] = ['Fecha de emisión', $cert['fecha_emision']];
+                    $filas[] = ['Código', $cert['codigo']];
+                    foreach ($filas as $f): ?>
+                    <div class="grid grid-cols-[38%_1fr] text-sm">
+                        <dt class="bg-surface px-4 py-3 font-semibold text-muted"><?= $e($f[0]) ?></dt>
+                        <dd class="px-4 py-3 font-medium text-deep <?= $f[0] === 'Código' ? 'font-mono' : '' ?>"><?= $e($f[1]) ?></dd>
+                    </div>
+                    <?php endforeach; ?>
+                </dl>
+                <?php if (!empty($descargable)): ?>
+                <a href="<?= BASE_URL ?>verificar/descargar/<?= $e(rawurlencode($cert['codigo'])) ?>" rel="nofollow"
+                   class="mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 font-display font-bold text-white hover:bg-brand-dark"><i class="fas fa-download" aria-hidden="true"></i> Descargar certificado (PDF)</a>
+                <?php endif; ?>
             <?php elseif ($estado === 'anulado'): ?>
-                <div style="margin-top: 22px;"><span class="ver-badge ver-mal">✖ Certificado anulado</span></div>
-                <p style="margin: 10px 0 0; color:#334155;">El código <strong><?= $e($cert['codigo']) ?></strong> existe, pero ese certificado ya no está vigente. Para más información escríbenos a <a href="mailto:<?= $e($marca['email']) ?>"><?= $e($marca['email']) ?></a>.</p>
+                <?= $aviso('fas fa-times-circle', 'bg-red-50 text-red-800', 'Certificado anulado') ?>
+                <p class="mt-3 text-ink">El código <strong><?= $e($cert['codigo']) ?></strong> existe, pero ese certificado ya no está vigente. Para más información escríbenos a <a class="font-semibold text-brand underline" href="mailto:<?= $e($marca['email']) ?>"><?= $e($marca['email']) ?></a>.</p>
             <?php elseif ($estado === 'no_encontrado'): ?>
-                <div style="margin-top: 22px;"><span class="ver-badge ver-mal">✖ No encontrado</span></div>
-                <p style="margin: 10px 0 0; color:#334155;">No encontramos un certificado con el código <strong><?= $e(strtoupper($ingresado)) ?></strong>. Revisa que esté bien escrito. Si el problema continúa, escríbenos a <a href="mailto:<?= $e($marca['email']) ?>"><?= $e($marca['email']) ?></a> o al WhatsApp <?= $e($marca['telefono']) ?>.</p>
+                <?= $aviso('fas fa-times-circle', 'bg-red-50 text-red-800', 'No encontrado') ?>
+                <p class="mt-3 text-ink">No encontramos un certificado con el código <strong><?= $e(strtoupper($ingresado)) ?></strong>. Revisa que esté bien escrito. Si el problema continúa, escríbenos a <a class="font-semibold text-brand underline" href="mailto:<?= $e($marca['email']) ?>"><?= $e($marca['email']) ?></a> o al WhatsApp <?= $e($marca['telefono']) ?>.</p>
             <?php elseif ($estado === 'invalido'): ?>
-                <div style="margin-top: 22px;"><span class="ver-badge ver-mal">✖ Código no válido</span></div>
-                <p style="margin: 10px 0 0; color:#334155;">El código solo lleva letras, números y guiones (por ejemplo <em><?= $e($ejemplo) ?></em>).</p>
+                <?= $aviso('fas fa-exclamation-circle', 'bg-red-50 text-red-800', 'Código no válido') ?>
+                <p class="mt-3 text-ink">El código solo lleva letras, números y guiones (por ejemplo <em class="font-mono text-sm"><?= $e($ejemplo) ?></em>).</p>
             <?php elseif ($estado === 'error'): ?>
-                <p style="margin: 22px 0 0; color:#991b1b;">No pudimos consultar el registro en este momento. Intenta de nuevo en unos minutos.</p>
+                <p class="mt-6 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">No pudimos consultar el registro en este momento. Intenta de nuevo en unos minutos.</p>
             <?php endif; ?>
 
-            <div class="ver-inst">
-                <?php if ($marca['razon_social'] !== ''): ?><strong><?= $e($marca['razon_social']) ?></strong><br><?php else: ?><strong><?= $e($marca['nombre']) ?></strong><br><?php endif; ?>
+            <div class="mt-6 border-t border-dashed border-line pt-4 text-sm leading-relaxed text-muted">
+                <strong class="text-deep"><?= $e($marca['razon_social'] !== '' ? $marca['razon_social'] : $marca['nombre']) ?></strong><br>
                 <?php if ($marca['ruc'] !== ''): ?>RUC <?= $e($marca['ruc']) ?><br><?php endif; ?>
-                ¿Dudas sobre un certificado? <a href="mailto:<?= $e($marca['email']) ?>"><?= $e($marca['email']) ?></a> · WhatsApp <?= $e($marca['telefono']) ?>
+                ¿Dudas sobre un certificado? <a class="font-semibold text-brand underline" href="mailto:<?= $e($marca['email']) ?>"><?= $e($marca['email']) ?></a> · WhatsApp <?= $e($marca['telefono']) ?>
             </div>
         </div>
 
         <?php if ($conImagen): ?>
         <!-- Imagen del certificado al que corresponden los datos (se dibuja a partir del registro, sin el DNI) -->
-        <div class="ver-cert">
-            <img src="<?= BASE_URL ?>verificar/imagen/<?= $e(rawurlencode($cert['codigo'])) ?>" alt="Certificado emitido a <?= $e($cert['nombre']) ?>: <?= $e($cert['curso']) ?>" width="1123" height="794">
-            <p>Certificado emitido a nombre de <?= $e($cert['nombre']) ?>. El documento de identidad no se muestra completo por privacidad.</p>
-        </div>
+        <figure class="rounded-2xl bg-white p-3 shadow-sm ring-1 ring-black/5">
+            <img src="<?= BASE_URL ?>verificar/imagen/<?= $e(rawurlencode($cert['codigo'])) ?>" alt="Certificado emitido a <?= $e($cert['nombre']) ?>: <?= $e($cert['curso']) ?>" width="1123" height="794" class="w-full rounded-lg ring-1 ring-line/60">
+            <figcaption class="mt-3 text-center text-xs text-muted">Certificado emitido a nombre de <?= $e($cert['nombre']) ?>. El documento de identidad no se muestra completo por privacidad.</figcaption>
+        </figure>
         <?php endif; ?>
-        </div>
     </div>
 </section>

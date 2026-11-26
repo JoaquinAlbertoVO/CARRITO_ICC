@@ -1,653 +1,181 @@
-
-        
-        
-<style>
-.hero-banner-custom {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 100px;
-    padding: 60px 0;
-    min-height: 500px;
-}
-.hero-text-box {
-    max-width: 600px;
-    z-index: 2;
-    position: relative;
-    text-align: center;
-}
-.hero-text-box h2 {
-    font-size: 65px;
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 30px;
-    color: #ffffff;
-    text-transform: uppercase;
-}
-.hero-subtext {
-    text-transform: none;
-    font-weight: 500;
-    font-size: 0.7em;
-    display: inline-block;
-    margin: 5px 0;
-}
-.hero-highlight {
-    color: #d8ea1b;
-}
-.hero-btn {
-    display: inline-block;
-    background-color: #ffffff;
-    color: #1a4497;
-    font-weight: 900;
-    font-size: 22px;
-    padding: 12px 35px;
-    border-radius: 40px;
-    text-transform: uppercase;
-    text-decoration: none;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-    letter-spacing: 1px;
-}
-.hero-btn:hover {
-    background-color: #d8ea1b;
-    color: #000;
-    transform: translateY(-3px);
-}
-.hero-mascot {
-    max-width: 450px;
-    z-index: 2;
-    position: relative;
-    animation: float 4s ease-in-out infinite;
-}
-.hero-mascot img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
-}
-
-@media (max-width: 991px) {
-    .hero-banner-custom {
-        flex-direction: column;
-        text-align: center;
-        padding: 50px 15px 20px;
-        justify-content: center;
-    }
-    .hero-text-box h2 {
-        font-size: 45px;
-    }
-    .hero-mascot {
-        margin-top: 40px;
-        max-width: 350px;
-    }
-}
-@media (max-width: 575px) {
-    .hero-text-box h2 {
-        font-size: 35px;
-    }
-    .hero-btn {
-        font-size: 18px;
-        padding: 10px 25px;
-    }
-    .hero-mascot {
-        max-width: 280px;
-    }
-}
-</style>
-<section class="main-slider main-slider-two" style="background: url('<?= BASE_URL ?>assets/images/ICC_FONDO.png') center bottom / cover no-repeat; background-color: #0b1126;">
-            <div class="swiper-container thmáswiper__slider" data-swiper-options='{"slidesPerView": 1, "loop": true, "effect": "fade", "pagination": {
-            "el": "#main-slider-pagination",
-            "type": "bullets",
-            "clickable": true
-            },
-            "navigation": {
-            "nextEl": "#main-slider__swiper-button-next",
-            "prevEl": "#main-slider__swiper-button-prev"
-            },
-            "autoplay": {
-            "delay": 5000
-            }}'>
-
-                                <div class="swiper-wrapper">
-                    <!--Start Single Swiper Slide-->
-                    <div class="swiper-slide">
-                        <div class="image-layer" style="display: none;"></div>
-                        
-                        <div class="container">
-                            <div class="hero-banner-custom">
-                                <div class="hero-text-box">
-                                    <h2>CAPACÍTATE Y<br><span class="hero-subtext">certifícate con</span><br><span class="hero-highlight">NOSOTROS</span></h2>
-                                    <a href="<?= BASE_URL ?>cursos" class="hero-btn">CURSOS ONLINE</a>
-                                </div>
-                                <div class="hero-mascot">
-                                    <img src="<?= BASE_URL ?>assets/images/Ingeniero_mascota.png" alt="Ingeniero ICC">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Swiper Slide-->
-                </div>
-                <!-- If we need navigation buttons -->
-                <div class="swiper-pagination" id="main-slider-pagination"></div>
-            </div>
-        </section>
-
 <?php
+/**
+ * Pagina de inicio con el estilo del checkout v2 (layouts/sitio.php + assets/css/sitio.css).
+ * Datos: HomeController::index ($ingenieria_courses, $packs).
+ */
+$h = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); };
 $ingenieria_courses = $ingenieria_courses ?? [];
+$img = BASE_URL . 'assets/images/inicio/';
+$testimonios = [
+    ['curso' => 'Regulación del Mercado Eléctrico', 'texto' => 'Un curso muy recomendado, ayuda ampliar los conocimientos acerca del Sector Energía. Además de conocer el Marco Interinstitucional del Subsector Eléctrico de una forma muy didáctica.'],
+    ['curso' => 'Curso de Especialización de Analizador de Redes', 'texto' => 'Este curso fue útil para abarcarme en la especialización de Redes. Los Ponentes son muy concisos y se observa su profesionalismo.'],
+    ['curso' => 'Especialización de Motores Eléctricos', 'texto' => 'Los materiales educativos son muy buenos y completos, del mismo modo que resulta muy fácil de abordar sin tener conocimientos previos.'],
+    ['curso' => 'Banco de Condensadores', 'texto' => 'Fue todo un placer realizar este curso. Puesto que el enfoque del ponente fue impecable. Me gustaría realizar otro curso que amplíe más conocimientos relacionado a este campo.'],
+    ['curso' => 'Sistema de Puesta a Tierra', 'texto' => 'El curso dictado fue muy interesante. La estructura y la calidad de los contenidos han sido de lo mejor para el aprendizaje. Me han permitido descubrir acerca de este tema que tardaría en descubrir por mí mismo.'],
+];
 ?>
-        
-<style>
-.tarjeta-dark { position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.tarjeta-dark:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); cursor: pointer; }
-.stretched-link::after { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 1; content: ""; }
-/* Make sure other links stay clickable if any */
-.tarjeta-dark a:not(.stretched-link) { position: relative; z-index: 2; }
-</style>
-
-<!--Courses One Start INGENIERÍA-->
-        <section class="courses-one">
-            <div class="container">
-                
-                <div class="section-title text-center">
-                    <span class="section-title__tagline">Todos los meses encontrarás nuevo contenido en la plataforma</h2>
-                    <h2 class="" style="color: #1a1e68;">CURSOS ESPECIALIZADOS EN INGENIERÍA</h2>
-                    
-                    
-                    <style>
-                    .currency-toggle-wrapper {
-                        display: flex;
-                        justify-content: center;
-                        margin-top: 20px;
-                        margin-bottom: 20px;
-                    }
-                    .currency-toggle {
-                        display: inline-flex;
-                        background-color: #e4e6eb;
-                        border-radius: 30px;
-                        padding: 3px;
-                        box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-                        line-height: 1;
-                        height: auto;
-                        min-height: 0;
-                    }
-                    .currency-toggle .currency-btn {
-                        margin: 0;
-                        border: none;
-                        background: transparent;
-                        padding: 8px 25px;
-                        border-radius: 25px;
-                        font-size: 14px;
-                        font-weight: 600;
-                        color: #555;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                        outline: none;
-                        display: inline-flex;
-                        align-items: center;
-                        justify-content: center;
-                        line-height: 1;
-                        height: auto;
-                    }
-                    .currency-toggle .currency-btn:hover {
-                        color: #1a1e68;
-                    }
-                    .currency-toggle .currency-btn.active {
-                        background-color: #1a1e68;
-                        color: #fff;
-                        box-shadow: 0 4px 10px rgba(26, 30, 104, 0.3);
-                    }
-                    .currency-toggle .currency-btn img {
-                        width: 18px;
-                        height: 18px;
-                        border-radius: 50%;
-                        object-fit: cover;
-                    }
-                    </style>
-                    <div class="currency-toggle-wrapper">
-                        <div class="currency-toggle" id="globalCurrencyToggle">
-                            <button type="button" class="currency-btn active" data-currency="PEN">
-                                PEN
-                            </button>
-                            <button type="button" class="currency-btn" data-currency="USD">
-                                USD
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <?php foreach($ingenieria_courses as $course): ?>
-                    <div class="col-xl-4 col-lg-4 col-md-6" data-aos="fade-up">
-                        <div class="tarjeta-dark">
-                            <div class="tarjeta-dark-img">
-                                <div style="width: 100%; height: 210px; overflow: hidden; border-radius: 12px 12px 0 0; background-color: #0b1126;"><img src="<?= BASE_URL ?><?= $course['image'] ?>" alt="Curso" style="width:100%; height:100%; object-fit:cover; display:block; transform: scale(1.02);"></div>
-                            </div>
-                            <div class="tarjeta-dark-content">
-                                <span class="etiqueta-verde">CURSO</h2>
-                                <h3 class="tarjeta-dark-title">
-                                    <a href="<?= BASE_URL . 'cursos/detalle/' . str_replace(['detalle_', '.php', '_'], ['', '', '-'], $course['link']) ?>" class="stretched-link text-decoration-none"><?= $course['title'] ?></a>
-                                </h3>
-                                <div class="tarjeta-dark-meta">
-                                    <div class="meta-item">
-                                        <i class="far fa-calendar-alt"></i> <?= $course['date'] ?? 'PRÓXIMAMENTE' ?>
-                                    </div>
-                                    <div class="meta-item price-container" data-price-pen="<?= $course['price'] ?>" data-price-usd="<?= $course['price_usd'] ?? '30.00' ?>">
-                                        <i class="far fa-money-bill-alt"></i> <span class="price-val">S/<?= $course['price'] ?></span>
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-graduation-cap"></i> <?= $course['hours'] ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-</div>                <div class="row" style="margin-top: 40px;"><div class="col-12 text-center"><a href="<?= BASE_URL ?>cursos" class="thm-btn">Ver todos los cursos</a></div></div>
+<!-- Hero -->
+<section class="relative overflow-hidden bg-brand-dark bg-cover bg-center text-white" style="background-image: url('<?= BASE_URL ?>assets/images/fondo_icc_hero.jpg');">
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-deep/50 via-transparent to-deep/30"></div>
+    <div class="relative mx-auto grid max-w-6xl items-center gap-8 px-4 pb-20 pt-10 md:grid-cols-2 md:pb-24 md:pt-14">
+        <div class="text-center md:text-left">
+            <span class="inline-block rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wide text-deep">Instituto de Capacitación Continua</span>
+            <h1 class="mt-5 font-display text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+                Capacítate y certifícate con <span class="text-accent">nosotros</span>
+            </h1>
+            <p class="mx-auto mt-5 max-w-xl text-base text-sky-50 sm:text-lg md:mx-0">Actualiza tus conocimientos con cursos de Ingeniería Eléctrica dictados por especialistas, en vivo por Zoom o grabados para avanzar a tu ritmo.</p>
+            <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row md:justify-start sm:justify-center">
+                <a href="<?= BASE_URL ?>cursos" class="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-accent px-7 py-3 font-display text-base font-bold text-deep shadow-lg hover:brightness-95 sm:w-auto">Ver cursos online <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                <?php if (!empty($packs)): ?>
+                <a href="#packs" class="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl border border-white/50 px-7 py-3 font-display text-base font-semibold text-white hover:bg-white/10 sm:w-auto">Packs grabados</a>
+                <?php else: ?>
+                <a href="<?= BASE_URL ?>verificar" class="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl border border-white/50 px-7 py-3 font-display text-base font-semibold text-white hover:bg-white/10 sm:w-auto">Verificar certificado</a>
+                <?php endif; ?>
             </div>
-            
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const toggleContainer = document.getElementById('globalCurrencyToggle');
-                    if(toggleContainer) {
-                        const buttons = toggleContainer.querySelectorAll('.currency-btn');
-                        buttons.forEach(btn => {
-                            btn.addEventListener('click', function() {
-                                // Remove active class from all
-                                buttons.forEach(b => b.classList.remove('active'));
-                                // Add to clicked
-                                this.classList.add('active');
-                                
-                                const currency = this.getAttribute('data-currency');
-                                const symbol = currency === 'PEN' ? 'S/' : 'US$';
-                                
-                                document.querySelectorAll('.price-container').forEach(function(el) {
-                                    const priceVal = currency === 'PEN' ? el.getAttribute('data-price-pen') : el.getAttribute('data-price-usd');
-                                    el.querySelector('.price-val').innerText = symbol + priceVal;
-                                });
-                            });
-                        });
-                    }
-                });
-            </script>
+        </div>
+        <div class="relative mx-auto w-full max-w-[15rem] sm:max-w-xs md:max-w-md">
+            <div class="absolute inset-8 rounded-full bg-brand/40 blur-3xl" aria-hidden="true"></div>
+            <img src="<?= $img ?>mascota-900.webp" srcset="<?= $img ?>mascota-480.webp 480w, <?= $img ?>mascota-900.webp 900w"
+                 sizes="(min-width: 768px) 448px, 320px" width="900" height="900" fetchpriority="high"
+                 alt="Bruno, el ingeniero mascota de ICC, con casco y multímetro" class="animate-flotar relative w-full drop-shadow-2xl">
+        </div>
+    </div>
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" class="absolute bottom-0 left-0 block h-10 w-full sm:h-16" aria-hidden="true"><path d="M0,40 C240,80 480,0 720,30 C960,60 1200,80 1440,20 L1440,80 L0,80 Z" fill="#ffffff"></path></svg>
+</section>
 
-        </section>
-        <!--Courses One End INGENIERÍA-->
-
-        <?php if (!empty($packs)) { require __DIR__ . '/packs.php'; } ?>
-
-        <!--Features One Start-->
-        <section class="features-one">
-            <div class="container">
-                <div class="row">
-                    <!--Start Single Features One-->
-                    <div class="col-xl-4 col-lg-4" data-aos="fade-up">
-                        <div class="features-one__single">
-                            <div class="features-one__single-icon">
-                                <span class="icon-empowerment"></h2>
-                            </div>
-                            <div class="features-one__single-text">
-                                <h3 ><a href="#">Aprende habilidades</a></h3>
-                                <p>Nuestros cursos se actualizan constantemente.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Features One-->
-
-                    <!--Start Single Features One-->
-                    <div class="col-xl-4 col-lg-4" data-aos="fade-up">
-                        <div class="features-one__single">
-                            <div class="features-one__single-icon">
-                                <span class="icon-human-resources-1"></h2>
-                            </div>
-                            <div class="features-one__single-text">
-                                <h3 ><a href="#">Profesores Expertos</a></h3>
-                                <p>Te acompañarán docentes con amplia experiencia.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Features One-->
-
-                    <!--Start Single Features One-->
-                    <div class="col-xl-4 col-lg-4" data-aos="fade-up">
-                        <div class="features-one__single">
-                            <div class="features-one__single-icon">
-                                <span class="icon-recruitment"></h2>
-                            </div>
-                            <div class="features-one__single-text">
-                                <h3 ><a href="#">Cursos Certificados</a></h3>
-                                <p>Al culminar las horas lectivas recibirán un certificado otorgado por ICC.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single Features One-->
-                </div>
+<!-- Por que ICC -->
+<section class="bg-white pb-14 pt-6">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 sm:grid-cols-3">
+        <?php foreach ([
+            ['fas fa-lightbulb', 'Aprende habilidades', 'Nuestros cursos se actualizan constantemente.'],
+            ['fas fa-chalkboard-teacher', 'Profesores expertos', 'Te acompañarán docentes con amplia experiencia.'],
+            ['fas fa-award', 'Cursos certificados', 'Al culminar las horas lectivas recibirás un certificado otorgado por ICC.'],
+        ] as $f): ?>
+        <div class="reveal flex items-start gap-4 rounded-2xl border border-line/60 bg-surface p-5">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand text-xl text-white"><i class="<?= $f[0] ?>" aria-hidden="true"></i></span>
+            <div>
+                <h2 class="font-display text-lg font-bold text-deep"><?= $f[1] ?></h2>
+                <p class="mt-1 text-sm text-muted"><?= $f[2] ?></p>
             </div>
-        </section>
-        <!--Features One End-->
+        </div>
+        <?php endforeach; ?>
+    </div>
+</section>
 
-        <!--Start Welcome One-->
-        <section class="welcome-one" style="margin-top: 80px;">
-            <div class="container">
-                <div class="row">
-                    <!--Start Welcome One Left-->
-                    <div class="col-xl-6">
-                        <div class="welcome-one__left">
-                            <div class="section-title">
-                                <span class="section-title__tagline" >Presentaciones de la empresa</h2>
-                                <h2  class="">APRENDE AHORA <br>CON ICC</h2>
-                            </div>
-                            <p class="welcome-one__left-text" >Actualiza tus conocimientos y capacítate con nosotros.<br>Te damos lo mejor en INGENIERÍA Eléctrica.</p>
-                            <ul class="welcome-one__left-features-box list-unstyled">
-                                <!--Start Welcome One Left Features Box Single-->
-                                <li class="welcome-one__left-features-box-single">
-                                    <div class="welcome-one__left-features-box-single-icon">
-                                        <span class="icon-professor"></h2>
-                                    </div>
-                                    <div class="welcome-one__left-features-box-single-title">
-                                        <h3 >Empieza a aprender de <br>nuestros expertos</h3>
-                                    </div>
-                                </li>
-                                <!--End Welcome One Left Features Box Single-->
-
-                                <!--Start Welcome One Left Features Box Single-->
-                                <li class="welcome-one__left-features-box-single">
-                                    <div class="welcome-one__left-features-box-single-icon">
-                                        <span class="icon-knowledge"></h2>
-                                    </div>
-                                    <div class="welcome-one__left-features-box-single-title">
-                                        <h3 >Mejora tus habilidades <br>con nosotros ahora</h3>
-                                    </div>
-                                </li>
-                                <!--End Welcome One Left Features Box Single-->
-                            </ul>
-                        </div>
-                    </div>
-                    <!--End Welcome One Left-->
-
-                    <!--Start Welcome One Right-->
-                    <div class="col-xl-6">
-                            <style>
-                                .hover-swap {
-                                    position: relative;
-                                    height: 380px;
-                                    width: 100%;
-                                    transform-style: preserve-3d;
-                                    perspective: 1000px;
-                                    margin-top: 30px;
-                                }
-                                .img-zoom {
-                                    position: absolute;
-                                    right: 10px;
-                                    top: 0;
-                                    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-                                    transform: translateZ(0px);
-                                }
-                                .img-material {
-                                    position: absolute;
-                                    left: -20px;
-                                    bottom: -20px;
-                                    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-                                    transform: translateZ(40px);
-                                }
-                                .hover-swap:hover .img-zoom {
-                                    /* La imagen del fondo pasa al frente y se mueve a la izquierda para dejarse ver */
-                                    transform: translateZ(80px) translateX(-50px) scale(1.05);
-                                }
-                                .hover-swap:hover .img-material {
-                                    /* El cuadro de texto pasa al fondo y se aparta a la derecha */
-                                    transform: translateZ(-30px) translateX(50px) scale(0.95);
-                                }
-                            </style>
-                            <div class="welcome-one__right clearfix hover-swap">
-                                <div class="shape1 rotate-me"><img src="<?= BASE_URL ?>assets/images/shapes/thmáshape1.png" alt="" /></div>
-                                
-                                <div class="img-zoom" data-aos="fade-left">
-                                    <img src="<?= BASE_URL ?>assets/images/CUADRO_300X350.png" alt="Zoom" style="width: 100%; max-width: 300px; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); display: block;">
-                                </div>
-                                
-                                <div class="img-material" data-aos="zoom-in">
-                                    <img src="<?= BASE_URL ?>assets/images/CUADRO_230X250.png" alt="Material" style="width: 100%; max-width: 230px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); display: block;">
-                                </div>
-                            </div>
-                    </div>
-                    <!--End Welcome One Right-->
-                </div>
+<!-- Cursos -->
+<section id="cursos" class="bg-surface py-14" x-data="{ moneda: 'PEN' }">
+    <div class="mx-auto max-w-6xl px-4">
+        <div class="reveal text-center">
+            <p class="text-sm font-bold uppercase tracking-widest text-brand">Todos los meses hay contenido nuevo</p>
+            <h2 class="mt-2 font-display text-2xl font-bold text-brand-dark sm:text-3xl">Cursos especializados en Ingeniería</h2>
+            <div class="mt-5 inline-flex rounded-full bg-white p-1 shadow-sm ring-1 ring-line/60" role="group" aria-label="Moneda de los precios">
+                <button type="button" @click="moneda = 'PEN'" :aria-pressed="moneda === 'PEN'" :class="moneda === 'PEN' ? 'bg-brand text-white shadow' : 'text-muted hover:text-deep'" class="min-h-[40px] rounded-full px-5 text-sm font-bold">Soles (S/)</button>
+                <button type="button" @click="moneda = 'USD'" :aria-pressed="moneda === 'USD'" :class="moneda === 'USD' ? 'bg-brand text-white shadow' : 'text-muted hover:text-deep'" class="min-h-[40px] rounded-full px-5 text-sm font-bold">Dólares (US$)</button>
             </div>
-        </section>
-        <!--End Welcome One-->
+        </div>
 
-        <!--Counter One Start-->
-        <section class="counter-one" style="background: transparent; margin-top: 0; padding-top: 100px;">
-            <div class="container">
-                <div class="row">
-                    <!--Start Counter One Left-->
-                    <div class="col-xl-5 col-lg-5">
-                        <div class="counter-one__left">
-                            <div class="section-title">
-                                <span class="section-title__tagline">Hechos grandiosos</h2>
-                                <h2 class="">La misión de ICC <br>es pulir tu habilidad</h2>
-                            </div>
-                            <!--<p class="counter-one__left-text">There are many variations of passages of lore ipsum
-                                available but the majority have suffered.</p>-->
-                        </div>
-                    </div>
-                    <!--End Counter One Left-->
-
-                    <!--Start Counter One Right-->
-                    <div class="col-xl-7 col-lg-7">
-                        <div class="counter-one__right">
-                            <ul class="counter-one__right-box list-unstyled">
-                                <!--Start Counter One Right Single-->
-                                <li class="counter-one__right-single" data-aos="fade-left">
-                                    <div class="counter-one__right-single-icon">
-                                        <span class="icon-teacher"></h2>
-                                    </div>
-                                    <!--<h3 class="odometer" data-count="6800">00</h3>-->
-                                    <p class="counter-one__right-text" >Profesores profesionales</p>
-                                </li>
-                                <!--End Counter One Right Single-->
-
-                                <!--Start Counter One Right Single-->
-                                <li class="counter-one__right-single" data-aos="fade-left">
-                                    <div class="counter-one__right-single-icon">
-                                        <span class="icon-online-course"></h2>
-                                    </div>
-                                    <!--<h3 class="odometer" data-count="9800">00</h3>-->
-                                    <p class="counter-one__right-text" >Cursos de habilidades</p>
-                                </li>
-                                <!--End Counter One Right Single-->
-
-                                <!--Start Counter One Right Single-->
-                                <li class="counter-one__right-single" data-aos="fade-left">
-                                    <div class="counter-one__right-single-icon">
-                                        <span class="icon-student"></h2>
-                                    </div>
-                                    <!--<h3 class="odometer" data-count="7700">00</h3>-->
-                                    <p class="counter-one__right-text" >Estudiantes Inscritos</p>
-                                </li>
-                                <!--End Counter One Right Single-->
-                            </ul>
-                        </div>
-                    </div>
-                    <!--End Counter One Right-->
+        <?php if ($ingenieria_courses): ?>
+        <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <?php foreach ($ingenieria_courses as $course):
+                $url = BASE_URL . 'cursos/detalle/' . str_replace(['detalle_', '.php', '_'], ['', '', '-'], $course['link']); ?>
+            <article class="reveal group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-lg">
+                <div class="aspect-video overflow-hidden bg-deep">
+                    <img src="<?= BASE_URL . $h($course['image']) ?>" alt="" loading="lazy" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
                 </div>
-            </div>
-        </section>
-        <!--Counter One End-->
-
-        <!--Start Testimonials Two-->
-        <section class="testimonials-two">
-            <div class="testimonials-two__pattern"><img src="<?= BASE_URL ?>assets/images/pattern/testimonials-two-left-pattern.png"
-                    alt="" /></div>
-            <div class="container">
-                <div class="row">
-                    <!--Start Testimonials Two Left-->
-                    <div class="col-xl-4">
-                        <div class="testimonials-two__left">
-                            <div class="section-title">
-                                <span class="section-title__tagline">Qué opinan nuestros Usuarios</h2>
-                                <h2 class="" style="font-size: 50px; font-family: League Spartan;">¿Qué están <br>diciendo?</h2>
-                            </div>
-                            <p class="testimonials-two__left-text" >Tenemás una calificación promedio de 4.7 de 5 estrellas.</p>
-                        </div>
+                <div class="flex flex-1 flex-col p-5">
+                    <span class="w-fit rounded-full bg-accent px-3 py-0.5 text-xs font-bold uppercase tracking-wide text-deep">Curso</span>
+                    <h3 class="mt-3 font-display text-lg font-bold leading-snug text-deep">
+                        <a href="<?= $h($url) ?>" class="after:absolute after:inset-0 focus:outline-none"><?= $h($course['title']) ?></a>
+                    </h3>
+                    <div class="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-mist pt-4 text-sm text-muted">
+                        <span class="flex items-center gap-1.5"><i class="far fa-calendar-alt text-brand" aria-hidden="true"></i><?= $h($course['date'] ?? 'PRÓXIMAMENTE') ?></span>
+                        <span class="flex items-center gap-1.5"><i class="far fa-clock text-brand" aria-hidden="true"></i><?= $h($course['hours']) ?></span>
+                        <span class="ml-auto font-display text-lg font-extrabold text-brand">
+                            <span x-show="moneda === 'PEN'">S/ <?= $h($course['price']) ?></span>
+                            <span x-show="moneda === 'USD'" x-cloak>US$ <?= $h($course['price_usd'] ?? '30.00') ?></span>
+                        </span>
                     </div>
-                    <!--End Testimonials Two Left-->
-
-                    <!--Start Testimonials Two Right-->
-                    <div class="testimonials-two__right">
-                        <div class="testimonials-two__carousel owl-carousel owl-theme owl-dot-type1 style2">
-                            <div class="item">
-
-                                <!--Start Single Testimonials One -->
-                                <div class="testimonials-one__single">
-                                    <div class="testimonials-one__single-inner">
-                                        <h3 class="testimonials-one__single-title" >Regulación del Mercado Eléctrico</h3>
-                                        <p class="testimonials-one__single-text">Un curso muy recomendado, ayuda ampliar los conocimientos acerca del Sector Energía. Además de conocer el Marco Interinstitucional del Subsector Eléctrico de una forma muy didáctica.</p>
-                                        <div class="testimonials-one__single-client-info">
-                                            <div class="testimonials-one__single-client-info-img">
-                                                <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio1.png"
-                                                    alt="" />-->
-                                            </div>
-                                            <div class="testimonials-one__single-client-info-text">
-                                                <h4></h4>
-                                                <p >Usuario</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End Single Testimonials One -->
-
-                            </div><!-- /.item -->
-
-                            <div class="item">
-                                <!--Start Single Testimonials One -->
-                                <div class="testimonials-one__single">
-                                    <div class="testimonials-one__single-inner">
-                                        <h3 class="testimonials-one__single-title" >Curso de Especialización de Analizador de Redes</h3>
-                                        <p class="testimonials-one__single-text">Este curso fue útil para abarcarme en la especialización de Redes. Los Ponentes son muy concisos y se observa su profesionalismo.</p>
-                                        <div class="testimonials-one__single-client-info">
-                                            <div class="testimonials-one__single-client-info-img">
-                                                <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio2.png"
-                                                    alt="" />-->
-                                            </div>
-                                            <div class="testimonials-one__single-client-info-text">
-                                                <h4></h4>
-                                                <p >Usuario</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End Single Testimonials One -->
-
-                            </div><!-- /.item -->
-
-                            <div class="item">
-                                <!--Start Single Testimonials One -->
-                                <div class="testimonials-one__single">
-                                    <div class="testimonials-one__single-inner">
-                                        <h3 class="testimonials-one__single-title" >Especialización de Motores Eléctricos</h3>
-                                        <p class="testimonials-one__single-text">Los materiales educativos son muy buenos y completos, del másmo modo que resulta muy fácil de abordar sin tener conocimientos previos.</p>
-                                        <div class="testimonials-one__single-client-info">
-                                            <div class="testimonials-one__single-client-info-img">
-                                                <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio3.png"
-                                                    alt="" />-->
-                                            </div>
-                                            <div class="testimonials-one__single-client-info-text">
-                                                <h4></h4>
-                                                <p >Usuario</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End Single Testimonials One -->
-
-                            </div><!-- /.item -->
-
-                            <div class="item">
-                                <!--Start Single Testimonials One -->
-                                <div class="testimonials-one__single">
-                                    <div class="testimonials-one__single-inner">
-                                        <h3 class="testimonials-one__single-title" >Banco de Condensadores</h3>
-                                        <p class="testimonials-one__single-text">Fue todo un placer realizar este curso. Puesto que el enfoque del ponente fue impecable. Me gustaría realizar otro curso que amplie más conocimientos relacionado a este campo.</p>
-                                        <div class="testimonials-one__single-client-info">
-                                            <div class="testimonials-one__single-client-info-img">
-                                                <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio5.png"
-                                                    alt="" />-->
-                                            </div>
-                                            <div class="testimonials-one__single-client-info-text">
-                                                <h4></h4>
-                                                <p >Usuario</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End Single Testimonials One -->
-
-                            </div><!-- /.item -->
-                            <div class="item">
-                                <!--Start Single Testimonials One -->
-                                <div class="testimonials-one__single">
-                                    <div class="testimonials-one__single-inner">
-                                        <h3 class="testimonials-one__single-title" >Sistema de Puesta a Tierra</h3>
-                                        <p class="testimonials-one__single-text">El curso dictado fue muy interesante. La estructura y la calidad de los contenidos han sido de lo mejor para el aprendizaje. Me han permitido descubrir acerca de este tema que tardaría en descubrir por mí másmo</p>
-                                        <div class="testimonials-one__single-client-info">
-                                            <div class="testimonials-one__single-client-info-img">
-                                                <!--<img src="<?= BASE_URL ?>assets/images/testimonial/testimonio4.png"
-                                                    alt="" />-->
-                                            </div>
-                                            <div class="testimonials-one__single-client-info-text">
-                                                <h4></h4>
-                                                <p >Usuario</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End Single Testimonials One -->
-
-                            </div><!-- /.item -->
-                        </div>
-                    </div>
-                    <!--End Testimonials Two Right-->
                 </div>
+            </article>
+            <?php endforeach; ?>
+        </div>
+        <?php else: ?>
+        <p class="mt-8 text-center text-muted">Pronto publicaremos nuevos cursos. Escríbenos por WhatsApp para conocer las próximas fechas.</p>
+        <?php endif; ?>
+
+        <div class="mt-10 text-center">
+            <a href="<?= BASE_URL ?>cursos" class="inline-flex min-h-[48px] items-center gap-2 rounded-xl bg-brand px-7 py-3 font-display font-bold text-white shadow-md hover:bg-brand-dark">Ver todos los cursos <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</section>
+
+<?php if (!empty($packs)) { require __DIR__ . '/packs.php'; } ?>
+
+<!-- Aprende con ICC -->
+<section class="overflow-hidden bg-white py-16">
+    <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 md:grid-cols-2">
+        <div class="reveal">
+            <p class="text-sm font-bold uppercase tracking-widest text-brand">Así aprendes con nosotros</p>
+            <h2 class="mt-2 font-display text-3xl font-bold leading-tight text-brand-dark sm:text-4xl">Aprende ahora con ICC</h2>
+            <p class="mt-4 text-lg text-muted">Actualiza tus conocimientos y capacítate con nosotros. Te damos lo mejor en Ingeniería Eléctrica.</p>
+            <ul class="mt-8 space-y-4">
+                <li class="flex items-center gap-4">
+                    <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-mist text-xl text-brand"><i class="fas fa-video" aria-hidden="true"></i></span>
+                    <span class="font-display text-lg font-bold text-deep">Empieza a aprender de nuestros expertos</span>
+                </li>
+                <li class="flex items-center gap-4">
+                    <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-mist text-xl text-brand"><i class="fas fa-folder-open" aria-hidden="true"></i></span>
+                    <span class="font-display text-lg font-bold text-deep">Mejora tus habilidades con nosotros ahora</span>
+                </li>
+            </ul>
+        </div>
+        <div class="reveal relative mx-auto h-[420px] w-full max-w-md sm:h-[460px]">
+            <div class="absolute -right-10 top-6 h-72 w-72 rounded-full bg-mist" aria-hidden="true"></div>
+            <img src="<?= $img ?>clases-zoom-600.webp" width="600" height="699" loading="lazy"
+                 alt="Clases en vivo por Zoom: alumnos de ICC conectados a una sesión"
+                 class="absolute right-0 top-0 w-[68%] rounded-2xl shadow-xl ring-1 ring-black/5">
+            <img src="<?= $img ?>material-curso-600.webp" width="600" height="600" loading="lazy"
+                 alt="Material del curso virtual: guías en PDF, plantillas, manuales y libros"
+                 class="absolute bottom-0 left-0 w-[56%] rounded-2xl shadow-2xl ring-4 ring-white">
+        </div>
+    </div>
+</section>
+
+<!-- Opiniones -->
+<section class="bg-surface py-16">
+    <div class="mx-auto max-w-6xl px-4">
+        <div class="reveal text-center">
+            <p class="text-sm font-bold uppercase tracking-widest text-brand">Qué opinan nuestros alumnos</p>
+            <h2 class="mt-2 font-display text-2xl font-bold text-brand-dark sm:text-3xl">¿Qué están diciendo?</h2>
+        </div>
+        <div class="mt-8 flex snap-x gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
+            <?php foreach ($testimonios as $t): ?>
+            <figure class="reveal flex w-[85%] shrink-0 snap-center flex-col rounded-2xl border-t-4 border-brand bg-white p-6 shadow-sm md:w-auto">
+                <i class="fas fa-quote-left text-2xl text-accent" aria-hidden="true"></i>
+                <blockquote class="mt-3 flex-1 text-sm leading-relaxed text-ink"><?= $h($t['texto']) ?></blockquote>
+                <figcaption class="mt-5 border-t border-mist pt-4">
+                    <p class="font-display font-bold text-deep"><?= $h($t['curso']) ?></p>
+                    <p class="text-xs text-muted">Alumno de ICC</p>
+                </figcaption>
+            </figure>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<!-- Llamado final -->
+<section class="bg-white py-16">
+    <div class="mx-auto max-w-6xl px-4">
+        <div class="reveal relative overflow-hidden rounded-3xl bg-gradient-to-r from-brand-dark to-brand px-6 py-12 text-center text-white shadow-xl sm:px-12 md:flex md:items-center md:justify-between md:text-left">
+            <div class="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-accent/20 blur-2xl" aria-hidden="true"></div>
+            <div class="relative">
+                <h2 class="font-display text-2xl font-bold sm:text-3xl">Comienza tu carrera educativa con ICC</h2>
+                <p class="mt-2 text-sky-100">Te ayudamos a elegir el curso que necesitas.</p>
             </div>
-        </section>
-        <!--End Testimonials Two-->
-
-        <!--Start Registration Two-->
-        <section class="registration-two">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="registration-two__wrapper">
-                            <div class="shape1 zoom-fade"><img src="<?= BASE_URL ?>assets/images/shapes/thmáshape2.png" alt="" /></div>
-                            <div class="shape2 "  ><img
-                                    src="<?= BASE_URL ?>assets/images/shapes/thmáshape3.png" alt="" /></div>
-                            <div class="registration-two__left">
-                                <h2 class="" style="font-size: 50px; color: #FFF;">Comience su carrera educativa <br>con ICC</h2>
-                            </div>
-                            <div class="registration-two__right">
-                                <div class="registration-two__right-btn">
-                                    <a href="<?= BASE_URL ?>contacto" class="thm-btn">Descubrir más</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="relative mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center md:mt-0">
+                <a href="https://wa.me/51941208020" target="_blank" rel="noopener" class="flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3 font-display font-bold text-deep hover:brightness-95"><i class="fab fa-whatsapp" aria-hidden="true"></i> Escríbenos</a>
+                <a href="<?= BASE_URL ?>contacto" class="flex min-h-[48px] items-center justify-center gap-2 rounded-xl border border-white/50 px-6 py-3 font-display font-semibold text-white hover:bg-white/10">Descubrir más</a>
             </div>
-        </section>
-        <!--End Registration Two-->
-        <!--<a target="blank" href="https://wa.link/zw6o1w" class="btn-whatsapp-pulse"><i class="fab fa-whatsapp"></i></a>-->
-
-
-
-
-
-
-
-
-
+        </div>
+    </div>
+</section>

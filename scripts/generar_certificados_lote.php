@@ -10,8 +10,9 @@
  * El JSON del lote y la lista de alumnos (CSV con columnas Nombre, DNI) viven FUERA del repositorio: llevan
  * datos reales y todo lo que esta en el repo se publica en el sitio. Ver scripts/certificados_lote.ejemplo.json.
  *
- *   - Cada alumno recibe un codigo propio (CERT-<curso>-<10 hex>, no adivinable y estable: repetir el lote da los
- *     mismos codigos), impreso en el certificado; el QR abre https://icc.com.pe/verificar/<codigo>.
+ *   - Cada alumno recibe el codigo CERT-<SIGLA DEL CURSO>-<DNI> (sin DNI: CERT-<SIGLA>-NOMBRE-APELLIDO), impreso en
+ *     el certificado; el QR abre https://icc.com.pe/verificar/<codigo>. Repetir el lote da los mismos codigos.
+ *     Solo para reproducir lotes viejos con codigo HMAC (CERT-<SIGLA>-<10 hex>): "codigo_con_dni": false en el JSON.
  *   - Al terminar envia el lote a /verificar/registrar (necesita CERT_REGISTRO_TOKEN en el .env del servidor).
  *     Si eso falla, los PDF igual quedan listos: importa el _resumen.csv en admin > Registro publico.
  *   - Repetir un lote sobrescribe los mismos archivos; nunca borra otros PDF de la carpeta de salida.
@@ -316,11 +317,10 @@ foreach ($alumnos as $al) {
     // Codigo estable por alumno y curso (HMAC con el token): repetir el lote no crea codigos nuevos,
     // y no se puede deducir del DNI.
     $codigo = 'CERT-' . $codigoCurso . '-' . strtoupper(substr(hash_hmac('sha256', $codigoCurso . '|' . $ident, $token), 0, 10));
-    // Opcional ("codigo_con_dni": true en el JSON): CERT-<SIGLA>-<DNI>, como los lotes antiguos. Es deducible del DNI;
-    // sin DNI se mantiene el codigo HMAC.
-    // Con la opcion activa, quien no tiene DNI usa su nombre (CERT-<SIGLA>-NOMBRE-APELLIDO).
+    // Formato oficial (por defecto): CERT-<SIGLA>-<DNI>; quien no tiene DNI usa su nombre (CERT-<SIGLA>-NOMBRE-APELLIDO).
+    // El HMAC de arriba solo queda con "codigo_con_dni": false en el JSON (para reproducir lotes viejos).
     $conDni = false;
-    if (!empty($cfg['codigo_con_dni'])) {
+    if (($cfg['codigo_con_dni'] ?? true) !== false) {
         if (preg_match('/^[A-Za-z0-9-]+$/', $dni)) {
             $codigo = 'CERT-' . $codigoCurso . '-' . strtoupper($dni);
             $conDni = true;

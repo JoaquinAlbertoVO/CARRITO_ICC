@@ -92,7 +92,13 @@ $mod = $viejo['modalidad'] ?? 'Virtual';
                             <p class="text-muted small mt-n2">Sin fechas, el certificado sale sin la frase "realizado del ...".</p>
 
                             <div class="form-group">
-                                <label>Código <span class="text-muted">(déjalo vacío para crear uno nuevo)</span></label>
+                                <label>Sigla del curso <span class="text-muted">(opcional)</span></label>
+                                <input type="text" name="sigla" class="form-control" maxlength="12" value="<?= $v('sigla') ?>" placeholder="MSE">
+                                <small class="form-text text-muted">El código se arma como <code>CERT-SIGLA-DNI</code> (sin DNI, con el nombre). Si la dejas vacía se usa la sigla guardada en el curso o las iniciales de su nombre.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Código <span class="text-muted">(déjalo vacío para armarlo solo)</span></label>
                                 <input type="text" name="codigo" id="sueltoCodigo" class="form-control" maxlength="60" value="<?= $v('codigo') ?>" placeholder="CERT-MSE-12345678">
                                 <small class="form-text text-muted">Solo para <b>reemitir</b> un certificado que ya existe (mismo código, mismo QR). Si el código ya está en el registro, se actualizan sus datos.</small>
                             </div>

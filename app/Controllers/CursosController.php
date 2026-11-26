@@ -4,6 +4,57 @@ namespace App\Controllers;
 use App\Core\Controller;
 
 class CursosController extends Controller {
+    /** Slug de la URL del detalle (cursos/detalle/{slug}) a partir del nombre del curso. */
+    public static function slug($nombre) {
+        $s = mb_strtolower((string) $nombre, 'UTF-8');
+        $s = str_replace(['á','é','í','ó','ú','ñ'], ['a','e','i','o','u','n'], $s);
+        $s = preg_replace('/[^a-z0-9_]/', '', str_replace(' ', '_', $s));
+        return str_replace('_', '-', $s);
+    }
+
+    /**
+     * Precio de preventa (S/ y US$) y horas que muestran las listas de cursos (mismos valores que
+     * antes estaban repetidos en cursos/index.php y en ingenieria()). La fecha sale de la BD
+     * (fecha_prox), como en el inicio: las fechas fijas de esta tabla eran de agosto y ya vencieron.
+     */
+    public static function datosLista($c) {
+        $n = mb_strtolower($c['nombre_curso'] ?? '', 'UTF-8');
+        $fecha = !empty($c['fecha_prox']) ? $c['fecha_prox'] : 'PRÓXIMAMENTE';
+        $tabla = [
+            'subestaciones' => [150.00, 45.00, '18/08', 25],
+            'condensadores' => [150.00, 30.00, '01/09', 25],
+            'analizador' => [150.00, 30.00, '17/08', 25],
+            'canalizacion' => [100.00, 30.00, '04/08', 16],
+            'terminaciones' => [150.00, 30.00, '26/08', 15],
+            'empalmes' => [150.00, 30.00, '26/08', 15],
+            'variadores' => [150.00, 35.00, '20/08', 30],
+            'electricidad industrial' => [150.00, 30.00, '17/08', 40],
+        ];
+        foreach ($tabla as $clave => $v) {
+            if (strpos($n, $clave) !== false) {
+                return ['pen' => $v[0], 'usd' => $v[1], 'fecha' => $fecha, 'horas' => $v[3]];
+            }
+        }
+        return ['pen' => (float) ($c['precio'] ?? 89.90), 'usd' => 30.00, 'fecha' => $fecha, 'horas' => (int) ($c['horas_academicas'] ?? 20)];
+    }
+
+    /** Tarjeta de curso para las vistas de lista (cursos/index e ingenieria). */
+    private function tarjeta($c) {
+        $d = self::datosLista($c);
+        return [
+            'id' => $c['id_curso'],
+            'title' => $c['nombre_curso'],
+            'image' => 'assets/images/cursos/' . ($c['foto'] ?: 'default.png'),
+            'price' => number_format($d['pen'], 2),
+            'price_usd' => number_format($d['usd'], 2),
+            'date' => $d['fecha'],
+            'hours' => $d['horas'] . ' hrs',
+            'link' => self::slug($c['nombre_curso']),
+            'docente' => $c['docente'] ?? '',
+            'docente_foto' => $c['docente_foto'] ?? '',
+        ];
+    }
+
     public function index() {
         $cursoModel = new \App\Models\Curso();
         $cursos_db = $cursoModel->getCursos(1); // 1 = estado activo
@@ -14,9 +65,9 @@ class CursosController extends Controller {
         $data = [
             'title' => 'Cursos - Instituto de Capacitación Continua',
             'meta_description' => 'Explora todos nuestros cursos disponibles.',
-            'cursos' => $cursos
+            'cursos' => array_map([$this, 'tarjeta'], array_values($cursos))
         ];
-        $this->view('cursos/index', $data);
+        $this->view('cursos/index', $data, 'layouts/sitio');
     }
 
     public function ingenieria() {
@@ -28,80 +79,9 @@ class CursosController extends Controller {
 
         $ingenieria_courses = [];
         foreach ($cursos_db as $c) {
-            $cat = strtolower($c['categoria'] ?? '');
+            $cat = mb_strtolower($c['categoria'] ?? '', 'UTF-8');
             if ($cat == 'ingeniería' || $cat == 'ingenieria' || $cat == '') {
-                $slug_tmp = mb_strtolower($c['nombre_curso'], 'UTF-8');
-                $slug_tmp = str_replace(['á','é','í','ó','ú','ñ'], ['a','e','i','o','u','n'], $slug_tmp);
-                $slug = str_replace(' ', '_', $slug_tmp);
-                $slug = preg_replace('/[^a-z0-9_]/', '', $slug);
-                $slug = str_replace('_', '-', $slug); // use hyphens for pretty URLs
-
-
-                $precioPreventa = 89.90;
-                $precioPreventaUSD = 30.00;
-                $fechaProx = 'PRÓXIMAMENTE';
-                $horas = $c['horas_academicas'] . " hrs";
-                
-                $nombreCursoSafe = mb_strtolower($c['nombre_curso'] ?? '', 'UTF-8');
-                
-                if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
-                    $precioPreventa = 150.00;
-                    $precioPreventaUSD = 45.00;
-                    $fechaProx = '18/08';
-                    $horas = '25 hrs';
-                } elseif (strpos($nombreCursoSafe, 'condensadores') !== false) {
-                    $precioPreventa = 150.00;
-                    $precioPreventaUSD = 30.00;
-                    $fechaProx = '01/09';
-                    $horas = '25 hrs';
-                } elseif (strpos($nombreCursoSafe, 'analizador') !== false) {
-                    $precioPreventa = 150.00;
-                    $precioPreventaUSD = 30.00;
-                    $fechaProx = '17/08';
-                    $horas = '25 hrs';
-                } elseif (strpos($nombreCursoSafe, 'canalizacion') !== false) {
-                    $precioPreventa = 100.00;
-                    $precioPreventaUSD = 30.00;
-                    $fechaProx = '04/08';
-                    $horas = '16 hrs';
-                } elseif (strpos($nombreCursoSafe, 'terminaciones') !== false) {
-                    $precioPreventa = 150.00;
-                    $precioPreventaUSD = 30.00;
-                    $fechaProx = '26/08';
-                    $horas = '15 hrs';
-                } elseif (strpos($nombreCursoSafe, 'empalmes') !== false) {
-                    $precioPreventa = 150.00;
-                    $precioPreventaUSD = 30.00;
-                    $fechaProx = '26/08';
-                    $horas = '15 hrs';
-                } elseif (strpos($nombreCursoSafe, 'variadores') !== false) {
-                    $precioPreventa = 150.00;
-                    $precioPreventaUSD = 35.00;
-                    $fechaProx = '20/08';
-                    $horas = '30 hrs';
-                } elseif (strpos($nombreCursoSafe, 'electricidad industrial') !== false) {
-                    $precioPreventa = 150.00;
-                    $precioPreventaUSD = 30.00;
-                    $fechaProx = '17/08';
-                    $horas = '40 hrs';
-                } else {
-                    $precioPreventa = $c['precio'] ?? 89.90;
-                    $precioPreventaUSD = 30.00;
-                }
-                
-                $ingenieria_courses[] = [
-                    "id" => $c['id_curso'],
-                    "title" => $c['nombre_curso'],
-                    "image" => "assets/images/cursos/" . ($c['foto'] ?: 'default.png'),
-                    "price" => number_format($precioPreventa, 2),
-                    "price_usd" => number_format($precioPreventaUSD, 2),
-                    "date" => $fechaProx,
-                    "hours" => $horas,
-                    "link" => $slug,
-                    "docente" => $c['docente'] ?? 'Docente',
-                    "docente_foto" => $c['docente_foto'] ?: '50x50',
-                    "lecciones" => $c['lecciones_reales'] ?? 0
-                ];
+                $ingenieria_courses[] = $this->tarjeta($c);
             }
         }
 
@@ -110,7 +90,7 @@ class CursosController extends Controller {
             'meta_description' => 'Cursos especializados en Ingeniería.',
             'ingenieria_courses' => $ingenieria_courses
         ];
-        $this->view('cursos/ingenieria', $data);
+        $this->view('cursos/ingenieria', $data, 'layouts/sitio');
     }
 
     public function detalle($slug = '') {
@@ -125,13 +105,8 @@ class CursosController extends Controller {
         $curso_encontrado = null;
 
         foreach ($cursos as $c) {
-            $slug_tmp = mb_strtolower($c['nombre_curso'], 'UTF-8');
-            $slug_tmp = str_replace(['á','é','í','ó','ú','ñ'], ['a','e','i','o','u','n'], $slug_tmp);
-            $c_slug = str_replace(' ', '_', $slug_tmp);
-            $c_slug = preg_replace('/[^a-z0-9_]/', '', $c_slug);
-            // El slug de entrada puede tener guiones en lugar de subguiones, así que normalizamos
-            $normalized_slug = str_replace('-', '_', $slug);
-            if ($c_slug == $normalized_slug || $c_slug == $slug) {
+            // El slug de entrada puede tener guiones o subguiones
+            if (self::slug($c['nombre_curso']) === str_replace('_', '-', $slug)) {
                 $curso_encontrado = $c;
                 break;
             }
@@ -153,33 +128,11 @@ class CursosController extends Controller {
         }
 
         
-        // Obtener ultimos 3 cursos para el widget, excluyendo el actual
+        // Otros 3 cursos para recomendar al final, excluyendo el actual (precio de la lista)
         $latest_courses = [];
         foreach ($cursos as $c) {
             if ($c['id_curso'] != $curso_encontrado['id_curso']) {
-                $nombreCursoSafe = mb_strtolower($c['nombre_curso'] ?? '', 'UTF-8');
-                $precioPreventa = $c['precio'] ?? 89.90;
-                
-                if (strpos($nombreCursoSafe, 'subestaciones') !== false) {
-                    $precioPreventa = 150.00;
-                } elseif (strpos($nombreCursoSafe, 'condensadores') !== false) {
-                    $precioPreventa = 150.00;
-                } elseif (strpos($nombreCursoSafe, 'analizador') !== false) {
-                    $precioPreventa = 150.00;
-                } elseif (strpos($nombreCursoSafe, 'canalizacion') !== false) {
-                    $precioPreventa = 100.00;
-                } elseif (strpos($nombreCursoSafe, 'terminaciones') !== false) {
-                    $precioPreventa = 150.00;
-                } elseif (strpos($nombreCursoSafe, 'empalmes') !== false) {
-                    $precioPreventa = 150.00;
-                } elseif (strpos($nombreCursoSafe, 'variadores') !== false) {
-                    $precioPreventa = 150.00;
-                } elseif (strpos($nombreCursoSafe, 'electricidad industrial') !== false) {
-                    $precioPreventa = 150.00;
-                }
-                
-                $c['precio_calculado'] = $precioPreventa;
-                $latest_courses[] = $c;
+                $latest_courses[] = $this->tarjeta($c);
             }
             if (count($latest_courses) >= 3) break;
         }
@@ -200,12 +153,8 @@ class CursosController extends Controller {
                 "price" => $curso_encontrado['precio'] ?? "89.90",
                 "priceCurrency" => "PEN",
                 "category" => "Paid"
-            ],
-            "aggregateRating" => [
-                "@type" => "AggregateRating",
-                "ratingValue" => "4.9",
-                "ratingCount" => "124"
             ]
+            // Sin "aggregateRating": no hay reseñas reales que lo respalden
         ];
 
         $data = [
@@ -219,7 +168,7 @@ class CursosController extends Controller {
             'latest_courses' => $latest_courses
         ];
 
-        $this->view('cursos/detalle_curso', $data);
+        $this->view('cursos/detalle_curso', $data, 'layouts/sitio');
     }
 }
 

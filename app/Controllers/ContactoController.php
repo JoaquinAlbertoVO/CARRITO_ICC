@@ -10,6 +10,6 @@ class ContactoController extends Controller {
             'meta_description' => 'Ponte en contacto con nosotros para más información sobre nuestros cursos de ingeniería.',
         ];
 
-        $this->view('contacto/index', $data);
+        $this->view('contacto/index', $data, 'layouts/sitio');
     }
 }

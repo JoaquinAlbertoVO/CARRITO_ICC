@@ -78,7 +78,7 @@ class HomeController extends Controller {
         ];
 
         // Llama a la vista app/Views/home/index.php
-        $this->view('home/index', $data);
+        $this->view('home/index', $data, 'layouts/sitio');
     }
 
     public function enviar_contacto() {

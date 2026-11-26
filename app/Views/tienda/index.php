@@ -1,4 +1,8 @@
 <?php
+$fondo_body = 'bg-surface';
+$margen_pie = true;
+$title = $title ?? 'Cursos grabados y packs | ICC';
+$meta_description = $meta_description ?? 'Cursos grabados de electricidad industrial de ICC: compra por curso o por pack, avanza a tu ritmo y descarga tu certificado de cada curso.';
 $h = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); };
 $usd = $pago['moneda'] === 'USD';
 $precio = function ($item) use ($usd) {

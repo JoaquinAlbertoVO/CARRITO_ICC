@@ -901,7 +901,13 @@ class AdminCursosController extends Controller {
 
         // Codigo propio de este certificado: va impreso en el panel y el QR lleva a /verificar/<codigo>
         // (antes el QR abria el PDF del propio certificado, que no verifica nada).
-        $codigo_cert = \App\Models\CertificadoRegistro::generarCodigo();
+        // Formato fijo: CERT-<SIGLA DEL CURSO>-<DNI> (sin DNI, con el nombre).
+        $registroCert = new \App\Models\CertificadoRegistro();
+        $codigo_cert = \App\Models\CertificadoRegistro::codigoPara($this->sigla_de_curso($curso), $dni, $alumno);
+        if ($codigo_cert === '') {
+            die('No se pudo armar el código del certificado: falta el DNI o el nombre del alumno.');
+        }
+        $codigo_cert = $registroCert->codigoLibre($codigo_cert, $curso);
         $certificadoModel->dibujarCodigo($imagen, $codigo_cert);
 
         $curso_saneado = preg_replace('/[^A-Za-z0-9]/', '_', $curso);
@@ -972,7 +978,7 @@ class AdminCursosController extends Controller {
 
         // Alta en el registro publico (/verificar). Si falla, el certificado ya quedo emitido: solo se avisa en el log.
         try {
-            (new \App\Models\CertificadoRegistro())->registrar([
+            $registroCert->registrar([
                 'codigo' => $codigo_cert, 'nombre' => $alumno, 'dni' => $dni, 'curso' => $curso, 'horas' => $horas,
                 'periodo' => $texto_realizado, 'fecha_emision' => $fecha, 'archivo_pdf' => $archivo_pdf_db,
             ]);
@@ -1001,7 +1007,8 @@ class AdminCursosController extends Controller {
         new \App\Models\Curso(); // su constructor crea las columnas fecha_inicio / fecha_fin si aun no existen
         $cursos = [];
         try {
-            $cursos = $this->db->query("SELECT nombre_curso, horas_academicas, fecha_inicio, fecha_fin FROM cursos ORDER BY nombre_curso ASC")->fetchAll(\PDO::FETCH_ASSOC);
+            new \App\Models\Catalogo(); // crea la columna sigla si aun no existe
+            $cursos = $this->db->query("SELECT nombre_curso, horas_academicas, fecha_inicio, fecha_fin, sigla FROM cursos ORDER BY nombre_curso ASC")->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             error_log('Certificado suelto: no se pudo leer la lista de cursos: ' . $e->getMessage());
         }
@@ -1025,7 +1032,7 @@ class AdminCursosController extends Controller {
             exit;
         }
         $f = [];
-        foreach (['alumno', 'dni', 'curso', 'horas', 'modalidad', 'inicio', 'fin', 'emision', 'codigo'] as $k) {
+        foreach (['alumno', 'dni', 'curso', 'horas', 'modalidad', 'inicio', 'fin', 'emision', 'codigo', 'sigla'] as $k) {
             $f[$k] = trim((string) ($_POST[$k] ?? ''));
         }
         $volver = function ($tipo, $texto, $extra = []) use ($f) {
@@ -1050,13 +1057,19 @@ class AdminCursosController extends Controller {
         $periodo = \App\Models\Certificado::textoPeriodo($f['inicio'], $f['fin']);
 
         $registro = new \App\Models\CertificadoRegistro();
-        $codigo = $f['codigo'] === '' ? \App\Models\CertificadoRegistro::generarCodigo() : \App\Models\CertificadoRegistro::normalizar($f['codigo']);
+        $nombre = preg_replace('/\s+/u', ' ', $f['alumno']);
+        if ($f['codigo'] === '') {
+            // Formato fijo: CERT-<SIGLA DEL CURSO>-<DNI> (sin DNI, con el nombre)
+            $codigo = \App\Models\CertificadoRegistro::codigoPara($this->sigla_de_curso($f['curso'], $f['sigla']), $f['dni'], $nombre);
+            $codigo = $codigo === '' ? '' : $registro->codigoLibre($codigo, $f['curso']);
+        } else {
+            $codigo = \App\Models\CertificadoRegistro::normalizar($f['codigo']);
+        }
         if ($codigo === '') {
             $volver('danger', 'El código no es válido: usa 6 a 60 letras, números o guiones (ej. CERT-MSE-12345678).');
         }
-        $previo = $f['codigo'] === '' ? null : $registro->buscar($codigo);
+        $previo = $registro->buscar($codigo);
 
-        $nombre = preg_replace('/\s+/u', ' ', $f['alumno']);
         try {
             $archivo = $this->emitir_certificado_icc([
                 'nombre' => $nombre, 'dni' => $f['dni'], 'curso' => $f['curso'], 'horas' => $f['horas'],
@@ -1104,6 +1117,21 @@ class AdminCursosController extends Controller {
         return $carpeta . $archivo;
     }
 
+    /** Sigla del curso para el codigo: la escrita en el formulario, la del curso en la base, o las iniciales del nombre. */
+    private function sigla_de_curso($nombreCurso, $siglaEscrita = '') {
+        $guardada = '';
+        if (trim((string) $siglaEscrita) === '') {
+            try {
+                $st = $this->db->prepare("SELECT sigla FROM cursos WHERE nombre_curso = ? AND sigla IS NOT NULL AND sigla <> '' LIMIT 1");
+                $st->execute([trim((string) $nombreCurso)]);
+                $guardada = (string) $st->fetchColumn();
+            } catch (\PDOException $e) {
+                // la columna sigla aun no existe en esta base: se usan las iniciales
+            }
+        }
+        return \App\Models\CertificadoRegistro::siglaCurso($nombreCurso, trim((string) $siglaEscrita) !== '' ? $siglaEscrita : $guardada);
+    }
+
     /** "María José Peña" -> "MARIA_JOSE_PENA" (para nombres de archivo y codigos). */
     private function slug_mayusculas($txt) {
         $sin_tildes = strtr($txt, [
@@ -1134,7 +1162,8 @@ class AdminCursosController extends Controller {
         new \App\Models\Curso();
         $cursos = [];
         try {
-            $cursos = $this->db->query("SELECT nombre_curso, horas_academicas, fecha_inicio, fecha_fin FROM cursos ORDER BY nombre_curso ASC")->fetchAll(\PDO::FETCH_ASSOC);
+            new \App\Models\Catalogo(); // crea la columna sigla si aun no existe
+            $cursos = $this->db->query("SELECT nombre_curso, horas_academicas, fecha_inicio, fecha_fin, sigla FROM cursos ORDER BY nombre_curso ASC")->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             error_log('Certificado masivo: no se pudo leer la lista de cursos: ' . $e->getMessage());
         }
@@ -1182,28 +1211,20 @@ class AdminCursosController extends Controller {
         try {
             $registro = new \App\Models\CertificadoRegistro();
 
-            // Codigo: el de la fila si lo trae (reemision); CERT-<SIGLA>-<DNI> como los lotes antiguos; o aleatorio.
-            // En el aleatorio, quien ya tiene certificado de este curso y fecha conserva su codigo (repetir el lote o
-            // reintentar una fila no crea codigos nuevos).
+            // Codigo: el de la fila si lo trae (reemision); si no, SIEMPRE CERT-<SIGLA>-<DNI> (sin DNI, con el nombre).
             $archivo = null;
             if ($f['codigo'] !== '') {
                 $codigo = \App\Models\CertificadoRegistro::normalizar($f['codigo']);
                 if ($codigo === '') {
                     $responder(false, ['error' => 'Código no válido: usa 6 a 60 letras, números o guiones.']);
                 }
-            } elseif ($f['tipo_codigo'] === 'dni') {
-                $sigla = strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $f['sigla']));
-                if ($sigla === '') {
-                    $responder(false, ['error' => 'Falta la sigla del curso para armar el código (CERT-<SIGLA>-<DNI>).']);
-                }
-                $ident = $f['dni'] !== '' ? strtoupper($f['dni']) : str_replace('_', '-', substr($this->slug_mayusculas($nombre), 0, 40));
-                $codigo = \App\Models\CertificadoRegistro::normalizar('CERT-' . substr($sigla, 0, 12) . '-' . $ident);
+            } else {
+                $codigo = \App\Models\CertificadoRegistro::codigoPara($this->sigla_de_curso($f['curso'], $f['sigla']), $f['dni'], $nombre);
                 if ($codigo === '') {
                     $responder(false, ['error' => 'No se pudo armar el código con este DNI/nombre.']);
                 }
+                $codigo = $registro->codigoLibre($codigo, $f['curso']);
                 $archivo = $codigo . '.pdf';
-            } else {
-                $codigo = $registro->buscarMismo($nombre, $f['dni'], $f['curso'], $emision) ?: \App\Models\CertificadoRegistro::generarCodigo();
             }
             $previo = $registro->buscar($codigo) !== null;
 
@@ -1277,7 +1298,7 @@ class AdminCursosController extends Controller {
         $registro = new \App\Models\CertificadoRegistro();
         $this->view('admin/certificados/registro', [
             'resumen' => $registro->resumen(),
-            'filas' => $registro->listar($q, 50),
+            'filas' => $registro->listar($q, 100),
             'q' => $q,
             'mensaje' => $mensaje,
         ], 'admin/layouts/main');
